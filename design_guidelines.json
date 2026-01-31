@@ -1,0 +1,186 @@
+{
+  "identity": {
+    "persona": "E1 - The Anti-AI Designer",
+    "mission": "Create a surgical, authoritative, and high-conversion landing page for KAPTA REACH BOOST.",
+    "tone": "Authoritative, Surgical, Tech-Forward, No-BS, Urgent",
+    "principles": [
+      "Fusion over Imitation: Mix Swiss Poster aesthetics with SaaS precision.",
+      "Emotion First: Every pixel must scream 'Local Domination'.",
+      "Content is King: The story is 'Invisible to Invincible'.",
+      "Zoom In: Focus on the details of the 'Mechanism'.",
+      "Negative Space: White space is luxury and authority.",
+      "Contrast: Electric Blue on Pure White."
+    ]
+  },
+  "design_system": {
+    "typography": {
+      "headings": {
+        "font_family": "Space Grotesk, sans-serif",
+        "weight": "700",
+        "tracking": "-0.04em",
+        "usage": "Main headlines, section titles. Use uppercase for 'KAPTA' branding."
+      },
+      "body": {
+        "font_family": "Inter, sans-serif",
+        "weight": "400",
+        "tracking": "normal",
+        "usage": "Paragraphs, lists, UI elements."
+      },
+      "mono": {
+        "font_family": "JetBrains Mono, monospace",
+        "usage": "Data points, technical specs, 'Mechanism' steps."
+      }
+    },
+    "colors": {
+      "primary": {
+        "name": "Electric Royal Blue",
+        "hex": "#1c3ff9",
+        "usage": "CTAs, key highlights, active states."
+      },
+      "background": {
+        "name": "Pure White",
+        "hex": "#FFFFFF",
+        "usage": "Main background."
+      },
+      "surface": {
+        "name": "Off-White / Technical Grey",
+        "hex": "#F8F9FA",
+        "usage": "Secondary sections, card backgrounds."
+      },
+      "text": {
+        "primary": "#0A0A0A",
+        "secondary": "#52525B",
+        "muted": "#A1A1AA"
+      },
+      "accents": {
+        "success": "#10B981",
+        "error": "#EF4444",
+        "glow": "rgba(28, 63, 249, 0.15)"
+      }
+    },
+    "visual_enhancers": {
+      "glassmorphism": {
+        "style": "backdrop-blur-xl bg-white/70 border border-white/20 shadow-sm",
+        "usage": "Navbar, sticky mobile CTA, floating cards."
+      },
+      "shadows": {
+        "card": "0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03)",
+        "glow": "0 0 40px -10px rgba(28, 63, 249, 0.3)"
+      },
+      "borders": {
+        "default": "1px solid #E4E4E7",
+        "active": "1px solid #1c3ff9"
+      },
+      "grids": {
+        "technical": "bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]"
+      }
+    }
+  },
+  "layout_strategy": {
+    "grid_system": "Bento Grid (Mode A: Tetris)",
+    "spacing": {
+      "container_padding": "p-6 md:p-12 lg:p-24",
+      "section_gap": "gap-16 md:gap-32",
+      "element_gap": "gap-4 md:gap-8"
+    },
+    "alignment": "Asymmetric. Avoid centering everything. Use left alignment for authority."
+  },
+  "components": {
+    "navbar": {
+      "type": "Glassmorphic",
+      "position": "Fixed top",
+      "content": "Logo (KAPTA), Links (Mechanism, Pricing, FAQ), CTA (Book Audit)."
+    },
+    "hero": {
+      "layout": "Split Asymmetric",
+      "left": "Headline 'INVISIBLE TO INVINCIBLE', Subhead, CTA.",
+      "right": "Floating iPhone mockup with 'Local Domination' UI, parallax cards.",
+      "background": "Technical grid + Floating Orbs (Blue)."
+    },
+    "problem_comparison": {
+      "layout": "Side-by-Side (Old vs New)",
+      "visual": "Gap visualization. 'Old Way' (Grey, chaotic) vs 'New Way' (Blue, structured)."
+    },
+    "mechanism": {
+      "layout": "Vertical Step Process",
+      "visual": "Animated connecting line (Framer Motion) that lights up on scroll. 4 Steps."
+    },
+    "pricing": {
+      "layout": "Two Cards (Decoy Effect)",
+      "card_1": "Standard (Grey, basic)",
+      "card_2": "Pro/Boost (Blue border, glowing shadow, 'Recommended' badge)."
+    },
+    "faq": {
+      "component": "Shadcn Accordion",
+      "style": "Minimalist, clean borders."
+    },
+    "footer": {
+      "style": "Large typography, dark background (Contrast shift).",
+      "content": "Links, Contact (0686018054), Copyright."
+    }
+  },
+  "assets": {
+    "images": [
+      {
+        "category": "Hero Mockup",
+        "url": "https://images.unsplash.com/photo-1709722321440-e03db4ab9eca?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2OTV8MHwxfHNlYXJjaHwxfHxpcGhvbmUlMjAxNSUyMHBybyUyMG1vY2t1cCUyMHdoaXRlJTIwYmFja2dyb3VuZHxlbnwwfHx8fDE3Njk4MDM1MjZ8MA&ixlib=rb-4.1.0&q=85",
+        "description": "iPhone 15 Pro mockup on white background for displaying the app interface."
+      },
+      {
+        "category": "Restaurant Owner",
+        "url": "https://images.unsplash.com/photo-1664428376383-799654030b72?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1NzV8MHwxfHNlYXJjaHwxfHxtb2Rlcm4lMjByZXN0YXVyYW50JTIwaW50ZXJpb3IlMjBidXN5JTIwaGFwcHl8ZW58MHx8fHwxNzY5ODAzNTA2fDA&ixlib=rb-4.1.0&q=85",
+        "description": "Happy restaurant owner/staff in a modern setting."
+      },
+      {
+        "category": "Mechanic",
+        "url": "https://images.unsplash.com/photo-1717068341695-9d33ffb66968?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1OTV8MHwxfHNlYXJjaHwxfHxtZWNoYW5pYyUyMHdvcmtpbmclMjBvbiUyMGNhciUyMG1vZGVybiUyMGdhcmFnZXxlbnwwfHx8fDE3Njk4MDM1MTJ8MA&ixlib=rb-4.1.0&q=85",
+        "description": "Mechanic working in a modern garage."
+      },
+      {
+        "category": "Salon Owner",
+        "url": "https://images.unsplash.com/photo-1635301304768-5f2db6a5499b?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjAzMzV8MHwxfHNlYXJjaHwxfHxoYWlyJTIwc2Fsb24lMjBvd25lciUyMHByb2Zlc3Npb25hbCUyMHBvcnRyYWl0fGVufDB8fHx8MTc2OTgwMzUxM3ww&ixlib=rb-4.1.0&q=85",
+        "description": "Professional hair salon owner."
+      },
+      {
+        "category": "Floating Orb / Abstract",
+        "url": "https://images.unsplash.com/photo-1655890954744-c9650a3b570d?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1ODB8MHwxfHNlYXJjaHwyfHwzZCUyMGdvb2dsZSUyMG1hcHMlMjBwaW4lMjBpY29uJTIwYmx1ZXxlbnwwfHx8fDE3Njk4MDM1MzF8MA&ixlib=rb-4.1.0&q=85",
+        "description": "Abstract blue 3D shape for visual interest."
+      }
+    ],
+    "icons": "Lucide React (default). Use 'MapPin', 'TrendingUp', 'ShieldCheck', 'Zap' for key features."
+  },
+  "motion": {
+    "library": "Framer Motion",
+    "animations": [
+      {
+        "name": "Fade In Up",
+        "props": "initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}"
+      },
+      {
+        "name": "Parallax Float",
+        "description": "Use useScroll and useTransform for floating elements in Hero."
+      },
+      {
+        "name": "Line Draw",
+        "description": "SVG path drawing animation for the Mechanism connecting line."
+      }
+    ]
+  },
+  "instructions_to_main_agent": [
+    "Implement the 'Technical Grid' background using CSS gradients.",
+    "Use 'Space Grotesk' for all headings to ensure the 'Tech-Forward' look.",
+    "Ensure the 'Electric Royal Blue' (#1c3ff9) is used ONLY for primary actions and key accents. Do not overuse.",
+    "Build the 'Mechanism' section with a real SVG connecting line that animates on scroll.",
+    "The 'Pricing' section must use the Decoy Effect visually—make the 'Boost' plan pop with a blue border and shadow.",
+    "Use the provided image URLs for the respective sections.",
+    "Ensure the site is fully responsive and mobile-first.",
+    "Add 'data-testid' to all interactive elements."
+  ],
+  "universal_guidelines": [
+    "Do not use generic centered layouts.",
+    "Create depth through layered design elements.",
+    "Use glassmorphism effects with backdrop filters.",
+    "Every interaction needs micro-animations.",
+    "Use 2-3x more spacing than feels comfortable."
+  ]
+}

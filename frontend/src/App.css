@@ -1,0 +1,543 @@
+/* KAPTA REACH BOOST - Custom Styles */
+
+/* ====== KAPTA BRAND SIGNATURE ====== */
+
+/* Signature corner marks - like camera viewfinder */
+.kapta-corner-marks {
+  position: relative;
+}
+
+.kapta-corner-marks::before,
+.kapta-corner-marks::after {
+  content: '';
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  border-color: #1c3ff9;
+  opacity: 0.3;
+}
+
+.kapta-corner-marks::before {
+  top: -8px;
+  left: -8px;
+  border-top: 2px solid;
+  border-left: 2px solid;
+}
+
+.kapta-corner-marks::after {
+  bottom: -8px;
+  right: -8px;
+  border-bottom: 2px solid;
+  border-right: 2px solid;
+}
+
+/* Signature blue line accent */
+.kapta-line {
+  position: relative;
+}
+
+.kapta-line::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -12px;
+  width: 48px;
+  height: 3px;
+  background: linear-gradient(90deg, #1c3ff9, transparent);
+  border-radius: 2px;
+}
+
+/* Signature dot pattern */
+.kapta-dots {
+  background-image: radial-gradient(circle, #1c3ff9 1px, transparent 1px);
+  background-size: 16px 16px;
+  opacity: 0.05;
+}
+
+/* Signature section marker */
+.kapta-section-marker {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.kapta-section-marker::before {
+  content: '';
+  width: 32px;
+  height: 2px;
+  background: #1c3ff9;
+}
+
+/* Branded badge style */
+.kapta-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background: linear-gradient(135deg, rgba(28, 63, 249, 0.08), rgba(28, 63, 249, 0.02));
+  border: 1px solid rgba(28, 63, 249, 0.15);
+  border-radius: 100px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #1c3ff9;
+}
+
+.kapta-badge::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  background: #1c3ff9;
+  border-radius: 50%;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+/* Effet néon pour la carte APRÈS */
+.animate-pulse-glow {
+  box-shadow: 
+    0 0 10px rgba(28, 63, 249, 0.15),
+    0 0 20px rgba(28, 63, 249, 0.05),
+    0 0 30px rgba(28, 63, 249, 0.02);
+  animation: pulse-glow 4s ease-in-out infinite;
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 
+      0 0 10px rgba(28, 63, 249, 0.15),
+      0 0 20px rgba(28, 63, 249, 0.05),
+      0 0 30px rgba(28, 63, 249, 0.02);
+  }
+  50% {
+    box-shadow: 
+      0 0 12px rgba(28, 63, 249, 0.2),
+      0 0 25px rgba(28, 63, 249, 0.08),
+      0 0 35px rgba(28, 63, 249, 0.03);
+  }
+}
+
+/* Effet shimmer */
+.animate-shimmer {
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(28, 63, 249, 0.03),
+    transparent
+  );
+  background-size: 200% 100%;
+  animation: shimmer 4s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+/* Animation scintillement des étoiles */
+.animate-twinkle {
+  animation: twinkle 2s ease-in-out infinite;
+}
+
+@keyframes twinkle {
+  0%, 100% { 
+    opacity: 1; 
+    transform: scale(1);
+  }
+  50% { 
+    opacity: 0.7; 
+    transform: scale(1.1);
+  }
+}
+
+/* Animation bounce lente */
+.animate-bounce-slow {
+  animation: bounce-slow 2s ease-in-out infinite;
+}
+
+@keyframes bounce-slow {
+  0%, 100% { 
+    transform: translateY(0);
+  }
+  50% { 
+    transform: translateY(-5px);
+  }
+}
+
+/* Signature floating pin decoration */
+.kapta-pin-float {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  opacity: 0.08;
+}
+
+.kapta-pin-float svg {
+  width: 100%;
+  height: 100%;
+  fill: #1c3ff9;
+}
+
+/* Section divider with brand */
+.kapta-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 32px 0;
+}
+
+.kapta-divider::before,
+.kapta-divider::after {
+  content: '';
+  flex: 1;
+  max-width: 120px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #E4E4E7);
+}
+
+.kapta-divider::after {
+  background: linear-gradient(90deg, #E4E4E7, transparent);
+}
+
+/* ====== END BRAND SIGNATURE ====== */
+
+/* Neon underline effect */
+.neon-underline {
+  position: relative;
+  display: inline-block;
+}
+
+.neon-underline::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, #1c3ff9, #6366f1);
+  border-radius: 2px;
+  box-shadow: 0 0 10px rgba(28, 63, 249, 0.5);
+}
+
+/* Strike through for old way */
+.strike-old {
+  text-decoration: line-through;
+  text-decoration-color: #EF4444;
+  text-decoration-thickness: 2px;
+  opacity: 0.7;
+}
+
+/* Card hover effects */
+.card-hover {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card-hover:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 25px 50px -12px rgba(28, 63, 249, 0.15);
+}
+
+/* Floating animation variants */
+.float-delay-1 { animation-delay: 0s; }
+.float-delay-2 { animation-delay: 1s; }
+.float-delay-3 { animation-delay: 2s; }
+
+/* Hero orbs positioning */
+.hero-orb-1 {
+  width: 400px;
+  height: 400px;
+  top: 10%;
+  right: 10%;
+  opacity: 0.6;
+}
+
+.hero-orb-2 {
+  width: 300px;
+  height: 300px;
+  bottom: 20%;
+  left: 5%;
+  opacity: 0.4;
+}
+
+/* Premium border effect */
+.border-premium {
+  position: relative;
+  border: 2px solid transparent;
+  background: linear-gradient(white, white) padding-box,
+              linear-gradient(135deg, #1c3ff9, #6366f1) border-box;
+}
+
+/* Mechanism line animation */
+.mechanism-line {
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+}
+
+.mechanism-line.animate {
+  animation: draw-line 2s ease-out forwards;
+}
+
+@keyframes draw-line {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* Step card glow on active */
+.step-card.active {
+  border-color: #1c3ff9;
+  box-shadow: 0 0 30px -5px rgba(28, 63, 249, 0.3);
+}
+
+/* Pricing cards */
+.pricing-card-basic {
+  border: 2px dashed #E4E4E7;
+  opacity: 0.9;
+}
+
+.pricing-card-premium {
+  border: 2px solid #1c3ff9;
+  box-shadow: 
+    0 0 0 4px rgba(28, 63, 249, 0.1),
+    0 25px 50px -12px rgba(28, 63, 249, 0.2);
+  transform: scale(1.02);
+}
+
+/* Mobile sticky CTA */
+.sticky-cta-mobile {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 40;
+  padding: 0.75rem 1rem;
+  padding-bottom: calc(0.75rem + env(safe-area-inset-bottom));
+  background: white;
+  border-top: 1px solid #E4E4E7;
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.08);
+}
+
+/* Add padding to footer on mobile to account for sticky CTA */
+@media (max-width: 768px) {
+  footer {
+    padding-bottom: 100px !important;
+  }
+}
+
+/* FAQ accordion custom */
+.faq-item {
+  border-bottom: 1px solid #E4E4E7;
+}
+
+.faq-item:last-child {
+  border-bottom: none;
+}
+
+/* Phone mockup container */
+.phone-mockup {
+  position: relative;
+  width: 280px;
+  height: 560px;
+  background: linear-gradient(135deg, #1a1a1a, #2d2d2d);
+  border-radius: 40px;
+  padding: 12px;
+  box-shadow: 
+    0 50px 100px -20px rgba(0, 0, 0, 0.3),
+    0 30px 60px -30px rgba(0, 0, 0, 0.5);
+}
+
+.phone-screen {
+  width: 100%;
+  height: 100%;
+  background: white;
+  border-radius: 32px;
+  overflow: hidden;
+}
+
+.phone-notch {
+  position: absolute;
+  top: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 28px;
+  background: #1a1a1a;
+  border-radius: 20px;
+  z-index: 10;
+}
+
+/* Button shimmer effect */
+.btn-shimmer {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-shimmer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.2),
+    transparent
+  );
+  animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+  0% { left: -100%; }
+  100% { left: 100%; }
+}
+
+/* Badge pulse */
+.badge-pulse {
+  animation: badge-pulse 2s ease-in-out infinite;
+}
+
+@keyframes badge-pulse {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(28, 63, 249, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 0 8px rgba(28, 63, 249, 0);
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .phone-mockup {
+    width: 220px;
+    height: 440px;
+  }
+  
+  .hero-orb-1, .hero-orb-2 {
+    width: 200px;
+    height: 200px;
+  }
+  
+  .kapta-corner-marks::before,
+  .kapta-corner-marks::after {
+    width: 16px;
+    height: 16px;
+  }
+}
+
+/* Selection color */
+::selection {
+  background: rgba(28, 63, 249, 0.2);
+  color: #0A0A0A;
+}
+
+/* Hide scrollbar for mobile cards */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* Effet néon pour la carte APRÈS */
+.animate-pulse-glow {
+  box-shadow: 
+    0 0 10px rgba(28, 63, 249, 0.15),
+    0 0 20px rgba(28, 63, 249, 0.05),
+    0 0 30px rgba(28, 63, 249, 0.02);
+  animation: pulse-glow 4s ease-in-out infinite;
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 
+      0 0 10px rgba(28, 63, 249, 0.15),
+      0 0 20px rgba(28, 63, 249, 0.05),
+      0 0 30px rgba(28, 63, 249, 0.02);
+  }
+  50% {
+    box-shadow: 
+      0 0 12px rgba(28, 63, 249, 0.2),
+      0 0 25px rgba(28, 63, 249, 0.08),
+      0 0 35px rgba(28, 63, 249, 0.03);
+  }
+}
+
+/* Effet shimmer */
+.animate-shimmer {
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(28, 63, 249, 0.03),
+    transparent
+  );
+  background-size: 200% 100%;
+  animation: shimmer 4s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+/* Animation scintillement des étoiles */
+.animate-twinkle {
+  animation: twinkle 2s ease-in-out infinite;
+}
+
+@keyframes twinkle {
+  0%, 100% { 
+    opacity: 1; 
+    transform: scale(1);
+  }
+  50% { 
+    opacity: 0.7; 
+    transform: scale(1.1);
+  }
+}
+
+/* Animation bounce lente */
+.animate-bounce-slow {
+  animation: bounce-slow 2s ease-in-out infinite;
+}
+
+@keyframes bounce-slow {
+  0%, 100% { 
+    transform: translateY(0);
+  }
+  50% { 
+    transform: translateY(-5px);
+  }
+}
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #F8F9FA;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #1c3ff9;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #1534d4;
+}
+
+/* Hide scrollbar for mobile cards */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
