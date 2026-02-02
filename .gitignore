@@ -11,7 +11,8 @@ dist/
 .env.local
 .env.development.local
 .env.test.local
-.env.production.local
+# Allow .env.production for Vercel
+# .env.production.local
 
 # Logs
 npm-debug.log*
@@ -69,7 +70,8 @@ dist
 
 # Gatsby files
 .cache/
-public
+# Allow public folder for React
+# public
 
 # Storybook build outputs
 .out
@@ -111,4 +113,8 @@ venv.bak/
 test_reports/
 memory/
 tests/
-*.bundle
+# Allow bundle files for deployment
+# *.bundle
+
+# Vercel
+.vercel
