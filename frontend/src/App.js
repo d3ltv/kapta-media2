@@ -1697,7 +1697,7 @@ const LegalModals = () => (
           <p><strong>Téléphone :</strong> 06 86 01 80 54</p>
           <p><strong>Email :</strong> contact@kaptamedia.fr</p>
           <p><strong>SIRET :</strong> [Numéro SIRET]</p>
-          <p><strong>Hébergeur :</strong> Emergent Labs</p>
+          <p><strong>Hébergeur :</strong> [Nom de l'hébergeur]</p>
         </div>
         <button onClick={() => document.getElementById('modal-mentions')?.classList.add('hidden')} className="mt-6 px-4 py-2 bg-[#1c3ff9] text-white rounded-lg">Fermer</button>
       </div>
