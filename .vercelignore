@@ -3,14 +3,12 @@ node_modules
 frontend/node_modules
 
 # Build outputs
-frontend/build
 .next
 
 # Environment files
-.env
 .env.local
-.env.production
 .env.development
+.env.test
 
 # Logs
 *.log
@@ -50,3 +48,15 @@ memory/
 
 # Git
 .git
+
+# Python files
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
