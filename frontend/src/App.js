@@ -75,7 +75,7 @@ const RotatingText = () => {
       clearInterval(interval);
       clearInterval(progressInterval);
     };
-  }, []);
+  }, [texts.length]);
 
   const CurrentIcon = texts[currentIndex].icon;
 
