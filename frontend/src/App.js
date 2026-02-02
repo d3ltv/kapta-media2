@@ -15,7 +15,9 @@ import {
   ShieldCheck,
   MapPin,
   TrendingUp,
-  ChevronDown
+  ChevronDown,
+  Calendar,
+  MessageCircle
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -60,12 +62,12 @@ const RotatingText = () => {
     const interval = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % texts.length);
       setProgress(0);
-    }, 2000);
+    }, 3500);
     
     const progressInterval = setInterval(() => {
       setProgress((prev) => {
         if (prev >= 100) return 0;
-        return prev + (100 / 20); // 2000ms / 100ms = 20 steps
+        return prev + (100 / 35); // 3500ms / 100ms = 35 steps
       });
     }, 100);
     
@@ -134,12 +136,30 @@ const SectionHeader = ({ number, label, title, highlight, description, centered 
 // Navbar Component
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  const menuItems = [
+    { label: "Accueil", href: "#", icon: "🏠" },
+    { label: "Mécanisme", href: "#mechanism", icon: "⚙️" },
+    { label: "Tarifs", href: "#pricing", icon: "💰" },
+    { label: "FAQ", href: "#faq", icon: "❓" },
+    { label: "Contact", href: "#contact", icon: "📞" }
+  ];
+
+  const handleMenuClick = (href) => {
+    setMobileMenuOpen(false);
+    if (href === "#") {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else {
+      document.querySelector(href)?.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
 
   return (
     <motion.nav
@@ -157,7 +177,12 @@ const Navbar = () => {
             <img 
               src="https://customer-assets.emergentagent.com/job_e9af3148-6038-40b0-a95f-b7160e86bcee/artifacts/v4yy8wt0_logo2.webp" 
               alt="KAPTA" 
-              className="h-6 md:h-8 w-auto"
+              className="h-6 md:h-8 w-auto logo-transparent logo-isolated"
+              style={{ 
+                background: 'transparent !important',
+                mixBlendMode: 'multiply',
+                filter: 'contrast(1.4) brightness(1.1) saturate(1.2)'
+              }}
             />
             <div className="flex items-baseline gap-0.5">
               <span className="text-lg md:text-xl font-black tracking-tight text-[#0A0A0A]" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>KAPTA</span>
@@ -184,13 +209,82 @@ const Navbar = () => {
             </Button>
           </div>
 
-          <a
-            href="tel:0686018054"
-            className="md:hidden flex items-center justify-center w-12 h-12 rounded-full bg-[#1c3ff9] text-white shadow-glow-sm"
-            data-testid="cta-phone-mobile"
-          >
-            <Phone className="w-5 h-5" />
-          </a>
+          {/* Mobile Menu Button */}
+          <div className="md:hidden relative">
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="flex items-center justify-center w-12 h-12 rounded-full bg-white/20 backdrop-blur-md border border-white/30 shadow-lg transition-all duration-300 hover:scale-110 hover:bg-white/30"
+              data-testid="mobile-menu-button"
+            >
+              <motion.div
+                animate={{ rotate: mobileMenuOpen ? 180 : 0 }}
+                transition={{ duration: 0.3 }}
+              >
+                {mobileMenuOpen ? (
+                  <X className="w-5 h-5 text-[#1c3ff9]" />
+                ) : (
+                  <div className="flex flex-col gap-1">
+                    <div className="w-4 h-0.5 bg-[#1c3ff9] rounded-full" />
+                    <div className="w-4 h-0.5 bg-[#1c3ff9] rounded-full" />
+                    <div className="w-4 h-0.5 bg-[#1c3ff9] rounded-full" />
+                  </div>
+                )}
+              </motion.div>
+            </button>
+
+            {/* Mobile Menu Dropdown */}
+            {mobileMenuOpen && (
+              <>
+                {/* Overlay */}
+                <div 
+                  className="fixed inset-0 bg-black/20 backdrop-blur-sm z-40"
+                  onClick={() => setMobileMenuOpen(false)}
+                />
+                
+                {/* Menu */}
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.95, y: -10 }}
+                  animate={{ opacity: 1, scale: 1, y: 0 }}
+                  exit={{ opacity: 0, scale: 0.95, y: -10 }}
+                  transition={{ duration: 0.2 }}
+                  className="absolute top-16 right-0 w-64 bg-white rounded-2xl shadow-2xl border border-gray-100 overflow-hidden z-50"
+                >
+                  <div className="p-2">
+                    {menuItems.map((item, index) => (
+                      <motion.button
+                        key={item.label}
+                        initial={{ opacity: 0, x: 20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 0.2, delay: index * 0.05 }}
+                        onClick={() => handleMenuClick(item.href)}
+                        className="w-full flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-[#1c3ff9]/5 transition-all duration-200 group"
+                      >
+                        <span className="text-lg group-hover:scale-110 transition-transform">
+                          {item.icon}
+                        </span>
+                        <span className="text-sm font-medium text-[#0A0A0A] group-hover:text-[#1c3ff9] transition-colors">
+                          {item.label}
+                        </span>
+                        <ArrowRight className="w-4 h-4 text-[#A1A1AA] group-hover:text-[#1c3ff9] group-hover:translate-x-1 transition-all ml-auto" />
+                      </motion.button>
+                    ))}
+                  </div>
+                  
+                  {/* Footer avec contact */}
+                  <div className="border-t border-gray-100 p-4 bg-[#F8F9FA]">
+                    <a 
+                      href="tel:0686018054"
+                      className="flex items-center gap-2 text-sm text-[#52525B] hover:text-[#1c3ff9] transition-colors"
+                      onClick={() => setMobileMenuOpen(false)}
+                    >
+                      <Phone className="w-4 h-4" />
+                      06 86 01 80 54
+                    </a>
+                  </div>
+                </motion.div>
+              </>
+            )}
+          </div>
         </div>
       </div>
     </motion.nav>
@@ -324,7 +418,7 @@ const BeforeAfter = () => {
           number="01"
           label="La Réalité"
           title="VOICI CE QUI SE PASSE"
-          highlight="VRAIMENT"
+          highlight="RÉELLEMENT"
           description="Votre concurrent a une fiche Google optimisée. Vous, vous êtes invisible."
         />
         
@@ -721,7 +815,7 @@ const ProblemComparison = () => {
           number="02"
           label="L'Impact"
           title="CE QUE ÇA VOUS"
-          highlight="COÛTE VRAIMENT"
+          highlight="COÛTE CONCRÈTEMENT"
           description="Chaque jour sans optimisation = clients perdus définitivement."
         />
         
@@ -954,23 +1048,134 @@ const ProblemComparison = () => {
           transition={{ duration: 0.6, delay: 0.6 }}
           className="mt-8 md:mt-12 p-4 md:p-6 lg:p-8 rounded-xl md:rounded-2xl bg-white border border-[#1c3ff9]/20 shadow-lg"
         >
-          <div className="text-center mb-4 md:mb-6">
+          <motion.div 
+            initial={{ opacity: 0, filter: "blur(10px)" }}
+            animate={isInView ? { opacity: 1, filter: "blur(0px)" } : {}}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="text-center mb-4 md:mb-6"
+          >
             <h3 className="text-lg md:text-xl lg:text-2xl font-bold text-[#0A0A0A] mb-1 md:mb-2">Calculateur d'impact</h3>
             <p className="text-xs md:text-sm text-[#52525B]">Estimation basée sur nos données sectorielles</p>
-          </div>
+          </motion.div>
           
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 md:gap-4 lg:gap-8">
-            <div className="text-center p-3 md:p-4 rounded-lg md:rounded-xl bg-[#1c3ff9]/5">
-              <p className="text-xl md:text-2xl lg:text-3xl font-bold text-[#1c3ff9] mb-1">350€</p>
-              <p className="text-xs md:text-sm text-[#52525B]">Investissement unique</p>
+          {/* Layout mobile: 2 cartes sur la première ligne, 1 centrée sur la deuxième */}
+          <div className="space-y-3 md:space-y-0">
+            {/* Première ligne - 2 cartes */}
+            <div className="grid grid-cols-2 gap-3 md:hidden">
+              <motion.div 
+                initial={{ opacity: 0, scale: 0.8, filter: "blur(8px)" }}
+                animate={isInView ? { opacity: 1, scale: 1, filter: "blur(0px)" } : {}}
+                transition={{ duration: 0.6, delay: 0.4 }}
+                className="text-center p-3 rounded-lg bg-[#1c3ff9]/5 border border-[#1c3ff9]/10"
+              >
+                <motion.p 
+                  initial={{ opacity: 0 }}
+                  animate={isInView ? { opacity: 1 } : {}}
+                  transition={{ duration: 0.4, delay: 0.8 }}
+                  className="text-xl font-bold text-[#1c3ff9] mb-1"
+                >
+                  350€
+                </motion.p>
+                <p className="text-xs text-[#52525B]">Investissement unique</p>
+              </motion.div>
+              <motion.div 
+                initial={{ opacity: 0, scale: 0.8, filter: "blur(8px)" }}
+                animate={isInView ? { opacity: 1, scale: 1, filter: "blur(0px)" } : {}}
+                transition={{ duration: 0.6, delay: 0.6 }}
+                className="text-center p-3 rounded-lg bg-[#1c3ff9]/5 border border-[#1c3ff9]/10"
+              >
+                <motion.p 
+                  initial={{ opacity: 0 }}
+                  animate={isInView ? { opacity: 1 } : {}}
+                  transition={{ duration: 0.4, delay: 1.0 }}
+                  className="text-xl font-bold text-[#1c3ff9] mb-1"
+                >
+                  +25
+                </motion.p>
+                <p className="text-xs text-[#52525B]">Clients/mois en moyenne</p>
+              </motion.div>
             </div>
-            <div className="text-center p-3 md:p-4 rounded-lg md:rounded-xl bg-[#10B981]/5">
-              <p className="text-xl md:text-2xl lg:text-3xl font-bold text-[#10B981] mb-1">+25</p>
-              <p className="text-xs md:text-sm text-[#52525B]">Clients/mois en moyenne</p>
+            
+            {/* Deuxième ligne - 1 carte centrée avec effet "=" */}
+            <div className="flex justify-center md:hidden">
+              <div className="flex items-center space-x-2">
+                <motion.div
+                  initial={{ opacity: 0, scale: 0 }}
+                  animate={isInView ? { opacity: 1, scale: 1 } : {}}
+                  transition={{ duration: 0.3, delay: 1.2 }}
+                  className="text-2xl font-bold text-[#1c3ff9]"
+                >
+                  =
+                </motion.div>
+                <motion.div 
+                  initial={{ opacity: 0, scale: 0.8, filter: "blur(8px)" }}
+                  animate={isInView ? { opacity: 1, scale: 1, filter: "blur(0px)" } : {}}
+                  transition={{ duration: 0.6, delay: 1.4 }}
+                  className="text-center p-3 rounded-lg bg-[#1c3ff9]/5 border border-[#1c3ff9]/10 w-32"
+                >
+                  <motion.p 
+                    initial={{ opacity: 0 }}
+                    animate={isInView ? { opacity: 1 } : {}}
+                    transition={{ duration: 0.4, delay: 1.8 }}
+                    className="text-xl font-bold text-[#1c3ff9] mb-1"
+                  >
+                    ROI 10x
+                  </motion.p>
+                  <p className="text-xs text-[#52525B]">Retour sur investissement</p>
+                </motion.div>
+              </div>
             </div>
-            <div className="text-center p-3 md:p-4 rounded-lg md:rounded-xl bg-[#FBBC04]/10">
-              <p className="text-xl md:text-2xl lg:text-3xl font-bold text-[#F59E0B] mb-1">ROI 10x</p>
-              <p className="text-xs md:text-sm text-[#52525B]">Retour sur investissement</p>
+            
+            {/* Layout desktop - 3 cartes en ligne */}
+            <div className="hidden md:grid md:grid-cols-3 md:gap-4 lg:gap-8">
+              <motion.div 
+                initial={{ opacity: 0, scale: 0.8, filter: "blur(8px)" }}
+                animate={isInView ? { opacity: 1, scale: 1, filter: "blur(0px)" } : {}}
+                transition={{ duration: 0.6, delay: 0.4 }}
+                className="text-center p-4 rounded-xl bg-[#1c3ff9]/5 border border-[#1c3ff9]/10"
+              >
+                <motion.p 
+                  initial={{ opacity: 0 }}
+                  animate={isInView ? { opacity: 1 } : {}}
+                  transition={{ duration: 0.4, delay: 0.8 }}
+                  className="text-2xl lg:text-3xl font-bold text-[#1c3ff9] mb-1"
+                >
+                  350€
+                </motion.p>
+                <p className="text-sm text-[#52525B]">Investissement unique</p>
+              </motion.div>
+              <motion.div 
+                initial={{ opacity: 0, scale: 0.8, filter: "blur(8px)" }}
+                animate={isInView ? { opacity: 1, scale: 1, filter: "blur(0px)" } : {}}
+                transition={{ duration: 0.6, delay: 0.6 }}
+                className="text-center p-4 rounded-xl bg-[#1c3ff9]/5 border border-[#1c3ff9]/10"
+              >
+                <motion.p 
+                  initial={{ opacity: 0 }}
+                  animate={isInView ? { opacity: 1 } : {}}
+                  transition={{ duration: 0.4, delay: 1.0 }}
+                  className="text-2xl lg:text-3xl font-bold text-[#1c3ff9] mb-1"
+                >
+                  +25
+                </motion.p>
+                <p className="text-sm text-[#52525B]">Clients/mois en moyenne</p>
+              </motion.div>
+              <motion.div 
+                initial={{ opacity: 0, scale: 0.8, filter: "blur(8px)" }}
+                animate={isInView ? { opacity: 1, scale: 1, filter: "blur(0px)" } : {}}
+                transition={{ duration: 0.6, delay: 0.8 }}
+                className="text-center p-4 rounded-xl bg-[#1c3ff9]/5 border border-[#1c3ff9]/10"
+              >
+                <motion.p 
+                  initial={{ opacity: 0 }}
+                  animate={isInView ? { opacity: 1 } : {}}
+                  transition={{ duration: 0.4, delay: 1.2 }}
+                  className="text-2xl lg:text-3xl font-bold text-[#1c3ff9] mb-1"
+                >
+                  ROI 10x
+                </motion.p>
+                <p className="text-sm text-[#52525B]">Retour sur investissement</p>
+              </motion.div>
             </div>
           </div>
         </motion.div>
@@ -1204,77 +1409,133 @@ const Pricing = () => {
     <section 
       id="pricing"
       ref={ref}
-      className="py-12 md:py-32 bg-[#F8F9FA] relative overflow-hidden"
+      className="py-12 md:py-32 bg-gradient-to-br from-[#F8F9FA] via-[#F1F5F9] to-[#F8F9FA] relative overflow-hidden"
       data-testid="pricing-section"
     >
-      {/* Background brand pattern */}
-      <div className="absolute inset-0 kapta-dots" />
+      {/* Background elements */}
+      <div className="absolute inset-0 kapta-dots opacity-30" />
+      
+      {/* Decorative elements */}
+      <div className="absolute top-20 left-10 w-20 h-20 bg-[#1c3ff9]/5 rounded-full blur-xl" />
+      <div className="absolute bottom-20 right-10 w-32 h-32 bg-[#1c3ff9]/5 rounded-full blur-xl" />
+      <div className="absolute top-1/2 left-1/4 w-2 h-2 bg-[#1c3ff9]/20 rounded-full animate-pulse" />
+      <div className="absolute top-1/3 right-1/3 w-1 h-1 bg-[#1c3ff9]/30 rounded-full animate-pulse" style={{animationDelay: '1s'}} />
       
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-        <SectionHeader 
-          number="04"
-          label="Tarif"
-          title="TARIF PILOTE"
-          highlight="350€"
-          description=""
-        />
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6 }}
+        >
+          <SectionHeader 
+            number="04"
+            label="Tarif"
+            title="TARIF PILOTE"
+            highlight="350€"
+            description=""
+          />
+        </motion.div>
         
         {/* Single Pricing Card */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
+          initial={{ opacity: 0, y: 30, scale: 0.95 }}
+          animate={isInView ? { opacity: 1, y: 0, scale: 1 } : {}}
+          transition={{ duration: 0.8, delay: 0.2 }}
           className="max-w-lg mx-auto"
         >
-          <div className="relative p-6 md:p-8 rounded-2xl bg-white border-2 border-[#1c3ff9] shadow-premium-xl">
-            <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full bg-[#1c3ff9] text-white text-xs font-semibold">
-              5 PLACES RESTANTES
-            </div>
+          <div className="relative p-4 sm:p-6 md:p-8 rounded-2xl bg-white border-2 border-[#1c3ff9] shadow-premium-xl hover:shadow-2xl transition-all duration-300 hover:scale-[1.02]">
+            {/* Glow effect */}
+            <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-[#1c3ff9]/10 via-transparent to-[#1c3ff9]/10 opacity-0 hover:opacity-100 transition-opacity duration-300" />
             
-            <div className="text-center mb-6 md:mb-8">
-              <p className="text-sm text-[#52525B] mb-2">Installation complète</p>
-              <div className="flex items-baseline justify-center gap-2">
-                <span className="text-4xl md:text-5xl font-bold text-[#0A0A0A]">350€</span>
-                <span className="text-[#52525B]">HT</span>
+            {/* Badge with animation */}
+            <motion.div 
+              initial={{ scale: 0, rotate: -10 }}
+              animate={isInView ? { scale: 1, rotate: 0 } : {}}
+              transition={{ duration: 0.5, delay: 0.5, type: "spring" }}
+              className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-1 rounded-full bg-gradient-to-r from-[#1c3ff9] to-[#1534d4] text-white text-xs font-semibold shadow-lg"
+            >
+              <span className="relative z-10">5 PLACES RESTANTES</span>
+              <div className="absolute inset-0 rounded-full bg-white/20 animate-pulse" />
+            </motion.div>
+            
+            <div className="relative z-10">
+              <div className="text-center mb-4 sm:mb-6 md:mb-8">
+                <p className="text-xs sm:text-sm text-[#52525B] mb-1 sm:mb-2">Installation complète</p>
+                <div className="flex items-baseline justify-center gap-2">
+                  <motion.span 
+                    initial={{ scale: 0 }}
+                    animate={isInView ? { scale: 1 } : {}}
+                    transition={{ duration: 0.6, delay: 0.8, type: "spring" }}
+                    className="text-3xl sm:text-4xl md:text-5xl font-bold text-[#0A0A0A] relative"
+                  >
+                    350€
+                    <div className="absolute -inset-2 bg-[#1c3ff9]/5 rounded-lg -z-10 animate-pulse" />
+                  </motion.span>
+                  <span className="text-sm sm:text-base text-[#52525B]">HT</span>
+                </div>
+                <p className="text-xs text-[#A1A1AA] mt-1 sm:mt-2">
+                  <span className="line-through opacity-60">Tarif normal : 790€</span>
+                  <span className="ml-2 text-[#10B981] font-semibold">-56% de réduction</span>
+                </p>
               </div>
-              <p className="text-xs text-[#A1A1AA] mt-2">Tarif normal après les 10 premiers : 790€</p>
-            </div>
-            
-            <ul className="space-y-3 md:space-y-4 mb-6 md:mb-8">
-              {[
-                "Vidéo professionnelle 4K (30-60 secondes)",
-                "15-20 photos HD de votre établissement",
-                "Optimisation complète de votre fiche Google",
-                "Borne NFC pour collecter des avis automatiquement",
-                "Suivi de position pendant 30 jours"
-              ].map((item, i) => (
-                <li key={i} className="flex items-start gap-3">
-                  <div className="w-5 h-5 rounded-full bg-[#10B981]/10 flex items-center justify-center flex-shrink-0 mt-0.5">
-                    <Check className="w-3 h-3 text-[#10B981]" />
-                  </div>
-                  <span className="text-sm md:text-base text-[#0A0A0A]">{item}</span>
-                </li>
-              ))}
-            </ul>
-            
-            <div className="p-4 rounded-xl bg-[#10B981]/5 border border-[#10B981]/20 mb-6">
-              <p className="text-sm text-center text-[#0A0A0A]">
-                <span className="font-semibold">Garantie satisfait ou remboursé :</span> Pas satisfait du travail livré ? Remboursement intégral sous 30 jours.
+              
+              <ul className="space-y-2 sm:space-y-3 md:space-y-4 mb-4 sm:mb-6 md:mb-8">
+                {[
+                  "Vidéo professionnelle 4K (30-60 secondes)",
+                  "15-20 photos HD de votre établissement",
+                  "Optimisation complète de votre fiche Google",
+                  "Borne NFC pour collecter des avis automatiquement",
+                  "Suivi de position pendant 30 jours"
+                ].map((item, i) => (
+                  <motion.li 
+                    key={i} 
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={isInView ? { opacity: 1, x: 0 } : {}}
+                    transition={{ duration: 0.4, delay: 1 + (i * 0.1) }}
+                    className="flex items-start gap-2 sm:gap-3"
+                  >
+                    <div className="w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-gradient-to-r from-[#10B981] to-[#059669] flex items-center justify-center flex-shrink-0 mt-0.5 shadow-sm">
+                      <Check className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-white" />
+                    </div>
+                    <span className="text-xs sm:text-sm md:text-base text-[#0A0A0A] leading-tight">{item}</span>
+                  </motion.li>
+                ))}
+              </ul>
+              
+              <motion.div 
+                initial={{ opacity: 0, y: 20 }}
+                animate={isInView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.5, delay: 1.5 }}
+                className="p-3 sm:p-4 rounded-xl bg-gradient-to-r from-[#10B981]/5 to-[#059669]/5 border border-[#10B981]/20 mb-4 sm:mb-6 relative overflow-hidden"
+              >
+                <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#10B981] to-[#059669]" />
+                <p className="text-xs sm:text-sm text-center text-[#0A0A0A] leading-tight">
+                  <span className="font-semibold">Garantie satisfait ou remboursé :</span> Pas satisfait du travail livré ? Remboursement intégral sous 30 jours.
+                </p>
+              </motion.div>
+              
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={isInView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.5, delay: 1.7 }}
+              >
+                <Button 
+                  className="w-full py-4 sm:py-5 md:py-6 bg-gradient-to-r from-[#1c3ff9] to-[#1534d4] hover:from-[#1534d4] hover:to-[#1c3ff9] text-white font-semibold text-sm sm:text-base shadow-glow btn-shimmer relative overflow-hidden group"
+                  data-testid="cta-pricing-premium"
+                  onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
+                >
+                  <span className="relative z-10">
+                    RÉSERVER MON AUDIT GRATUIT
+                    <ArrowRight className="ml-2 w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform" />
+                  </span>
+                  <div className="absolute inset-0 bg-white/10 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700 skew-x-12" />
+                </Button>
+              </motion.div>
+              
+              <p className="text-center text-[10px] sm:text-xs text-[#52525B] mt-3 sm:mt-4 opacity-75">
+                En échange du tarif pilote, nous vous demanderons un témoignage vidéo si vous êtes satisfait.
               </p>
             </div>
-            
-            <Button 
-              className="w-full py-5 md:py-6 bg-[#1c3ff9] hover:bg-[#1534d4] text-white font-semibold text-base shadow-glow btn-shimmer"
-              data-testid="cta-pricing-premium"
-              onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
-            >
-              RÉSERVER MON AUDIT GRATUIT
-              <ArrowRight className="ml-2 w-5 h-5" />
-            </Button>
-            
-            <p className="text-center text-xs text-[#52525B] mt-4">
-              En échange du tarif pilote, nous vous demanderons un témoignage vidéo si vous êtes satisfait.
-            </p>
           </div>
         </motion.div>
       </div>
@@ -1387,32 +1648,37 @@ const FAQ = () => {
 const ContactForm = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
-  const [formData, setFormData] = useState({ name: '', email: '', phone: '', business: '', message: '' });
-  const [submitted, setSubmitted] = useState(false);
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [activeDropdown, setActiveDropdown] = useState(null);
+  const [showCalendly, setShowCalendly] = useState(false);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-    
-    // Store form data in localStorage as backup
-    const submissions = JSON.parse(localStorage.getItem('kapta_leads') || '[]');
-    submissions.push({ ...formData, date: new Date().toISOString() });
-    localStorage.setItem('kapta_leads', JSON.stringify(submissions));
-    
-    // Open WhatsApp with pre-filled message (more reliable than mailto)
-    const whatsappMessage = encodeURIComponent(
-      `Bonjour, je suis ${formData.name} de "${formData.business}".\n\nJe souhaite réserver un audit gratuit.\n\n📞 ${formData.phone}\n📧 ${formData.email}\n\n${formData.message ? `Message: ${formData.message}` : ''}`
-    );
-    
-    // Simulate brief delay for UX
-    await new Promise(resolve => setTimeout(resolve, 500));
-    
-    setSubmitted(true);
-    setIsSubmitting(false);
-    
-    // Open WhatsApp in new tab
-    window.open(`https://wa.me/33686018054?text=${whatsappMessage}`, '_blank');
+  // Ensure Calendly widget loads properly when shown
+  useEffect(() => {
+    if (showCalendly && window.Calendly) {
+      setTimeout(() => {
+        window.Calendly.initInlineWidget({
+          url: 'https://calendly.com/charly-silva/appel-decouverte',
+          parentElement: document.querySelector('.calendly-inline-widget'),
+          prefill: {},
+          utm: {}
+        });
+      }, 100);
+    }
+  }, [showCalendly]);
+
+  const toggleDropdown = (dropdown) => {
+    setActiveDropdown(activeDropdown === dropdown ? null : dropdown);
+  };
+
+  const openCalendly = () => {
+    setActiveDropdown(null);
+    setShowCalendly(true);
+    // Scroll vers le widget Calendly après un court délai
+    setTimeout(() => {
+      document.querySelector('.calendly-section')?.scrollIntoView({ 
+        behavior: 'smooth',
+        block: 'center'
+      });
+    }, 100);
   };
 
   return (
@@ -1425,7 +1691,7 @@ const ContactForm = () => {
       {/* Background brand pattern */}
       <div className="absolute inset-0 kapta-dots" />
       
-      <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         <SectionHeader 
           number="06"
           label="Contact"
@@ -1441,7 +1707,7 @@ const ContactForm = () => {
           className="text-center text-xs md:text-sm text-[#52525B] max-w-xl mx-auto mb-8 md:mb-10 leading-relaxed"
         >
           <span className="font-semibold text-[#0A0A0A]">5 places disponibles</span> pour le lancement. 
-          Laissez vos coordonnées, je vous rappelle sous 24h.
+          Choisissez votre méthode de contact préférée.
         </motion.p>
         
         {/* Quick contact options */}
@@ -1449,123 +1715,195 @@ const ContactForm = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.5, delay: 0.1 }}
-          className="flex flex-col sm:flex-row gap-3 justify-center mb-8"
+          className="flex justify-center gap-4 mb-8"
         >
-          <a 
-            href="https://wa.me/33686018054?text=Bonjour%2C%20je%20souhaite%20un%20audit%20gratuit%20pour%20mon%20commerce."
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-[#25D366] text-white font-medium hover:bg-[#20bd5a] transition-colors"
-          >
-            <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-            WhatsApp direct
-          </a>
-          <a 
-            href="tel:0686018054"
-            className="flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-white border border-[#E4E4E7] text-[#0A0A0A] font-medium hover:border-[#1c3ff9] transition-colors"
-          >
-            <Phone className="w-5 h-5" />
-            06 86 01 80 54
-          </a>
+          {/* WhatsApp */}
+          <div className="relative">
+            <button
+              onClick={() => toggleDropdown('whatsapp')}
+              className="w-16 h-16 rounded-full bg-[#25D366] text-white flex items-center justify-center hover:bg-[#20bd5a] transition-colors shadow-lg"
+              title="WhatsApp"
+            >
+              <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+              </svg>
+            </button>
+          </div>
+
+          {/* Téléphone */}
+          <div className="relative">
+            <button
+              onClick={() => toggleDropdown('phone')}
+              className="w-16 h-16 rounded-full bg-white border-2 border-gray-200 text-gray-700 flex items-center justify-center hover:border-[#1c3ff9] hover:text-[#1c3ff9] transition-colors shadow-lg"
+              title="Téléphone"
+            >
+              <Phone className="w-7 h-7" />
+            </button>
+          </div>
+
+          {/* Calendrier */}
+          <div className="relative">
+            <button
+              onClick={() => toggleDropdown('calendar')}
+              className="w-16 h-16 rounded-full bg-[#1c3ff9] text-white flex items-center justify-center hover:bg-[#1534d4] transition-colors shadow-lg"
+              title="Calendrier"
+            >
+              <Calendar className="w-7 h-7" />
+            </button>
+          </div>
         </motion.div>
-        
-        <motion.div 
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          className="p-5 md:p-8 rounded-xl md:rounded-2xl bg-white shadow-premium-xl border border-[#E4E4E7]"
-        >
-          {submitted ? (
-            <div className="text-center py-6 md:py-8">
-              <div className="w-14 h-14 md:w-16 md:h-16 rounded-full bg-[#10B981]/10 flex items-center justify-center mx-auto mb-3 md:mb-4">
-                <Check className="w-7 h-7 md:w-8 md:h-8 text-[#10B981]" />
-              </div>
-              <h3 className="text-lg md:text-xl font-bold text-[#0A0A0A] mb-1 md:mb-2">Demande envoyée !</h3>
-              <p className="text-sm md:text-base text-[#52525B]">Nous vous recontactons sous 24h.</p>
-            </div>
-          ) : (
-            <form onSubmit={handleSubmit} className="space-y-4 md:space-y-5">
-              <div className="grid md:grid-cols-2 gap-4 md:gap-5">
-                <div>
-                  <label className="block text-xs md:text-sm font-medium text-[#0A0A0A] mb-1.5 md:mb-2">Nom complet</label>
-                  <input
-                    type="text"
-                    required
-                    value={formData.name}
-                    onChange={(e) => setFormData({...formData, name: e.target.value})}
-                    className="w-full px-3 md:px-4 py-2.5 md:py-3 text-sm md:text-base rounded-lg md:rounded-xl border border-[#E4E4E7] focus:border-[#1c3ff9] focus:ring-2 focus:ring-[#1c3ff9]/20 outline-none transition-all"
-                    placeholder="Jean Dupont"
-                    data-testid="input-name"
-                  />
-                </div>
-                <div>
-                  <label className="block text-xs md:text-sm font-medium text-[#0A0A0A] mb-1.5 md:mb-2">Téléphone</label>
-                  <input
-                    type="tel"
-                    required
-                    value={formData.phone}
-                    onChange={(e) => setFormData({...formData, phone: e.target.value})}
-                    className="w-full px-3 md:px-4 py-2.5 md:py-3 text-sm md:text-base rounded-lg md:rounded-xl border border-[#E4E4E7] focus:border-[#1c3ff9] focus:ring-2 focus:ring-[#1c3ff9]/20 outline-none transition-all"
-                    placeholder="06 86 01 80 54"
-                    data-testid="input-phone"
-                  />
-                </div>
-              </div>
-              
-              <div>
-                <label className="block text-xs md:text-sm font-medium text-[#0A0A0A] mb-1.5 md:mb-2">Email</label>
-                <input
-                  type="email"
-                  required
-                  value={formData.email}
-                  onChange={(e) => setFormData({...formData, email: e.target.value})}
-                  className="w-full px-3 md:px-4 py-2.5 md:py-3 text-sm md:text-base rounded-lg md:rounded-xl border border-[#E4E4E7] focus:border-[#1c3ff9] focus:ring-2 focus:ring-[#1c3ff9]/20 outline-none transition-all"
-                  placeholder="jean@restaurant.fr"
-                  data-testid="input-email"
-                />
-              </div>
-              
-              <div>
-                <label className="block text-xs md:text-sm font-medium text-[#0A0A0A] mb-1.5 md:mb-2">Nom de l'établissement</label>
-                <input
-                  type="text"
-                  required
-                  value={formData.business}
-                  onChange={(e) => setFormData({...formData, business: e.target.value})}
-                  className="w-full px-3 md:px-4 py-2.5 md:py-3 text-sm md:text-base rounded-lg md:rounded-xl border border-[#E4E4E7] focus:border-[#1c3ff9] focus:ring-2 focus:ring-[#1c3ff9]/20 outline-none transition-all"
-                  placeholder="Restaurant Le Gourmet"
-                  data-testid="input-business"
-                />
-              </div>
-              
-              <div>
-                <label className="block text-xs md:text-sm font-medium text-[#0A0A0A] mb-1.5 md:mb-2">Message (optionnel)</label>
-                <textarea
-                  value={formData.message}
-                  onChange={(e) => setFormData({...formData, message: e.target.value})}
-                  rows={3}
-                  className="w-full px-3 md:px-4 py-2.5 md:py-3 text-sm md:text-base rounded-lg md:rounded-xl border border-[#E4E4E7] focus:border-[#1c3ff9] focus:ring-2 focus:ring-[#1c3ff9]/20 outline-none transition-all resize-none"
-                  placeholder="Parlez-nous de votre établissement..."
-                  data-testid="input-message"
-                />
-              </div>
-              
-              <Button 
-                type="submit"
-                disabled={isSubmitting}
-                className="w-full py-5 md:py-6 text-xs md:text-base bg-[#1c3ff9] hover:bg-[#1534d4] text-white font-semibold shadow-glow btn-shimmer disabled:opacity-50"
-                data-testid="cta-submit-form"
+
+        {/* Popups centrées avec Flexbox */}
+        {activeDropdown && (
+          <div 
+            className="fixed inset-0 z-40 bg-black/20 flex items-center justify-center p-4" 
+            onClick={() => setActiveDropdown(null)}
+          >
+            {activeDropdown === 'whatsapp' && (
+              <motion.div
+                initial={{ opacity: 0, y: -10, scale: 0.95 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: -10, scale: 0.95 }}
+                className="bg-white rounded-lg shadow-xl border border-gray-200 p-4 w-full max-w-sm mx-4"
+                onClick={(e) => e.stopPropagation()}
               >
-                {isSubmitting ? 'Envoi en cours...' : 'RÉSERVER MON AUDIT GRATUIT'}
-                {!isSubmitting && <ArrowRight className="ml-2 w-4 h-4 md:w-5 md:h-5" />}
-              </Button>
-              
-              <p className="text-center text-[10px] md:text-xs text-[#A1A1AA] mt-3">
-                Vous serez redirigé vers WhatsApp · Sans engagement
-              </p>
-            </form>
-          )}
-        </motion.div>
+                <div className="text-center">
+                  <h3 className="font-semibold text-gray-900 mb-2">WhatsApp</h3>
+                  <p className="text-sm text-gray-600 mb-3">Contactez-nous directement sur WhatsApp</p>
+                  <a 
+                    href="https://wa.me/33686018054?text=Bonjour%2C%20je%20souhaite%20un%20audit%20gratuit%20pour%20mon%20commerce."
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 px-4 py-2 bg-[#25D366] text-white rounded-lg hover:bg-[#20bd5a] transition-colors"
+                    onClick={() => setActiveDropdown(null)}
+                  >
+                    <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+                    </svg>
+                    Ouvrir WhatsApp
+                  </a>
+                </div>
+              </motion.div>
+            )}
+
+            {activeDropdown === 'phone' && (
+              <motion.div
+                initial={{ opacity: 0, y: -10, scale: 0.95 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: -10, scale: 0.95 }}
+                className="bg-white rounded-lg shadow-xl border border-gray-200 p-4 w-full max-w-sm mx-4"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <div className="text-center">
+                  <h3 className="font-semibold text-gray-900 mb-2">Téléphone</h3>
+                  <p className="text-sm text-gray-600 mb-3">Appelez-nous directement</p>
+                  <a 
+                    href="tel:0686018054"
+                    className="inline-flex items-center gap-2 px-4 py-2 bg-[#1c3ff9] text-white rounded-lg hover:bg-[#1534d4] transition-colors"
+                    onClick={() => setActiveDropdown(null)}
+                  >
+                    <Phone className="w-4 h-4" />
+                    06 86 01 80 54
+                  </a>
+                </div>
+              </motion.div>
+            )}
+
+            {activeDropdown === 'calendar' && (
+              <motion.div
+                initial={{ opacity: 0, y: -10, scale: 0.95 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: -10, scale: 0.95 }}
+                className="bg-white rounded-lg shadow-xl border border-gray-200 p-4 w-full max-w-sm mx-4"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <div className="text-center">
+                  <h3 className="font-semibold text-gray-900 mb-2">Calendrier</h3>
+                  <p className="text-sm text-gray-600 mb-3">Réservez un créneau dans notre calendrier</p>
+                  <button 
+                    onClick={openCalendly}
+                    className="inline-flex items-center gap-2 px-4 py-2 bg-[#1c3ff9] text-white rounded-lg hover:bg-[#1534d4] transition-colors"
+                  >
+                    <Calendar className="w-4 h-4" />
+                    Voir le calendrier
+                  </button>
+                </div>
+              </motion.div>
+            )}
+          </div>
+        )}
+        
+        {/* Calendly Widget - Only show when requested */}
+        {showCalendly && (
+          <motion.div 
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="calendly-section p-2 sm:p-5 md:p-8 rounded-xl md:rounded-2xl bg-white shadow-premium-xl border border-[#E4E4E7] overflow-hidden mt-8"
+          >
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="text-lg font-semibold text-gray-900">Réserver votre audit gratuit</h3>
+              <button 
+                onClick={() => setShowCalendly(false)}
+                className="text-gray-400 hover:text-gray-600 transition-colors"
+                title="Fermer le calendrier"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+            
+            {/* Début de widget en ligne Calendly */}
+            <div 
+              className="calendly-inline-widget" 
+              data-url="https://calendly.com/charly-silva/appel-decouverte"
+              data-auto-load="false"
+              style={{
+                minWidth: '280px',
+                width: '100%',
+                height: '650px',
+                border: 'none'
+              }}
+            />
+            
+            {/* Fallback si Calendly ne charge pas */}
+            <div className="calendly-fallback text-center py-8" style={{display: 'none'}}>
+              <h3 className="text-lg font-semibold mb-4">Réserver un appel découverte</h3>
+              <p className="text-gray-600 mb-4">Le calendrier se charge...</p>
+              <a 
+                href="https://calendly.com/charly-silva/appel-decouverte" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-6 py-3 bg-[#1c3ff9] text-white rounded-lg hover:bg-[#1534d4] transition-colors"
+              >
+                <Calendar className="w-5 h-5" />
+                Ouvrir Calendly
+              </a>
+            </div>
+            {/* Fin de widget en ligne Calendly */}
+          </motion.div>
+        )}
+
+        {/* Message d'invitation si Calendly n'est pas encore ouvert */}
+        {!showCalendly && (
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.6, delay: 0.3 }}
+            className="text-center mt-8 p-6 bg-gray-50 rounded-xl border border-gray-100"
+          >
+            <Calendar className="w-8 h-8 text-[#1c3ff9] mx-auto mb-3" />
+            <p className="text-gray-600 mb-4">
+              Cliquez sur l'icône <strong>Calendrier</strong> ci-dessus pour réserver votre créneau
+            </p>
+            <button 
+              onClick={openCalendly}
+              className="inline-flex items-center gap-2 px-6 py-3 bg-[#1c3ff9] text-white rounded-lg hover:bg-[#1534d4] transition-colors"
+            >
+              <Calendar className="w-5 h-5" />
+              Ouvrir le calendrier
+            </button>
+          </motion.div>
+        )}
       </div>
     </section>
   );
@@ -1653,31 +1991,72 @@ const Footer = () => {
 // Mobile Sticky CTA
 const MobileStickyCTA = () => {
   const [visible, setVisible] = useState(false);
+  const [hideOnContact, setHideOnContact] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
       setVisible(window.scrollY > 600);
     };
+
+    // Observer pour détecter quand on arrive sur la section contact
+    const contactObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.target.id === 'contact') {
+            setHideOnContact(entry.isIntersecting);
+          }
+        });
+      },
+      {
+        threshold: 0.3, // Se déclenche quand 30% de la section est visible
+        rootMargin: '-100px 0px' // Marge pour ajuster le déclenchement
+      }
+    );
+
+    // Observer la section contact
+    const contactSection = document.getElementById('contact');
+    if (contactSection) {
+      contactObserver.observe(contactSection);
+    }
+
     window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      contactObserver.disconnect();
+    };
   }, []);
 
+  // Ne pas afficher si on n'est pas assez scrollé, mais laisser l'animation se faire pour hideOnContact
   if (!visible) return null;
 
   return (
     <motion.div 
-      initial={{ y: 100, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      exit={{ y: 100, opacity: 0 }}
+      initial={{ scale: 0, opacity: 0 }}
+      animate={{ 
+        scale: 1, 
+        opacity: 1,
+        y: hideOnContact ? 100 : 0
+      }}
+      exit={{ scale: 0, opacity: 0, y: 100 }}
+      transition={{ 
+        type: "spring", 
+        stiffness: 260, 
+        damping: 20,
+        y: { duration: 0.4, ease: "easeInOut" }
+      }}
       className="md:hidden sticky-cta-mobile"
       data-testid="mobile-sticky-cta"
     >
       <Button 
-        className="w-full py-5 bg-[#1c3ff9] hover:bg-[#1534d4] text-white font-semibold shadow-glow btn-shimmer"
+        className="w-14 h-14 bg-[#1c3ff9] hover:bg-[#1534d4] text-white font-semibold shadow-2xl rounded-full p-0 flex items-center justify-center group hover:scale-110 transition-all duration-200"
         onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
+        title="Audit gratuit"
       >
-        AUDIT GRATUIT
-        <ArrowRight className="ml-2 w-5 h-5" />
+        <div className="flex flex-col items-center justify-center">
+          <Calendar className="w-5 h-5 mb-0.5" />
+          <span className="text-[8px] font-bold leading-none">AUDIT</span>
+        </div>
       </Button>
     </motion.div>
   );

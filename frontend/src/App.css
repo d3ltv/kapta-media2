@@ -309,15 +309,45 @@
 /* Mobile sticky CTA */
 .sticky-cta-mobile {
   position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
+  bottom: 2rem;
+  right: 1rem;
   z-index: 40;
-  padding: 0.75rem 1rem;
-  padding-bottom: calc(0.75rem + env(safe-area-inset-bottom));
-  background: white;
-  border-top: 1px solid #E4E4E7;
-  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.08);
+  /* Suppression du fond - bouton flottant */
+  background: none;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  border: none;
+  box-shadow: none;
+  padding: 0;
+}
+
+/* Logo avec fond transparent - approche améliorée */
+.logo-transparent {
+  mix-blend-mode: multiply;
+  filter: contrast(1.3) brightness(1.2) saturate(1.1);
+  background: transparent !important;
+}
+
+/* Alternative pour logo avec fond blanc - approche plus agressive */
+.logo-no-bg {
+  background: transparent !important;
+  mix-blend-mode: darken;
+  filter: contrast(1.5) brightness(0.9);
+}
+
+/* Approche alternative avec masque */
+.logo-mask {
+  background: transparent !important;
+  mix-blend-mode: screen;
+  filter: invert(1) contrast(2) brightness(0.8);
+}
+
+/* Approche avec isolation pour éviter les interférences */
+.logo-isolated {
+  isolation: isolate;
+  background: transparent !important;
+  mix-blend-mode: multiply;
+  filter: contrast(1.4) brightness(1.1) saturate(1.2);
 }
 
 /* Add padding to footer on mobile to account for sticky CTA */

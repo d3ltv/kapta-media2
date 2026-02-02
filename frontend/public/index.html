@@ -3,13 +3,133 @@
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta name="theme-color" content="#000000" />
+        <meta name="theme-color" content="#1c3ff9" />
+        
+        <!-- SEO Meta Tags -->
+        <meta name="description" content="KAPTA Media - Top Google Maps en 14 jours. Vidéo pro + fiche optimisée pour votre commerce à Tours." />
+        <meta name="keywords" content="google maps, référencement local, vidéo professionnelle, commerce Tours, fiche google business, optimisation locale, visibilité google, marketing local" />
+        <meta name="author" content="KAPTA Media" />
+        <meta name="robots" content="index, follow" />
+        <meta name="language" content="fr-FR" />
+        <meta name="revisit-after" content="7 days" />
+        
+        <!-- Open Graph / Facebook -->
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://kaptamedia.fr/" />
+        <meta property="og:title" content="KAPTA Media - Top Google Maps en 14 jours" />
+        <meta property="og:description" content="Votre concurrent est N°1 sur Google Maps ? On vous met dans le Top 5 en 14 jours avec une vidéo pro + fiche optimisée." />
+        <meta property="og:image" content="%PUBLIC_URL%/logo2.webp" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta property="og:locale" content="fr_FR" />
+        <meta property="og:site_name" content="KAPTA Media" />
+        
+        <!-- Twitter -->
+        <meta property="twitter:card" content="summary_large_image" />
+        <meta property="twitter:url" content="https://kaptamedia.fr/" />
+        <meta property="twitter:title" content="KAPTA Media - Top Google Maps en 14 jours" />
+        <meta property="twitter:description" content="Votre concurrent est N°1 sur Google Maps ? On vous met dans le Top 5 en 14 jours avec une vidéo pro + fiche optimisée." />
+        <meta property="twitter:image" content="%PUBLIC_URL%/logo2.webp" />
+        
+        <!-- Geo Tags -->
+        <meta name="geo.region" content="FR-37" />
+        <meta name="geo.placename" content="Tours" />
+        <meta name="geo.position" content="47.394144;0.68484" />
+        <meta name="ICBM" content="47.394144, 0.68484" />
+        
+        <!-- Business Info -->
+        <meta name="contact" content="contact@kaptamedia.fr" />
+        <meta name="copyright" content="© 2025 KAPTA Media. Tous droits réservés." />
+        
+        <!-- Technical SEO -->
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="format-detection" content="telephone=yes" />
+        <meta name="mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+        <meta name="apple-mobile-web-app-title" content="KAPTA Media" />
+        
+        <!-- Structured Data - JSON-LD -->
+        <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "LocalBusiness",
+          "name": "KAPTA Media",
+          "description": "Agence de marketing local spécialisée dans l'optimisation Google Maps et la création de contenu vidéo professionnel",
+          "url": "https://kaptamedia.fr",
+          "telephone": "+33686018054",
+          "email": "contact@kaptamedia.fr",
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Tours",
+            "addressRegion": "Centre-Val de Loire",
+            "postalCode": "37000",
+            "addressCountry": "FR"
+          },
+          "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": 47.394144,
+            "longitude": 0.68484
+          },
+          "areaServed": {
+            "@type": "City",
+            "name": "Tours"
+          },
+          "serviceType": [
+            "Optimisation Google Maps",
+            "Vidéo professionnelle",
+            "Marketing local",
+            "Référencement local"
+          ],
+          "priceRange": "€€",
+          "openingHours": "Mo-Fr 09:00-18:00",
+          "sameAs": []
+        }
+        </script>
+        
+        <!-- Favicon and Icons -->
         <link rel="icon" type="image/webp" href="%PUBLIC_URL%/favicon.webp" />
         <link rel="apple-touch-icon" href="%PUBLIC_URL%/favicon.webp" />
-        <meta name="description" content="KAPTA Media - Votre concurrent est N°1. Ce n'est pas une fatalité." />
+        <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.webp" />
+        
+        <!-- Preconnect for Performance -->
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link rel="preconnect" href="https://assets.calendly.com" />
+        
+        <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@600&display=swap" rel="stylesheet" />
+        
+        <!-- Calendly widget script -->
+        <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
+        
+        <!-- Microsoft Clarity -->
+        <script type="text/javascript">
+            (function(c,l,a,r,i,t,y){
+                c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+                t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+                y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+            })(window, document, "clarity", "script", "o8x9j2k3l4");
+        </script>
+        <script>
+          // Fallback pour Calendly si le widget ne charge pas
+          window.addEventListener('load', function() {
+            setTimeout(function() {
+              const calendlyWidget = document.querySelector('.calendly-inline-widget');
+              const calendlyFallback = document.querySelector('.calendly-fallback');
+              
+              if (calendlyWidget && calendlyFallback) {
+                // Vérifier si le widget Calendly s'est chargé
+                const hasCalendlyContent = calendlyWidget.querySelector('iframe') || calendlyWidget.innerHTML.trim().length > 200;
+                
+                if (!hasCalendlyContent) {
+                  calendlyWidget.style.display = 'none';
+                  calendlyFallback.style.display = 'block';
+                }
+              }
+            }, 3000); // Attendre 3 secondes pour le chargement
+          });
+        </script>
         <!--
         manifest.json provides metadata used when your web app is installed on a
         user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
@@ -23,7 +143,7 @@
         work correctly both with client-side routing and a non-root public URL.
         Learn how to configure a non-root public URL by running `npm run build`.
         -->
-        <title>KAPTA Media - Votre concurrent est N°1. Ce n'est pas une fatalité.</title>
+        <title>KAPTA Media - Top Google Maps en 14 jours</title>
         <!--
         These two scripts have been added for the Visual Edits, please do not edit or remove them
         -->
