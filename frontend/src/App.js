@@ -1708,6 +1708,10 @@ const ContactForm = () => {
         >
           <span className="font-semibold text-[#0A0A0A]">5 places disponibles</span> pour le lancement. 
           Choisissez votre méthode de contact préférée.
+          <br />
+          <span className="text-xs text-[#A1A1AA] italic">
+            Le calendrier nécessite quelques secondes de chargement pour s'afficher correctement.
+          </span>
         </motion.p>
         
         {/* Quick contact options */}
