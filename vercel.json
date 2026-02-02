@@ -1,9 +1,9 @@
 {
   "version": 2,
-  "buildCommand": "cd frontend && NODE_OPTIONS=--max_old_space_size=4096 npm run build",
+  "buildCommand": "cd frontend && yarn build",
   "outputDirectory": "frontend/build",
-  "installCommand": "cd frontend && npm ci --only=production",
-  "devCommand": "cd frontend && npm start",
+  "installCommand": "cd frontend && yarn install --frozen-lockfile",
+  "devCommand": "cd frontend && yarn start",
   "env": {
     "NODE_OPTIONS": "--max_old_space_size=4096",
     "GENERATE_SOURCEMAP": "false",
