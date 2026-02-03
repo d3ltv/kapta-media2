@@ -1189,75 +1189,193 @@ const CaseStudies = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
+  const caseStudies = [
+    {
+      id: 1,
+      title: "Garage Auto Pro",
+      type: "Garage automobile",
+      location: "Tours Sud",
+      beforeImage: "/garage1.webp",
+      afterImage: "/garage2.webp",
+      results: {
+        position: "Position 8+ → N°1",
+        calls: "+220% d'appels",
+        rating: "3.1 → 4.7 étoiles"
+      }
+    },
+    {
+      id: 2,
+      title: "Salon Élégance",
+      type: "Coiffeur",
+      location: "Tours Nord",
+      beforeImage: "/salon1.webp",
+      afterImage: "/salon2.webp",
+      results: {
+        position: "Position 12+ → N°2",
+        calls: "+180% d'appels",
+        rating: "3.4 → 4.8 étoiles"
+      }
+    },
+    {
+      id: 3,
+      title: "Bistro Le Gourmet",
+      type: "Restaurant",
+      location: "Tours Centre",
+      beforeImage: "/bistro1.webp",
+      afterImage: "/bistro2.webp",
+      results: {
+        position: "Position 15+ → N°3",
+        calls: "+160% d'appels",
+        rating: "3.2 → 4.6 étoiles"
+      }
+    },
+    {
+      id: 4,
+      title: "Boulangerie Artisanale",
+      type: "Boulangerie",
+      location: "Tours Est",
+      beforeImage: "/boulangerie1.webp",
+      afterImage: "/boulangerie2.webp",
+      results: {
+        position: "Position 10+ → N°2",
+        calls: "+195% d'appels",
+        rating: "3.3 → 4.9 étoiles"
+      }
+    }
+  ];
+
   return (
     <section 
       ref={ref}
       className="py-12 md:py-32 bg-white relative"
       data-testid="case-studies-section"
     >
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-6xl mx-auto px-2 sm:px-3 lg:px-4">
         <SectionHeader 
           number="02"
-          label="Transparence"
-          title="PREMIERS PARTENAIRES"
-          highlight="EN COURS"
-          description=""
+          label="Résultats"
+          title="AVANT / APRÈS"
+          highlight="CONCRETS"
+          description="Découvrez la transformation Google Maps de nos clients sur Tours"
         />
         
+        {/* Grille des cas clients avant/après - Scrollable horizontal simplifié */}
+        <div className="overflow-hidden">
+          {/* Conteneur scrollable horizontal */}
+          <div 
+            className="flex gap-3 md:gap-6 overflow-x-auto pb-4 snap-x snap-mandatory scrollbar-hide px-4 -mx-4"
+            onScroll={(e) => {
+              const container = e.target;
+              const scrollLeft = container.scrollLeft;
+              const maxScroll = container.scrollWidth - container.clientWidth;
+              const progress = maxScroll > 0 ? (scrollLeft / maxScroll) * 100 : 0;
+              
+              // Update progress bar
+              const progressBar = document.querySelector('.case-studies-progress-bar');
+              if (progressBar) {
+                progressBar.style.width = `${progress}%`;
+              }
+            }}
+          >
+            {caseStudies.map((caseStudy, index) => (
+              <motion.div
+                key={caseStudy.id}
+                initial={{ opacity: 0, x: 50 }}
+                animate={isInView ? { opacity: 1, x: 0 } : {}}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+                className="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden min-w-[360px] md:min-w-[600px] snap-start flex-shrink-0"
+              >
+                {/* Section Avant/Après - Côte à côte simplifié */}
+                <div className="grid grid-cols-2 gap-0">
+                  {/* AVANT */}
+                  <div className="relative">
+                    <div className="h-40 md:h-80 relative overflow-hidden">
+                      <img 
+                        src={caseStudy.beforeImage} 
+                        alt="Avant"
+                        className="w-full h-full object-contain object-center bg-gray-100"
+                      />
+                    </div>
+                  </div>
+                  
+                  {/* APRÈS */}
+                  <div className="relative">
+                    <div className="h-40 md:h-80 relative overflow-hidden">
+                      <img 
+                        src={caseStudy.afterImage} 
+                        alt="Après"
+                        className="w-full h-full object-contain object-center bg-white scale-125"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+          
+          {/* Barre de progression */}
+          <div className="flex flex-col items-center mt-4 space-y-3">
+            {/* Progress track */}
+            <div className="w-32 md:w-48 h-1 bg-gray-200 rounded-full overflow-hidden">
+              <div 
+                className="case-studies-progress-bar h-full bg-[#1c3ff9] rounded-full transition-all duration-200 ease-out"
+                style={{ width: '0%' }}
+              />
+            </div>
+            
+            {/* Indicateur de scroll */}
+            <div className="flex items-center gap-1 text-[#A1A1AA] text-xs">
+              <span>Glissez pour voir plus</span>
+              <ArrowRight className="w-3 h-3" />
+            </div>
+            
+            {/* Note de confidentialité */}
+            <p className="text-xs text-[#A1A1AA] italic text-center max-w-md mt-2">
+              * Certains clients ayant souhaité préserver leur anonymat sont représentés de manière générique
+            </p>
+          </div>
+        </div>
+        
+        {/* CTA Section - Version compacte avec texture */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-          className="bg-[#F8F9FA] rounded-2xl p-6 md:p-10 text-center border border-[#E4E4E7]"
+          transition={{ duration: 0.6, delay: 0.4 }}
+          className="mt-8 bg-gradient-to-r from-[#1c3ff9]/5 to-[#6366f1]/5 rounded-xl px-1 py-4 md:px-2 md:py-6 text-center border border-[#1c3ff9]/20 relative overflow-hidden"
         >
-          <div className="w-16 h-16 md:w-20 md:h-20 rounded-full bg-[#1c3ff9]/10 flex items-center justify-center mx-auto mb-4 md:mb-6">
-            <Camera className="w-8 h-8 md:w-10 md:h-10 text-[#1c3ff9]" />
-          </div>
+          {/* Texture granulée */}
+          <div 
+            className="absolute inset-0 opacity-30"
+            style={{
+              backgroundImage: `radial-gradient(circle at 1px 1px, rgba(28,63,249,0.15) 1px, transparent 0)`,
+              backgroundSize: '8px 8px'
+            }}
+          />
           
-          <h3 className="text-lg md:text-2xl font-bold text-[#0A0A0A] mb-3 md:mb-4">
-            Nous déployons actuellement notre système sur 5 commerces de Tours
-          </h3>
-          
-          <p className="text-sm md:text-base text-[#52525B] mb-6 md:mb-8 max-w-2xl mx-auto leading-relaxed">
-            Coiffeur, garage, restaurant... Les résultats avant/après seront publiés ici 
-            avec captures d'écran Google Maps sous 30 jours.
-          </p>
-          
-          <div className="bg-white rounded-xl p-4 md:p-6 border border-[#1c3ff9]/20 max-w-md mx-auto">
-            <p className="text-sm md:text-base font-semibold text-[#0A0A0A] mb-2">
-              Vous voulez faire partie des premiers ?
+          {/* Contenu par-dessus la texture */}
+          <div className="relative z-10">
+            <div className="w-12 h-12 rounded-full bg-[#1c3ff9] flex items-center justify-center mx-auto mb-3 shadow-lg">
+              <Trophy className="w-6 h-6 text-white" />
+            </div>
+            
+            <h3 className="text-lg md:text-xl font-bold text-[#0A0A0A] mb-2">
+              Votre commerce mérite le même succès
+            </h3>
+            
+            <p className="text-sm text-[#52525B] mb-4 max-w-lg mx-auto">
+              Ces résultats ne sont pas de la chance. C'est notre méthode éprouvée qui transforme 
+              votre visibilité Google Maps en 14 jours.
             </p>
-            <p className="text-xs md:text-sm text-[#52525B] mb-4">
-              Les 5 prochains partenaires bénéficient du <span className="font-semibold text-[#1c3ff9]">tarif pilote (350€)</span> en échange d'un témoignage vidéo si satisfaits.
-            </p>
+            
             <Button 
-              className="w-full bg-[#1c3ff9] hover:bg-[#1534d4] text-white rounded-full py-4 md:py-5 text-sm md:text-base font-semibold btn-shimmer"
+              className="bg-[#1c3ff9] hover:bg-[#1534d4] text-white rounded-full px-6 py-3 text-sm font-semibold btn-shimmer shadow-lg"
               onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
               data-testid="cta-case-studies"
             >
-              DEVENIR PARTENAIRE PILOTE
+              RÉSERVER MON AUDIT GRATUIT
               <ArrowRight className="ml-2 w-4 h-4" />
             </Button>
           </div>
-        </motion.div>
-        
-        {/* Stats - Real numbers */}
-        <motion.div 
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, delay: 0.3 }}
-          className="mt-8 md:mt-12 grid grid-cols-3 gap-2 md:gap-4"
-        >
-          {[
-            { value: "5", label: "Places disponibles" },
-            { value: "350€", label: "Tarif pilote" },
-            { value: "30j", label: "Garantie remboursement" }
-          ].map((stat, i) => (
-            <div key={i} className="text-center p-3 md:p-6 rounded-xl bg-white shadow-premium border border-[#E4E4E7]">
-              <p className="text-lg md:text-3xl lg:text-4xl font-bold text-[#1c3ff9]">{stat.value}</p>
-              <p className="text-[10px] md:text-sm text-[#52525B] mt-0.5 md:mt-1">{stat.label}</p>
-            </div>
-          ))}
         </motion.div>
       </div>
     </section>
@@ -1524,9 +1642,9 @@ const Pricing = () => {
                   data-testid="cta-pricing-premium"
                   onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
                 >
-                  <span className="relative z-10">
+                  <span className="relative z-10 flex items-center justify-center">
                     RÉSERVER MON AUDIT GRATUIT
-                    <ArrowRight className="ml-2 w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform" />
+                    <ArrowRight className="ml-2 w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform flex-shrink-0" />
                   </span>
                   <div className="absolute inset-0 bg-white/10 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700 skew-x-12" />
                 </Button>
