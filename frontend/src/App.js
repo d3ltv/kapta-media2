@@ -1443,7 +1443,7 @@ const CaseStudies = () => {
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, delay: 0.4 }}
-          className="mt-8 bg-gradient-to-r from-[#1c3ff9]/5 to-[#6366f1]/5 rounded-xl px-1 py-4 md:px-2 md:py-6 text-center border border-[#1c3ff9]/20 relative overflow-hidden"
+          className="mt-6 bg-gradient-to-r from-[#1c3ff9]/5 to-[#6366f1]/5 rounded-lg px-3 py-3 md:px-2 md:py-6 text-center border border-[#1c3ff9]/20 relative overflow-hidden"
         >
           {/* Texture granulée */}
           <div 
@@ -1456,26 +1456,26 @@ const CaseStudies = () => {
           
           {/* Contenu par-dessus la texture */}
           <div className="relative z-10">
-            <div className="w-12 h-12 rounded-full bg-[#1c3ff9] flex items-center justify-center mx-auto mb-3 shadow-lg">
-              <Trophy className="w-6 h-6 text-white" />
+            <div className="w-8 h-8 md:w-12 md:h-12 rounded-full bg-[#1c3ff9] flex items-center justify-center mx-auto mb-2 md:mb-3 shadow-lg">
+              <Trophy className="w-4 h-4 md:w-6 md:h-6 text-white" />
             </div>
             
-            <h3 className="text-lg md:text-xl font-bold text-[#0A0A0A] mb-2">
+            <h3 className="text-sm md:text-xl font-bold text-[#0A0A0A] mb-1 md:mb-2">
               Votre commerce mérite le même succès
             </h3>
             
-            <p className="text-sm text-[#52525B] mb-4 max-w-lg mx-auto">
+            <p className="text-xs md:text-sm text-[#52525B] mb-3 md:mb-4 max-w-lg mx-auto leading-tight">
               Ces résultats ne sont pas de la chance. C'est notre méthode éprouvée qui transforme 
               votre visibilité Google Maps en 14 jours.
             </p>
             
             <Button 
-              className="bg-[#1c3ff9] hover:bg-[#1534d4] text-white rounded-full px-6 py-3 text-sm font-semibold btn-shimmer shadow-lg"
+              className="bg-[#1c3ff9] hover:bg-[#1534d4] text-white rounded-full px-4 py-2 md:px-6 md:py-3 text-xs md:text-sm font-semibold btn-shimmer shadow-lg"
               onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
               data-testid="cta-case-studies"
             >
               RÉSERVER MON AUDIT GRATUIT
-              <ArrowRight className="ml-2 w-4 h-4" />
+              <ArrowRight className="ml-1 md:ml-2 w-3 h-3 md:w-4 md:h-4" />
             </Button>
           </div>
         </motion.div>
