@@ -157,7 +157,23 @@ const Navbar = () => {
     if (href === "#") {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     } else {
-      document.querySelector(href)?.scrollIntoView({ behavior: 'smooth' });
+      const element = document.querySelector(href);
+      if (element) {
+        const offsetTop = element.offsetTop - 80; // Compensation pour la navbar fixe
+        window.scrollTo({ top: offsetTop, behavior: 'smooth' });
+      }
+    }
+  };
+
+  const handleDesktopMenuClick = (href) => {
+    if (href === "#") {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else {
+      const element = document.querySelector(href);
+      if (element) {
+        const offsetTop = element.offsetTop - 80; // Compensation pour la navbar fixe
+        window.scrollTo({ top: offsetTop, behavior: 'smooth' });
+      }
     }
   };
 
@@ -177,6 +193,8 @@ const Navbar = () => {
             <img 
               src="https://customer-assets.emergentagent.com/job_e9af3148-6038-40b0-a95f-b7160e86bcee/artifacts/v4yy8wt0_logo2.webp" 
               alt="KAPTA" 
+              loading="eager"
+              fetchpriority="high"
               className="h-6 md:h-8 w-auto logo-transparent logo-isolated"
               style={{ 
                 background: 'transparent !important',
@@ -191,19 +209,19 @@ const Navbar = () => {
           </a>
           
           <div className="hidden md:flex items-center gap-8">
-            <a href="#mechanism" className="text-sm font-medium text-[#52525B] hover:text-[#0A0A0A] transition-colors">
+            <button onClick={() => handleDesktopMenuClick('#mechanism')} className="text-sm font-medium text-[#52525B] hover:text-[#0A0A0A] transition-colors">
               Mécanisme
-            </a>
-            <a href="#pricing" className="text-sm font-medium text-[#52525B] hover:text-[#0A0A0A] transition-colors">
+            </button>
+            <button onClick={() => handleDesktopMenuClick('#pricing')} className="text-sm font-medium text-[#52525B] hover:text-[#0A0A0A] transition-colors">
               Tarifs
-            </a>
-            <a href="#faq" className="text-sm font-medium text-[#52525B] hover:text-[#0A0A0A] transition-colors">
+            </button>
+            <button onClick={() => handleDesktopMenuClick('#faq')} className="text-sm font-medium text-[#52525B] hover:text-[#0A0A0A] transition-colors">
               FAQ
-            </a>
+            </button>
             <Button 
               data-testid="cta-audit-desktop"
               className="bg-[#1c3ff9] hover:bg-[#1534d4] text-white rounded-full px-6 btn-shimmer"
-              onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
+              onClick={() => handleDesktopMenuClick('#contact')}
             >
               AUDIT GRATUIT
             </Button>
@@ -356,7 +374,7 @@ const Hero = () => {
               <Button 
                 data-testid="cta-hero-primary"
                 size="lg"
-                className="w-full sm:w-auto bg-[#1c3ff9] hover:bg-[#1534d4] text-white rounded-full px-8 py-6 text-base font-semibold shadow-glow btn-shimmer group"
+                className="w-full sm:w-auto bg-gradient-to-br from-[#0052FF] via-[#1c3ff9] to-[#3B82F6] hover:from-[#0041CC] hover:via-[#1534d4] hover:to-[#2563EB] text-white rounded-full px-8 py-6 text-base font-semibold shadow-[0_10px_40px_rgba(28,63,249,0.6)] hover:shadow-[0_15px_50px_rgba(28,63,249,0.8)] hover:scale-105 btn-shimmer group transition-all duration-300 border-2 border-white/20"
                 onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
               >
                 RÉSERVER MON AUDIT GRATUIT
@@ -406,6 +424,15 @@ const Hero = () => {
 const BeforeAfter = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const [mobileSlideIndex, setMobileSlideIndex] = useState(0);
+
+  const handleSwipe = (direction) => {
+    if (direction === 'left' && mobileSlideIndex === 0) {
+      setMobileSlideIndex(1);
+    } else if (direction === 'right' && mobileSlideIndex === 1) {
+      setMobileSlideIndex(0);
+    }
+  };
 
   return (
     <section 
@@ -423,197 +450,233 @@ const BeforeAfter = () => {
         />
         
         <div className="md:grid md:grid-cols-2 md:gap-4 md:gap-8 -mx-2 md:mx-0">
-          {/* Mobile: Scrollable horizontal container */}
-          <div 
-            className="md:hidden flex gap-6 overflow-x-auto pb-4 snap-x snap-mandatory scrollbar-hide pl-2 pr-2"
-            onScroll={(e) => {
-              const container = e.target;
-              const scrollLeft = container.scrollLeft;
-              const maxScroll = container.scrollWidth - container.clientWidth;
-              const progress = maxScroll > 0 ? (scrollLeft / maxScroll) * 100 : 0;
+          {/* Mobile: Interactive slider optimisé pour la lisibilité */}
+          <div className="md:hidden relative overflow-hidden bg-gray-50 rounded-xl p-2 mobile-slider-container"
+            style={{ touchAction: 'pan-x' }}
+            onTouchStart={(e) => {
+              const touch = e.touches[0];
+              e.currentTarget.dataset.startX = touch.clientX;
+              e.currentTarget.dataset.startY = touch.clientY;
+            }}
+            onTouchMove={(e) => {
+              e.preventDefault(); // Empêche le scroll vertical
+            }}
+            onTouchEnd={(e) => {
+              const startX = parseFloat(e.currentTarget.dataset.startX);
+              const startY = parseFloat(e.currentTarget.dataset.startY);
+              const endX = e.changedTouches[0].clientX;
+              const endY = e.changedTouches[0].clientY;
               
-              // Update progress indicator
-              const indicator = document.querySelector('.gmb-scroll-progress-indicator');
-              if (indicator) {
-                indicator.style.left = `${progress}%`;
+              const diffX = startX - endX;
+              const diffY = startY - endY;
+              
+              // Ne réagir que si le mouvement horizontal est plus important que le vertical
+              if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 50) {
+                if (diffX > 0) {
+                  handleSwipe('left');
+                } else {
+                  handleSwipe('right');
+                }
               }
             }}
           >
-            {/* AVANT - Fiche basique - Mobile */}
-            <motion.div 
-              initial={{ opacity: 0, x: -50 }}
-              animate={isInView ? { opacity: 1, x: 0 } : {}}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="relative min-w-[360px] snap-start flex-shrink-0"
-            >
-              <div className="bg-white rounded-xl shadow-lg border border-gray-200 overflow-hidden opacity-70 h-[350px] flex flex-col">
-                <div className="bg-white px-3 py-2 border-b border-gray-100 flex items-center gap-2">
-                  <div className="w-5 h-5 rounded bg-[#4285F4] flex items-center justify-center">
-                    <span className="text-white text-xs font-bold">G</span>
-                  </div>
-                  <span className="text-xs font-medium text-gray-700">Google</span>
-                </div>
-                
-                <div className="h-28 bg-gray-100 relative">
-                  <div className="absolute bottom-2 left-2 right-2">
-                    <div className="bg-white/90 rounded-lg p-2">
-                      <h3 className="font-bold text-sm text-gray-900">Votre Commerce</h3>
-                      <div className="flex items-center gap-1 mt-1">
-                        {[...Array(3)].map((_, i) => (
-                          <Star key={i} className="w-3 h-3 fill-[#FBBC04] text-[#FBBC04]" />
-                        ))}
-                        {[...Array(2)].map((_, i) => (
-                          <Star key={i} className="w-3 h-3 text-gray-300" />
-                        ))}
-                        <span className="text-xs text-gray-600 ml-1">3.2 (8 avis)</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                
-                <div className="p-3 space-y-2 flex-1 flex flex-col justify-between">
-                  <div className="space-y-2">
-                    <div className="flex items-center gap-2 text-xs text-gray-600">
-                      <MapPin className="w-3 h-3" />
-                      <span>123 Rue de la République, Tours</span>
-                    </div>
-                    <div className="flex items-center gap-2 text-xs text-gray-400">
-                      <Phone className="w-3 h-3" />
-                      <span>Pas de téléphone visible</span>
-                    </div>
-                    <div className="text-xs text-gray-400">
-                      <span>Horaires non renseignés</span>
-                    </div>
-                  </div>
-                  
-                  {/* Espace vide pour égaliser la hauteur */}
-                  <div className="flex-1"></div>
-                </div>
-              </div>
-              
-              <div className="absolute top-12 left-2 bg-[#EF4444] text-white px-2 py-1 rounded-full text-xs font-bold shadow-lg">
-                VOUS AUJOURD'HUI
-              </div>
-              
-              <div className="absolute bottom-2 right-2 bg-gray-500 text-white px-2 py-1 rounded-full text-xs font-bold">
-                Position 15+
-              </div>
-            </motion.div>
-
-            {/* APRÈS - Fiche optimisée - Mobile */}
-            <motion.div 
-              initial={{ opacity: 0, x: 50 }}
-              animate={isInView ? { opacity: 1, x: 0 } : {}}
-              transition={{ duration: 0.6, delay: 0.4 }}
-              className="relative min-w-[360px] snap-start flex-shrink-0"
-            >
-              <div className="bg-white rounded-xl shadow-2xl border-2 border-[#1c3ff9] overflow-hidden relative animate-pulse-glow">
-                {/* Effet néon subtil */}
-                <div className="absolute inset-0 bg-gradient-to-r from-[#1c3ff9]/5 via-transparent to-[#1c3ff9]/5 animate-shimmer"></div>
-                
-                <div className="bg-white px-3 py-2 border-b border-gray-100 flex items-center gap-2 relative z-10">
-                  <div className="w-5 h-5 rounded bg-[#4285F4] flex items-center justify-center">
-                    <span className="text-white text-xs font-bold">G</span>
-                  </div>
-                  <span className="text-xs font-medium text-gray-700">Google</span>
-                </div>
-                
-                <div className="h-28 bg-gradient-to-br from-blue-50 to-indigo-100 relative overflow-hidden">
-                  <div className="absolute inset-0 bg-gradient-to-r from-[#1c3ff9]/10 to-[#6366f1]/10"></div>
-                  <div className="absolute bottom-2 left-2 right-2">
-                    <div className="bg-white/95 backdrop-blur-sm rounded-lg p-2 shadow-lg">
-                      <h3 className="font-bold text-sm text-gray-900">Votre Commerce</h3>
-                      <div className="flex items-center gap-1 mt-1">
-                        {[...Array(5)].map((_, i) => (
-                          <Star key={i} className="w-3 h-3 fill-[#FBBC04] text-[#FBBC04] animate-twinkle" style={{ animationDelay: `${i * 0.1}s` }} />
-                        ))}
-                        <span className="text-xs text-gray-600 ml-1 font-semibold">4.9 (127 avis)</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                
-                <div className="p-3 space-y-2">
-                  {/* Section Vidéos intégrée */}
-                  <div className="border-t border-gray-100 pt-2">
-                    <div className="flex items-center gap-2 mb-2">
-                      <Camera className="w-3 h-3 text-[#1c3ff9]" />
-                      <span className="text-xs font-medium text-gray-700">Vidéos</span>
-                    </div>
-                    <div className="grid grid-cols-2 gap-1 mb-2">
-                      <div className="relative bg-gradient-to-br from-blue-100 to-indigo-100 rounded aspect-video overflow-hidden">
-                        <div className="absolute inset-0 bg-black/20 flex items-center justify-center">
-                          <div className="w-4 h-4 bg-white/90 rounded-full flex items-center justify-center">
-                            <div className="w-0 h-0 border-l-[3px] border-l-[#1c3ff9] border-y-[2px] border-y-transparent ml-0.5"></div>
-                          </div>
-                        </div>
-                        <div className="absolute bottom-0.5 left-0.5 bg-black/70 text-white text-[10px] px-1 rounded">1:24</div>
-                      </div>
-                      <div className="relative bg-gradient-to-br from-purple-100 to-pink-100 rounded aspect-video overflow-hidden">
-                        <div className="absolute inset-0 bg-black/20 flex items-center justify-center">
-                          <div className="w-4 h-4 bg-white/90 rounded-full flex items-center justify-center">
-                            <div className="w-0 h-0 border-l-[3px] border-l-[#1c3ff9] border-y-[2px] border-y-transparent ml-0.5"></div>
-                          </div>
-                        </div>
-                        <div className="absolute bottom-0.5 left-0.5 bg-black/70 text-white text-[10px] px-1 rounded">0:45</div>
-                      </div>
-                    </div>
-                  </div>
-                  
-                  <div className="flex items-center gap-2 text-xs text-gray-600">
-                    <MapPin className="w-3 h-3 text-[#1c3ff9]" />
-                    <span>123 Rue de la République, Tours</span>
-                  </div>
-                  
-                  <div className="flex items-center gap-2 text-xs">
-                    <div className="w-2 h-2 rounded-full bg-[#10B981]"></div>
-                    <span className="text-[#10B981] font-medium">Ouvert</span>
-                    <span className="text-gray-600">· Ferme à 19h00</span>
-                  </div>
-                  
-                  <div className="flex items-center gap-2 text-xs text-gray-600">
-                    <Phone className="w-3 h-3 text-[#1c3ff9]" />
-                    <span>06 86 01 80 54</span>
-                  </div>
-                  
-                  <div className="flex gap-1 pt-2">
-                    <button className="flex-1 bg-[#1c3ff9] text-white py-1.5 px-2 rounded text-xs font-medium">
-                      Appeler
-                    </button>
-                    <button className="flex-1 border border-gray-300 text-gray-700 py-1.5 px-2 rounded text-xs font-medium">
-                      Itinéraire
-                    </button>
-                  </div>
-                </div>
-              </div>
-              
-              <div className="absolute top-12 left-2 bg-[#10B981] text-white px-2 py-1 rounded-full text-xs font-bold shadow-xl animate-bounce-slow z-20">
-                AVEC KAPTA
-              </div>
-              
-              <div className="absolute top-2 right-2 bg-[#1c3ff9] text-white px-2 py-1 rounded-full text-xs font-bold shadow-xl z-20">
-                Position N°1 ✓
-              </div>
-            </motion.div>
-          </div>
-          
-          {/* Scroll indicator for mobile */}
-          <div className="md:hidden flex flex-col items-center mt-2 mb-4">
+            {/* Container with animation */}
             <motion.div
-              animate={{ x: [0, 8, 0] }}
-              transition={{ duration: 2, repeat: Infinity }}
-              className="flex items-center gap-1 text-[#A1A1AA] text-xs mb-2"
+              animate={{ x: mobileSlideIndex === 0 ? 0 : '-100%' }}
+              transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+              className="flex w-full"
             >
-              <span>Glissez pour comparer</span>
-              <ArrowRight className="w-3 h-3" />
+              {/* AVANT - Fiche basique - Mobile optimisé */}
+              <div className="min-w-full px-1 pb-4">
+                <motion.div 
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={isInView ? { opacity: 1, scale: 1 } : {}}
+                  transition={{ duration: 0.6, delay: 0.2 }}
+                  className="relative"
+                >
+                  <div className="bg-white rounded-xl shadow-lg border border-gray-200 overflow-hidden opacity-70 min-h-[500px] flex flex-col">
+                    <div className="bg-white px-4 py-3 border-b border-gray-100 flex items-center gap-2 flex-shrink-0">
+                      <div className="w-6 h-6 rounded bg-[#4285F4] flex items-center justify-center">
+                        <span className="text-white text-sm font-bold">G</span>
+                      </div>
+                      <span className="text-sm font-medium text-gray-700">Google</span>
+                    </div>
+                    
+                    <div className="h-44 bg-gray-100 relative flex-shrink-0">
+                      <div className="absolute bottom-3 left-3 right-3">
+                        <div className="bg-white/90 rounded-lg p-3">
+                          <h3 className="font-bold text-base text-gray-900">Votre Commerce</h3>
+                          <div className="flex items-center gap-1 mt-2">
+                            {[...Array(3)].map((_, i) => (
+                              <Star key={i} className="w-4 h-4 fill-[#FBBC04] text-[#FBBC04]" />
+                            ))}
+                            {[...Array(2)].map((_, i) => (
+                              <Star key={i} className="w-4 h-4 text-gray-300" />
+                            ))}
+                            <span className="text-sm text-gray-600 ml-2">3.2 (8 avis)</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <div className="p-4 space-y-3 flex-1 flex flex-col justify-between">
+                      <div className="space-y-3">
+                        <div className="flex items-center gap-2 text-sm text-gray-600">
+                          <MapPin className="w-4 h-4" />
+                          <span>123 Rue de la République, Tours</span>
+                        </div>
+                        <div className="flex items-center gap-2 text-sm text-gray-400">
+                          <Phone className="w-4 h-4" />
+                          <span>Pas de téléphone visible</span>
+                        </div>
+                        <div className="text-sm text-gray-400">
+                          <span>Horaires non renseignés</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div className="absolute top-16 left-3 bg-[#EF4444] text-white px-3 py-1.5 rounded-full text-sm font-bold shadow-lg">
+                    VOUS AUJOURD'HUI
+                  </div>
+                  
+                  <div className="absolute bottom-8 right-3 bg-gray-500 text-white px-3 py-1.5 rounded-full text-sm font-bold">
+                    Position 15+
+                  </div>
+                </motion.div>
+              </div>
+
+              {/* APRÈS - Fiche optimisée - Mobile optimisé */}
+              <div className="min-w-full px-1 pb-4">
+                <motion.div 
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={isInView ? { opacity: 1, scale: 1 } : {}}
+                  transition={{ duration: 0.6, delay: 0.4 }}
+                  className="relative"
+                >
+                  <div className="bg-white rounded-xl shadow-2xl border-2 border-[#1c3ff9] overflow-hidden relative animate-pulse-glow min-h-[500px] flex flex-col">
+                    <div className="absolute inset-0 bg-gradient-to-r from-[#1c3ff9]/5 via-transparent to-[#1c3ff9]/5 animate-shimmer"></div>
+                    
+                    <div className="bg-white px-4 py-3 border-b border-gray-100 flex items-center gap-2 relative z-10 flex-shrink-0">
+                      <div className="w-6 h-6 rounded bg-[#4285F4] flex items-center justify-center">
+                        <span className="text-white text-sm font-bold">G</span>
+                      </div>
+                      <span className="text-sm font-medium text-gray-700">Google</span>
+                    </div>
+                    
+                    <div className="h-44 bg-gradient-to-br from-blue-50 to-indigo-100 relative overflow-hidden flex-shrink-0">
+                      <div className="absolute inset-0 bg-gradient-to-r from-[#1c3ff9]/10 to-[#6366f1]/10"></div>
+                      <div className="absolute bottom-3 left-3 right-3">
+                        <div className="bg-white/95 backdrop-blur-sm rounded-lg p-3 shadow-lg">
+                          <h3 className="font-bold text-base text-gray-900">Votre Commerce</h3>
+                          <div className="flex items-center gap-1 mt-2">
+                            {[...Array(5)].map((_, i) => (
+                              <Star key={i} className="w-4 h-4 fill-[#FBBC04] text-[#FBBC04] animate-twinkle" style={{ animationDelay: `${i * 0.1}s` }} />
+                            ))}
+                            <span className="text-sm text-gray-600 ml-2 font-semibold">4.9 (127 avis)</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <div className="p-4 space-y-3 flex-1">
+                      <div className="border-t border-gray-100 pt-3">
+                        <div className="flex items-center gap-2 mb-2">
+                          <Camera className="w-4 h-4 text-[#1c3ff9]" />
+                          <span className="text-sm font-medium text-gray-700">Vidéos</span>
+                        </div>
+                        <div className="grid grid-cols-2 gap-2 mb-3">
+                          <div className="relative bg-gradient-to-br from-blue-100 to-indigo-100 rounded aspect-video overflow-hidden">
+                            <div className="absolute inset-0 bg-black/20 flex items-center justify-center">
+                              <div className="w-5 h-5 bg-white/90 rounded-full flex items-center justify-center">
+                                <div className="w-0 h-0 border-l-[4px] border-l-[#1c3ff9] border-y-[3px] border-y-transparent ml-0.5"></div>
+                              </div>
+                            </div>
+                            <div className="absolute bottom-1 left-1 bg-black/70 text-white text-xs px-1.5 py-0.5 rounded">1:24</div>
+                          </div>
+                          <div className="relative bg-gradient-to-br from-purple-100 to-pink-100 rounded aspect-video overflow-hidden">
+                            <div className="absolute inset-0 bg-black/20 flex items-center justify-center">
+                              <div className="w-5 h-5 bg-white/90 rounded-full flex items-center justify-center">
+                                <div className="w-0 h-0 border-l-[4px] border-l-[#1c3ff9] border-y-[3px] border-y-transparent ml-0.5"></div>
+                              </div>
+                            </div>
+                            <div className="absolute bottom-1 left-1 bg-black/70 text-white text-xs px-1.5 py-0.5 rounded">0:45</div>
+                          </div>
+                        </div>
+                      </div>
+                      
+                      <div className="flex items-center gap-2 text-sm text-gray-600">
+                        <MapPin className="w-4 h-4 text-[#1c3ff9]" />
+                        <span>123 Rue de la République, Tours</span>
+                      </div>
+                      
+                      <div className="flex items-center gap-2 text-sm">
+                        <div className="w-2.5 h-2.5 rounded-full bg-[#10B981]"></div>
+                        <span className="text-[#10B981] font-medium">Ouvert</span>
+                        <span className="text-gray-600">· Ferme à 19h00</span>
+                      </div>
+                      
+                      <div className="flex items-center gap-2 text-sm text-gray-600">
+                        <Phone className="w-4 h-4 text-[#1c3ff9]" />
+                        <span className="font-medium">06 86 01 80 54</span>
+                      </div>
+                      
+                      <div className="flex gap-2 pt-2">
+                        <button className="flex-1 bg-[#1c3ff9] text-white py-2.5 px-3 rounded-lg text-sm font-medium">
+                          Appeler
+                        </button>
+                        <button className="flex-1 border border-gray-300 text-gray-700 py-2.5 px-3 rounded-lg text-sm font-medium">
+                          Itinéraire
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div className="absolute top-16 left-3 bg-[#10B981] text-white px-3 py-1.5 rounded-full text-sm font-bold shadow-xl animate-bounce-slow z-20">
+                    AVEC KAPTA
+                  </div>
+                  
+                  <div className="absolute top-4 right-3 bg-[#1c3ff9] text-white px-3 py-1.5 rounded-full text-sm font-bold shadow-xl z-20">
+                    Position N°1 ✓
+                  </div>
+                </motion.div>
+              </div>
             </motion.div>
             
-            {/* Progress track */}
-            <div className="relative w-16 h-1 bg-gray-200 rounded-full overflow-hidden">
-              <div 
-                className="gmb-scroll-progress-indicator absolute top-0 w-3 h-1 bg-[#1c3ff9] rounded-full transition-all duration-200 ease-out shadow-sm"
-                style={{ left: '0%' }}
-              />
+            {/* Navigation controls optimisées */}
+            <div className="flex flex-col items-center mt-4 mb-2 space-y-3">
+              {/* Slide indicators avec meilleure accessibilité */}
+              <div className="flex items-center gap-2" role="tablist" aria-label="Navigation des comparaisons">
+                <button
+                  onClick={() => setMobileSlideIndex(0)}
+                  className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                    mobileSlideIndex === 0 ? 'bg-[#1c3ff9] w-6' : 'bg-gray-300'
+                  }`}
+                  role="tab"
+                  aria-selected={mobileSlideIndex === 0}
+                  aria-label="Voir la fiche avant optimisation"
+                />
+                <button
+                  onClick={() => setMobileSlideIndex(1)}
+                  className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                    mobileSlideIndex === 1 ? 'bg-[#1c3ff9] w-6' : 'bg-gray-300'
+                  }`}
+                  role="tab"
+                  aria-selected={mobileSlideIndex === 1}
+                  aria-label="Voir la fiche après optimisation"
+                />
+              </div>
+              
+              {/* Swipe instruction améliorée */}
+              <motion.div
+                animate={{ x: [0, 8, 0] }}
+                transition={{ duration: 2, repeat: Infinity }}
+                className="flex items-center gap-1 text-[#A1A1AA] text-xs"
+                aria-live="polite"
+              >
+                <span>{mobileSlideIndex === 0 ? 'Glissez pour voir APRÈS' : 'Glissez pour voir AVANT'}</span>
+                <ArrowRight className="w-3 h-3" />
+              </motion.div>
             </div>
           </div>
 
@@ -774,22 +837,6 @@ const BeforeAfter = () => {
             </div>
           </motion.div>
         </div>
-        
-        {/* Flèche et résultat */}
-        <motion.div 
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, delay: 0.6 }}
-          className="mt-12 text-center"
-        >
-          <div className="inline-flex items-center gap-4 bg-[#10B981]/10 rounded-2xl p-4 border border-[#10B981]/20">
-            <ArrowRight className="w-6 h-6 text-[#1c3ff9]" />
-            <div>
-              <p className="text-xl font-bold text-[#10B981]">+127%</p>
-              <p className="text-xs text-gray-600">d'appels en plus en moyenne</p>
-            </div>
-          </div>
-        </motion.div>
       </div>
     </section>
   );
@@ -836,88 +883,88 @@ const ProblemComparison = () => {
               }
             }}
           >
-            {/* Problème - Impact négatif - Mobile */}
+            {/* Problème - Impact négatif - Mobile épuré */}
             <motion.div 
               initial={{ opacity: 0, x: -50 }}
               animate={isInView ? { opacity: 1, x: 0 } : {}}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="relative p-4 rounded-xl bg-white border-2 border-[#EF4444]/20 shadow-lg min-w-[320px] snap-start flex-shrink-0"
+              className="relative p-4 rounded-xl bg-white border border-gray-200 shadow-lg min-w-[320px] snap-start flex-shrink-0 hover:shadow-xl transition-all duration-300"
               data-testid="card-problem-impact-mobile"
             >
-              <div className="absolute top-2 right-2 px-2 py-1 rounded-full bg-[#EF4444]/10 text-[9px] font-medium text-[#EF4444] border border-[#EF4444]/20">
+              <div className="absolute top-2 right-2 px-2 py-1 rounded-full bg-gray-100 text-[9px] font-medium text-gray-600 border border-gray-200">
                 💸 Perte quotidienne
               </div>
               
-              <h3 className="text-base font-bold text-[#EF4444] mb-3 mt-3">
+              <h3 className="text-base font-bold text-gray-800 mb-3 mt-3">
                 SANS OPTIMISATION
               </h3>
               
               <div className="space-y-3">
-                <div className="bg-[#EF4444]/5 rounded-lg p-3 border border-[#EF4444]/10">
+                <div className="bg-gray-50 rounded-lg p-3 border border-gray-100">
                   <div className="flex items-center gap-2 mb-1">
                     <span className="text-sm">📉</span>
-                    <h4 className="font-bold text-[#0A0A0A] text-sm">Clients perdus</h4>
+                    <h4 className="font-bold text-gray-800 text-sm">Clients perdus</h4>
                   </div>
-                  <p className="text-xs text-[#52525B]">15-30 clients/mois choisissent vos concurrents</p>
+                  <p className="text-xs text-gray-600">15-30 clients/mois choisissent vos concurrents</p>
                 </div>
                 
-                <div className="bg-[#EF4444]/5 rounded-lg p-3 border border-[#EF4444]/10">
+                <div className="bg-gray-50 rounded-lg p-3 border border-gray-100">
                   <div className="flex items-center gap-2 mb-1">
                     <span className="text-sm">💰</span>
-                    <h4 className="font-bold text-[#0A0A0A] text-sm">Manque à gagner</h4>
+                    <h4 className="font-bold text-gray-800 text-sm">Manque à gagner</h4>
                   </div>
-                  <p className="text-xs text-[#52525B]">3 000€ à 15 000€ de CA perdu/mois</p>
+                  <p className="text-xs text-gray-600">3 000€ à 15 000€ de CA perdu/mois</p>
                 </div>
                 
-                <div className="bg-[#EF4444]/5 rounded-lg p-3 border border-[#EF4444]/10">
+                <div className="bg-gray-50 rounded-lg p-3 border border-gray-100">
                   <div className="flex items-center gap-2 mb-1">
                     <span className="text-sm">⏰</span>
-                    <h4 className="font-bold text-[#0A0A0A] text-sm">Temps perdu</h4>
+                    <h4 className="font-bold text-gray-800 text-sm">Temps perdu</h4>
                   </div>
-                  <p className="text-xs text-[#52525B]">Chaque mois d'attente = 6 mois pour rattraper</p>
+                  <p className="text-xs text-gray-600">Chaque mois d'attente = 6 mois pour rattraper</p>
                 </div>
               </div>
             </motion.div>
             
-            {/* Solution - Impact positif - Mobile */}
+            {/* Solution - Impact positif - Mobile épuré */}
             <motion.div 
               initial={{ opacity: 0, x: 50 }}
               animate={isInView ? { opacity: 1, x: 0 } : {}}
               transition={{ duration: 0.6, delay: 0.4 }}
-              className="relative p-4 rounded-xl bg-white border-2 border-[#10B981]/20 shadow-lg min-w-[320px] snap-start flex-shrink-0"
+              className="relative p-4 rounded-xl bg-white border-2 border-[#1c3ff9] shadow-lg min-w-[320px] snap-start flex-shrink-0 hover:shadow-xl transition-all duration-300"
               data-testid="card-solution-impact-mobile"
             >
-              <div className="absolute top-2 right-2 px-2 py-1 rounded-full bg-[#10B981] text-[9px] font-bold text-white shadow-lg">
+              <div className="absolute top-2 right-2 px-2 py-1 rounded-full bg-[#1c3ff9] text-[9px] font-bold text-white shadow-lg">
                 📈 ROI Immédiat
               </div>
               
-              <h3 className="text-base font-bold text-[#10B981] mb-3 mt-3">
+              <h3 className="text-base font-bold text-[#1c3ff9] mb-3 mt-3">
                 AVEC KAPTA
               </h3>
               
               <div className="space-y-3">
-                <div className="bg-[#10B981]/5 rounded-lg p-3 border border-[#10B981]/10">
+                <div className="bg-[#1c3ff9]/5 rounded-lg p-3 border border-[#1c3ff9]/10">
                   <div className="flex items-center gap-2 mb-1">
                     <span className="text-sm">🎯</span>
-                    <h4 className="font-bold text-[#0A0A0A] text-sm">Clients récupérés</h4>
+                    <h4 className="font-bold text-gray-800 text-sm">Clients récupérés</h4>
                   </div>
-                  <p className="text-xs text-[#52525B]">+127% d'appels = 20-40 nouveaux clients/mois</p>
+                  <p className="text-xs text-gray-600">+127% d'appels = 20-40 nouveaux clients/mois</p>
                 </div>
                 
-                <div className="bg-[#10B981]/5 rounded-lg p-3 border border-[#10B981]/10">
+                <div className="bg-[#1c3ff9]/5 rounded-lg p-3 border border-[#1c3ff9]/10">
                   <div className="flex items-center gap-2 mb-1">
                     <span className="text-sm">💎</span>
-                    <h4 className="font-bold text-[#0A0A0A] text-sm">ROI calculé</h4>
+                    <h4 className="font-bold text-gray-800 text-sm">ROI calculé</h4>
                   </div>
-                  <p className="text-xs text-[#52525B]">Investissement récupéré en 1-2 semaines</p>
+                  <p className="text-xs text-gray-600">Investissement récupéré en 1-2 semaines</p>
                 </div>
                 
-                <div className="bg-[#10B981]/5 rounded-lg p-3 border border-[#10B981]/10">
+                <div className="bg-[#1c3ff9]/5 rounded-lg p-3 border border-[#1c3ff9]/10">
                   <div className="flex items-center gap-2 mb-1">
                     <span className="text-sm">🚀</span>
-                    <h4 className="font-bold text-[#0A0A0A] text-sm">Effet boule de neige</h4>
+                    <h4 className="font-bold text-gray-800 text-sm">Effet boule de neige</h4>
                   </div>
-                  <p className="text-xs text-[#52525B]">Plus d'avis = meilleur classement = plus de clients</p>
+                  <p className="text-xs text-gray-600">Plus d'avis = meilleur classement = plus de clients</p>
                 </div>
               </div>
             </motion.div>
@@ -943,51 +990,51 @@ const ProblemComparison = () => {
             </div>
           </div>
 
-          {/* Desktop: Original grid layout */}
+          {/* Desktop: Original grid layout - Design épuré */}
           <motion.div 
             initial={{ opacity: 0, x: -50 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="hidden md:block relative p-5 md:p-8 rounded-2xl bg-white border-2 border-[#EF4444]/20 shadow-lg"
+            className="hidden md:block relative p-5 md:p-8 rounded-2xl bg-white border border-gray-200 shadow-lg hover:shadow-xl transition-all duration-300"
             data-testid="card-problem-impact"
           >
-            <div className="absolute top-3 md:top-4 right-3 md:right-4 px-2 md:px-3 py-1 rounded-full bg-[#EF4444]/10 text-[10px] md:text-xs font-medium text-[#EF4444] border border-[#EF4444]/20">
+            <div className="absolute top-3 md:top-4 right-3 md:right-4 px-2 md:px-3 py-1 rounded-full bg-gray-100 text-[10px] md:text-xs font-medium text-gray-600 border border-gray-200">
               💸 Perte quotidienne
             </div>
             
-            <h3 className="text-lg md:text-2xl font-bold text-[#EF4444] mb-4 md:mb-6 mt-4">
+            <h3 className="text-lg md:text-2xl font-bold text-gray-800 mb-4 md:mb-6 mt-4">
               SANS OPTIMISATION
             </h3>
             
             <div className="space-y-4 md:space-y-6">
-              <div className="bg-[#EF4444]/5 rounded-xl p-4 border border-[#EF4444]/10">
+              <div className="bg-gray-50 rounded-xl p-4 border border-gray-100">
                 <div className="flex items-center gap-3 mb-2">
-                  <div className="w-8 h-8 rounded-full bg-[#EF4444]/10 flex items-center justify-center">
+                  <div className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center">
                     <span className="text-lg">📉</span>
                   </div>
-                  <h4 className="font-bold text-[#0A0A0A]">Clients perdus</h4>
+                  <h4 className="font-bold text-gray-800">Clients perdus</h4>
                 </div>
-                <p className="text-sm text-[#52525B]">15-30 clients/mois choisissent vos concurrents mieux classés</p>
+                <p className="text-sm text-gray-600">15-30 clients/mois choisissent vos concurrents mieux classés</p>
               </div>
               
-              <div className="bg-[#EF4444]/5 rounded-xl p-4 border border-[#EF4444]/10">
+              <div className="bg-gray-50 rounded-xl p-4 border border-gray-100">
                 <div className="flex items-center gap-3 mb-2">
-                  <div className="w-8 h-8 rounded-full bg-[#EF4444]/10 flex items-center justify-center">
+                  <div className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center">
                     <span className="text-lg">💰</span>
                   </div>
-                  <h4 className="font-bold text-[#0A0A0A]">Manque à gagner</h4>
+                  <h4 className="font-bold text-gray-800">Manque à gagner</h4>
                 </div>
-                <p className="text-sm text-[#52525B]">3 000€ à 15 000€ de CA perdu par mois selon votre secteur</p>
+                <p className="text-sm text-gray-600">3 000€ à 15 000€ de CA perdu par mois selon votre secteur</p>
               </div>
               
-              <div className="bg-[#EF4444]/5 rounded-xl p-4 border border-[#EF4444]/10">
+              <div className="bg-gray-50 rounded-xl p-4 border border-gray-100">
                 <div className="flex items-center gap-3 mb-2">
-                  <div className="w-8 h-8 rounded-full bg-[#EF4444]/10 flex items-center justify-center">
+                  <div className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center">
                     <span className="text-lg">⏰</span>
                   </div>
-                  <h4 className="font-bold text-[#0A0A0A]">Temps perdu</h4>
+                  <h4 className="font-bold text-gray-800">Temps perdu</h4>
                 </div>
-                <p className="text-sm text-[#52525B]">Chaque mois d'attente = 6 mois de plus pour rattraper</p>
+                <p className="text-sm text-gray-600">Chaque mois d'attente = 6 mois de plus pour rattraper</p>
               </div>
             </div>
           </motion.div>
@@ -996,46 +1043,46 @@ const ProblemComparison = () => {
             initial={{ opacity: 0, x: 50 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.4 }}
-            className="hidden md:block relative p-5 md:p-8 rounded-2xl bg-white border-2 border-[#10B981]/20 shadow-lg"
+            className="hidden md:block relative p-5 md:p-8 rounded-2xl bg-white border-2 border-[#1c3ff9] shadow-lg hover:shadow-xl transition-all duration-300"
             data-testid="card-solution-impact"
           >
-            <div className="absolute top-3 md:top-4 right-3 md:right-4 px-3 md:px-4 py-1.5 rounded-full bg-[#10B981] text-[10px] md:text-xs font-bold text-white shadow-lg">
+            <div className="absolute top-3 md:top-4 right-3 md:right-4 px-3 md:px-4 py-1.5 rounded-full bg-[#1c3ff9] text-[10px] md:text-xs font-bold text-white shadow-lg">
               📈 ROI Immédiat
             </div>
             
-            <h3 className="text-lg md:text-2xl font-bold text-[#10B981] mb-4 md:mb-6 mt-4">
+            <h3 className="text-lg md:text-2xl font-bold text-[#1c3ff9] mb-4 md:mb-6 mt-4">
               AVEC KAPTA
             </h3>
             
             <div className="space-y-4 md:space-y-6">
-              <div className="bg-[#10B981]/5 rounded-xl p-4 border border-[#10B981]/10">
+              <div className="bg-[#1c3ff9]/5 rounded-xl p-4 border border-[#1c3ff9]/10">
                 <div className="flex items-center gap-3 mb-2">
-                  <div className="w-8 h-8 rounded-full bg-[#10B981]/10 flex items-center justify-center">
+                  <div className="w-8 h-8 rounded-full bg-[#1c3ff9]/10 flex items-center justify-center">
                     <span className="text-lg">🎯</span>
                   </div>
-                  <h4 className="font-bold text-[#0A0A0A]">Clients récupérés</h4>
+                  <h4 className="font-bold text-gray-800">Clients récupérés</h4>
                 </div>
-                <p className="text-sm text-[#52525B]">+127% d'appels en moyenne = 20-40 nouveaux clients/mois</p>
+                <p className="text-sm text-gray-600">+127% d'appels en moyenne = 20-40 nouveaux clients/mois</p>
               </div>
               
-              <div className="bg-[#10B981]/5 rounded-xl p-4 border border-[#10B981]/10">
+              <div className="bg-[#1c3ff9]/5 rounded-xl p-4 border border-[#1c3ff9]/10">
                 <div className="flex items-center gap-3 mb-2">
-                  <div className="w-8 h-8 rounded-full bg-[#10B981]/10 flex items-center justify-center">
+                  <div className="w-8 h-8 rounded-full bg-[#1c3ff9]/10 flex items-center justify-center">
                     <span className="text-lg">💎</span>
                   </div>
-                  <h4 className="font-bold text-[#0A0A0A]">ROI calculé</h4>
+                  <h4 className="font-bold text-gray-800">ROI calculé</h4>
                 </div>
-                <p className="text-sm text-[#52525B]">Investissement récupéré en 1-2 semaines selon votre panier moyen</p>
+                <p className="text-sm text-gray-600">Investissement récupéré en 1-2 semaines selon votre panier moyen</p>
               </div>
               
-              <div className="bg-[#10B981]/5 rounded-xl p-4 border border-[#10B981]/10">
+              <div className="bg-[#1c3ff9]/5 rounded-xl p-4 border border-[#1c3ff9]/10">
                 <div className="flex items-center gap-3 mb-2">
-                  <div className="w-8 h-8 rounded-full bg-[#10B981]/10 flex items-center justify-center">
+                  <div className="w-8 h-8 rounded-full bg-[#1c3ff9]/10 flex items-center justify-center">
                     <span className="text-lg">🚀</span>
                   </div>
-                  <h4 className="font-bold text-[#0A0A0A]">Effet boule de neige</h4>
+                  <h4 className="font-bold text-gray-800">Effet boule de neige</h4>
                 </div>
-                <p className="text-sm text-[#52525B]">Plus d'avis positifs = meilleur classement = encore plus de clients</p>
+                <p className="text-sm text-gray-600">Plus d'avis positifs = meilleur classement = encore plus de clients</p>
               </div>
             </div>
           </motion.div>
@@ -1296,6 +1343,7 @@ const CaseStudies = () => {
                       <img 
                         src={caseStudy.beforeImage} 
                         alt="Avant"
+                        loading="lazy"
                         className="w-full h-full object-contain object-center bg-gray-100"
                       />
                     </div>
@@ -1307,6 +1355,7 @@ const CaseStudies = () => {
                       <img 
                         src={caseStudy.afterImage} 
                         alt="Après"
+                        loading="lazy"
                         className="w-full h-full object-contain object-center bg-white scale-125"
                       />
                     </div>
@@ -1414,6 +1463,7 @@ const CaseStudies = () => {
                   <img 
                     src={`https://img.youtube.com/vi/${video.videoId}/hqdefault.jpg`}
                     alt="Vidéo"
+                    loading="lazy"
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-100 rounded"
                   />
                   <div className="absolute inset-0 bg-black/10 group-hover:bg-black/20 transition-colors duration-100 rounded"></div>
@@ -2239,6 +2289,7 @@ const Footer = () => {
             <img 
               src="https://customer-assets.emergentagent.com/job_e9af3148-6038-40b0-a95f-b7160e86bcee/artifacts/v4yy8wt0_logo2.webp" 
               alt="KAPTA" 
+              loading="lazy"
               className="h-5 md:h-6 w-auto brightness-0 invert"
             />
           </a>

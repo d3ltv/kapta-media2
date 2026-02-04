@@ -1,5 +1,59 @@
 /* KAPTA REACH BOOST - Custom Styles */
 
+/* ====== PERFORMANCE OPTIMIZATIONS ====== */
+
+/* Optimisation des animations pour de meilleures performances */
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Utilisation de transform3d pour activer l'accélération matérielle */
+.card-hover {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform;
+}
+
+.card-hover:hover {
+  transform: translate3d(0, -4px, 0);
+  box-shadow: 0 25px 50px -12px rgba(28, 63, 249, 0.15);
+}
+
+/* Optimisation des animations avec will-change */
+.animate-pulse-glow {
+  will-change: box-shadow;
+}
+
+.animate-shimmer {
+  will-change: background-position;
+}
+
+.animate-twinkle {
+  will-change: opacity, transform;
+}
+
+.animate-bounce-slow {
+  will-change: transform;
+}
+
+/* Optimisation du scroll pour mobile */
+.mobile-scroll-container {
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+}
+
+/* Préchargement des images critiques */
+.hero-section::before {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 0;
+  background: url('https://customer-assets.emergentagent.com/job_e9af3148-6038-40b0-a95f-b7160e86bcee/artifacts/v4yy8wt0_logo2.webp');
+  background-size: 0;
+}
+
+/* ====== END PERFORMANCE OPTIMIZATIONS ====== */
+
 /* ====== KAPTA BRAND SIGNATURE ====== */
 
 /* Signature corner marks - like camera viewfinder */
@@ -475,76 +529,19 @@
   display: none;
 }
 
-/* Effet néon pour la carte APRÈS */
-.animate-pulse-glow {
-  box-shadow: 
-    0 0 10px rgba(28, 63, 249, 0.15),
-    0 0 20px rgba(28, 63, 249, 0.05),
-    0 0 30px rgba(28, 63, 249, 0.02);
-  animation: pulse-glow 4s ease-in-out infinite;
+/* Blocage du scroll vertical pour les sliders mobiles */
+.mobile-slider-container {
+  touch-action: pan-x;
+  overscroll-behavior-y: none;
+  -webkit-overflow-scrolling: auto;
 }
 
-@keyframes pulse-glow {
-  0%, 100% {
-    box-shadow: 
-      0 0 10px rgba(28, 63, 249, 0.15),
-      0 0 20px rgba(28, 63, 249, 0.05),
-      0 0 30px rgba(28, 63, 249, 0.02);
-  }
-  50% {
-    box-shadow: 
-      0 0 12px rgba(28, 63, 249, 0.2),
-      0 0 25px rgba(28, 63, 249, 0.08),
-      0 0 35px rgba(28, 63, 249, 0.03);
-  }
+.mobile-slider-container * {
+  touch-action: pan-x;
+  overscroll-behavior-y: none;
 }
 
-/* Effet shimmer */
-.animate-shimmer {
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(28, 63, 249, 0.03),
-    transparent
-  );
-  background-size: 200% 100%;
-  animation: shimmer 4s ease-in-out infinite;
-}
-
-@keyframes shimmer {
-  0% { background-position: -200% 0; }
-  100% { background-position: 200% 0; }
-}
-
-/* Animation scintillement des étoiles */
-.animate-twinkle {
-  animation: twinkle 2s ease-in-out infinite;
-}
-
-@keyframes twinkle {
-  0%, 100% { 
-    opacity: 1; 
-    transform: scale(1);
-  }
-  50% { 
-    opacity: 0.7; 
-    transform: scale(1.1);
-  }
-}
-
-/* Animation bounce lente */
-.animate-bounce-slow {
-  animation: bounce-slow 2s ease-in-out infinite;
-}
-
-@keyframes bounce-slow {
-  0%, 100% { 
-    transform: translateY(0);
-  }
-  50% { 
-    transform: translateY(-5px);
-  }
-}
+/* Optimisation des scrollbars globales */
 ::-webkit-scrollbar {
   width: 8px;
 }
@@ -560,14 +557,4 @@
 
 ::-webkit-scrollbar-thumb:hover {
   background: #1534d4;
-}
-
-/* Hide scrollbar for mobile cards */
-.scrollbar-hide {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-}
-
-.scrollbar-hide::-webkit-scrollbar {
-  display: none;
 }
