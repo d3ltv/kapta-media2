@@ -451,39 +451,23 @@ const BeforeAfter = () => {
         
         <div className="md:grid md:grid-cols-2 md:gap-4 md:gap-8 -mx-2 md:mx-0">
           {/* Mobile: Interactive slider optimisé pour la lisibilité */}
-          <div className="md:hidden relative overflow-hidden bg-gray-50 rounded-xl p-2 mobile-slider-container"
-            style={{ touchAction: 'pan-y' }}
+          <div className="md:hidden relative overflow-hidden bg-gray-50 rounded-xl p-2"
             onTouchStart={(e) => {
               const touch = e.touches[0];
               e.currentTarget.dataset.startX = touch.clientX;
               e.currentTarget.dataset.startY = touch.clientY;
-              e.currentTarget.dataset.isHorizontal = null;
-            }}
-            onTouchMove={(e) => {
-              const touch = e.touches[0];
-              const startX = parseFloat(e.currentTarget.dataset.startX);
-              const startY = parseFloat(e.currentTarget.dataset.startY);
-              const diffX = Math.abs(touch.clientX - startX);
-              const diffY = Math.abs(touch.clientY - startY);
-              
-              // Déterminer la direction du mouvement
-              if (diffX > diffY && diffX > 10) {
-                e.currentTarget.dataset.isHorizontal = 'true';
-                e.preventDefault();
-              } else if (diffY > diffX && diffY > 10) {
-                e.currentTarget.dataset.isHorizontal = 'false';
-              }
             }}
             onTouchEnd={(e) => {
-              if (e.currentTarget.dataset.isHorizontal !== 'true') return;
-              
               const startX = parseFloat(e.currentTarget.dataset.startX);
+              const startY = parseFloat(e.currentTarget.dataset.startY);
               const endX = e.changedTouches[0].clientX;
+              const endY = e.changedTouches[0].clientY;
               
               const diffX = startX - endX;
+              const diffY = startY - endY;
               
-              // Ne réagir que si le mouvement horizontal est significatif
-              if (Math.abs(diffX) > 50) {
+              // Seuil plus bas pour une meilleure réactivité
+              if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 30) {
                 if (diffX > 0) {
                   handleSwipe('left');
                 } else {
@@ -655,40 +639,52 @@ const BeforeAfter = () => {
               </div>
             </motion.div>
             
-            {/* Navigation controls optimisées */}
+            {/* Navigation controls optimisées avec boutons */}
             <div className="flex flex-col items-center mt-4 mb-2 space-y-3">
-              {/* Slide indicators avec meilleure accessibilité */}
-              <div className="flex items-center gap-2" role="tablist" aria-label="Navigation des comparaisons">
+              {/* Boutons AVANT / APRÈS */}
+              <div className="flex items-center gap-3" role="tablist" aria-label="Navigation des comparaisons">
                 <button
                   onClick={() => setMobileSlideIndex(0)}
-                  className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                    mobileSlideIndex === 0 ? 'bg-[#1c3ff9] w-6' : 'bg-gray-300'
+                  className={`px-4 py-2 rounded-full text-sm font-semibold transition-all duration-300 ${
+                    mobileSlideIndex === 0 
+                      ? 'bg-[#EF4444] text-white shadow-lg' 
+                      : 'bg-gray-200 text-gray-600 hover:bg-gray-300'
                   }`}
                   role="tab"
                   aria-selected={mobileSlideIndex === 0}
                   aria-label="Voir la fiche avant optimisation"
-                />
+                >
+                  AVANT
+                </button>
                 <button
                   onClick={() => setMobileSlideIndex(1)}
-                  className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                    mobileSlideIndex === 1 ? 'bg-[#1c3ff9] w-6' : 'bg-gray-300'
+                  className={`px-4 py-2 rounded-full text-sm font-semibold transition-all duration-300 ${
+                    mobileSlideIndex === 1 
+                      ? 'bg-[#10B981] text-white shadow-lg' 
+                      : 'bg-gray-200 text-gray-600 hover:bg-gray-300'
                   }`}
                   role="tab"
                   aria-selected={mobileSlideIndex === 1}
                   aria-label="Voir la fiche après optimisation"
-                />
+                >
+                  APRÈS
+                </button>
               </div>
               
-              {/* Swipe instruction améliorée */}
-              <motion.div
-                animate={{ x: [0, 8, 0] }}
-                transition={{ duration: 2, repeat: Infinity }}
-                className="flex items-center gap-1 text-[#A1A1AA] text-xs"
-                aria-live="polite"
-              >
-                <span>{mobileSlideIndex === 0 ? 'Glissez pour voir APRÈS' : 'Glissez pour voir AVANT'}</span>
-                <ArrowRight className="w-3 h-3" />
-              </motion.div>
+              {/* Indicateur visuel optionnel */}
+              <div className="flex items-center gap-2">
+                <div className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                  mobileSlideIndex === 0 ? 'bg-[#EF4444] w-6' : 'bg-gray-300'
+                }`} />
+                <div className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                  mobileSlideIndex === 1 ? 'bg-[#10B981] w-6' : 'bg-gray-300'
+                }`} />
+              </div>
+              
+              {/* Instruction simplifiée */}
+              <p className="text-xs text-[#A1A1AA] text-center">
+                Cliquez sur les boutons pour comparer
+              </p>
             </div>
           </div>
 
@@ -1351,7 +1347,7 @@ const CaseStudies = () => {
                 <div className="grid grid-cols-2 gap-0">
                   {/* AVANT */}
                   <div className="relative">
-                    <div className="h-52 md:h-80 relative overflow-hidden">
+                    <div className="h-80 md:h-80 relative overflow-hidden">
                       <img 
                         src={caseStudy.beforeImage} 
                         alt="Avant"
@@ -1363,7 +1359,7 @@ const CaseStudies = () => {
                   
                   {/* APRÈS */}
                   <div className="relative">
-                    <div className="h-52 md:h-80 relative overflow-hidden">
+                    <div className="h-80 md:h-80 relative overflow-hidden">
                       <img 
                         src={caseStudy.afterImage} 
                         alt="Après"

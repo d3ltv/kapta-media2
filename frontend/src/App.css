@@ -529,18 +529,6 @@
   display: none;
 }
 
-/* Blocage du scroll vertical pour les sliders mobiles */
-.mobile-slider-container {
-  touch-action: pan-x;
-  overscroll-behavior-y: none;
-  -webkit-overflow-scrolling: auto;
-}
-
-.mobile-slider-container * {
-  touch-action: pan-x;
-  overscroll-behavior-y: none;
-}
-
 /* Optimisation des scrollbars globales */
 ::-webkit-scrollbar {
   width: 8px;
