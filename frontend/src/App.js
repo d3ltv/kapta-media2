@@ -444,7 +444,7 @@ const BeforeAfter = () => {
               initial={{ opacity: 0, x: -50 }}
               animate={isInView ? { opacity: 1, x: 0 } : {}}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="relative min-w-[280px] snap-start flex-shrink-0"
+              className="relative min-w-[360px] snap-start flex-shrink-0"
             >
               <div className="bg-white rounded-xl shadow-lg border border-gray-200 overflow-hidden opacity-70 h-[350px] flex flex-col">
                 <div className="bg-white px-3 py-2 border-b border-gray-100 flex items-center gap-2">
@@ -505,7 +505,7 @@ const BeforeAfter = () => {
               initial={{ opacity: 0, x: 50 }}
               animate={isInView ? { opacity: 1, x: 0 } : {}}
               transition={{ duration: 0.6, delay: 0.4 }}
-              className="relative min-w-[280px] snap-start flex-shrink-0"
+              className="relative min-w-[360px] snap-start flex-shrink-0"
             >
               <div className="bg-white rounded-xl shadow-2xl border-2 border-[#1c3ff9] overflow-hidden relative animate-pulse-glow">
                 {/* Effet néon subtil */}
@@ -1184,10 +1184,12 @@ const ProblemComparison = () => {
   );
 };
 
+
 // Case Studies Section - Honest version
 const CaseStudies = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const [selectedVideo, setSelectedVideo] = useState(null);
 
   const caseStudies = [
     {
@@ -1245,6 +1247,7 @@ const CaseStudies = () => {
   ];
 
   return (
+    <>
     <section 
       ref={ref}
       className="py-12 md:py-32 bg-white relative"
@@ -1252,7 +1255,7 @@ const CaseStudies = () => {
     >
       <div className="max-w-6xl mx-auto px-2 sm:px-3 lg:px-4">
         <SectionHeader 
-          number="02"
+          number="03"
           label="Résultats"
           title="AVANT / APRÈS"
           highlight="CONCRETS"
@@ -1283,13 +1286,13 @@ const CaseStudies = () => {
                 initial={{ opacity: 0, x: 50 }}
                 animate={isInView ? { opacity: 1, x: 0 } : {}}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
-                className="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden min-w-[360px] md:min-w-[600px] snap-start flex-shrink-0"
+                className="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden min-w-[440px] md:min-w-[600px] snap-start flex-shrink-0"
               >
                 {/* Section Avant/Après - Côte à côte simplifié */}
                 <div className="grid grid-cols-2 gap-0">
                   {/* AVANT */}
                   <div className="relative">
-                    <div className="h-40 md:h-80 relative overflow-hidden">
+                    <div className="h-52 md:h-80 relative overflow-hidden">
                       <img 
                         src={caseStudy.beforeImage} 
                         alt="Avant"
@@ -1300,7 +1303,7 @@ const CaseStudies = () => {
                   
                   {/* APRÈS */}
                   <div className="relative">
-                    <div className="h-40 md:h-80 relative overflow-hidden">
+                    <div className="h-52 md:h-80 relative overflow-hidden">
                       <img 
                         src={caseStudy.afterImage} 
                         alt="Après"
@@ -1333,6 +1336,105 @@ const CaseStudies = () => {
             <p className="text-xs text-[#A1A1AA] italic text-center max-w-md mt-2">
               * Certains clients ayant souhaité préserver leur anonymat sont représentés de manière générique
             </p>
+          </div>
+        </div>
+        
+        {/* Titre pour les vidéos - Design moderne */}
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6, delay: 0.3 }}
+          className="mt-6 mb-4 relative"
+        >
+          {/* Design avec ligne et badge */}
+          <div className="flex items-center justify-center mb-3">
+            <div className="flex-1 h-px bg-gradient-to-r from-transparent via-[#1c3ff9]/30 to-transparent"></div>
+            <div className="mx-4 px-4 py-2 bg-white rounded-full border-2 border-[#1c3ff9] shadow-lg relative overflow-hidden group">
+              {/* Effet shimmer */}
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000"></div>
+              
+              <div className="relative z-10 flex items-center gap-2">
+                <div className="w-6 h-6 rounded-full bg-gradient-to-r from-[#1c3ff9] to-[#6366f1] flex items-center justify-center">
+                  <Camera className="w-3 h-3 text-white" />
+                </div>
+                <span className="text-sm font-bold text-[#1c3ff9] whitespace-nowrap">
+                  Nos réalisations vidéo
+                </span>
+              </div>
+            </div>
+            <div className="flex-1 h-px bg-gradient-to-r from-[#1c3ff9]/30 via-transparent to-transparent"></div>
+          </div>
+          
+          {/* Description centrée avec style minimaliste */}
+          <div className="text-center">
+            <p className="text-xs text-[#52525B] font-medium">
+              Découvrez les vidéos que nous intégrons sur les fiches Google
+            </p>
+            
+            {/* Petit accent visuel */}
+            <div className="mt-2 flex justify-center">
+              <div className="w-8 h-0.5 bg-gradient-to-r from-[#1c3ff9] to-[#6366f1] rounded-full"></div>
+            </div>
+          </div>
+        </motion.div>
+        
+        {/* Vidéos YouTube intégrées - ultra compactes mobile */}
+        <div>
+          <div 
+            className="flex gap-0.5 md:gap-1 overflow-x-auto pb-1 snap-x snap-mandatory scrollbar-hide px-0.5 -mx-0.5"
+            onScroll={(e) => {
+              const container = e.target;
+              const scrollLeft = container.scrollLeft;
+              const maxScroll = container.scrollWidth - container.clientWidth;
+              const progress = maxScroll > 0 ? (scrollLeft / maxScroll) * 100 : 0;
+              
+              const progressBar = document.querySelector('.youtube-mini-progress-bar');
+              if (progressBar) {
+                progressBar.style.width = `${progress}%`;
+              }
+            }}
+          >
+            {[
+              { id: 1, videoId: "U6FaRhs9W2c" },
+              { id: 2, videoId: "Pw_k894Lsk0" },
+              { id: 3, videoId: "GnDY-5dOt3Q" },
+              { id: 4, videoId: "EiySSMwTCz4" },
+              { id: 5, videoId: "D9M0JMP_V5I" },
+              { id: 6, videoId: "q2CnDcUkiMM" }
+            ].map((video, index) => (
+              <motion.div
+                key={video.id}
+                initial={{ opacity: 0, x: 5 }}
+                animate={isInView ? { opacity: 1, x: 0 } : {}}
+                transition={{ duration: 0.1, delay: index * 0.01 }}
+                className="bg-white rounded shadow-sm border border-gray-100 overflow-hidden w-[200px] h-[112px] md:w-[300px] md:h-[168px] snap-start flex-shrink-0 cursor-pointer hover:shadow-md transition-all duration-100 group"
+                onClick={() => setSelectedVideo(video.videoId)}
+              >
+                <div className="relative w-full h-full overflow-hidden bg-gray-100 rounded">
+                  <img 
+                    src={`https://img.youtube.com/vi/${video.videoId}/hqdefault.jpg`}
+                    alt="Vidéo"
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-100 rounded"
+                  />
+                  <div className="absolute inset-0 bg-black/10 group-hover:bg-black/20 transition-colors duration-100 rounded"></div>
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <div className="w-6 h-6 md:w-9 md:h-9 bg-red-600 rounded-full flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform duration-100">
+                      <div className="w-0 h-0 border-l-[3.5px] md:border-l-[5px] border-l-white border-y-[3px] md:border-y-[4.5px] border-y-transparent ml-0.5"></div>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+          
+          {/* Barre de progression rouge mini */}
+          <div className="flex justify-center mt-0.5">
+            <div className="w-6 md:w-10 h-0.5 bg-gray-200 rounded-full overflow-hidden">
+              <div 
+                className="youtube-mini-progress-bar h-full bg-red-600 rounded-full transition-all duration-200 ease-out"
+                style={{ width: '0%' }}
+              />
+            </div>
           </div>
         </div>
         
@@ -1379,6 +1481,70 @@ const CaseStudies = () => {
         </motion.div>
       </div>
     </section>
+
+    {/* Modal Visualiseur avec branding Kapta */}
+    {selectedVideo && (
+      <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          exit={{ opacity: 0, scale: 0.9 }}
+          transition={{ duration: 0.3 }}
+          className="bg-white rounded-2xl shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-hidden"
+        >
+          {/* Header avec branding Kapta */}
+          <div className="flex items-center justify-between p-4 border-b border-gray-100 bg-gradient-to-r from-[#1c3ff9]/5 to-[#6366f1]/5">
+            <div className="flex items-center gap-3">
+              <div className="w-8 h-8 rounded-full bg-[#1c3ff9] flex items-center justify-center">
+                <Camera className="w-4 h-4 text-white" />
+              </div>
+              <div>
+                <h3 className="font-bold text-[#0A0A0A] text-sm">KAPTA Media</h3>
+                <p className="text-xs text-[#52525B]">Optimisation Google Maps</p>
+              </div>
+            </div>
+            <button
+              onClick={() => setSelectedVideo(null)}
+              className="w-8 h-8 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center transition-colors"
+            >
+              <X className="w-4 h-4 text-gray-600" />
+            </button>
+          </div>
+          
+          {/* Vidéo YouTube */}
+          <div className="aspect-video">
+            <iframe
+              src={`https://www.youtube.com/embed/${selectedVideo}?autoplay=1&rel=0&modestbranding=1`}
+              title="Vidéo KAPTA"
+              className="w-full h-full"
+              frameBorder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+            />
+          </div>
+          
+          {/* Footer avec CTA */}
+          <div className="p-4 bg-gradient-to-r from-[#1c3ff9]/5 to-[#6366f1]/5 border-t border-gray-100">
+            <div className="flex items-center justify-between">
+              <p className="text-sm text-[#52525B]">
+                Votre commerce mérite la même transformation
+              </p>
+              <Button 
+                className="bg-[#1c3ff9] hover:bg-[#1534d4] text-white rounded-full px-4 py-2 text-sm font-semibold"
+                onClick={() => {
+                  setSelectedVideo(null);
+                  document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+                }}
+              >
+                Réserver mon audit
+                <ArrowRight className="ml-1 w-3 h-3" />
+              </Button>
+            </div>
+          </div>
+        </motion.div>
+      </div>
+    )}
+    </>
   );
 };
 
@@ -1438,7 +1604,7 @@ const Mechanism = () => {
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         <SectionHeader 
-          number="03"
+          number="04"
           label="Comment ça marche"
           title="4 ÉTAPES,"
           highlight="14 JOURS"
@@ -1546,7 +1712,7 @@ const Pricing = () => {
           transition={{ duration: 0.6 }}
         >
           <SectionHeader 
-            number="04"
+            number="05"
             label="Tarif"
             title="TARIF PILOTE"
             highlight="350€"
@@ -1707,7 +1873,7 @@ const FAQ = () => {
       
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         <SectionHeader 
-          number="05"
+          number="06"
           label="Questions"
           title="VOS QUESTIONS,"
           highlight="NOS RÉPONSES"
@@ -1811,7 +1977,7 @@ const ContactForm = () => {
       
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         <SectionHeader 
-          number="06"
+          number="07"
           label="Contact"
           title="AUDIT"
           highlight="GRATUIT"
