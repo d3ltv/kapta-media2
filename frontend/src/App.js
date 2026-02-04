@@ -452,26 +452,38 @@ const BeforeAfter = () => {
         <div className="md:grid md:grid-cols-2 md:gap-4 md:gap-8 -mx-2 md:mx-0">
           {/* Mobile: Interactive slider optimisé pour la lisibilité */}
           <div className="md:hidden relative overflow-hidden bg-gray-50 rounded-xl p-2 mobile-slider-container"
-            style={{ touchAction: 'pan-x' }}
+            style={{ touchAction: 'pan-y' }}
             onTouchStart={(e) => {
               const touch = e.touches[0];
               e.currentTarget.dataset.startX = touch.clientX;
               e.currentTarget.dataset.startY = touch.clientY;
+              e.currentTarget.dataset.isHorizontal = null;
             }}
             onTouchMove={(e) => {
-              e.preventDefault(); // Empêche le scroll vertical
-            }}
-            onTouchEnd={(e) => {
+              const touch = e.touches[0];
               const startX = parseFloat(e.currentTarget.dataset.startX);
               const startY = parseFloat(e.currentTarget.dataset.startY);
+              const diffX = Math.abs(touch.clientX - startX);
+              const diffY = Math.abs(touch.clientY - startY);
+              
+              // Déterminer la direction du mouvement
+              if (diffX > diffY && diffX > 10) {
+                e.currentTarget.dataset.isHorizontal = 'true';
+                e.preventDefault();
+              } else if (diffY > diffX && diffY > 10) {
+                e.currentTarget.dataset.isHorizontal = 'false';
+              }
+            }}
+            onTouchEnd={(e) => {
+              if (e.currentTarget.dataset.isHorizontal !== 'true') return;
+              
+              const startX = parseFloat(e.currentTarget.dataset.startX);
               const endX = e.changedTouches[0].clientX;
-              const endY = e.changedTouches[0].clientY;
               
               const diffX = startX - endX;
-              const diffY = startY - endY;
               
-              // Ne réagir que si le mouvement horizontal est plus important que le vertical
-              if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 50) {
+              // Ne réagir que si le mouvement horizontal est significatif
+              if (Math.abs(diffX) > 50) {
                 if (diffX > 0) {
                   handleSwipe('left');
                 } else {
