@@ -96,6 +96,49 @@
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link rel="preconnect" href="https://assets.calendly.com" />
+        <link rel="preconnect" href="https://www.googletagmanager.com" />
+        <link rel="preconnect" href="https://www.google-analytics.com" />
+        <link rel="preconnect" href="https://www.googleadservices.com" />
+        
+        <!-- Google Tag Manager / Analytics 4 -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-4QS20YLNE2"></script>
+        <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          
+          // Configuration Google Analytics 4
+          gtag('config', 'G-4QS20YLNE2', {
+            'send_page_view': true,
+            'anonymize_ip': true,
+            'cookie_flags': 'SameSite=None;Secure'
+          });
+          
+          // Configuration Google Ads (si tu as un compte Ads)
+          // Remplace 'AW-XXXXXXXXXX' par ton ID Google Ads
+          // gtag('config', 'AW-XXXXXXXXXX');
+        </script>
+        
+        <!-- Google Ads Conversion Tracking -->
+        <script>
+          // Fonction helper pour tracker les conversions
+          window.trackConversion = function(conversionLabel, value) {
+            if (typeof gtag !== 'undefined') {
+              gtag('event', 'conversion', {
+                'send_to': 'AW-XXXXXXXXXX/' + conversionLabel,
+                'value': value || 0,
+                'currency': 'EUR'
+              });
+            }
+          };
+          
+          // Fonction helper pour tracker les événements GA4
+          window.trackEvent = function(eventName, eventParams) {
+            if (typeof gtag !== 'undefined') {
+              gtag('event', eventName, eventParams || {});
+            }
+          };
+        </script>
         
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@600&display=swap" rel="stylesheet" />
