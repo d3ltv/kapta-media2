@@ -8,6 +8,7 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+
 /* Utilisation de transform3d pour activer l'accélération matérielle */
 .card-hover {
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
