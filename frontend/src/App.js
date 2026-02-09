@@ -201,7 +201,7 @@ const Navbar = () => {
           <a href="#" className="flex items-center gap-2" data-testid="logo">
             <img 
               src="https://customer-assets.emergentagent.com/job_e9af3148-6038-40b0-a95f-b7160e86bcee/artifacts/v4yy8wt0_logo2.webp" 
-              alt="KAPTA" 
+              alt="KAPTA Media - Agence marketing local et optimisation Google Maps à Tours" 
               loading="eager"
               fetchPriority="high"
               className="h-6 md:h-8 w-auto logo-transparent logo-isolated"
@@ -1446,7 +1446,7 @@ const CaseStudies = () => {
                     <div className="h-80 md:h-80 relative overflow-hidden">
                       <img 
                         src={caseStudy.beforeImage} 
-                        alt="Avant"
+                        alt={`Fiche Google Maps ${caseStudy.business} avant optimisation KAPTA - faible visibilité`}
                         loading="lazy"
                         className="w-full h-full object-contain object-center bg-gray-100"
                       />
@@ -1458,9 +1458,9 @@ const CaseStudies = () => {
                     <div className="h-80 md:h-80 relative overflow-hidden">
                       <img 
                         src={caseStudy.afterImage} 
-                        alt="Après"
+                        alt={`Fiche Google Maps ${caseStudy.business} après optimisation KAPTA - Top 5 résultats locaux`}
                         loading="lazy"
-                        className="w-full h-full object-contain object-center bg-white scale-125"
+                        className="w-full h-full object-contain object-center bg-white"
                       />
                     </div>
                   </div>
@@ -1569,7 +1569,7 @@ const CaseStudies = () => {
                 <div className="relative w-full h-full overflow-hidden bg-gray-100 rounded">
                   <img 
                     src={`https://img.youtube.com/vi/${video.videoId}/hqdefault.jpg`}
-                    alt="Vidéo"
+                    alt={`Vidéo professionnelle KAPTA Media - Optimisation Google Maps pour commerce local à Tours`}
                     loading="lazy"
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-100 rounded"
                   />
@@ -2429,7 +2429,7 @@ const Footer = () => {
           <a href="#" className="flex items-center">
             <img 
               src="https://customer-assets.emergentagent.com/job_e9af3148-6038-40b0-a95f-b7160e86bcee/artifacts/v4yy8wt0_logo2.webp" 
-              alt="KAPTA" 
+              alt="KAPTA Media - Logo agence marketing local Tours" 
               loading="lazy"
               className="h-5 md:h-6 w-auto brightness-0 invert"
               style={{

@@ -63,7 +63,7 @@ const SharedNavbar = () => {
           <Link to="/" className="flex items-center gap-2" data-testid="logo">
             <img 
               src="https://customer-assets.emergentagent.com/job_e9af3148-6038-40b0-a95f-b7160e86bcee/artifacts/v4yy8wt0_logo2.webp" 
-              alt="KAPTA" 
+              alt="KAPTA Media - Agence marketing local et optimisation Google Maps à Tours" 
               loading="eager"
               fetchPriority="high"
               className="h-6 md:h-8 w-auto logo-transparent logo-isolated"
