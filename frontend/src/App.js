@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import { Link } from "react-router-dom";
 import "@/App.css";
 import { motion, useInView } from "framer-motion";
 import { 
@@ -149,12 +150,19 @@ const Navbar = () => {
     { label: "Accueil", href: "#", icon: "🏠" },
     { label: "Mécanisme", href: "#mechanism", icon: "⚙️" },
     { label: "Tarifs", href: "#pricing", icon: "💰" },
+    { label: "Blog", href: "/blog", icon: "📝" },
     { label: "FAQ", href: "#faq", icon: "❓" },
     { label: "Contact", href: "#contact", icon: "📞" }
   ];
 
   const handleMenuClick = (href) => {
     setMobileMenuOpen(false);
+    
+    // Si c'est un lien externe (commence par /), ne rien faire (Link s'en occupe)
+    if (href.startsWith('/')) {
+      return;
+    }
+    
     if (href === "#") {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     } else {
@@ -235,6 +243,13 @@ const Navbar = () => {
             >
               Tarifs
             </button>
+            <Link 
+              to="/blog"
+              onClick={() => Analytics.trackMenuClick('Blog')}
+              className="text-sm font-medium text-[#52525B] hover:text-[#0A0A0A] transition-colors"
+            >
+              Blog
+            </Link>
             <button 
               onClick={() => {
                 Analytics.trackMenuClick('FAQ');
@@ -298,27 +313,68 @@ const Navbar = () => {
                   className="absolute top-16 right-0 w-64 bg-white rounded-2xl shadow-2xl border border-gray-100 overflow-hidden z-50"
                 >
                   <div className="p-2">
-                    {menuItems.map((item, index) => (
-                      <motion.button
-                        key={item.label}
-                        initial={{ opacity: 0, x: 20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ duration: 0.2, delay: index * 0.05 }}
-                        onClick={() => {
-                          Analytics.trackMenuClick(item.label);
-                          handleMenuClick(item.href);
-                        }}
-                        className="w-full flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-[#1c3ff9]/5 transition-all duration-200 group"
-                      >
-                        <span className="text-lg group-hover:scale-110 transition-transform">
-                          {item.icon}
-                        </span>
-                        <span className="text-sm font-medium text-[#0A0A0A] group-hover:text-[#1c3ff9] transition-colors">
-                          {item.label}
-                        </span>
-                        <ArrowRight className="w-4 h-4 text-[#A1A1AA] group-hover:text-[#1c3ff9] group-hover:translate-x-1 transition-all ml-auto" />
-                      </motion.button>
-                    ))}
+                    {menuItems.map((item, index) => {
+                      const isRoute = item.href.startsWith('/');
+                      
+                      return (
+                        <motion.div
+                          key={item.label}
+                          initial={{ opacity: 0, x: 20 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{ duration: 0.2, delay: index * 0.05 }}
+                        >
+                          {isRoute ? (
+                            <Link
+                              to={item.href}
+                              onClick={() => {
+                                Analytics.trackMenuClick(item.label);
+                                setMobileMenuOpen(false);
+                              }}
+                              className="w-full flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-[#1c3ff9]/5 transition-all duration-200 group"
+                            >
+                              <span className="text-lg group-hover:scale-110 transition-transform">
+                                {item.icon}
+                              </span>
+                              <span className="text-sm font-medium text-[#0A0A0A] group-hover:text-[#1c3ff9] transition-colors">
+                                {item.label}
+                              </span>
+                              <ArrowRight className="w-4 h-4 text-[#A1A1AA] group-hover:text-[#1c3ff9] group-hover:translate-x-1 transition-all ml-auto" />
+                            </Link>
+                          ) : (
+                            <button
+                              onClick={() => {
+                                Analytics.trackMenuClick(item.label);
+                                handleMenuClick(item.href);
+                              }}
+                              className="w-full flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-[#1c3ff9]/5 transition-all duration-200 group"
+                            >
+                              <span className="text-lg group-hover:scale-110 transition-transform">
+                                {item.icon}
+                              </span>
+                              <span className="text-sm font-medium text-[#0A0A0A] group-hover:text-[#1c3ff9] transition-colors">
+                                {item.label}
+                              </span>
+                              <ArrowRight className="w-4 h-4 text-[#A1A1AA] group-hover:text-[#1c3ff9] group-hover:translate-x-1 transition-all ml-auto" />
+                            </button>
+                          )}
+                        </motion.div>
+                      );
+                    })}
+                  </div>
+                  
+                  {/* CTA Button */}
+                  <div className="p-4 border-t border-gray-100">
+                    <Button 
+                      className="w-full bg-gradient-to-br from-[#0052FF] via-[#1c3ff9] to-[#3B82F6] hover:from-[#0041CC] hover:via-[#1534d4] hover:to-[#2563EB] text-white rounded-full px-6 py-3 text-sm font-semibold shadow-lg btn-shimmer"
+                      onClick={() => {
+                        Analytics.trackCTAClick('AUDIT GRATUIT', 'Mobile Menu');
+                        Analytics.trackAuditRequest('Mobile Menu');
+                        setMobileMenuOpen(false);
+                        handleMenuClick('#contact');
+                      }}
+                    >
+                      AUDIT GRATUIT
+                    </Button>
                   </div>
                   
                   {/* Footer avec contact */}

@@ -1,0 +1,266 @@
+import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
+import { ArrowRight, Phone, X } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import * as Analytics from "@/utils/analytics";
+
+const SharedNavbar = () => {
+  const [scrolled, setScrolled] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 50);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const menuItems = [
+    { label: "Accueil", href: "/", icon: "🏠" },
+    { label: "Mécanisme", href: "/#mechanism", icon: "⚙️" },
+    { label: "Tarifs", href: "/#pricing", icon: "💰" },
+    { label: "Blog", href: "/blog", icon: "📝" },
+    { label: "FAQ", href: "/#faq", icon: "❓" },
+    { label: "Contact", href: "/#contact", icon: "📞" }
+  ];
+
+  const handleMenuClick = (href) => {
+    setMobileMenuOpen(false);
+    
+    // Si c'est un lien externe (commence par /), ne rien faire (Link s'en occupe)
+    if (href.startsWith('/') && !href.startsWith('/#')) {
+      return;
+    }
+    
+    // Pour les liens /#section, naviguer vers la homepage puis scroller
+    if (href.startsWith('/#')) {
+      window.location.href = href;
+    } else if (href === "/") {
+      // Déjà géré par Link
+      return;
+    }
+  };
+
+  const handleDesktopMenuClick = (href) => {
+    // Pour les liens /#section depuis le blog, naviguer vers la homepage
+    if (href.startsWith('/#')) {
+      window.location.href = href;
+    }
+  };
+
+  return (
+    <motion.nav
+      initial={{ y: -100 }}
+      animate={{ y: 0 }}
+      transition={{ duration: 0.6 }}
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        scrolled ? "glassmorphism shadow-premium" : "bg-transparent"
+      }`}
+      data-testid="navbar"
+    >
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between h-16 md:h-20">
+          <Link to="/" className="flex items-center gap-2" data-testid="logo">
+            <img 
+              src="https://customer-assets.emergentagent.com/job_e9af3148-6038-40b0-a95f-b7160e86bcee/artifacts/v4yy8wt0_logo2.webp" 
+              alt="KAPTA" 
+              loading="eager"
+              fetchPriority="high"
+              className="h-6 md:h-8 w-auto logo-transparent logo-isolated"
+              style={{ 
+                background: 'transparent !important',
+                mixBlendMode: 'multiply',
+                filter: 'contrast(1.4) brightness(1.1) saturate(1.2)',
+                pointerEvents: 'none',
+                userSelect: 'none',
+                WebkitUserDrag: 'none',
+                WebkitTouchCallout: 'none'
+              }}
+              draggable="false"
+              onContextMenu={(e) => e.preventDefault()}
+              onDragStart={(e) => e.preventDefault()}
+            />
+            <div className="flex items-baseline gap-0.5">
+              <span className="text-lg md:text-xl font-black tracking-tight text-[#0A0A0A]" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>KAPTA</span>
+              <span className="text-base md:text-lg font-medium italic text-[#1c3ff9]" style={{ fontFamily: 'Inter, sans-serif' }}>media</span>
+            </div>
+          </Link>
+          
+          <div className="hidden md:flex items-center gap-8">
+            <button 
+              onClick={() => {
+                Analytics.trackMenuClick('Mécanisme');
+                handleDesktopMenuClick('/#mechanism');
+              }} 
+              className="text-sm font-medium text-[#52525B] hover:text-[#0A0A0A] transition-colors"
+            >
+              Mécanisme
+            </button>
+            <button 
+              onClick={() => {
+                Analytics.trackMenuClick('Tarifs');
+                handleDesktopMenuClick('/#pricing');
+              }} 
+              className="text-sm font-medium text-[#52525B] hover:text-[#0A0A0A] transition-colors"
+            >
+              Tarifs
+            </button>
+            <Link 
+              to="/blog"
+              onClick={() => Analytics.trackMenuClick('Blog')}
+              className="text-sm font-medium text-[#52525B] hover:text-[#0A0A0A] transition-colors"
+            >
+              Blog
+            </Link>
+            <button 
+              onClick={() => {
+                Analytics.trackMenuClick('FAQ');
+                handleDesktopMenuClick('/#faq');
+              }} 
+              className="text-sm font-medium text-[#52525B] hover:text-[#0A0A0A] transition-colors"
+            >
+              FAQ
+            </button>
+            <Button 
+              data-testid="cta-audit-desktop"
+              className="bg-[#1c3ff9] hover:bg-[#1534d4] text-white rounded-full px-6 btn-shimmer"
+              onClick={() => {
+                Analytics.trackCTAClick('AUDIT GRATUIT', 'Navbar Desktop');
+                Analytics.trackAuditRequest('Navbar Desktop');
+                handleDesktopMenuClick('/#contact');
+              }}
+            >
+              AUDIT GRATUIT
+            </Button>
+          </div>
+
+          {/* Mobile Menu Button */}
+          <div className="md:hidden relative">
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="flex items-center justify-center w-12 h-12 rounded-full bg-white/20 backdrop-blur-md border border-white/30 shadow-lg transition-all duration-300 hover:scale-110 hover:bg-white/30"
+              data-testid="mobile-menu-button"
+            >
+              <motion.div
+                animate={{ rotate: mobileMenuOpen ? 180 : 0 }}
+                transition={{ duration: 0.3 }}
+              >
+                {mobileMenuOpen ? (
+                  <X className="w-5 h-5 text-[#1c3ff9]" />
+                ) : (
+                  <div className="flex flex-col gap-1">
+                    <div className="w-4 h-0.5 bg-[#1c3ff9] rounded-full" />
+                    <div className="w-4 h-0.5 bg-[#1c3ff9] rounded-full" />
+                    <div className="w-4 h-0.5 bg-[#1c3ff9] rounded-full" />
+                  </div>
+                )}
+              </motion.div>
+            </button>
+
+            {/* Mobile Menu Dropdown */}
+            {mobileMenuOpen && (
+              <>
+                {/* Overlay */}
+                <div 
+                  className="fixed inset-0 bg-black/20 backdrop-blur-sm z-40"
+                  onClick={() => setMobileMenuOpen(false)}
+                />
+                
+                {/* Menu */}
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.95, y: -10 }}
+                  animate={{ opacity: 1, scale: 1, y: 0 }}
+                  exit={{ opacity: 0, scale: 0.95, y: -10 }}
+                  transition={{ duration: 0.2 }}
+                  className="absolute top-16 right-0 w-64 bg-white rounded-2xl shadow-2xl border border-gray-100 overflow-hidden z-50"
+                >
+                  <div className="p-2">
+                    {menuItems.map((item, index) => {
+                      const isRoute = item.href.startsWith('/') && !item.href.startsWith('/#');
+                      
+                      return (
+                        <motion.div
+                          key={item.label}
+                          initial={{ opacity: 0, x: 20 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{ duration: 0.2, delay: index * 0.05 }}
+                        >
+                          {isRoute ? (
+                            <Link
+                              to={item.href}
+                              onClick={() => {
+                                Analytics.trackMenuClick(item.label);
+                                setMobileMenuOpen(false);
+                              }}
+                              className="w-full flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-[#1c3ff9]/5 transition-all duration-200 group"
+                            >
+                              <span className="text-lg group-hover:scale-110 transition-transform">
+                                {item.icon}
+                              </span>
+                              <span className="text-sm font-medium text-[#0A0A0A] group-hover:text-[#1c3ff9] transition-colors">
+                                {item.label}
+                              </span>
+                              <ArrowRight className="w-4 h-4 text-[#A1A1AA] group-hover:text-[#1c3ff9] group-hover:translate-x-1 transition-all ml-auto" />
+                            </Link>
+                          ) : (
+                            <button
+                              onClick={() => {
+                                Analytics.trackMenuClick(item.label);
+                                handleMenuClick(item.href);
+                              }}
+                              className="w-full flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-[#1c3ff9]/5 transition-all duration-200 group"
+                            >
+                              <span className="text-lg group-hover:scale-110 transition-transform">
+                                {item.icon}
+                              </span>
+                              <span className="text-sm font-medium text-[#0A0A0A] group-hover:text-[#1c3ff9] transition-colors">
+                                {item.label}
+                              </span>
+                              <ArrowRight className="w-4 h-4 text-[#A1A1AA] group-hover:text-[#1c3ff9] group-hover:translate-x-1 transition-all ml-auto" />
+                            </button>
+                          )}
+                        </motion.div>
+                      );
+                    })}
+                  </div>
+                  
+                  {/* CTA Button */}
+                  <div className="p-4 border-t border-gray-100">
+                    <Button 
+                      className="w-full bg-gradient-to-br from-[#0052FF] via-[#1c3ff9] to-[#3B82F6] hover:from-[#0041CC] hover:via-[#1534d4] hover:to-[#2563EB] text-white rounded-full px-6 py-3 text-sm font-semibold shadow-lg btn-shimmer"
+                      onClick={() => {
+                        Analytics.trackCTAClick('AUDIT GRATUIT', 'Mobile Menu');
+                        Analytics.trackAuditRequest('Mobile Menu');
+                        setMobileMenuOpen(false);
+                        handleMenuClick('/#contact');
+                      }}
+                    >
+                      AUDIT GRATUIT
+                    </Button>
+                  </div>
+                  
+                  {/* Footer avec contact */}
+                  <div className="border-t border-gray-100 p-4 bg-[#F8F9FA]">
+                    <a 
+                      href="tel:0686018054"
+                      className="flex items-center gap-2 text-sm text-[#52525B] hover:text-[#1c3ff9] transition-colors"
+                      onClick={() => {
+                        Analytics.trackPhoneClick('06 86 01 80 54', 'Mobile Menu');
+                        setMobileMenuOpen(false);
+                      }}
+                    >
+                      <Phone className="w-4 h-4" />
+                      06 86 01 80 54
+                    </a>
+                  </div>
+                </motion.div>
+              </>
+            )}
+          </div>
+        </div>
+      </div>
+    </motion.nav>
+  );
+};
+
+export default SharedNavbar;
