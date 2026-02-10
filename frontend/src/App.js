@@ -533,10 +533,48 @@ const BeforeAfter = () => {
   return (
     <section 
       ref={ref}
-      className="py-8 md:py-12 bg-white relative"
+      className="py-8 md:py-12 bg-gradient-to-br from-white via-[#F8F9FA] to-white relative overflow-hidden"
       data-testid="before-after-section"
     >
-      <div className="max-w-6xl mx-auto px-2 sm:px-6 lg:px-8">
+      {/* Quadrillage subtil */}
+      <div 
+        className="absolute inset-0 opacity-30"
+        style={{
+          backgroundImage: `linear-gradient(rgba(28,63,249,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(28,63,249,0.03) 1px, transparent 1px)`,
+          backgroundSize: '32px 32px'
+        }}
+      />
+      
+      {/* Artefacts blur */}
+      <motion.div
+        className="absolute w-64 h-64 bg-[#EF4444]/8 rounded-full blur-3xl"
+        style={{ top: '20%', left: '5%' }}
+        animate={{
+          y: [0, -25, 0],
+          x: [0, 15, 0],
+        }}
+        transition={{
+          duration: 15,
+          repeat: Infinity,
+          ease: "easeInOut"
+        }}
+      />
+      <motion.div
+        className="absolute w-72 h-72 bg-[#10B981]/6 rounded-full blur-3xl"
+        style={{ bottom: '15%', right: '8%' }}
+        animate={{
+          y: [0, 20, 0],
+          x: [0, -18, 0],
+        }}
+        transition={{
+          duration: 18,
+          repeat: Infinity,
+          ease: "easeInOut",
+          delay: 2
+        }}
+      />
+      
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         <SectionHeader 
           number="01"
           label="La Réalité"
@@ -1402,10 +1440,11 @@ const CaseStudies = () => {
     <>
     <section 
       ref={ref}
-      className="py-12 md:py-32 bg-white relative"
+      className="py-8 md:py-16 bg-white relative overflow-hidden"
       data-testid="case-studies-section"
     >
-      <div className="max-w-6xl mx-auto px-2 sm:px-3 lg:px-4">
+      
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeader 
           number="03"
           label="Résultats"
@@ -1414,18 +1453,17 @@ const CaseStudies = () => {
           description="Découvrez la transformation Google Maps de nos clients sur Tours"
         />
         
-        {/* Grille des cas clients avant/après - Scrollable horizontal simplifié */}
+        {/* Grille des cas clients avant/après - Version améliorée */}
         <div className="overflow-hidden">
           {/* Conteneur scrollable horizontal */}
           <div 
-            className="flex gap-3 md:gap-6 overflow-x-auto pb-4 snap-x snap-mandatory scrollbar-hide px-4 -mx-4"
+            className="flex gap-4 md:gap-6 overflow-x-auto pb-6 snap-x snap-mandatory scrollbar-hide px-4 -mx-4"
             onScroll={(e) => {
               const container = e.target;
               const scrollLeft = container.scrollLeft;
               const maxScroll = container.scrollWidth - container.clientWidth;
               const progress = maxScroll > 0 ? (scrollLeft / maxScroll) * 100 : 0;
               
-              // Update progress bar
               const progressBar = document.querySelector('.case-studies-progress-bar');
               if (progressBar) {
                 progressBar.style.width = `${progress}%`;
@@ -1435,34 +1473,73 @@ const CaseStudies = () => {
             {caseStudies.map((caseStudy, index) => (
               <motion.div
                 key={caseStudy.id}
-                initial={{ opacity: 0, x: 50 }}
-                animate={isInView ? { opacity: 1, x: 0 } : {}}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                className="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden min-w-[440px] md:min-w-[600px] snap-start flex-shrink-0"
+                initial={{ opacity: 0, y: 30 }}
+                animate={isInView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.6, delay: index * 0.15 }}
+                className="bg-white rounded-xl shadow-lg border border-gray-100 overflow-hidden min-w-[340px] md:min-w-[520px] snap-start flex-shrink-0"
               >
-                {/* Section Avant/Après - Côte à côte simplifié */}
+                {/* Badge type de commerce - Simple */}
+                <div className="absolute top-3 left-3 z-10 px-2.5 py-1 rounded-lg bg-white shadow-md border border-gray-200">
+                  <span className="text-xs font-semibold text-gray-700">{caseStudy.type}</span>
+                </div>
+                
+                {/* Section Avant/Après - Côte à côte simple */}
                 <div className="grid grid-cols-2 gap-0">
                   {/* AVANT */}
-                  <div className="relative">
-                    <div className="h-80 md:h-80 relative overflow-hidden">
+                  <div className="relative bg-gray-50">
+                    <div className="absolute top-3 right-3 z-10 px-2 py-0.5 rounded bg-red-500">
+                      <span className="text-[10px] font-bold text-white">AVANT</span>
+                    </div>
+                    
+                    <div className="h-72 md:h-80 p-3 pt-10">
                       <img 
                         src={caseStudy.beforeImage} 
-                        alt={`Fiche Google Maps ${caseStudy.business} avant optimisation KAPTA - faible visibilité`}
+                        alt={`Fiche Google Maps ${caseStudy.title} avant optimisation`}
                         loading="lazy"
-                        className="w-full h-full object-contain object-center bg-gray-100"
+                        className="w-full h-full object-contain object-center rounded"
                       />
                     </div>
                   </div>
                   
                   {/* APRÈS */}
-                  <div className="relative">
-                    <div className="h-80 md:h-80 relative overflow-hidden">
+                  <div className="relative bg-blue-50">
+                    <div className="absolute top-3 left-3 z-10 px-2 py-0.5 rounded bg-green-500">
+                      <span className="text-[10px] font-bold text-white">APRÈS</span>
+                    </div>
+                    
+                    <div className="h-72 md:h-80 p-3 pt-10">
                       <img 
                         src={caseStudy.afterImage} 
-                        alt={`Fiche Google Maps ${caseStudy.business} après optimisation KAPTA - Top 5 résultats locaux`}
+                        alt={`Fiche Google Maps ${caseStudy.title} après optimisation`}
                         loading="lazy"
-                        className="w-full h-full object-contain object-center bg-white"
+                        className="w-full h-full object-contain object-center rounded"
                       />
+                    </div>
+                  </div>
+                </div>
+                
+                {/* Footer avec résultats - Épuré */}
+                <div className="p-4 bg-gray-50 border-t border-gray-100">
+                  <div className="flex items-center justify-between mb-3">
+                    <h3 className="font-bold text-sm text-gray-900">{caseStudy.title}</h3>
+                    <div className="flex items-center gap-1 text-xs text-gray-500">
+                      <MapPin className="w-3 h-3" />
+                      <span>{caseStudy.location}</span>
+                    </div>
+                  </div>
+                  
+                  <div className="grid grid-cols-3 gap-2">
+                    <div className="text-center p-2 rounded bg-white">
+                      <div className="text-xs font-bold text-[#1c3ff9]">{caseStudy.results.position.split(' → ')[1]}</div>
+                      <div className="text-[10px] text-gray-500">Position</div>
+                    </div>
+                    <div className="text-center p-2 rounded bg-white">
+                      <div className="text-xs font-bold text-green-600">{caseStudy.results.calls}</div>
+                      <div className="text-[10px] text-gray-500">Appels</div>
+                    </div>
+                    <div className="text-center p-2 rounded bg-white">
+                      <div className="text-xs font-bold text-yellow-500">{caseStudy.results.rating.split(' → ')[1]}</div>
+                      <div className="text-[10px] text-gray-500">Note</div>
                     </div>
                   </div>
                 </div>

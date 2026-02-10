@@ -183,6 +183,90 @@ export const trackMenuClick = (menuItem) => {
 };
 
 /**
+ * Track outbound link clicks
+ */
+export const trackOutboundLink = (url, linkText) => {
+  if (typeof window.gtag !== 'undefined') {
+    window.gtag('event', 'click', {
+      event_category: 'outbound',
+      event_label: url,
+      link_text: linkText,
+      transport_type: 'beacon'
+    });
+  }
+  
+  console.log('🔗 Outbound link clicked:', url);
+};
+
+/**
+ * Track form field interactions
+ */
+export const trackFormInteraction = (fieldName, action) => {
+  if (typeof window.gtag !== 'undefined') {
+    window.gtag('event', 'form_interaction', {
+      event_category: 'form',
+      event_label: fieldName,
+      action: action, // 'focus', 'blur', 'error'
+      value: 1
+    });
+  }
+};
+
+/**
+ * Track time on page
+ */
+export const trackTimeOnPage = (seconds) => {
+  if (typeof window.gtag !== 'undefined') {
+    window.gtag('event', 'time_on_page', {
+      event_category: 'engagement',
+      event_label: `${Math.floor(seconds / 60)} minutes`,
+      value: seconds
+    });
+  }
+};
+
+/**
+ * Track search queries (blog search)
+ */
+export const trackSearch = (searchTerm, resultsCount) => {
+  if (typeof window.gtag !== 'undefined') {
+    window.gtag('event', 'search', {
+      search_term: searchTerm,
+      results_count: resultsCount
+    });
+  }
+  
+  console.log('🔍 Search tracked:', searchTerm, 'Results:', resultsCount);
+};
+
+/**
+ * Track 404 errors
+ */
+export const track404Error = (path) => {
+  if (typeof window.gtag !== 'undefined') {
+    window.gtag('event', 'exception', {
+      description: `404_error: ${path}`,
+      fatal: false
+    });
+  }
+  
+  console.log('❌ 404 Error tracked:', path);
+};
+
+/**
+ * Track user engagement score
+ */
+export const trackEngagementScore = (score) => {
+  if (typeof window.gtag !== 'undefined') {
+    window.gtag('event', 'engagement_score', {
+      event_category: 'engagement',
+      event_label: score >= 70 ? 'high' : score >= 40 ? 'medium' : 'low',
+      value: score
+    });
+  }
+};
+
+/**
  * Track FAQ interaction
  */
 export const trackFAQClick = (question) => {
@@ -321,6 +405,34 @@ export const initAnalytics = () => {
     });
   });
   
+  // Track time on page
+  const startTime = Date.now();
+  window.addEventListener('beforeunload', () => {
+    const timeSpent = Math.floor((Date.now() - startTime) / 1000);
+    if (timeSpent > 10) { // Only track if more than 10 seconds
+      trackTimeOnPage(timeSpent);
+    }
+  });
+  
+  // Calculate and track engagement score on page exit
+  let engagementScore = 0;
+  window.addEventListener('beforeunload', () => {
+    const timeSpent = Math.floor((Date.now() - startTime) / 1000);
+    
+    // Score based on time (max 40 points)
+    engagementScore += Math.min(timeSpent / 3, 40);
+    
+    // Score based on scroll (max 30 points)
+    const maxScroll = Math.max(...Object.keys(scrollTracked).filter(k => scrollTracked[k]).map(Number));
+    engagementScore += (maxScroll / 90) * 30;
+    
+    // Score based on interactions (max 30 points)
+    const interactions = parseInt(sessionStorage.getItem('kapta_interactions') || '0');
+    engagementScore += Math.min(interactions * 5, 30);
+    
+    trackEngagementScore(Math.round(engagementScore));
+  });
+  
   console.log('✅ Analytics initialized');
 };
 
@@ -342,6 +454,12 @@ export default {
   trackSectionView,
   trackVideoInteraction,
   trackMenuClick,
+  trackOutboundLink,
+  trackFormInteraction,
+  trackTimeOnPage,
+  trackSearch,
+  track404Error,
+  trackEngagementScore,
   trackFAQClick,
   trackSliderInteraction,
   trackWhatsAppClick,

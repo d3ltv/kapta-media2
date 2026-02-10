@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
+        xmlns:news="http://www.google.com/schemas/sitemap-news/0.9">
   <!-- Page d'accueil -->
   <url>
     <loc>https://kaptamedia.fr/</loc>
@@ -9,7 +10,16 @@
     <priority>1.0</priority>
     <image:image>
       <image:loc>https://kaptamedia.fr/logo2.webp</image:loc>
-      <image:title>KAPTA Media Logo</image:title>
+      <image:title>KAPTA Media - Agence Marketing Local Tours</image:title>
+      <image:caption>Optimisation Google Maps et vidéo professionnelle</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://kaptamedia.fr/garage1.webp</image:loc>
+      <image:title>Avant optimisation Google Maps - Garage</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://kaptamedia.fr/garage2.webp</image:loc>
+      <image:title>Après optimisation Google Maps - Garage</image:title>
     </image:image>
   </url>
    
@@ -28,6 +38,15 @@
     <lastmod>2025-02-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+    <news:news>
+      <news:publication>
+        <news:name>Kapta Media Blog</news:name>
+        <news:language>fr</news:language>
+      </news:publication>
+      <news:publication_date>2025-02-09</news:publication_date>
+      <news:title>5 Raisons d'Optimiser Votre Fiche Google en 2026</news:title>
+      <news:keywords>google maps, référencement local, fiche google, optimisation</news:keywords>
+    </news:news>
   </url>
   
   <url>
@@ -35,6 +54,15 @@
     <lastmod>2025-02-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+    <news:news>
+      <news:publication>
+        <news:name>Kapta Media Blog</news:name>
+        <news:language>fr</news:language>
+      </news:publication>
+      <news:publication_date>2025-02-06</news:publication_date>
+      <news:title>Avis en Ligne : Pourquoi Sont-ils Essentiels ?</news:title>
+      <news:keywords>avis google, e-réputation, avis clients, gestion avis</news:keywords>
+    </news:news>
   </url>
   
   <url>
@@ -42,6 +70,15 @@
     <lastmod>2025-02-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+    <news:news>
+      <news:publication>
+        <news:name>Kapta Media Blog</news:name>
+        <news:language>fr</news:language>
+      </news:publication>
+      <news:publication_date>2025-02-03</news:publication_date>
+      <news:title>Le Pouvoir des Photos et Vidéos sur Votre Fiche Google</news:title>
+      <news:keywords>photos google, vidéo professionnelle, marketing visuel</news:keywords>
+    </news:news>
   </url>
   
   <url>
@@ -49,6 +86,15 @@
     <lastmod>2025-01-31</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+    <news:news>
+      <news:publication>
+        <news:name>Kapta Media Blog</news:name>
+        <news:language>fr</news:language>
+      </news:publication>
+      <news:publication_date>2025-01-31</news:publication_date>
+      <news:title>La Puissance du Copywriting pour Votre SEO Local</news:title>
+      <news:keywords>copywriting, seo local, rédaction web, conversion</news:keywords>
+    </news:news>
   </url>
   
   <url>
@@ -56,5 +102,14 @@
     <lastmod>2025-01-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+    <news:news>
+      <news:publication>
+        <news:name>Kapta Media Blog</news:name>
+        <news:language>fr</news:language>
+      </news:publication>
+      <news:publication_date>2025-01-28</news:publication_date>
+      <news:title>Comment Dépasser Vos Concurrents sur Google en 2026</news:title>
+      <news:keywords>concurrence google, stratégie seo, domination locale</news:keywords>
+    </news:news>
   </url>
 </urlset>
