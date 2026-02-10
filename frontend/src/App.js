@@ -533,7 +533,7 @@ const BeforeAfter = () => {
   return (
     <section 
       ref={ref}
-      className="py-12 md:py-20 bg-white relative"
+      className="py-8 md:py-12 bg-white relative"
       data-testid="before-after-section"
     >
       <div className="max-w-6xl mx-auto px-2 sm:px-6 lg:px-8">
@@ -791,42 +791,42 @@ const BeforeAfter = () => {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="hidden md:block relative"
           >
-            <div className="bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden opacity-70 h-[400px] flex flex-col">
-              <div className="bg-white px-4 py-3 border-b border-gray-100 flex items-center gap-2">
-                <div className="w-6 h-6 rounded bg-[#4285F4] flex items-center justify-center">
+            <div className="bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden opacity-70 h-[320px] flex flex-col">
+              <div className="bg-white px-3 py-2 border-b border-gray-100 flex items-center gap-2">
+                <div className="w-5 h-5 rounded bg-[#4285F4] flex items-center justify-center">
                   <span className="text-white text-xs font-bold">G</span>
                 </div>
-                <span className="text-sm font-medium text-gray-700">Google</span>
+                <span className="text-xs font-medium text-gray-700">Google</span>
               </div>
               
-              <div className="h-32 bg-gray-100 relative">
-                <div className="absolute bottom-4 left-4 right-4">
-                  <div className="bg-white/90 rounded-lg p-3">
-                    <h3 className="font-bold text-base text-gray-900">Votre Commerce</h3>
+              <div className="h-24 bg-gray-100 relative">
+                <div className="absolute bottom-2 left-3 right-3">
+                  <div className="bg-white/90 rounded-lg p-2">
+                    <h3 className="font-bold text-sm text-gray-900">Votre Commerce</h3>
                     <div className="flex items-center gap-1 mt-1">
                       {[...Array(3)].map((_, i) => (
-                        <Star key={i} className="w-4 h-4 fill-[#FBBC04] text-[#FBBC04]" />
+                        <Star key={i} className="w-3 h-3 fill-[#FBBC04] text-[#FBBC04]" />
                       ))}
                       {[...Array(2)].map((_, i) => (
-                        <Star key={i} className="w-4 h-4 text-gray-300" />
+                        <Star key={i} className="w-3 h-3 text-gray-300" />
                       ))}
-                      <span className="text-sm text-gray-600 ml-2">3.2 (8 avis)</span>
+                      <span className="text-xs text-gray-600 ml-1">3.2 (8 avis)</span>
                     </div>
                   </div>
                 </div>
               </div>
               
-              <div className="p-4 space-y-3 flex-1 flex flex-col justify-between">
-                <div className="space-y-3">
-                  <div className="flex items-center gap-2 text-sm text-gray-600">
-                    <MapPin className="w-4 h-4" />
+              <div className="p-3 space-y-2 flex-1 flex flex-col justify-between">
+                <div className="space-y-2">
+                  <div className="flex items-center gap-2 text-xs text-gray-600">
+                    <MapPin className="w-3 h-3" />
                     <span>123 Rue de la République, Tours</span>
                   </div>
-                  <div className="flex items-center gap-2 text-sm text-gray-400">
-                    <Phone className="w-4 h-4" />
+                  <div className="flex items-center gap-2 text-xs text-gray-400">
+                    <Phone className="w-3 h-3" />
                     <span>Pas de téléphone visible</span>
                   </div>
-                  <div className="text-sm text-gray-400">
+                  <div className="text-xs text-gray-400">
                     <span>Horaires non renseignés</span>
                   </div>
                 </div>
@@ -836,11 +836,11 @@ const BeforeAfter = () => {
               </div>
             </div>
             
-            <div className="absolute -top-3 -left-3 bg-[#EF4444] text-white px-3 py-1.5 rounded-full text-sm font-bold shadow-lg">
+            <div className="absolute -top-3 -left-3 bg-[#EF4444] text-white px-2 py-1 rounded-full text-xs font-bold shadow-lg">
               VOUS AUJOURD'HUI
             </div>
             
-            <div className="absolute -bottom-3 -right-3 bg-gray-500 text-white px-3 py-1.5 rounded-full text-sm font-bold">
+            <div className="absolute -bottom-3 -right-3 bg-gray-500 text-white px-2 py-1 rounded-full text-xs font-bold">
               Position 15+
             </div>
           </motion.div>
@@ -852,87 +852,87 @@ const BeforeAfter = () => {
             transition={{ duration: 0.6, delay: 0.4 }}
             className="hidden md:block relative"
           >
-            <div className="bg-white rounded-2xl shadow-2xl border-2 border-[#1c3ff9] overflow-hidden relative animate-pulse-glow">
+            <div className="bg-white rounded-2xl shadow-2xl border-2 border-[#1c3ff9] overflow-hidden relative animate-pulse-glow h-[320px] flex flex-col">
               {/* Effet néon subtil */}
               <div className="absolute inset-0 bg-gradient-to-r from-[#1c3ff9]/5 via-transparent to-[#1c3ff9]/5 animate-shimmer"></div>
               
-              <div className="bg-white px-4 py-3 border-b border-gray-100 flex items-center gap-2 relative z-10">
-                <div className="w-6 h-6 rounded bg-[#4285F4] flex items-center justify-center">
+              <div className="bg-white px-3 py-2 border-b border-gray-100 flex items-center gap-2 relative z-10">
+                <div className="w-5 h-5 rounded bg-[#4285F4] flex items-center justify-center">
                   <span className="text-white text-xs font-bold">G</span>
                 </div>
-                <span className="text-sm font-medium text-gray-700">Google</span>
+                <span className="text-xs font-medium text-gray-700">Google</span>
               </div>
               
-              <div className="h-32 bg-gradient-to-br from-blue-50 to-indigo-100 relative overflow-hidden">
+              <div className="h-24 bg-gradient-to-br from-blue-50 to-indigo-100 relative overflow-hidden">
                 <div className="absolute inset-0 bg-gradient-to-r from-[#1c3ff9]/10 to-[#6366f1]/10"></div>
-                <div className="absolute bottom-4 left-4 right-4">
-                  <div className="bg-white/95 backdrop-blur-sm rounded-lg p-3 shadow-lg">
-                    <h3 className="font-bold text-base text-gray-900">Votre Commerce</h3>
+                <div className="absolute bottom-2 left-3 right-3">
+                  <div className="bg-white/95 backdrop-blur-sm rounded-lg p-2 shadow-lg">
+                    <h3 className="font-bold text-sm text-gray-900">Votre Commerce</h3>
                     <div className="flex items-center gap-1 mt-1">
                       {[...Array(5)].map((_, i) => (
-                        <Star key={i} className="w-4 h-4 fill-[#FBBC04] text-[#FBBC04] animate-twinkle" style={{ animationDelay: `${i * 0.1}s` }} />
+                        <Star key={i} className="w-3 h-3 fill-[#FBBC04] text-[#FBBC04] animate-twinkle" style={{ animationDelay: `${i * 0.1}s` }} />
                       ))}
-                      <span className="text-sm text-gray-600 ml-2 font-semibold">4.9 (127 avis)</span>
+                      <span className="text-xs text-gray-600 ml-1 font-semibold">4.9 (127 avis)</span>
                     </div>
                   </div>
                 </div>
               </div>
               
-              <div className="p-4 space-y-3">
+              <div className="p-3 space-y-2 flex-1 overflow-hidden">
                 {/* Section Vidéos intégrée */}
-                <div className="border-t border-gray-100 pt-3">
-                  <div className="flex items-center gap-2 mb-2">
-                    <Camera className="w-4 h-4 text-[#1c3ff9]" />
-                    <span className="text-sm font-medium text-gray-700">Vidéos</span>
+                <div className="border-t border-gray-100 pt-2">
+                  <div className="flex items-center gap-1 mb-1">
+                    <Camera className="w-3 h-3 text-[#1c3ff9]" />
+                    <span className="text-xs font-medium text-gray-700">Vidéos</span>
                   </div>
-                  <div className="grid grid-cols-2 gap-2 mb-3">
-                    <div className="relative bg-gradient-to-br from-blue-100 to-indigo-100 rounded-lg aspect-video overflow-hidden">
+                  <div className="grid grid-cols-2 gap-1.5 mb-2">
+                    <div className="relative bg-gradient-to-br from-blue-100 to-indigo-100 rounded aspect-video overflow-hidden">
                       <div className="absolute inset-0 bg-black/20 flex items-center justify-center">
-                        <div className="w-6 h-6 bg-white/90 rounded-full flex items-center justify-center">
-                          <div className="w-0 h-0 border-l-[4px] border-l-[#1c3ff9] border-y-[3px] border-y-transparent ml-0.5"></div>
+                        <div className="w-4 h-4 bg-white/90 rounded-full flex items-center justify-center">
+                          <div className="w-0 h-0 border-l-[3px] border-l-[#1c3ff9] border-y-[2px] border-y-transparent ml-0.5"></div>
                         </div>
                       </div>
-                      <div className="absolute bottom-1 left-1 bg-black/70 text-white text-xs px-1 rounded">1:24</div>
+                      <div className="absolute bottom-0.5 left-0.5 bg-black/70 text-white text-[10px] px-1 rounded">1:24</div>
                     </div>
-                    <div className="relative bg-gradient-to-br from-purple-100 to-pink-100 rounded-lg aspect-video overflow-hidden">
+                    <div className="relative bg-gradient-to-br from-purple-100 to-pink-100 rounded aspect-video overflow-hidden">
                       <div className="absolute inset-0 bg-black/20 flex items-center justify-center">
-                        <div className="w-6 h-6 bg-white/90 rounded-full flex items-center justify-center">
-                          <div className="w-0 h-0 border-l-[4px] border-l-[#1c3ff9] border-y-[3px] border-y-transparent ml-0.5"></div>
+                        <div className="w-4 h-4 bg-white/90 rounded-full flex items-center justify-center">
+                          <div className="w-0 h-0 border-l-[3px] border-l-[#1c3ff9] border-y-[2px] border-y-transparent ml-0.5"></div>
                         </div>
                       </div>
-                      <div className="absolute bottom-1 left-1 bg-black/70 text-white text-xs px-1 rounded">0:45</div>
+                      <div className="absolute bottom-0.5 left-0.5 bg-black/70 text-white text-[10px] px-1 rounded">0:45</div>
                     </div>
                   </div>
                 </div>
                 
-                <div className="flex items-center gap-2 text-sm text-gray-600">
-                  <MapPin className="w-4 h-4 text-[#1c3ff9]" />
+                <div className="flex items-center gap-1 text-xs text-gray-600">
+                  <MapPin className="w-3 h-3 text-[#1c3ff9]" />
                   <span>123 Rue de la République, Tours</span>
                 </div>
                 
-                <div className="flex items-center gap-2 text-sm">
-                  <div className="w-2 h-2 rounded-full bg-[#10B981]"></div>
+                <div className="flex items-center gap-1 text-xs">
+                  <div className="w-1.5 h-1.5 rounded-full bg-[#10B981]"></div>
                   <span className="text-[#10B981] font-medium">Ouvert</span>
                   <span className="text-gray-600">· Ferme à 19h00</span>
                 </div>
                 
-                <div className="flex items-center gap-2 text-sm text-gray-600">
-                  <Phone className="w-4 h-4 text-[#1c3ff9]" />
+                <div className="flex items-center gap-1 text-xs text-gray-600">
+                  <Phone className="w-3 h-3 text-[#1c3ff9]" />
                   <span>06 86 01 80 54</span>
                 </div>
                 
-                <div className="flex gap-2 pt-2">
-                  <button className="flex-1 bg-[#1c3ff9] text-white py-2 px-4 rounded-lg text-sm font-medium">
+                <div className="flex gap-1.5 pt-1">
+                  <button className="flex-1 bg-[#1c3ff9] text-white py-1.5 px-2 rounded-lg text-xs font-medium">
                     Appeler
                   </button>
-                  <button className="flex-1 border border-gray-300 text-gray-700 py-2 px-4 rounded-lg text-sm font-medium">
+                  <button className="flex-1 border border-gray-300 text-gray-700 py-1.5 px-2 rounded-lg text-xs font-medium">
                     Itinéraire
                   </button>
                 </div>
               </div>
             </div>
             
-            <div className="absolute -top-4 -left-4 bg-[#10B981] text-white px-3 py-1.5 rounded-full text-sm font-bold shadow-xl animate-bounce-slow z-20">
+            <div className="absolute -top-3 -left-3 bg-[#10B981] text-white px-2 py-1 rounded-full text-xs font-bold shadow-xl animate-bounce-slow z-20">
               AVEC KAPTA
             </div>
             
@@ -955,7 +955,7 @@ const ProblemComparison = () => {
   return (
     <section 
       ref={ref}
-      className="py-12 md:py-32 bg-[#F8F9FA] relative overflow-hidden"
+      className="py-8 md:py-12 bg-[#F8F9FA] relative overflow-hidden"
       data-testid="comparison-section"
     >
       {/* Strong Grid Background */}
@@ -1099,46 +1099,46 @@ const ProblemComparison = () => {
             initial={{ opacity: 0, x: -50 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="hidden md:block relative p-5 md:p-8 rounded-2xl bg-white border border-gray-200 shadow-lg hover:shadow-xl transition-all duration-300"
+            className="hidden md:block relative p-4 md:p-5 rounded-2xl bg-white border border-gray-200 shadow-lg hover:shadow-xl transition-all duration-300"
             data-testid="card-problem-impact"
           >
-            <div className="absolute top-3 md:top-4 right-3 md:right-4 px-2 md:px-3 py-1 rounded-full bg-gray-100 text-[10px] md:text-xs font-medium text-gray-600 border border-gray-200">
+            <div className="absolute top-2 md:top-3 right-2 md:right-3 px-2 py-0.5 rounded-full bg-gray-100 text-[10px] font-medium text-gray-600 border border-gray-200">
               💸 Perte quotidienne
             </div>
             
-            <h3 className="text-lg md:text-2xl font-bold text-gray-800 mb-4 md:mb-6 mt-4">
+            <h3 className="text-base md:text-lg font-bold text-gray-800 mb-3 md:mb-4 mt-3">
               SANS OPTIMISATION
             </h3>
             
-            <div className="space-y-4 md:space-y-6">
-              <div className="bg-gray-50 rounded-xl p-4 border border-gray-100">
-                <div className="flex items-center gap-3 mb-2">
-                  <div className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center">
-                    <span className="text-lg">📉</span>
+            <div className="space-y-2.5 md:space-y-3">
+              <div className="bg-gray-50 rounded-lg p-2.5 border border-gray-100">
+                <div className="flex items-center gap-2 mb-1">
+                  <div className="w-6 h-6 rounded-full bg-gray-100 flex items-center justify-center">
+                    <span className="text-sm">📉</span>
                   </div>
-                  <h4 className="font-bold text-gray-800">Clients perdus</h4>
+                  <h4 className="font-bold text-gray-800 text-sm">Clients perdus</h4>
                 </div>
-                <p className="text-sm text-gray-600">15-30 clients/mois choisissent vos concurrents mieux classés</p>
+                <p className="text-xs text-gray-600">15-30 clients/mois choisissent vos concurrents mieux classés</p>
               </div>
               
-              <div className="bg-gray-50 rounded-xl p-4 border border-gray-100">
-                <div className="flex items-center gap-3 mb-2">
-                  <div className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center">
-                    <span className="text-lg">💰</span>
+              <div className="bg-gray-50 rounded-lg p-2.5 border border-gray-100">
+                <div className="flex items-center gap-2 mb-1">
+                  <div className="w-6 h-6 rounded-full bg-gray-100 flex items-center justify-center">
+                    <span className="text-sm">💰</span>
                   </div>
-                  <h4 className="font-bold text-gray-800">Manque à gagner</h4>
+                  <h4 className="font-bold text-gray-800 text-sm">Manque à gagner</h4>
                 </div>
-                <p className="text-sm text-gray-600">3 000€ à 15 000€ de CA perdu par mois selon votre secteur</p>
+                <p className="text-xs text-gray-600">3 000€ à 15 000€ de CA perdu par mois selon votre secteur</p>
               </div>
               
-              <div className="bg-gray-50 rounded-xl p-4 border border-gray-100">
-                <div className="flex items-center gap-3 mb-2">
-                  <div className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center">
-                    <span className="text-lg">⏰</span>
+              <div className="bg-gray-50 rounded-lg p-2.5 border border-gray-100">
+                <div className="flex items-center gap-2 mb-1">
+                  <div className="w-6 h-6 rounded-full bg-gray-100 flex items-center justify-center">
+                    <span className="text-sm">⏰</span>
                   </div>
-                  <h4 className="font-bold text-gray-800">Temps perdu</h4>
+                  <h4 className="font-bold text-gray-800 text-sm">Temps perdu</h4>
                 </div>
-                <p className="text-sm text-gray-600">Chaque mois d'attente = 6 mois de plus pour rattraper</p>
+                <p className="text-xs text-gray-600">Chaque mois d'attente = 6 mois de plus pour rattraper</p>
               </div>
             </div>
           </motion.div>
@@ -1147,46 +1147,46 @@ const ProblemComparison = () => {
             initial={{ opacity: 0, x: 50 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.4 }}
-            className="hidden md:block relative p-5 md:p-8 rounded-2xl bg-white border-2 border-[#1c3ff9] shadow-lg hover:shadow-xl transition-all duration-300"
+            className="hidden md:block relative p-4 md:p-5 rounded-2xl bg-white border-2 border-[#1c3ff9] shadow-lg hover:shadow-xl transition-all duration-300"
             data-testid="card-solution-impact"
           >
-            <div className="absolute top-3 md:top-4 right-3 md:right-4 px-3 md:px-4 py-1.5 rounded-full bg-[#1c3ff9] text-[10px] md:text-xs font-bold text-white shadow-lg">
+            <div className="absolute top-2 md:top-3 right-2 md:right-3 px-2 py-0.5 rounded-full bg-[#1c3ff9] text-[10px] font-bold text-white shadow-lg">
               📈 ROI Immédiat
             </div>
             
-            <h3 className="text-lg md:text-2xl font-bold text-[#1c3ff9] mb-4 md:mb-6 mt-4">
+            <h3 className="text-base md:text-lg font-bold text-[#1c3ff9] mb-3 md:mb-4 mt-3">
               AVEC KAPTA
             </h3>
             
-            <div className="space-y-4 md:space-y-6">
-              <div className="bg-[#1c3ff9]/5 rounded-xl p-4 border border-[#1c3ff9]/10">
-                <div className="flex items-center gap-3 mb-2">
-                  <div className="w-8 h-8 rounded-full bg-[#1c3ff9]/10 flex items-center justify-center">
-                    <span className="text-lg">🎯</span>
+            <div className="space-y-2.5 md:space-y-3">
+              <div className="bg-[#1c3ff9]/5 rounded-lg p-2.5 border border-[#1c3ff9]/10">
+                <div className="flex items-center gap-2 mb-1">
+                  <div className="w-6 h-6 rounded-full bg-[#1c3ff9]/10 flex items-center justify-center">
+                    <span className="text-sm">🎯</span>
                   </div>
-                  <h4 className="font-bold text-gray-800">Clients récupérés</h4>
+                  <h4 className="font-bold text-gray-800 text-sm">Clients récupérés</h4>
                 </div>
-                <p className="text-sm text-gray-600">+127% d'appels en moyenne = 20-40 nouveaux clients/mois</p>
+                <p className="text-xs text-gray-600">+127% d'appels en moyenne = 20-40 nouveaux clients/mois</p>
               </div>
               
-              <div className="bg-[#1c3ff9]/5 rounded-xl p-4 border border-[#1c3ff9]/10">
-                <div className="flex items-center gap-3 mb-2">
-                  <div className="w-8 h-8 rounded-full bg-[#1c3ff9]/10 flex items-center justify-center">
-                    <span className="text-lg">💎</span>
+              <div className="bg-[#1c3ff9]/5 rounded-lg p-2.5 border border-[#1c3ff9]/10">
+                <div className="flex items-center gap-2 mb-1">
+                  <div className="w-6 h-6 rounded-full bg-[#1c3ff9]/10 flex items-center justify-center">
+                    <span className="text-sm">💎</span>
                   </div>
-                  <h4 className="font-bold text-gray-800">ROI calculé</h4>
+                  <h4 className="font-bold text-gray-800 text-sm">ROI calculé</h4>
                 </div>
-                <p className="text-sm text-gray-600">Investissement récupéré en 1-2 semaines selon votre panier moyen</p>
+                <p className="text-xs text-gray-600">Investissement récupéré en 1-2 semaines selon votre panier moyen</p>
               </div>
               
-              <div className="bg-[#1c3ff9]/5 rounded-xl p-4 border border-[#1c3ff9]/10">
-                <div className="flex items-center gap-3 mb-2">
-                  <div className="w-8 h-8 rounded-full bg-[#1c3ff9]/10 flex items-center justify-center">
-                    <span className="text-lg">🚀</span>
+              <div className="bg-[#1c3ff9]/5 rounded-lg p-2.5 border border-[#1c3ff9]/10">
+                <div className="flex items-center gap-2 mb-1">
+                  <div className="w-6 h-6 rounded-full bg-[#1c3ff9]/10 flex items-center justify-center">
+                    <span className="text-sm">🚀</span>
                   </div>
-                  <h4 className="font-bold text-gray-800">Effet boule de neige</h4>
+                  <h4 className="font-bold text-gray-800 text-sm">Effet boule de neige</h4>
                 </div>
-                <p className="text-sm text-gray-600">Plus d'avis positifs = meilleur classement = encore plus de clients</p>
+                <p className="text-xs text-gray-600">Plus d'avis positifs = meilleur classement = encore plus de clients</p>
               </div>
             </div>
           </motion.div>
@@ -1197,16 +1197,16 @@ const ProblemComparison = () => {
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, delay: 0.6 }}
-          className="mt-8 md:mt-12 p-4 md:p-6 lg:p-8 rounded-xl md:rounded-2xl bg-white border border-[#1c3ff9]/20 shadow-lg"
+          className="mt-6 md:mt-8 p-4 md:p-4 rounded-xl bg-white border border-[#1c3ff9]/20 shadow-lg"
         >
           <motion.div 
             initial={{ opacity: 0, filter: "blur(10px)" }}
             animate={isInView ? { opacity: 1, filter: "blur(0px)" } : {}}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="text-center mb-4 md:mb-6"
+            className="text-center mb-3 md:mb-3"
           >
-            <h3 className="text-lg md:text-xl lg:text-2xl font-bold text-[#0A0A0A] mb-1 md:mb-2">Calculateur d'impact</h3>
-            <p className="text-xs md:text-sm text-[#52525B]">Estimation basée sur nos données sectorielles</p>
+            <h3 className="text-base md:text-base font-bold text-[#0A0A0A] mb-1">Calculateur d'impact</h3>
+            <p className="text-xs text-[#52525B]">Estimation basée sur nos données sectorielles</p>
           </motion.div>
           
           {/* Layout mobile: 2 cartes sur la première ligne, 1 centrée sur la deuxième */}
@@ -1278,54 +1278,54 @@ const ProblemComparison = () => {
             </div>
             
             {/* Layout desktop - 3 cartes en ligne */}
-            <div className="hidden md:grid md:grid-cols-3 md:gap-4 lg:gap-8">
+            <div className="hidden md:grid md:grid-cols-3 md:gap-3">
               <motion.div 
                 initial={{ opacity: 0, scale: 0.8, filter: "blur(8px)" }}
                 animate={isInView ? { opacity: 1, scale: 1, filter: "blur(0px)" } : {}}
                 transition={{ duration: 0.6, delay: 0.4 }}
-                className="text-center p-4 rounded-xl bg-[#1c3ff9]/5 border border-[#1c3ff9]/10"
+                className="text-center p-2.5 rounded-lg bg-[#1c3ff9]/5 border border-[#1c3ff9]/10"
               >
                 <motion.p 
                   initial={{ opacity: 0 }}
                   animate={isInView ? { opacity: 1 } : {}}
                   transition={{ duration: 0.4, delay: 0.8 }}
-                  className="text-2xl lg:text-3xl font-bold text-[#1c3ff9] mb-1"
+                  className="text-lg font-bold text-[#1c3ff9] mb-0.5"
                 >
                   350€
                 </motion.p>
-                <p className="text-sm text-[#52525B]">Investissement unique</p>
+                <p className="text-xs text-[#52525B]">Investissement unique</p>
               </motion.div>
               <motion.div 
                 initial={{ opacity: 0, scale: 0.8, filter: "blur(8px)" }}
                 animate={isInView ? { opacity: 1, scale: 1, filter: "blur(0px)" } : {}}
                 transition={{ duration: 0.6, delay: 0.6 }}
-                className="text-center p-4 rounded-xl bg-[#1c3ff9]/5 border border-[#1c3ff9]/10"
+                className="text-center p-2.5 rounded-lg bg-[#1c3ff9]/5 border border-[#1c3ff9]/10"
               >
                 <motion.p 
                   initial={{ opacity: 0 }}
                   animate={isInView ? { opacity: 1 } : {}}
                   transition={{ duration: 0.4, delay: 1.0 }}
-                  className="text-2xl lg:text-3xl font-bold text-[#1c3ff9] mb-1"
+                  className="text-lg font-bold text-[#1c3ff9] mb-0.5"
                 >
                   +25
                 </motion.p>
-                <p className="text-sm text-[#52525B]">Clients/mois en moyenne</p>
+                <p className="text-xs text-[#52525B]">Clients/mois en moyenne</p>
               </motion.div>
               <motion.div 
                 initial={{ opacity: 0, scale: 0.8, filter: "blur(8px)" }}
                 animate={isInView ? { opacity: 1, scale: 1, filter: "blur(0px)" } : {}}
                 transition={{ duration: 0.6, delay: 0.8 }}
-                className="text-center p-4 rounded-xl bg-[#1c3ff9]/5 border border-[#1c3ff9]/10"
+                className="text-center p-2.5 rounded-lg bg-[#1c3ff9]/5 border border-[#1c3ff9]/10"
               >
                 <motion.p 
                   initial={{ opacity: 0 }}
                   animate={isInView ? { opacity: 1 } : {}}
                   transition={{ duration: 0.4, delay: 1.2 }}
-                  className="text-2xl lg:text-3xl font-bold text-[#1c3ff9] mb-1"
+                  className="text-lg font-bold text-[#1c3ff9] mb-0.5"
                 >
                   ROI 10x
                 </motion.p>
-                <p className="text-sm text-[#52525B]">Retour sur investissement</p>
+                <p className="text-xs text-[#52525B]">Retour sur investissement</p>
               </motion.div>
             </div>
           </div>
@@ -1341,6 +1341,7 @@ const CaseStudies = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
   const [selectedVideo, setSelectedVideo] = useState(null);
+  const [videosExpanded, setVideosExpanded] = useState(false);
 
   const caseStudies = [
     {
@@ -1492,152 +1493,297 @@ const CaseStudies = () => {
           </div>
         </div>
         
-        {/* Titre pour les vidéos - Design moderne */}
+        {/* Section Vidéos - Design cohérent avec le branding */}
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, delay: 0.3 }}
-          className="mt-6 mb-4 relative"
+          className="mt-8 md:mt-12 mb-4 md:mb-6 relative"
         >
-          {/* Design avec ligne et badge */}
-          <div className="flex items-center justify-center mb-3">
-            <div className="flex-1 h-px bg-gradient-to-r from-transparent via-[#1c3ff9]/30 to-transparent"></div>
-            <div className="mx-4 px-4 py-2 bg-white rounded-full border-2 border-[#1c3ff9] shadow-lg relative overflow-hidden group">
-              {/* Effet shimmer */}
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000"></div>
-              
-              <div className="relative z-10 flex items-center gap-2">
-                <div className="w-6 h-6 rounded-full bg-gradient-to-r from-[#1c3ff9] to-[#6366f1] flex items-center justify-center">
-                  <Camera className="w-3 h-3 text-white" />
-                </div>
-                <span className="text-sm font-bold text-[#1c3ff9] whitespace-nowrap">
-                  Nos réalisations vidéo
-                </span>
+          {/* Fond avec points de couleur pour détacher visuellement */}
+          <div className="absolute inset-0 bg-gradient-to-br from-[#1c3ff9]/5 via-transparent to-[#6366f1]/5 rounded-3xl -z-10"></div>
+          <div 
+            className="absolute inset-0 opacity-40 -z-10"
+            style={{
+              backgroundImage: `radial-gradient(circle at 2px 2px, rgba(28,63,249,0.15) 1.5px, transparent 0)`,
+              backgroundSize: '32px 32px'
+            }}
+          />
+          
+          {/* En-tête de section avec cadre quadrillage subtil */}
+          <div className="text-center mb-6 md:mb-8 pt-6 md:pt-8 px-4 relative">
+            {/* Cadre avec quadrillage subtil comme l'élément Impact */}
+            <div className="absolute inset-0 mx-auto max-w-3xl">
+              {/* Fond avec quadrillage subtil */}
+              <div 
+                className="absolute inset-0 rounded-2xl border border-[#1c3ff9]/10 shadow-lg bg-white/80 backdrop-blur-sm overflow-hidden"
+                style={{
+                  backgroundImage: `linear-gradient(rgba(28,63,249,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(28,63,249,0.04) 1px, transparent 1px)`,
+                  backgroundSize: '32px 32px'
+                }}
+              >
+                {/* Artefacts blur flottants subtils */}
+                <motion.div
+                  className="absolute w-32 h-32 bg-[#1c3ff9]/12 rounded-full blur-3xl"
+                  style={{ top: '8%', left: '12%' }}
+                  animate={{
+                    y: [0, -15, 0],
+                    x: [0, 12, 0],
+                    scale: [1, 1.1, 1],
+                  }}
+                  transition={{
+                    duration: 8,
+                    repeat: Infinity,
+                    ease: "easeInOut"
+                  }}
+                />
+                <motion.div
+                  className="absolute w-36 h-36 bg-[#6366f1]/10 rounded-full blur-3xl"
+                  style={{ top: '55%', right: '8%' }}
+                  animate={{
+                    y: [0, 18, 0],
+                    x: [0, -18, 0],
+                    scale: [1, 1.15, 1],
+                  }}
+                  transition={{
+                    duration: 10,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                    delay: 1
+                  }}
+                />
+                <motion.div
+                  className="absolute w-28 h-28 bg-[#1c3ff9]/14 rounded-full blur-2xl"
+                  style={{ bottom: '18%', left: '68%' }}
+                  animate={{
+                    y: [0, -12, 0],
+                    x: [0, 10, 0],
+                    scale: [1, 1.12, 1],
+                  }}
+                  transition={{
+                    duration: 7,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                    delay: 2
+                  }}
+                />
+                <motion.div
+                  className="absolute w-34 h-34 bg-[#3B82F6]/8 rounded-full blur-3xl"
+                  style={{ top: '28%', left: '78%' }}
+                  animate={{
+                    y: [0, 14, 0],
+                    x: [0, -12, 0],
+                    scale: [1, 1.08, 1],
+                  }}
+                  transition={{
+                    duration: 9,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                    delay: 0.5
+                  }}
+                />
               </div>
             </div>
-            <div className="flex-1 h-px bg-gradient-to-r from-[#1c3ff9]/30 via-transparent to-transparent"></div>
-          </div>
-          
-          {/* Description centrée avec style minimaliste */}
-          <div className="text-center">
-            <p className="text-xs text-[#52525B] font-medium">
-              Découvrez les vidéos que nous intégrons sur les fiches Google
-            </p>
             
-            {/* Petit accent visuel */}
-            <div className="mt-2 flex justify-center">
-              <div className="w-8 h-0.5 bg-gradient-to-r from-[#1c3ff9] to-[#6366f1] rounded-full"></div>
+            {/* Contenu au-dessus du quadrillage */}
+            <div className="relative z-10 py-6 md:py-8">
+              <div className="kapta-section-marker justify-center mb-4">
+                <span className="font-mono text-[10px] sm:text-xs text-[#1c3ff9] tracking-widest">04</span>
+                <span className="font-mono text-[10px] sm:text-xs text-[#A1A1AA] uppercase tracking-widest">Portfolio</span>
+              </div>
+              
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-[#0A0A0A] mb-3 md:mb-4 leading-tight">
+                Nos <span className="text-[#1c3ff9]">réalisations vidéo</span>
+              </h2>
+              
+              <p className="text-sm md:text-base text-[#52525B] max-w-2xl mx-auto mb-6">
+                Découvrez les vidéos professionnelles que nous créons et intégrons sur les fiches Google
+              </p>
+              
+              {/* Bouton dépliable avec animation de pulsation */}
+              <motion.button
+                onClick={() => {
+                  setVideosExpanded(!videosExpanded);
+                  if (!videosExpanded) {
+                    Analytics.trackVideoInteraction('expand', 'Videos Section');
+                  } else {
+                    Analytics.trackVideoInteraction('collapse', 'Videos Section');
+                  }
+                }}
+                animate={!videosExpanded ? {
+                  scale: [1, 1.05, 1],
+                } : {}}
+                transition={{
+                  duration: 2,
+                  repeat: Infinity,
+                  repeatDelay: 1
+                }}
+                className="inline-flex items-center gap-2 px-5 md:px-6 py-2.5 md:py-3 bg-[#1c3ff9] hover:bg-[#1534d4] text-white rounded-full font-semibold text-sm transition-all duration-300 shadow-lg hover:shadow-xl btn-shimmer group relative"
+              >
+                {/* Effet de pulsation visuel autour du bouton */}
+                {!videosExpanded && (
+                  <motion.div
+                    className="absolute inset-0 rounded-full border-2 border-[#1c3ff9]"
+                    animate={{
+                      scale: [1, 1.3, 1.3],
+                      opacity: [0.5, 0, 0]
+                    }}
+                    transition={{
+                      duration: 2,
+                      repeat: Infinity,
+                      repeatDelay: 1
+                    }}
+                  />
+                )}
+                
+                <Camera className="w-4 h-4" />
+                <span>{videosExpanded ? 'Masquer les vidéos' : 'Voir nos 6 vidéos'}</span>
+                <motion.div
+                  animate={{ rotate: videosExpanded ? 180 : 0 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <ChevronDown className="w-4 h-4" />
+                </motion.div>
+              </motion.button>
             </div>
           </div>
         </motion.div>
         
-        {/* Vidéos YouTube intégrées - ultra compactes mobile */}
-        <div>
-          <div 
-            className="flex gap-0.5 md:gap-1 overflow-x-auto pb-1 snap-x snap-mandatory scrollbar-hide px-0.5 -mx-0.5"
-            onScroll={(e) => {
-              const container = e.target;
-              const scrollLeft = container.scrollLeft;
-              const maxScroll = container.scrollWidth - container.clientWidth;
-              const progress = maxScroll > 0 ? (scrollLeft / maxScroll) * 100 : 0;
-              
-              const progressBar = document.querySelector('.youtube-mini-progress-bar');
-              if (progressBar) {
-                progressBar.style.width = `${progress}%`;
-              }
-            }}
-          >
-            {[
-              { id: 1, videoId: "U6FaRhs9W2c" },
-              { id: 2, videoId: "Pw_k894Lsk0" },
-              { id: 3, videoId: "GnDY-5dOt3Q" },
-              { id: 4, videoId: "EiySSMwTCz4" },
-              { id: 5, videoId: "D9M0JMP_V5I" },
-              { id: 6, videoId: "q2CnDcUkiMM" }
-            ].map((video, index) => (
-              <motion.div
-                key={video.id}
-                initial={{ opacity: 0, x: 5 }}
-                animate={isInView ? { opacity: 1, x: 0 } : {}}
-                transition={{ duration: 0.1, delay: index * 0.01 }}
-                className="bg-white rounded shadow-sm border border-gray-100 overflow-hidden w-[200px] h-[112px] md:w-[300px] md:h-[168px] snap-start flex-shrink-0 cursor-pointer hover:shadow-md transition-all duration-100 group"
-                onClick={() => {
-                  Analytics.trackVideoInteraction('open', `Video ${video.id}`);
-                  setSelectedVideo(video.videoId);
-                }}
-              >
-                <div className="relative w-full h-full overflow-hidden bg-gray-100 rounded">
-                  <img 
-                    src={`https://img.youtube.com/vi/${video.videoId}/hqdefault.jpg`}
-                    alt={`Vidéo professionnelle KAPTA Media - Optimisation Google Maps pour commerce local à Tours`}
-                    loading="lazy"
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-100 rounded"
-                  />
-                  <div className="absolute inset-0 bg-black/10 group-hover:bg-black/20 transition-colors duration-100 rounded"></div>
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="w-6 h-6 md:w-9 md:h-9 bg-red-600 rounded-full flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform duration-100">
-                      <div className="w-0 h-0 border-l-[3.5px] md:border-l-[5px] border-l-white border-y-[3px] md:border-y-[4.5px] border-y-transparent ml-0.5"></div>
+        {/* Conteneur des vidéos avec animation fluide */}
+        <motion.div
+          initial={false}
+          animate={{
+            height: videosExpanded ? 'auto' : 0,
+            opacity: videosExpanded ? 1 : 0
+          }}
+          transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+          className="overflow-hidden"
+        >
+          <div className="pb-4 md:pb-6">
+            {/* Grille responsive pour desktop, scroll horizontal pour mobile */}
+            <div className="hidden md:grid md:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6 px-4">
+              {[
+                { id: 1, videoId: "U6FaRhs9W2c", title: "Vidéo 1" },
+                { id: 2, videoId: "Pw_k894Lsk0", title: "Vidéo 2" },
+                { id: 3, videoId: "GnDY-5dOt3Q", title: "Vidéo 3" },
+                { id: 4, videoId: "EiySSMwTCz4", title: "Vidéo 4" },
+                { id: 5, videoId: "D9M0JMP_V5I", title: "Vidéo 5" },
+                { id: 6, videoId: "q2CnDcUkiMM", title: "Vidéo 6" }
+              ].map((video, index) => (
+                <motion.div
+                  key={video.id}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={videosExpanded ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+                  transition={{ duration: 0.4, delay: videosExpanded ? index * 0.08 : 0 }}
+                  className="group cursor-pointer"
+                  onClick={() => {
+                    Analytics.trackVideoInteraction('open', `Video ${video.id}`);
+                    setSelectedVideo(video.videoId);
+                  }}
+                >
+                  <div className="relative bg-white rounded-xl overflow-hidden shadow-lg border border-gray-100 hover:border-[#1c3ff9]/30 hover:shadow-xl transition-all duration-300">
+                    <div className="relative aspect-video overflow-hidden bg-gray-100">
+                      <img 
+                        src={`https://img.youtube.com/vi/${video.videoId}/hqdefault.jpg`}
+                        alt={`Vidéo professionnelle KAPTA Media ${video.id}`}
+                        loading="lazy"
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent group-hover:from-black/60 transition-all duration-300"></div>
+                      
+                      {/* Bouton play */}
+                      <div className="absolute inset-0 flex items-center justify-center">
+                        <div className="w-14 h-14 bg-[#1c3ff9] rounded-full flex items-center justify-center shadow-xl group-hover:scale-110 group-hover:bg-[#1534d4] transition-all duration-300">
+                          <div className="w-0 h-0 border-l-[8px] border-l-white border-y-[6px] border-y-transparent ml-1"></div>
+                        </div>
+                      </div>
+                      
+                      {/* Badge numéro */}
+                      <div className="absolute top-3 right-3 w-8 h-8 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center shadow-md">
+                        <span className="text-xs font-bold text-[#1c3ff9]">{video.id}</span>
+                      </div>
                     </div>
                   </div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-          
-          {/* Barre de progression rouge mini */}
-          <div className="flex justify-center mt-0.5">
-            <div className="w-6 md:w-10 h-0.5 bg-gray-200 rounded-full overflow-hidden">
+                </motion.div>
+              ))}
+            </div>
+            
+            {/* Version mobile - Scroll horizontal */}
+            <div className="md:hidden">
               <div 
-                className="youtube-mini-progress-bar h-full bg-red-600 rounded-full transition-all duration-200 ease-out"
-                style={{ width: '0%' }}
-              />
+                className="flex gap-4 overflow-x-auto pb-4 snap-x snap-mandatory scrollbar-hide px-4 -mx-4"
+                onScroll={(e) => {
+                  const container = e.target;
+                  const scrollLeft = container.scrollLeft;
+                  const maxScroll = container.scrollWidth - container.clientWidth;
+                  const progress = maxScroll > 0 ? (scrollLeft / maxScroll) * 100 : 0;
+                  
+                  const progressBar = document.querySelector('.youtube-progress-bar');
+                  if (progressBar) {
+                    progressBar.style.width = `${progress}%`;
+                  }
+                }}
+              >
+                {[
+                  { id: 1, videoId: "U6FaRhs9W2c" },
+                  { id: 2, videoId: "Pw_k894Lsk0" },
+                  { id: 3, videoId: "GnDY-5dOt3Q" },
+                  { id: 4, videoId: "EiySSMwTCz4" },
+                  { id: 5, videoId: "D9M0JMP_V5I" },
+                  { id: 6, videoId: "q2CnDcUkiMM" }
+                ].map((video, index) => (
+                  <motion.div
+                    key={video.id}
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={videosExpanded ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.9 }}
+                    transition={{ duration: 0.3, delay: videosExpanded ? index * 0.05 : 0 }}
+                    className="min-w-[280px] snap-start group cursor-pointer"
+                    onClick={() => {
+                      Analytics.trackVideoInteraction('open', `Video ${video.id}`);
+                      setSelectedVideo(video.videoId);
+                    }}
+                  >
+                    <div className="relative bg-white rounded-xl overflow-hidden shadow-lg border border-gray-100">
+                      <div className="relative aspect-video overflow-hidden bg-gray-100">
+                        <img 
+                          src={`https://img.youtube.com/vi/${video.videoId}/hqdefault.jpg`}
+                          alt={`Vidéo professionnelle KAPTA Media ${video.id}`}
+                          loading="lazy"
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent"></div>
+                        
+                        {/* Bouton play */}
+                        <div className="absolute inset-0 flex items-center justify-center">
+                          <div className="w-12 h-12 bg-[#1c3ff9] rounded-full flex items-center justify-center shadow-xl">
+                            <div className="w-0 h-0 border-l-[7px] border-l-white border-y-[5px] border-y-transparent ml-1"></div>
+                          </div>
+                        </div>
+                        
+                        {/* Badge numéro */}
+                        <div className="absolute top-2 right-2 w-7 h-7 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center shadow-md">
+                          <span className="text-xs font-bold text-[#1c3ff9]">{video.id}</span>
+                        </div>
+                      </div>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+              
+              {/* Indicateur de scroll mobile */}
+              <div className="flex flex-col items-center mt-4 space-y-2">
+                <div className="w-32 h-1 bg-gray-200 rounded-full overflow-hidden">
+                  <div 
+                    className="youtube-progress-bar h-full bg-[#1c3ff9] rounded-full transition-all duration-200 ease-out"
+                    style={{ width: '0%' }}
+                  />
+                </div>
+                <div className="flex items-center gap-1 text-[#A1A1AA] text-xs">
+                  <span>Glissez pour voir plus</span>
+                  <ArrowRight className="w-3 h-3" />
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
-        
-        {/* CTA Section - Version compacte avec texture */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, delay: 0.4 }}
-          className="mt-6 bg-gradient-to-r from-[#1c3ff9]/5 to-[#6366f1]/5 rounded-lg px-3 py-3 md:px-2 md:py-6 text-center border border-[#1c3ff9]/20 relative overflow-hidden"
-        >
-          {/* Texture granulée */}
-          <div 
-            className="absolute inset-0 opacity-30"
-            style={{
-              backgroundImage: `radial-gradient(circle at 1px 1px, rgba(28,63,249,0.15) 1px, transparent 0)`,
-              backgroundSize: '8px 8px'
-            }}
-          />
-          
-          {/* Contenu par-dessus la texture */}
-          <div className="relative z-10">
-            <div className="w-8 h-8 md:w-12 md:h-12 rounded-full bg-[#1c3ff9] flex items-center justify-center mx-auto mb-2 md:mb-3 shadow-lg">
-              <Trophy className="w-4 h-4 md:w-6 md:h-6 text-white" />
-            </div>
-            
-            <h3 className="text-sm md:text-xl font-bold text-[#0A0A0A] mb-1 md:mb-2">
-              Votre commerce mérite le même succès
-            </h3>
-            
-            <p className="text-xs md:text-sm text-[#52525B] mb-3 md:mb-4 max-w-lg mx-auto leading-tight">
-              Ces résultats ne sont pas de la chance. C'est notre méthode éprouvée qui transforme 
-              votre visibilité Google Maps en 14 jours.
-            </p>
-            
-            <Button 
-              className="bg-[#1c3ff9] hover:bg-[#1534d4] text-white rounded-full px-4 py-2 md:px-6 md:py-3 text-xs md:text-sm font-semibold btn-shimmer shadow-lg"
-              onClick={() => {
-                Analytics.trackCTAClick('RÉSERVER MON AUDIT GRATUIT', 'Case Studies Section');
-                Analytics.trackAuditRequest('Case Studies Section');
-                document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
-              }}
-              data-testid="cta-case-studies"
-            >
-              RÉSERVER MON AUDIT GRATUIT
-              <ArrowRight className="ml-1 md:ml-2 w-3 h-3 md:w-4 md:h-4" />
-            </Button>
           </div>
         </motion.div>
       </div>
@@ -1760,7 +1906,7 @@ const Mechanism = () => {
     <section 
       id="mechanism"
       ref={ref}
-      className="py-12 md:py-32 bg-white relative"
+      className="py-4 md:py-8 bg-white relative"
       data-testid="mechanism-section"
     >
       {/* Floating brand pins */}
@@ -1770,7 +1916,7 @@ const Mechanism = () => {
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         <SectionHeader 
-          number="04"
+          number="05"
           label="Comment ça marche"
           title="4 ÉTAPES,"
           highlight="14 JOURS"
@@ -1779,69 +1925,70 @@ const Mechanism = () => {
         
         {/* Steps */}
         <div className="relative">
-          {/* Connecting Line SVG */}
-          <svg 
-            className="hidden lg:block absolute top-1/2 left-0 right-0 -translate-y-1/2 h-1 overflow-visible"
-            style={{ zIndex: 0 }}
-          >
-            <motion.line
-              x1="12.5%"
-              y1="50%"
-              x2="87.5%"
-              y2="50%"
-              stroke="#E4E4E7"
-              strokeWidth="2"
-              strokeDasharray="8 4"
-            />
-            <motion.line
-              x1="12.5%"
-              y1="50%"
-              x2="87.5%"
-              y2="50%"
-              stroke="#1c3ff9"
-              strokeWidth="2"
-              initial={{ pathLength: 0 }}
-              animate={isInView ? { pathLength: (activeStep + 1) / 4 } : {}}
-              transition={{ duration: 0.5, ease: "easeOut" }}
-            />
-          </svg>
-          
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-6 relative z-10">
             {steps.map((step, i) => (
-              <motion.div
-                key={step.id}
-                initial={{ opacity: 0, y: 30 }}
-                animate={isInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.5, delay: i * 0.15 }}
-                className={`relative p-4 md:p-6 rounded-2xl bg-white border-2 transition-all duration-500 card-hover ${
-                  i <= activeStep 
-                    ? "border-[#1c3ff9] shadow-glow-sm" 
-                    : "border-[#E4E4E7]"
-                }`}
-                data-testid={`step-${step.id}`}
-              >
-                <div className={`w-10 h-10 md:w-12 md:h-12 rounded-xl flex items-center justify-center mb-3 md:mb-4 transition-colors duration-500 ${
-                  i <= activeStep ? "bg-[#1c3ff9]" : "bg-[#F8F9FA]"
-                }`}>
-                  <step.icon className={`w-5 h-5 md:w-6 md:h-6 transition-colors duration-500 ${
-                    i <= activeStep ? "text-white" : "text-[#52525B]"
-                  }`} />
-                </div>
+              <div key={step.id} className="relative">
+                <motion.div
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={isInView ? { opacity: 1, y: 0 } : {}}
+                  transition={{ duration: 0.5, delay: i * 0.15 }}
+                  className={`relative p-4 md:p-6 rounded-2xl bg-white border-2 transition-all duration-500 card-hover ${
+                    i <= activeStep 
+                      ? "border-[#1c3ff9] shadow-glow-sm" 
+                      : "border-[#E4E4E7]"
+                  }`}
+                  data-testid={`step-${step.id}`}
+                >
+                  <div className={`w-10 h-10 md:w-12 md:h-12 rounded-xl flex items-center justify-center mb-3 md:mb-4 transition-colors duration-500 ${
+                    i <= activeStep ? "bg-[#1c3ff9]" : "bg-[#F8F9FA]"
+                  }`}>
+                    <step.icon className={`w-5 h-5 md:w-6 md:h-6 transition-colors duration-500 ${
+                      i <= activeStep ? "text-white" : "text-[#52525B]"
+                    }`} />
+                  </div>
+                  
+                  <span className="font-mono text-[10px] md:text-xs text-[#A1A1AA] mb-1 md:mb-2 block">{step.id}</span>
+                  <h3 className="text-sm md:text-lg font-bold text-[#0A0A0A] mb-1 md:mb-2">{step.title}</h3>
+                  <p className="text-[11px] md:text-sm text-[#52525B] leading-relaxed">{step.description}</p>
+                  
+                  {/* Coche verte qui apparaît après l'animation de la ligne */}
+                  {i <= activeStep && (
+                    <motion.div
+                      initial={{ scale: 0, rotate: -180 }}
+                      animate={{ scale: 1, rotate: 0 }}
+                      transition={{ 
+                        duration: 0.5,
+                        delay: i * 1.2 + 0.8,
+                        type: "spring",
+                        stiffness: 200
+                      }}
+                      className="absolute -top-1.5 -right-1.5 md:-top-2 md:-right-2 w-5 h-5 md:w-6 md:h-6 rounded-full bg-[#10B981] flex items-center justify-center shadow-lg"
+                    >
+                      <Check className="w-3 h-3 md:w-4 md:h-4 text-white" />
+                    </motion.div>
+                  )}
+                </motion.div>
                 
-                <span className="font-mono text-[10px] md:text-xs text-[#A1A1AA] mb-1 md:mb-2 block">{step.id}</span>
-                <h3 className="text-sm md:text-lg font-bold text-[#0A0A0A] mb-1 md:mb-2">{step.title}</h3>
-                <p className="text-[11px] md:text-sm text-[#52525B] leading-relaxed">{step.description}</p>
-                
-                {i <= activeStep && (
-                  <motion.div
-                    initial={{ scale: 0 }}
-                    animate={{ scale: 1 }}
-                    className="absolute -top-1.5 -right-1.5 md:-top-2 md:-right-2 w-5 h-5 md:w-6 md:h-6 rounded-full bg-[#10B981] flex items-center justify-center"
-                  >
-                    <Check className="w-3 h-3 md:w-4 md:h-4 text-white" />
-                  </motion.div>
+                {/* Ligne de progression entre les cartes (sauf après la dernière) */}
+                {i < steps.length - 1 && (
+                  <div className="hidden lg:block absolute top-1/2 -right-3 md:-right-6 w-3 md:w-6 h-1 -translate-y-1/2 z-0">
+                    {/* Ligne de fond grise */}
+                    <div className="absolute inset-0 bg-[#E4E4E7] rounded-full" />
+                    
+                    {/* Ligne bleue animée */}
+                    <motion.div
+                      className="absolute inset-0 bg-[#1c3ff9] rounded-full origin-left"
+                      initial={{ scaleX: 0 }}
+                      animate={isInView && activeStep > i ? { scaleX: 1 } : { scaleX: 0 }}
+                      transition={{ 
+                        duration: 0.8,
+                        delay: i * 1.2,
+                        ease: "easeInOut"
+                      }}
+                    />
+                  </div>
                 )}
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>
@@ -1859,26 +2006,76 @@ const Pricing = () => {
     <section 
       id="pricing"
       ref={ref}
-      className="py-12 md:py-32 bg-gradient-to-br from-[#F8F9FA] via-[#F1F5F9] to-[#F8F9FA] relative overflow-hidden"
+      className="py-8 md:py-16 bg-gradient-to-br from-[#F8F9FA] via-[#F1F5F9] to-[#F8F9FA] relative overflow-hidden"
       data-testid="pricing-section"
     >
-      {/* Background elements */}
-      <div className="absolute inset-0 kapta-dots opacity-30" />
+      {/* Quadrillage subtil en fond */}
+      <div 
+        className="absolute inset-0 opacity-50"
+        style={{
+          backgroundImage: `linear-gradient(rgba(28,63,249,0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(28,63,249,0.08) 1px, transparent 1px)`,
+          backgroundSize: '32px 32px'
+        }}
+      />
+      
+      {/* Artefacts blur animés passifs */}
+      <motion.div
+        className="absolute w-64 h-64 bg-[#1c3ff9]/8 rounded-full blur-3xl"
+        style={{ top: '10%', left: '5%' }}
+        animate={{
+          y: [0, -30, 0],
+          x: [0, 20, 0],
+          scale: [1, 1.1, 1],
+        }}
+        transition={{
+          duration: 15,
+          repeat: Infinity,
+          ease: "easeInOut"
+        }}
+      />
+      <motion.div
+        className="absolute w-72 h-72 bg-[#6366f1]/6 rounded-full blur-3xl"
+        style={{ bottom: '10%', right: '5%' }}
+        animate={{
+          y: [0, 25, 0],
+          x: [0, -20, 0],
+          scale: [1, 1.15, 1],
+        }}
+        transition={{
+          duration: 18,
+          repeat: Infinity,
+          ease: "easeInOut",
+          delay: 2
+        }}
+      />
+      <motion.div
+        className="absolute w-56 h-56 bg-[#3B82F6]/5 rounded-full blur-3xl"
+        style={{ top: '50%', right: '15%' }}
+        animate={{
+          y: [0, -20, 0],
+          x: [0, 15, 0],
+          scale: [1, 1.08, 1],
+        }}
+        transition={{
+          duration: 12,
+          repeat: Infinity,
+          ease: "easeInOut",
+          delay: 4
+        }}
+      />
       
       {/* Decorative elements */}
-      <div className="absolute top-20 left-10 w-20 h-20 bg-[#1c3ff9]/5 rounded-full blur-xl" />
-      <div className="absolute bottom-20 right-10 w-32 h-32 bg-[#1c3ff9]/5 rounded-full blur-xl" />
       <div className="absolute top-1/2 left-1/4 w-2 h-2 bg-[#1c3ff9]/20 rounded-full animate-pulse" />
       <div className="absolute top-1/3 right-1/3 w-1 h-1 bg-[#1c3ff9]/30 rounded-full animate-pulse" style={{animationDelay: '1s'}} />
       
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
         >
           <SectionHeader 
-            number="05"
+            number="06"
             label="Tarif"
             title="TARIF PILOTE"
             highlight="350€"
@@ -1886,50 +2083,74 @@ const Pricing = () => {
           />
         </motion.div>
         
-        {/* Single Pricing Card */}
+        {/* Single Pricing Card - Version compacte */}
         <motion.div
           initial={{ opacity: 0, y: 30, scale: 0.95 }}
           animate={isInView ? { opacity: 1, y: 0, scale: 1 } : {}}
           transition={{ duration: 0.8, delay: 0.2 }}
+          whileInView={{ y: [0, -10, 0] }}
+          viewport={{ once: false }}
           className="max-w-lg mx-auto"
         >
-          <div className="relative p-4 sm:p-6 md:p-8 rounded-2xl bg-white border-2 border-[#1c3ff9] shadow-premium-xl hover:shadow-2xl transition-all duration-300 hover:scale-[1.02]">
-            {/* Glow effect */}
-            <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-[#1c3ff9]/10 via-transparent to-[#1c3ff9]/10 opacity-0 hover:opacity-100 transition-opacity duration-300" />
+          <div className="relative p-4 sm:p-5 md:p-6 rounded-2xl bg-white border-2 border-[#1c3ff9] hover:shadow-2xl transition-all duration-300 hover:scale-[1.02]"
+            style={{
+              boxShadow: '0 20px 60px -15px rgba(28, 63, 249, 0.3), 0 10px 30px -10px rgba(28, 63, 249, 0.2)'
+            }}
+          >
+            {/* Glow effect animé */}
+            <motion.div 
+              className="absolute inset-0 rounded-2xl bg-gradient-to-r from-[#1c3ff9]/10 via-transparent to-[#1c3ff9]/10"
+              animate={{
+                opacity: [0.3, 0.6, 0.3]
+              }}
+              transition={{
+                duration: 3,
+                repeat: Infinity,
+                ease: "easeInOut"
+              }}
+            />
             
             {/* Badge with animation */}
             <motion.div 
               initial={{ scale: 0, rotate: -10 }}
               animate={isInView ? { scale: 1, rotate: 0 } : {}}
-              transition={{ duration: 0.5, delay: 0.5, type: "spring" }}
-              className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-1 rounded-full bg-gradient-to-r from-[#1c3ff9] to-[#1534d4] text-white text-xs font-semibold shadow-lg"
+              whileInView={{ 
+                scale: [1, 1.1, 1],
+                rotate: [0, 5, -5, 0]
+              }}
+              transition={{ 
+                scale: { duration: 2, repeat: Infinity, repeatDelay: 3 },
+                rotate: { duration: 0.5, delay: 0.5 }
+              }}
+              viewport={{ once: false }}
+              className="absolute -top-2.5 left-1/2 -translate-x-1/2 px-3 py-1 rounded-full bg-gradient-to-r from-[#1c3ff9] to-[#1534d4] text-white text-xs font-semibold shadow-lg"
             >
               <span className="relative z-10">5 PLACES RESTANTES</span>
               <div className="absolute inset-0 rounded-full bg-white/20 animate-pulse" />
             </motion.div>
             
             <div className="relative z-10">
-              <div className="text-center mb-4 sm:mb-6 md:mb-8">
-                <p className="text-xs sm:text-sm text-[#52525B] mb-1 sm:mb-2">Installation complète</p>
+              <div className="text-center mb-4 sm:mb-5">
+                <p className="text-xs text-[#52525B] mb-1">Installation complète</p>
                 <div className="flex items-baseline justify-center gap-2">
                   <motion.span 
                     initial={{ scale: 0 }}
                     animate={isInView ? { scale: 1 } : {}}
                     transition={{ duration: 0.6, delay: 0.8, type: "spring" }}
-                    className="text-3xl sm:text-4xl md:text-5xl font-bold text-[#0A0A0A] relative"
+                    className="text-3xl sm:text-4xl font-bold text-[#0A0A0A] relative"
                   >
                     350€
                     <div className="absolute -inset-2 bg-[#1c3ff9]/5 rounded-lg -z-10 animate-pulse" />
                   </motion.span>
-                  <span className="text-sm sm:text-base text-[#52525B]">HT</span>
+                  <span className="text-sm text-[#52525B]">HT</span>
                 </div>
-                <p className="text-xs text-[#A1A1AA] mt-1 sm:mt-2">
-                  <span className="line-through opacity-60">Tarif normal : 790€</span>
-                  <span className="ml-2 text-[#10B981] font-semibold">-56% de réduction</span>
+                <p className="text-xs text-[#A1A1AA] mt-1">
+                  <span className="line-through opacity-60">790€</span>
+                  <span className="ml-2 text-[#10B981] font-semibold">-56%</span>
                 </p>
               </div>
               
-              <ul className="space-y-2 sm:space-y-3 md:space-y-4 mb-4 sm:mb-6 md:mb-8">
+              <ul className="space-y-2 sm:space-y-2.5 mb-4 sm:mb-5">
                 {[
                   "Vidéo professionnelle 4K (30-60 secondes)",
                   "15-20 photos HD de votre établissement",
@@ -1942,12 +2163,12 @@ const Pricing = () => {
                     initial={{ opacity: 0, x: -20 }}
                     animate={isInView ? { opacity: 1, x: 0 } : {}}
                     transition={{ duration: 0.4, delay: 1 + (i * 0.1) }}
-                    className="flex items-start gap-2 sm:gap-3"
+                    className="flex items-start gap-2"
                   >
-                    <div className="w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-gradient-to-r from-[#10B981] to-[#059669] flex items-center justify-center flex-shrink-0 mt-0.5 shadow-sm">
-                      <Check className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-white" />
+                    <div className="w-4 h-4 rounded-full bg-gradient-to-r from-[#10B981] to-[#059669] flex items-center justify-center flex-shrink-0 mt-0.5 shadow-sm">
+                      <Check className="w-2.5 h-2.5 text-white" />
                     </div>
-                    <span className="text-xs sm:text-sm md:text-base text-[#0A0A0A] leading-tight">{item}</span>
+                    <span className="text-xs sm:text-sm text-[#0A0A0A] leading-tight">{item}</span>
                   </motion.li>
                 ))}
               </ul>
@@ -1956,10 +2177,10 @@ const Pricing = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={isInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.5, delay: 1.5 }}
-                className="p-3 sm:p-4 rounded-xl bg-gradient-to-r from-[#10B981]/5 to-[#059669]/5 border border-[#10B981]/20 mb-4 sm:mb-6 relative overflow-hidden"
+                className="p-3 rounded-xl bg-gradient-to-r from-[#10B981]/5 to-[#059669]/5 border border-[#10B981]/20 mb-4 relative overflow-hidden"
               >
                 <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#10B981] to-[#059669]" />
-                <p className="text-xs sm:text-sm text-center text-[#0A0A0A] leading-tight">
+                <p className="text-xs text-center text-[#0A0A0A] leading-tight">
                   <span className="font-semibold">Garantie satisfait ou remboursé :</span> Pas satisfait du travail livré ? Remboursement intégral sous 30 jours.
                 </p>
               </motion.div>
@@ -1970,7 +2191,7 @@ const Pricing = () => {
                 transition={{ duration: 0.5, delay: 1.7 }}
               >
                 <Button 
-                  className="w-full py-4 sm:py-5 md:py-6 bg-gradient-to-r from-[#1c3ff9] to-[#1534d4] hover:from-[#1534d4] hover:to-[#1c3ff9] text-white font-semibold text-sm sm:text-base shadow-glow btn-shimmer relative overflow-hidden group"
+                  className="w-full py-4 sm:py-5 bg-gradient-to-r from-[#1c3ff9] to-[#1534d4] hover:from-[#1534d4] hover:to-[#1c3ff9] text-white font-semibold text-sm shadow-glow btn-shimmer relative overflow-hidden group"
                   data-testid="cta-pricing-premium"
                   onClick={() => {
                     Analytics.trackCTAClick('RÉSERVER MON AUDIT GRATUIT', 'Pricing Section');
@@ -1981,13 +2202,13 @@ const Pricing = () => {
                 >
                   <span className="relative z-10 flex items-center justify-center">
                     RÉSERVER MON AUDIT GRATUIT
-                    <ArrowRight className="ml-2 w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform flex-shrink-0" />
+                    <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform flex-shrink-0" />
                   </span>
                   <div className="absolute inset-0 bg-white/10 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700 skew-x-12" />
                 </Button>
               </motion.div>
               
-              <p className="text-center text-[10px] sm:text-xs text-[#52525B] mt-3 sm:mt-4 opacity-75">
+              <p className="text-center text-[10px] sm:text-xs text-[#52525B] mt-3 opacity-75">
                 En échange du tarif pilote, nous vous demanderons un témoignage vidéo si vous êtes satisfait.
               </p>
             </div>
@@ -2006,27 +2227,33 @@ const FAQ = () => {
   const faqs = [
     {
       question: "Vous avez déjà des clients satisfaits ?",
-      answer: "Nous lançons notre activité sur Tours. Les 5 premiers partenaires sont en cours d'installation. Leurs résultats (avec captures d'écran Google Maps) seront publiés sous 30 jours. C'est pour ça qu'on propose le tarif pilote à 350€ au lieu de 790€."
+      answer: "Nous lançons notre activité sur Tours. Les 5 premiers partenaires sont en cours d'installation. Leurs résultats (avec captures d'écran Google Maps) seront publiés sous 30 jours. C'est pour ça qu'on propose le tarif pilote à 350€ au lieu de 790€.",
+      icon: Trophy
     },
     {
       question: "Pourquoi Tours ?",
-      answer: "On commence par une ville pour bien maîtriser notre processus avant de s'étendre. Tours est notre zone pilote. Les premiers partenaires bénéficient des meilleurs tarifs."
+      answer: "On commence par une ville pour bien maîtriser notre processus avant de s'étendre. Tours est notre zone pilote. Les premiers partenaires bénéficient des meilleurs tarifs.",
+      icon: MapPin
     },
     {
       question: "Combien de temps ça prend vraiment ?",
-      answer: "Audit gratuit : 15 minutes par téléphone. Tournage : 2h chez vous, sans perturber votre service. Mise en ligne : 48h après le tournage. Premiers résultats : 14 jours en moyenne, garantie Top 5 sous 30 jours."
+      answer: "Audit gratuit : 15 minutes par téléphone. Tournage : 2h chez vous, sans perturber votre service. Mise en ligne : 48h après le tournage. Premiers résultats : 14 jours en moyenne, garantie Top 5 sous 30 jours.",
+      icon: Calendar
     },
     {
       question: "C'est un abonnement ?",
-      answer: "Non. Paiement unique de 350€. Pas de frais cachés, pas d'engagement. Vous payez une fois, vous gardez tout à vie : vidéo, photos, optimisations, borne NFC."
+      answer: "Non. Paiement unique de 350€. Pas de frais cachés, pas d'engagement. Vous payez une fois, vous gardez tout à vie : vidéo, photos, optimisations, borne NFC.",
+      icon: Check
     },
     {
       question: "C'est quoi la borne NFC ?",
-      answer: "Un petit support élégant que vous placez à la caisse. Vos clients satisfaits le scannent avec leur smartphone et laissent un avis Google en 10 secondes. C'est le meilleur moyen de collecter des avis positifs sans demander."
+      answer: "Un petit support élégant que vous placez à la caisse. Vos clients satisfaits le scannent avec leur smartphone et laissent un avis Google en 10 secondes. C'est le meilleur moyen de collecter des avis positifs sans demander.",
+      icon: Nfc
     },
     {
       question: "Et si ça ne marche pas ?",
-      answer: "Garantie satisfait ou remboursé. Si vous n'êtes pas satisfait du travail livré (vidéo, photos, optimisation), on vous rembourse intégralement sous 30 jours. Sans discussion."
+      answer: "Garantie satisfait ou remboursé. Si vous n'êtes pas satisfait du travail livré (vidéo, photos, optimisation), on vous rembourse intégralement sous 30 jours. Sans discussion.",
+      icon: ShieldCheck
     }
   ];
 
@@ -2034,36 +2261,90 @@ const FAQ = () => {
     <section 
       id="faq"
       ref={ref}
-      className="py-12 md:py-32 bg-white relative"
+      className="py-8 md:py-16 bg-gradient-to-br from-white via-[#F8F9FA] to-white relative overflow-hidden"
       data-testid="faq-section"
     >
-      {/* Floating brand pins */}
-      <div className="absolute top-24 right-20 w-10 h-10 opacity-5 -rotate-12 hidden md:block">
-        <MapPin className="w-full h-full text-[#1c3ff9]" />
-      </div>
+      {/* Quadrillage subtil en fond */}
+      <div 
+        className="absolute inset-0 opacity-40"
+        style={{
+          backgroundImage: `linear-gradient(rgba(28,63,249,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(28,63,249,0.04) 1px, transparent 1px)`,
+          backgroundSize: '32px 32px'
+        }}
+      />
       
-      <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+      {/* Artefacts blur animés */}
+      <motion.div
+        className="absolute w-48 h-48 bg-[#1c3ff9]/6 rounded-full blur-3xl"
+        style={{ top: '15%', right: '10%' }}
+        animate={{
+          y: [0, -20, 0],
+          x: [0, 15, 0],
+          scale: [1, 1.1, 1],
+        }}
+        transition={{
+          duration: 12,
+          repeat: Infinity,
+          ease: "easeInOut"
+        }}
+      />
+      <motion.div
+        className="absolute w-56 h-56 bg-[#10B981]/5 rounded-full blur-3xl"
+        style={{ bottom: '20%', left: '8%' }}
+        animate={{
+          y: [0, 18, 0],
+          x: [0, -12, 0],
+          scale: [1, 1.08, 1],
+        }}
+        transition={{
+          duration: 14,
+          repeat: Infinity,
+          ease: "easeInOut",
+          delay: 2
+        }}
+      />
+      
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         <SectionHeader 
-          number="06"
+          number="07"
           label="Questions"
           title="VOS QUESTIONS,"
           highlight="NOS RÉPONSES"
         />
         
-        {/* Guarantee Box */}
+        {/* Guarantee Box - Version améliorée */}
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="mb-6 md:mb-10 p-4 md:p-6 rounded-xl md:rounded-2xl bg-[#10B981]/5 border border-[#10B981]/20"
+          whileInView={{ scale: [1, 1.02, 1] }}
+          viewport={{ once: false }}
+          className="mb-6 md:mb-8 p-4 md:p-5 rounded-xl bg-gradient-to-r from-[#10B981]/10 to-[#059669]/10 border-2 border-[#10B981]/30 relative overflow-hidden"
           data-testid="guarantee-box"
+          style={{
+            boxShadow: '0 10px 30px -10px rgba(16, 185, 129, 0.2)'
+          }}
         >
+          {/* Barre verte en haut */}
+          <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#10B981] to-[#059669]" />
+          
           <div className="flex items-start gap-3 md:gap-4">
-            <div className="w-10 h-10 md:w-12 md:h-12 rounded-lg md:rounded-xl bg-[#10B981]/10 flex items-center justify-center flex-shrink-0">
-              <ShieldCheck className="w-5 h-5 md:w-6 md:h-6 text-[#10B981]" />
-            </div>
+            <motion.div 
+              className="w-10 h-10 md:w-12 md:h-12 rounded-xl bg-gradient-to-br from-[#10B981] to-[#059669] flex items-center justify-center flex-shrink-0 shadow-lg"
+              animate={{
+                rotate: [0, 5, -5, 0],
+                scale: [1, 1.1, 1]
+              }}
+              transition={{
+                duration: 3,
+                repeat: Infinity,
+                repeatDelay: 2
+              }}
+            >
+              <ShieldCheck className="w-5 h-5 md:w-6 md:h-6 text-white" />
+            </motion.div>
             <div>
-              <h3 className="text-base md:text-lg font-bold text-[#0A0A0A] mb-0.5 md:mb-1">Garantie 30 Jours</h3>
+              <h3 className="text-base md:text-lg font-bold text-[#0A0A0A] mb-1">Garantie 30 Jours</h3>
               <p className="text-xs md:text-sm text-[#52525B] leading-relaxed">
                 Aucun résultat visible en 30 jours ? Remboursement intégral. Sans question.
               </p>
@@ -2076,24 +2357,35 @@ const FAQ = () => {
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, delay: 0.3 }}
         >
-          <Accordion type="single" collapsible className="space-y-2 md:space-y-4">
+          <Accordion type="single" collapsible className="space-y-3 md:space-y-4">
             {faqs.map((faq, i) => (
-              <AccordionItem 
-                key={i} 
-                value={`item-${i}`}
-                className="border border-[#E4E4E7] rounded-lg md:rounded-xl px-4 md:px-6 data-[state=open]:border-[#1c3ff9] data-[state=open]:shadow-glow-sm transition-all"
-                data-testid={`faq-item-${i}`}
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, x: -20 }}
+                animate={isInView ? { opacity: 1, x: 0 } : {}}
+                transition={{ duration: 0.4, delay: 0.4 + (i * 0.1) }}
               >
-                <AccordionTrigger 
-                  className="text-left text-sm md:text-base font-semibold text-[#0A0A0A] hover:no-underline py-4 md:py-5"
-                  onClick={() => Analytics.trackFAQClick(faq.question)}
+                <AccordionItem 
+                  value={`item-${i}`}
+                  className="border-2 border-[#E4E4E7] rounded-xl px-4 md:px-5 bg-white data-[state=open]:border-[#1c3ff9] data-[state=open]:shadow-lg transition-all duration-300 hover:border-[#1c3ff9]/50"
+                  data-testid={`faq-item-${i}`}
                 >
-                  {faq.question}
-                </AccordionTrigger>
-                <AccordionContent className="text-xs md:text-sm text-[#52525B] pb-4 md:pb-5 leading-relaxed">
-                  {faq.answer}
-                </AccordionContent>
-              </AccordionItem>
+                  <AccordionTrigger 
+                    className="text-left text-sm md:text-base font-semibold text-[#0A0A0A] hover:no-underline py-4 md:py-4 group"
+                    onClick={() => Analytics.trackFAQClick(faq.question)}
+                  >
+                    <div className="flex items-center gap-3 pr-4">
+                      <div className="w-8 h-8 rounded-lg bg-[#1c3ff9]/10 flex items-center justify-center flex-shrink-0 group-data-[state=open]:bg-[#1c3ff9] transition-colors">
+                        <faq.icon className="w-4 h-4 text-[#1c3ff9] group-data-[state=open]:text-white transition-colors" />
+                      </div>
+                      <span>{faq.question}</span>
+                    </div>
+                  </AccordionTrigger>
+                  <AccordionContent className="text-xs md:text-sm text-[#52525B] pb-4 leading-relaxed pl-11">
+                    {faq.answer}
+                  </AccordionContent>
+                </AccordionItem>
+              </motion.div>
             ))}
           </Accordion>
         </motion.div>
