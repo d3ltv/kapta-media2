@@ -3,20 +3,11 @@
   "buildCommand": "cd frontend && yarn build",
   "outputDirectory": "frontend/build",
   "installCommand": "cd frontend && yarn install",
-  "devCommand": "cd frontend && yarn start",
-  "env": {
-    "NODE_OPTIONS": "--max_old_space_size=4096",
-    "GENERATE_SOURCEMAP": "false",
-    "CI": "false",
-    "DISABLE_ESLINT_PLUGIN": "true"
-  },
-  "routes": [
+  "framework": null,
+  "rewrites": [
     {
-      "handle": "filesystem"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/index.html"
+      "source": "/(.*)",
+      "destination": "/index.html"
     }
   ]
 }
