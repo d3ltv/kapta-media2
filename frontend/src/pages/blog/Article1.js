@@ -11,6 +11,41 @@ const Article1 = () => {
   useEffect(() => {
     Analytics.initAnalytics();
     window.scrollTo(0, 0);
+    
+    // Add breadcrumb structured data
+    const breadcrumbScript = document.createElement('script');
+    breadcrumbScript.type = 'application/ld+json';
+    breadcrumbScript.text = JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Accueil",
+          "item": "https://kaptamedia.fr"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Blog",
+          "item": "https://kaptamedia.fr/blog"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "5 Raisons d'Optimiser Votre Fiche Google en 2026",
+          "item": "https://kaptamedia.fr/blog/article1"
+        }
+      ]
+    });
+    document.head.appendChild(breadcrumbScript);
+    
+    return () => {
+      if (breadcrumbScript.parentNode) {
+        breadcrumbScript.parentNode.removeChild(breadcrumbScript);
+      }
+    };
   }, []);
 
   return (
@@ -39,6 +74,15 @@ const Article1 = () => {
               <ArrowLeft className="w-4 h-4" />
               Retour au blog
             </Link>
+
+            {/* Breadcrumb visible */}
+            <nav className="flex items-center gap-2 text-xs text-[#A1A1AA] mb-4" aria-label="Breadcrumb">
+              <Link to="/" className="hover:text-[#1c3ff9] transition-colors">Accueil</Link>
+              <span>/</span>
+              <Link to="/blog" className="hover:text-[#1c3ff9] transition-colors">Blog</Link>
+              <span>/</span>
+              <span className="text-[#52525B]">5 Raisons d'Optimiser Votre Fiche Google</span>
+            </nav>
 
             {/* Category badge - Décollé du bouton */}
             <div className="mb-6">

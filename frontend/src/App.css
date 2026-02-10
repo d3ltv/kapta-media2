@@ -8,11 +8,20 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* Force GPU acceleration pour toutes les animations */
+@media (prefers-reduced-motion: no-preference) {
+  * {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    perspective: 1000px;
+  }
+}
 
 /* Utilisation de transform3d pour activer l'accélération matérielle */
 .card-hover {
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   will-change: transform;
+  transform: translateZ(0);
 }
 
 .card-hover:hover {
@@ -20,27 +29,57 @@
   box-shadow: 0 25px 50px -12px rgba(28, 63, 249, 0.15);
 }
 
-/* Optimisation des animations avec will-change */
+/* Optimisation des animations avec will-change - retirer après animation */
 .animate-pulse-glow {
-  will-change: box-shadow;
+  animation: pulse-glow 2s ease-in-out infinite;
+  transform: translateZ(0);
+}
+
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 20px rgba(28, 63, 249, 0.3); }
+  50% { box-shadow: 0 0 40px rgba(28, 63, 249, 0.5); }
 }
 
 .animate-shimmer {
-  will-change: background-position;
+  animation: shimmer 3s linear infinite;
+  transform: translateZ(0);
+}
+
+@keyframes shimmer {
+  0% { background-position: -1000px 0; }
+  100% { background-position: 1000px 0; }
 }
 
 .animate-twinkle {
-  will-change: opacity, transform;
+  animation: twinkle 1.5s ease-in-out infinite;
+  transform: translateZ(0);
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 1; transform: scale(1) translateZ(0); }
+  50% { opacity: 0.7; transform: scale(0.95) translateZ(0); }
 }
 
 .animate-bounce-slow {
-  will-change: transform;
+  animation: bounce-slow 3s ease-in-out infinite;
+  transform: translateZ(0);
+}
+
+@keyframes bounce-slow {
+  0%, 100% { transform: translateY(0) translateZ(0); }
+  50% { transform: translateY(-10px) translateZ(0); }
 }
 
 /* Optimisation du scroll pour mobile */
 .mobile-scroll-container {
   -webkit-overflow-scrolling: touch;
   scroll-behavior: smooth;
+  overscroll-behavior: contain;
+}
+
+/* Désactiver will-change après animation pour économiser la mémoire */
+.animation-complete {
+  will-change: auto;
 }
 
 /* Préchargement des images critiques */

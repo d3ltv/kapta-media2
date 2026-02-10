@@ -78,6 +78,17 @@ const Blog = () => {
     return matchesSearch && matchesCategory;
   });
 
+  // Track search when user types
+  useEffect(() => {
+    if (searchQuery.length >= 3) {
+      const timer = setTimeout(() => {
+        Analytics.trackSearch(searchQuery, filteredArticles.length);
+      }, 1000); // Debounce 1 seconde
+      
+      return () => clearTimeout(timer);
+    }
+  }, [searchQuery, filteredArticles.length]);
+
   const handleCategoryScroll = (e) => {
     const element = e.target;
     const scrollPercentage = (element.scrollLeft / (element.scrollWidth - element.clientWidth)) * 100;

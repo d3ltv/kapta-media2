@@ -92,13 +92,23 @@
         <link rel="apple-touch-icon" href="%PUBLIC_URL%/favicon.webp" />
         <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.webp" />
         
-        <!-- Preconnect for Performance -->
+        <!-- RSS Feed -->
+        <link rel="alternate" type="application/rss+xml" title="Kapta Media - Blog RSS Feed" href="%PUBLIC_URL%/rss.xml" />
+        
+        <!-- Preconnect for Performance - MAX 4 pour optimiser -->
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-        <link rel="preconnect" href="https://assets.calendly.com" />
         <link rel="preconnect" href="https://www.googletagmanager.com" />
-        <link rel="preconnect" href="https://www.google-analytics.com" />
-        <link rel="preconnect" href="https://www.googleadservices.com" />
+        <link rel="preconnect" href="https://customer-assets.emergentagent.com" />
+        
+        <!-- DNS Prefetch pour les autres (moins prioritaire) -->
+        <link rel="dns-prefetch" href="https://assets.calendly.com" />
+        <link rel="dns-prefetch" href="https://www.google-analytics.com" />
+        <link rel="dns-prefetch" href="https://www.googleadservices.com" />
+        
+        <!-- Preload critical resources -->
+        <link rel="preload" href="https://customer-assets.emergentagent.com/job_e9af3148-6038-40b0-a95f-b7160e86bcee/artifacts/v4yy8wt0_logo2.webp" as="image" type="image/webp" />
+        <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@600&display=swap" as="style" />
         
         <!-- Google Tag Manager / Analytics 4 -->
         <script async src="https://www.googletagmanager.com/gtag/js?id=G-4QS20YLNE2"></script>
@@ -141,10 +151,12 @@
         </script>
         
         <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@600&display=swap" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@600&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
+        <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@600&display=swap" rel="stylesheet" /></noscript>
         
-        <!-- Calendly widget script -->
-        <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
+        <!-- Calendly widget script - Defer loading -->
+        <link rel="preload" href="https://assets.calendly.com/assets/external/widget.js" as="script" />
+        <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" defer></script>
         
         <!-- Microsoft Clarity -->
         <script type="text/javascript">
@@ -234,6 +246,7 @@
                             "text/javascript"),
                             (p.crossOrigin = "anonymous"),
                             (p.async = !0),
+                            (p.defer = !0),
                             (p.src =
                                 s.api_host.replace(
                                     ".i.posthog.com",
@@ -271,13 +284,27 @@
                     }),
                     (e.__SV = 1));
             })(document, window.posthog || []);
-            posthog.init("phc_xAvL2Iq4tFmANRE7kzbKwaSqp1HJjN7x48s3vr0CMjs", {
-                api_host: "https://us.i.posthog.com",
-                person_profiles: "identified_only", // or 'always' to create profiles for anonymous users as well,
-                session_recording: {
-                    recordCrossOriginIframes: true,
-                    capturePerformance: false,
-                },
+            
+            // Charger PostHog après interaction utilisateur
+            let posthogLoaded = false;
+            function loadPostHog() {
+                if (!posthogLoaded) {
+                    posthogLoaded = true;
+                    posthog.init("phc_xAvL2Iq4tFmANRE7kzbKwaSqp1HJjN7x48s3vr0CMjs", {
+                        api_host: "https://us.i.posthog.com",
+                        person_profiles: "identified_only",
+                        session_recording: {
+                            recordCrossOriginIframes: true,
+                            capturePerformance: false,
+                        },
+                    });
+                }
+            }
+            
+            // Charger après 3 secondes ou première interaction
+            setTimeout(loadPostHog, 3000);
+            ['click', 'scroll', 'touchstart'].forEach(event => {
+                document.addEventListener(event, loadPostHog, { once: true, passive: true });
             });
         </script>
     </body>
