@@ -200,10 +200,12 @@ const Navbar = () => {
         <div className="flex items-center justify-between h-16 md:h-20">
           <a href="#" className="flex items-center gap-2" data-testid="logo">
             <img 
-              src="https://customer-assets.emergentagent.com/job_e9af3148-6038-40b0-a95f-b7160e86bcee/artifacts/v4yy8wt0_logo2.webp" 
+              src="/logo.webp" 
               alt="KAPTA Media - Agence marketing local et optimisation Google Maps à Tours" 
               loading="eager"
-              fetchPriority="high"
+              fetchpriority="high"
+              width="32"
+              height="32"
               className="h-6 md:h-8 w-auto logo-transparent logo-isolated"
               style={{ 
                 background: 'transparent !important',

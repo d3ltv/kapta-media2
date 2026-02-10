@@ -95,77 +95,26 @@
         <!-- RSS Feed -->
         <link rel="alternate" type="application/rss+xml" title="Kapta Media - Blog RSS Feed" href="%PUBLIC_URL%/rss.xml" />
         
-        <!-- Preconnect for Performance - MAX 4 pour optimiser -->
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-        <link rel="preconnect" href="https://www.googletagmanager.com" />
-        <link rel="preconnect" href="https://customer-assets.emergentagent.com" />
+        <!-- Preload critical resources - Logo local et font -->
+        <link rel="preload" href="%PUBLIC_URL%/logo.webp" as="image" type="image/webp" fetchpriority="high" />
+        <link rel="preload" href="%PUBLIC_URL%/Inter-SemiBold.woff2" as="font" type="font/woff2" crossorigin />
         
-        <!-- DNS Prefetch pour les autres (moins prioritaire) -->
+        <!-- Self-hosted font -->
+        <style>
+          @font-face {
+            font-family: "Inter";
+            src: url("%PUBLIC_URL%/Inter-SemiBold.woff2") format("woff2");
+            font-weight: 600;
+            font-style: normal;
+            font-display: swap;
+          }
+        </style>
+        
+        <!-- DNS Prefetch pour les scripts tiers (chargés après) -->
+        <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
         <link rel="dns-prefetch" href="https://assets.calendly.com" />
-        <link rel="dns-prefetch" href="https://www.google-analytics.com" />
-        <link rel="dns-prefetch" href="https://www.googleadservices.com" />
-        
-        <!-- Preload critical resources -->
-        <link rel="preload" href="https://customer-assets.emergentagent.com/job_e9af3148-6038-40b0-a95f-b7160e86bcee/artifacts/v4yy8wt0_logo2.webp" as="image" type="image/webp" />
-        <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@600&display=swap" as="style" />
-        
-        <!-- Google Tag Manager / Analytics 4 -->
-        <script async src="https://www.googletagmanager.com/gtag/js?id=G-4QS20YLNE2"></script>
-        <script>
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
-          
-          // Configuration Google Analytics 4
-          gtag('config', 'G-4QS20YLNE2', {
-            'send_page_view': true,
-            'anonymize_ip': true,
-            'cookie_flags': 'SameSite=None;Secure'
-          });
-          
-          // Configuration Google Ads (si tu as un compte Ads)
-          // Remplace 'AW-XXXXXXXXXX' par ton ID Google Ads
-          // gtag('config', 'AW-XXXXXXXXXX');
-        </script>
-        
-        <!-- Google Ads Conversion Tracking -->
-        <script>
-          // Fonction helper pour tracker les conversions
-          window.trackConversion = function(conversionLabel, value) {
-            if (typeof gtag !== 'undefined') {
-              gtag('event', 'conversion', {
-                'send_to': 'AW-XXXXXXXXXX/' + conversionLabel,
-                'value': value || 0,
-                'currency': 'EUR'
-              });
-            }
-          };
-          
-          // Fonction helper pour tracker les événements GA4
-          window.trackEvent = function(eventName, eventParams) {
-            if (typeof gtag !== 'undefined') {
-              gtag('event', eventName, eventParams || {});
-            }
-          };
-        </script>
-        
-        <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@600&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
-        <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@600&display=swap" rel="stylesheet" /></noscript>
-        
-        <!-- Calendly widget script - Defer loading -->
-        <link rel="preload" href="https://assets.calendly.com/assets/external/widget.js" as="script" />
-        <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" defer></script>
-        
-        <!-- Microsoft Clarity -->
-        <script type="text/javascript">
-            (function(c,l,a,r,i,t,y){
-                c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-                t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-                y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-            })(window, document, "clarity", "script", "o8x9j2k3l4");
-        </script>
+        <link rel="dns-prefetch" href="https://www.clarity.ms" />
+        <link rel="dns-prefetch" href="https://us.i.posthog.com" />
         <script>
           // Fallback pour Calendly si le widget ne charge pas
           window.addEventListener('load', function() {
@@ -221,91 +170,86 @@
     <body>
         <noscript>You need to enable JavaScript to run this app.</noscript>
         <div id="root"></div>
+        
+        <!-- Chargement différé de Google Analytics après window.load -->
         <script>
-            !(function (t, e) {
-                var o, n, p, r;
-                e.__SV ||
-                    ((window.posthog = e),
-                    (e._i = []),
-                    (e.init = function (i, s, a) {
-                        function g(t, e) {
-                            var o = e.split(".");
-                            2 == o.length && ((t = t[o[0]]), (e = o[1])),
-                                (t[e] = function () {
-                                    t.push(
-                                        [e].concat(
-                                            Array.prototype.slice.call(
-                                                arguments,
-                                                0,
-                                            ),
-                                        ),
-                                    );
-                                });
-                        }
-                        ((p = t.createElement("script")).type =
-                            "text/javascript"),
-                            (p.crossOrigin = "anonymous"),
-                            (p.async = !0),
-                            (p.defer = !0),
-                            (p.src =
-                                s.api_host.replace(
-                                    ".i.posthog.com",
-                                    "-assets.i.posthog.com",
-                                ) + "/static/array.js"),
-                            (r =
-                                t.getElementsByTagName(
-                                    "script",
-                                )[0]).parentNode.insertBefore(p, r);
-                        var u = e;
-                        for (
-                            void 0 !== a ? (u = e[a] = []) : (a = "posthog"),
-                                u.people = u.people || [],
-                                u.toString = function (t) {
-                                    var e = "posthog";
-                                    return (
-                                        "posthog" !== a && (e += "." + a),
-                                        t || (e += " (stub)"),
-                                        e
-                                    );
-                                },
-                                u.people.toString = function () {
-                                    return u.toString(1) + ".people (stub)";
-                                },
-                                o =
-                                    "init me ws ys ps bs capture je Di ks register register_once register_for_session unregister unregister_for_session Ps getFeatureFlag getFeatureFlagPayload isFeatureEnabled reloadFeatureFlags updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures on onFeatureFlags onSurveysLoaded onSessionId getSurveys getActiveMatchingSurveys renderSurvey canRenderSurvey canRenderSurveyAsync identify setPersonProperties group resetGroups setPersonPropertiesForFlags resetPersonPropertiesForFlags setGroupPropertiesForFlags resetGroupPropertiesForFlags reset get_distinct_id getGroups get_session_id get_session_replay_url alias set_config startSessionRecording stopSessionRecording sessionRecordingStarted captureException loadToolbar get_property getSessionProperty Es $s createPersonProfile Is opt_in_capturing opt_out_capturing has_opted_in_capturing has_opted_out_capturing clear_opt_in_out_capturing Ss debug xs getPageViewId captureTraceFeedback captureTraceMetric".split(
-                                        " ",
-                                    ),
-                                n = 0;
-                            n < o.length;
-                            n++
-                        )
-                            g(u, o[n]);
-                        e._i.push([i, s, a]);
-                    }),
-                    (e.__SV = 1));
-            })(document, window.posthog || []);
-            
-            // Charger PostHog après interaction utilisateur
-            let posthogLoaded = false;
-            function loadPostHog() {
-                if (!posthogLoaded) {
-                    posthogLoaded = true;
-                    posthog.init("phc_xAvL2Iq4tFmANRE7kzbKwaSqp1HJjN7x48s3vr0CMjs", {
-                        api_host: "https://us.i.posthog.com",
-                        person_profiles: "identified_only",
-                        session_recording: {
-                            recordCrossOriginIframes: true,
-                            capturePerformance: false,
-                        },
-                    });
-                }
+          // Helpers pour tracking (disponibles immédiatement)
+          window.dataLayer = window.dataLayer || [];
+          window.trackConversion = function(conversionLabel, value) {
+            if (typeof gtag !== 'undefined') {
+              gtag('event', 'conversion', {
+                'send_to': 'AW-XXXXXXXXXX/' + conversionLabel,
+                'value': value || 0,
+                'currency': 'EUR'
+              });
             }
+          };
+          window.trackEvent = function(eventName, eventParams) {
+            if (typeof gtag !== 'undefined') {
+              gtag('event', eventName, eventParams || {});
+            }
+          };
+          
+          // Charger gtag après window.load
+          window.addEventListener('load', function() {
+            setTimeout(function() {
+              const gtagScript = document.createElement('script');
+              gtagScript.src = 'https://www.googletagmanager.com/gtag/js?id=G-4QS20YLNE2';
+              gtagScript.async = true;
+              document.head.appendChild(gtagScript);
+              
+              gtagScript.onload = function() {
+                function gtag(){window.dataLayer.push(arguments);}
+                window.gtag = gtag;
+                gtag('js', new Date());
+                gtag('config', 'G-4QS20YLNE2', {
+                  'send_page_view': true,
+                  'anonymize_ip': true,
+                  'cookie_flags': 'SameSite=None;Secure'
+                });
+              };
+            }, 1000);
+          });
+        </script>
+        
+        <!-- Chargement différé de Calendly -->
+        <script>
+          window.addEventListener('load', function() {
+            setTimeout(function() {
+              const calendlyScript = document.createElement('script');
+              calendlyScript.src = 'https://assets.calendly.com/assets/external/widget.js';
+              calendlyScript.defer = true;
+              document.head.appendChild(calendlyScript);
+            }, 2000);
+          });
+          
+          // Fallback pour Calendly si le widget ne charge pas
+          setTimeout(function() {
+            const calendlyWidget = document.querySelector('.calendly-inline-widget');
+            const calendlyFallback = document.querySelector('.calendly-fallback');
             
-            // Charger après 3 secondes ou première interaction
-            setTimeout(loadPostHog, 3000);
-            ['click', 'scroll', 'touchstart'].forEach(event => {
-                document.addEventListener(event, loadPostHog, { once: true, passive: true });
-            });
+            if (calendlyWidget && calendlyFallback) {
+              const hasCalendlyContent = calendlyWidget.querySelector('iframe') || calendlyWidget.innerHTML.trim().length > 200;
+              
+              if (!hasCalendlyContent) {
+                calendlyWidget.style.display = 'none';
+                calendlyFallback.style.display = 'block';
+              }
+            }
+          }, 5000);
+        </script>
+        
+        <!-- Chargement différé de Microsoft Clarity -->
+        <script>
+          window.addEventListener('load', function() {
+            setTimeout(function() {
+              (function(c,l,a,r,i,t,y){
+                c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+                t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+                y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+              })(window, document, "clarity", "script", "o8x9j2k3l4");
+            }, 1500);
+          });
         </script>
     </body>
 </html>
