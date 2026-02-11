@@ -62,7 +62,7 @@ const buildImageSrcSet = (imagePath) => {
   const base = imagePath.slice(0, extensionIndex);
   const ext = imagePath.slice(extensionIndex);
 
-  return `${base}-320w${ext} 320w, ${base}-640w${ext} 640w, ${base}-960w${ext} 960w, ${imagePath} 1080w`;
+  return `${base}-320w${ext} 320w, ${base}-560w${ext} 560w, ${base}-640w${ext} 640w, ${base}-960w${ext} 960w, ${imagePath} 1080w`;
 };
 
 const updateScrollProgress = (container, progressRef) => {
@@ -1567,7 +1567,7 @@ const CaseStudies = () => {
                       <img 
                         src={caseStudy.beforeImage} 
                         srcSet={buildImageSrcSet(caseStudy.beforeImage)}
-                        sizes="(max-width: 768px) 220px, 300px"
+                        sizes="(max-width: 768px) 273px, 300px"
                         alt="Avant"
                         width="960"
                         height="1280"
@@ -1584,7 +1584,7 @@ const CaseStudies = () => {
                       <img 
                         src={caseStudy.afterImage} 
                         srcSet={buildImageSrcSet(caseStudy.afterImage)}
-                        sizes="(max-width: 768px) 220px, 300px"
+                        sizes="(max-width: 768px) 273px, 300px"
                         alt="Après"
                         width="960"
                         height="1280"

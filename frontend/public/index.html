@@ -171,7 +171,7 @@
             }
           };
 
-          window.loadAfterInteraction = function(callback, maxDelay) {
+          window.loadAfterInteraction = function(callback) {
             let loaded = false;
             const run = function() {
               if (loaded) return;
@@ -182,10 +182,6 @@
             ['scroll', 'touchstart', 'pointerdown', 'keydown', 'click'].forEach(function(eventName) {
               window.addEventListener(eventName, run, { once: true, passive: true });
             });
-
-            window.addEventListener('load', function() {
-              setTimeout(run, maxDelay || 4000);
-            }, { once: true });
           };
 
           window.loadAfterInteraction(function() {
@@ -204,7 +200,7 @@
                 'cookie_flags': 'SameSite=None;Secure'
               });
             };
-          }, 4500);
+          });
         </script>
         
         <!-- Chargement différé de Microsoft Clarity -->
@@ -217,7 +213,7 @@
                 y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
               })(window, document, "clarity", "script", "o8x9j2k3l4");
             }, 2000);
-          }, 8000);
+          });
         </script>
     </body>
 </html>

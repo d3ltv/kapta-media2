@@ -11,6 +11,16 @@ const sharp = require("sharp");
 
 const PUBLIC_DIR = path.join(__dirname, "../frontend/public");
 const SUPPORTED_EXTENSIONS = new Set([".webp", ".png", ".jpg", ".jpeg"]);
+const CASE_STUDY_BASE_IMAGES = [
+  "garage1.webp",
+  "garage2.webp",
+  "salon1.webp",
+  "salon2.webp",
+  "bistro1.webp",
+  "bistro2.webp",
+  "boulangerie1.webp",
+  "boulangerie2.webp"
+];
 
 const KB = 1024;
 
@@ -46,6 +56,10 @@ function getImagePolicy(filename) {
 
   if (/-640w\.webp$/.test(lower)) {
     return { maxWidth: 640, quality: 66 };
+  }
+
+  if (/-560w\.webp$/.test(lower)) {
+    return { maxWidth: 560, quality: 64 };
   }
 
   if (/-960w\.webp$/.test(lower)) {
@@ -150,10 +164,39 @@ async function ensureOgImage() {
   return ogPath;
 }
 
+async function ensureCaseStudy560Variants() {
+  const generated = [];
+
+  for (const fileName of CASE_STUDY_BASE_IMAGES) {
+    const inputPath = path.join(PUBLIC_DIR, fileName);
+    if (!fs.existsSync(inputPath)) continue;
+
+    const base = fileName.replace(/\.(webp|png|jpe?g)$/i, "");
+    const outputPath = path.join(PUBLIC_DIR, `${base}-560w.webp`);
+
+    await sharp(inputPath)
+      .resize(560, null, {
+        fit: "inside",
+        withoutEnlargement: true
+      })
+      .webp({
+        quality: 64,
+        effort: 6
+      })
+      .toFile(outputPath);
+
+    generated.push(outputPath);
+  }
+
+  return generated;
+}
+
 async function main() {
   if (!fs.existsSync(PUBLIC_DIR)) {
     throw new Error(`Missing public directory: ${PUBLIC_DIR}`);
   }
+
+  await ensureCaseStudy560Variants();
 
   const imageFiles = listImageFiles(PUBLIC_DIR);
   const totalBefore = imageFiles.reduce((acc, file) => acc + fs.statSync(file).size, 0);
@@ -204,4 +247,3 @@ main().catch((error) => {
   console.error(error.message);
   process.exit(1);
 });
-
