@@ -3,6 +3,12 @@
   "outputDirectory": "frontend/build",
   "installCommand": "npm install --prefix frontend --include=dev --legacy-peer-deps",
   "framework": null,
+  "rewrites": [
+    {
+      "source": "/((?!.*\\.).*)",
+      "destination": "/index.html"
+    }
+  ],
   "headers": [
     {
       "source": "/static/(.*)",
@@ -14,7 +20,7 @@
       ]
     },
     {
-      "source": "/(.*)\\.( svg|png|jpg|jpeg|webp|avif|woff2|woff)",
+      "source": "/(.*)\\.(svg|png|jpg|jpeg|webp|avif|woff2|woff)",
       "headers": [
         {
           "key": "Cache-Control",
