@@ -392,18 +392,29 @@ export const initAnalytics = () => {
     90: false
   };
   
-  window.addEventListener('scroll', () => {
-    const scrollPercent = Math.round(
-      (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100
-    );
-    
-    Object.keys(scrollTracked).forEach(threshold => {
-      if (scrollPercent >= threshold && !scrollTracked[threshold]) {
-        trackScrollDepth(threshold);
-        scrollTracked[threshold] = true;
-      }
+  let scrollTicking = false;
+  const handleScroll = () => {
+    if (scrollTicking) return;
+    scrollTicking = true;
+
+    window.requestAnimationFrame(() => {
+      const totalScrollable = document.documentElement.scrollHeight - window.innerHeight;
+      const scrollPercent = totalScrollable > 0
+        ? Math.round((window.scrollY / totalScrollable) * 100)
+        : 0;
+      
+      Object.keys(scrollTracked).forEach(threshold => {
+        if (scrollPercent >= threshold && !scrollTracked[threshold]) {
+          trackScrollDepth(threshold);
+          scrollTracked[threshold] = true;
+        }
+      });
+
+      scrollTicking = false;
     });
-  });
+  };
+
+  window.addEventListener('scroll', handleScroll, { passive: true });
   
   // Track time on page
   const startTime = Date.now();

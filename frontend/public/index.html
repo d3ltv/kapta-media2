@@ -95,8 +95,8 @@
         <!-- RSS Feed -->
         <link rel="alternate" type="application/rss+xml" title="Kapta Media - Blog RSS Feed" href="%PUBLIC_URL%/rss.xml" />
         
-        <!-- Preload critical resources - Logo local et font -->
-        <link rel="preload" href="%PUBLIC_URL%/logo.webp" as="image" type="image/webp" fetchpriority="high" />
+        <!-- Preload critical resources - Logo allégé et font -->
+        <link rel="preload" href="%PUBLIC_URL%/logo-96.webp" as="image" type="image/webp" fetchpriority="high" />
         <link rel="preload" href="%PUBLIC_URL%/Inter-SemiBold.woff2" as="font" type="font/woff2" crossorigin />
         
         <!-- Self-hosted font -->
@@ -115,25 +115,6 @@
         <link rel="dns-prefetch" href="https://assets.calendly.com" />
         <link rel="dns-prefetch" href="https://www.clarity.ms" />
         <link rel="dns-prefetch" href="https://us.i.posthog.com" />
-        <script>
-          // Fallback pour Calendly si le widget ne charge pas
-          window.addEventListener('load', function() {
-            setTimeout(function() {
-              const calendlyWidget = document.querySelector('.calendly-inline-widget');
-              const calendlyFallback = document.querySelector('.calendly-fallback');
-              
-              if (calendlyWidget && calendlyFallback) {
-                // Vérifier si le widget Calendly s'est chargé
-                const hasCalendlyContent = calendlyWidget.querySelector('iframe') || calendlyWidget.innerHTML.trim().length > 200;
-                
-                if (!hasCalendlyContent) {
-                  calendlyWidget.style.display = 'none';
-                  calendlyFallback.style.display = 'block';
-                }
-              }
-            }, 3000); // Attendre 3 secondes pour le chargement
-          });
-        </script>
         <!--
         manifest.json provides metadata used when your web app is installed on a
         user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
@@ -171,7 +152,7 @@
         <noscript>You need to enable JavaScript to run this app.</noscript>
         <div id="root"></div>
         
-        <!-- Chargement différé de Google Analytics après window.load -->
+        <!-- Chargement différé des scripts tiers après interaction -->
         <script>
           // Helpers pour tracking (disponibles immédiatement)
           window.dataLayer = window.dataLayer || [];
@@ -189,67 +170,54 @@
               gtag('event', eventName, eventParams || {});
             }
           };
-          
-          // Charger gtag après window.load
-          window.addEventListener('load', function() {
-            setTimeout(function() {
-              const gtagScript = document.createElement('script');
-              gtagScript.src = 'https://www.googletagmanager.com/gtag/js?id=G-4QS20YLNE2';
-              gtagScript.async = true;
-              document.head.appendChild(gtagScript);
-              
-              gtagScript.onload = function() {
-                function gtag(){window.dataLayer.push(arguments);}
-                window.gtag = gtag;
-                gtag('js', new Date());
-                gtag('config', 'G-4QS20YLNE2', {
-                  'send_page_view': true,
-                  'anonymize_ip': true,
-                  'cookie_flags': 'SameSite=None;Secure'
-                });
-              };
-            }, 1000);
-          });
-        </script>
-        
-        <!-- Chargement différé de Calendly -->
-        <script>
-          window.addEventListener('load', function() {
-            setTimeout(function() {
-              const calendlyScript = document.createElement('script');
-              calendlyScript.src = 'https://assets.calendly.com/assets/external/widget.js';
-              calendlyScript.defer = true;
-              document.head.appendChild(calendlyScript);
-            }, 2000);
-          });
-          
-          // Fallback pour Calendly si le widget ne charge pas
-          setTimeout(function() {
-            const calendlyWidget = document.querySelector('.calendly-inline-widget');
-            const calendlyFallback = document.querySelector('.calendly-fallback');
-            
-            if (calendlyWidget && calendlyFallback) {
-              const hasCalendlyContent = calendlyWidget.querySelector('iframe') || calendlyWidget.innerHTML.trim().length > 200;
-              
-              if (!hasCalendlyContent) {
-                calendlyWidget.style.display = 'none';
-                calendlyFallback.style.display = 'block';
-              }
-            }
-          }, 5000);
+
+          window.loadAfterInteraction = function(callback, maxDelay) {
+            let loaded = false;
+            const run = function() {
+              if (loaded) return;
+              loaded = true;
+              callback();
+            };
+
+            ['scroll', 'touchstart', 'pointerdown', 'keydown', 'click'].forEach(function(eventName) {
+              window.addEventListener(eventName, run, { once: true, passive: true });
+            });
+
+            window.addEventListener('load', function() {
+              setTimeout(run, maxDelay || 4000);
+            }, { once: true });
+          };
+
+          window.loadAfterInteraction(function() {
+            const gtagScript = document.createElement('script');
+            gtagScript.src = 'https://www.googletagmanager.com/gtag/js?id=G-4QS20YLNE2';
+            gtagScript.async = true;
+            document.head.appendChild(gtagScript);
+
+            gtagScript.onload = function() {
+              function gtag(){window.dataLayer.push(arguments);}
+              window.gtag = gtag;
+              gtag('js', new Date());
+              gtag('config', 'G-4QS20YLNE2', {
+                'send_page_view': true,
+                'anonymize_ip': true,
+                'cookie_flags': 'SameSite=None;Secure'
+              });
+            };
+          }, 4500);
         </script>
         
         <!-- Chargement différé de Microsoft Clarity -->
         <script>
-          window.addEventListener('load', function() {
+          window.loadAfterInteraction(function() {
             setTimeout(function() {
               (function(c,l,a,r,i,t,y){
                 c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
                 t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
                 y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
               })(window, document, "clarity", "script", "o8x9j2k3l4");
-            }, 1500);
-          });
+            }, 2000);
+          }, 8000);
         </script>
     </body>
 </html>

@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import "@/App.css";
-import { motion, useInView } from "framer-motion";
+import { motion, useInView, useReducedMotion } from "framer-motion";
 import { 
   ArrowRight, 
   Phone, 
@@ -44,10 +44,102 @@ const staggerContainer = {
   }
 };
 
+const LOGO_SRC_SET = "/logo-64.webp 64w, /logo-96.webp 96w, /logo-128.webp 128w";
+const VIDEO_ITEMS = [
+  { id: 1, videoId: "U6FaRhs9W2c", title: "Vidéo 1" },
+  { id: 2, videoId: "Pw_k894Lsk0", title: "Vidéo 2" },
+  { id: 3, videoId: "GnDY-5dOt3Q", title: "Vidéo 3" },
+  { id: 4, videoId: "EiySSMwTCz4", title: "Vidéo 4" },
+  { id: 5, videoId: "D9M0JMP_V5I", title: "Vidéo 5" },
+  { id: 6, videoId: "q2CnDcUkiMM", title: "Vidéo 6" }
+];
+
+const buildImageSrcSet = (imagePath) => {
+  if (!imagePath || !imagePath.startsWith("/")) return undefined;
+  const extensionIndex = imagePath.lastIndexOf(".");
+  if (extensionIndex === -1) return undefined;
+
+  const base = imagePath.slice(0, extensionIndex);
+  const ext = imagePath.slice(extensionIndex);
+
+  return `${base}-320w${ext} 320w, ${base}-640w${ext} 640w, ${base}-960w${ext} 960w, ${imagePath} 1080w`;
+};
+
+const updateScrollProgress = (container, progressRef) => {
+  if (!container || !progressRef?.current) return;
+  const maxScroll = container.scrollWidth - container.clientWidth;
+  const progress = maxScroll > 0 ? (container.scrollLeft / maxScroll) * 100 : 0;
+  progressRef.current.style.width = `${progress}%`;
+};
+
+const DeferredSection = ({
+  children,
+  minHeight = 480,
+  rootMargin = "350px 0px",
+  className = ""
+}) => {
+  const [shouldRender, setShouldRender] = useState(false);
+  const sectionRef = useRef(null);
+
+  useEffect(() => {
+    if (shouldRender) return;
+
+    let timeoutId = null;
+    let idleId = null;
+    const reveal = () => setShouldRender(true);
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((entry) => entry.isIntersecting)) {
+          reveal();
+          observer.disconnect();
+        }
+      },
+      {
+        threshold: 0.01,
+        rootMargin
+      }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    if (typeof window !== "undefined" && "requestIdleCallback" in window) {
+      idleId = window.requestIdleCallback(reveal, { timeout: 2500 });
+    } else {
+      timeoutId = window.setTimeout(reveal, 2500);
+    }
+
+    return () => {
+      observer.disconnect();
+      if (idleId && typeof window !== "undefined" && "cancelIdleCallback" in window) {
+        window.cancelIdleCallback(idleId);
+      }
+      if (timeoutId) {
+        window.clearTimeout(timeoutId);
+      }
+    };
+  }, [rootMargin, shouldRender]);
+
+  return (
+    <div
+      ref={sectionRef}
+      className={className}
+      style={shouldRender ? undefined : { minHeight }}
+    >
+      {shouldRender ? children : null}
+    </div>
+  );
+};
+
 // Carrousel de texte rotatif
 const RotatingText = () => {
+  const reduceMotion = useReducedMotion();
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [progress, setProgress] = useState(0);
+  const [isMobile, setIsMobile] = useState(
+    typeof window !== "undefined" ? window.innerWidth < 768 : false
+  );
   
   const texts = [
     { text: "Technologie NFC Sans Contact", icon: Nfc },
@@ -61,52 +153,53 @@ const RotatingText = () => {
   ];
 
   useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < 768);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  useEffect(() => {
+    if (isMobile || reduceMotion) return;
+
     const interval = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % texts.length);
-      setProgress(0);
     }, 3500);
-    
-    const progressInterval = setInterval(() => {
-      setProgress((prev) => {
-        if (prev >= 100) return 0;
-        return prev + (100 / 35); // 3500ms / 100ms = 35 steps
-      });
-    }, 100);
-    
+
     return () => {
       clearInterval(interval);
-      clearInterval(progressInterval);
     };
-  }, [texts.length]);
+  }, [isMobile, reduceMotion, texts.length]);
 
-  const CurrentIcon = texts[currentIndex].icon;
+  const displayIndex = isMobile ? 0 : currentIndex;
+  const CurrentIcon = texts[displayIndex].icon;
 
   return (
     <div className="flex flex-col items-center justify-center">
       <div className="h-6 flex items-center justify-center overflow-hidden mb-2">
         <motion.div
-          key={currentIndex}
-          initial={{ opacity: 0, x: 50 }}
-          animate={{ opacity: 1, x: 0 }}
-          exit={{ opacity: 0, x: -50 }}
-          transition={{ duration: 0.8, ease: "easeInOut" }}
+          key={displayIndex}
+          initial={reduceMotion ? false : { opacity: 0, x: 50 }}
+          animate={reduceMotion ? { opacity: 1 } : { opacity: 1, x: 0 }}
+          transition={{ duration: 0.6, ease: "easeInOut" }}
           className="flex items-center gap-2"
         >
           <CurrentIcon className="w-4 h-4 text-[#1c3ff9]" />
           <p className="text-sm text-[#52525B] font-medium">
-            {texts[currentIndex].text}
+            {texts[displayIndex].text}
           </p>
         </motion.div>
       </div>
       
       {/* Barre de progression */}
-      <div className="w-24 h-px bg-gray-100 rounded-full overflow-hidden opacity-30">
+      {!isMobile && !reduceMotion && <div className="w-24 h-px bg-gray-100 rounded-full overflow-hidden opacity-30">
         <motion.div
+          key={`progress-${currentIndex}`}
           className="h-full bg-[#1c3ff9] rounded-full opacity-50"
-          style={{ width: `${progress}%` }}
-          transition={{ duration: 0.1, ease: "linear" }}
+          initial={{ width: "0%" }}
+          animate={{ width: "100%" }}
+          transition={{ duration: 3.5, ease: "linear" }}
         />
-      </div>
+      </div>}
     </div>
   );
 };
@@ -142,7 +235,7 @@ const Navbar = () => {
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50);
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
@@ -188,9 +281,8 @@ const Navbar = () => {
 
   return (
     <motion.nav
-      initial={{ y: -100 }}
+      initial={false}
       animate={{ y: 0 }}
-      transition={{ duration: 0.6 }}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled ? "glassmorphism shadow-premium" : "bg-transparent"
       }`}
@@ -200,12 +292,15 @@ const Navbar = () => {
         <div className="flex items-center justify-between h-16 md:h-20">
           <a href="#" className="flex items-center gap-2" data-testid="logo">
             <img 
-              src="/logo.webp" 
+              src="/logo-96.webp"
+              srcSet={LOGO_SRC_SET}
+              sizes="(max-width: 768px) 24px, 32px"
               alt="KAPTA Media - Agence marketing local et optimisation Google Maps à Tours" 
               loading="eager"
-              fetchpriority="high"
-              width="32"
-              height="32"
+              fetchPriority="high"
+              width="96"
+              height="96"
+              decoding="async"
               className="h-6 md:h-8 w-auto logo-transparent logo-isolated"
               style={{ 
                 background: 'transparent !important',
@@ -425,9 +520,7 @@ const Hero = () => {
           <div className="order-1 lg:order-1 max-w-4xl mx-auto">
             {/* Badge */}
             <motion.div 
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
+              initial={false}
               className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#1c3ff9]/5 border border-[#1c3ff9]/10 mb-8 md:mb-10"
             >
               <span className="w-2 h-2 rounded-full bg-[#10B981] animate-pulse" />
@@ -436,9 +529,7 @@ const Hero = () => {
             
             {/* Main Headline */}
             <motion.h1 
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.1 }}
+              initial={false}
               className="text-4xl sm:text-5xl md:text-6xl font-bold text-[#0A0A0A] leading-[1.05] mb-8 md:mb-10"
             >
               Votre concurrent est{" "}
@@ -449,9 +540,7 @@ const Hero = () => {
             
             {/* Subtitle */}
             <motion.p 
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
+              initial={false}
               className="text-base md:text-lg text-[#52525B] max-w-xl mx-auto mb-10 md:mb-12 leading-relaxed"
             >
               On vous met dans le <span className="font-semibold text-[#0A0A0A]">Top Google Maps</span> avec 
@@ -460,9 +549,7 @@ const Hero = () => {
             
             {/* CTA */}
             <motion.div 
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.3 }}
+              initial={false}
               className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12 md:mb-16 px-4 sm:px-0"
             >
               <Button 
@@ -482,9 +569,7 @@ const Hero = () => {
             
             {/* Rotating Text Carousel */}
             <motion.div 
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.4 }}
+              initial={false}
               className="flex items-center justify-center"
             >
               <RotatingText />
@@ -672,7 +757,7 @@ const BeforeAfter = () => {
                     VOUS AUJOURD'HUI
                   </div>
                   
-                  <div className="absolute bottom-8 right-3 bg-gray-500 text-white px-3 py-1.5 rounded-full text-sm font-bold">
+                  <div className="absolute top-16 right-3 bg-gray-500 text-white px-3 py-1.5 rounded-full text-sm font-bold shadow-lg">
                     Position 15+
                   </div>
                 </motion.div>
@@ -880,7 +965,7 @@ const BeforeAfter = () => {
               VOUS AUJOURD'HUI
             </div>
             
-            <div className="absolute -bottom-3 -right-3 bg-gray-500 text-white px-2 py-1 rounded-full text-xs font-bold">
+            <div className="absolute -top-3 -right-3 bg-gray-500 text-white px-2 py-1 rounded-full text-xs font-bold shadow-lg">
               Position 15+
             </div>
           </motion.div>
@@ -892,87 +977,87 @@ const BeforeAfter = () => {
             transition={{ duration: 0.6, delay: 0.4 }}
             className="hidden md:block relative"
           >
-            <div className="bg-white rounded-2xl shadow-2xl border-2 border-[#1c3ff9] overflow-hidden relative animate-pulse-glow h-[320px] flex flex-col">
+            <div className="bg-white rounded-2xl shadow-2xl border-2 border-[#1c3ff9] overflow-hidden relative animate-pulse-glow">
               {/* Effet néon subtil */}
               <div className="absolute inset-0 bg-gradient-to-r from-[#1c3ff9]/5 via-transparent to-[#1c3ff9]/5 animate-shimmer"></div>
               
-              <div className="bg-white px-3 py-2 border-b border-gray-100 flex items-center gap-2 relative z-10">
-                <div className="w-5 h-5 rounded bg-[#4285F4] flex items-center justify-center">
+              <div className="bg-white px-4 py-3 border-b border-gray-100 flex items-center gap-2 relative z-10">
+                <div className="w-6 h-6 rounded bg-[#4285F4] flex items-center justify-center">
                   <span className="text-white text-xs font-bold">G</span>
                 </div>
-                <span className="text-xs font-medium text-gray-700">Google</span>
+                <span className="text-sm font-medium text-gray-700">Google</span>
               </div>
               
-              <div className="h-24 bg-gradient-to-br from-blue-50 to-indigo-100 relative overflow-hidden">
+              <div className="h-32 bg-gradient-to-br from-blue-50 to-indigo-100 relative overflow-hidden">
                 <div className="absolute inset-0 bg-gradient-to-r from-[#1c3ff9]/10 to-[#6366f1]/10"></div>
-                <div className="absolute bottom-2 left-3 right-3">
-                  <div className="bg-white/95 backdrop-blur-sm rounded-lg p-2 shadow-lg">
-                    <h3 className="font-bold text-sm text-gray-900">Votre Commerce</h3>
+                <div className="absolute bottom-4 left-4 right-4">
+                  <div className="bg-white/95 backdrop-blur-sm rounded-lg p-3 shadow-lg">
+                    <h3 className="font-bold text-base text-gray-900">Votre Commerce</h3>
                     <div className="flex items-center gap-1 mt-1">
                       {[...Array(5)].map((_, i) => (
-                        <Star key={i} className="w-3 h-3 fill-[#FBBC04] text-[#FBBC04] animate-twinkle" style={{ animationDelay: `${i * 0.1}s` }} />
+                        <Star key={i} className="w-4 h-4 fill-[#FBBC04] text-[#FBBC04] animate-twinkle" style={{ animationDelay: `${i * 0.1}s` }} />
                       ))}
-                      <span className="text-xs text-gray-600 ml-1 font-semibold">4.9 (127 avis)</span>
+                      <span className="text-sm text-gray-600 ml-2 font-semibold">4.9 (127 avis)</span>
                     </div>
                   </div>
                 </div>
               </div>
               
-              <div className="p-3 space-y-2 flex-1 overflow-hidden">
+              <div className="p-4 space-y-3">
                 {/* Section Vidéos intégrée */}
-                <div className="border-t border-gray-100 pt-2">
-                  <div className="flex items-center gap-1 mb-1">
-                    <Camera className="w-3 h-3 text-[#1c3ff9]" />
-                    <span className="text-xs font-medium text-gray-700">Vidéos</span>
+                <div className="border-t border-gray-100 pt-3">
+                  <div className="flex items-center gap-2 mb-2">
+                    <Camera className="w-4 h-4 text-[#1c3ff9]" />
+                    <span className="text-sm font-medium text-gray-700">Vidéos</span>
                   </div>
-                  <div className="grid grid-cols-2 gap-1.5 mb-2">
-                    <div className="relative bg-gradient-to-br from-blue-100 to-indigo-100 rounded aspect-video overflow-hidden">
+                  <div className="grid grid-cols-2 gap-2 mb-3">
+                    <div className="relative bg-gradient-to-br from-blue-100 to-indigo-100 rounded-lg aspect-video overflow-hidden">
                       <div className="absolute inset-0 bg-black/20 flex items-center justify-center">
-                        <div className="w-4 h-4 bg-white/90 rounded-full flex items-center justify-center">
-                          <div className="w-0 h-0 border-l-[3px] border-l-[#1c3ff9] border-y-[2px] border-y-transparent ml-0.5"></div>
+                        <div className="w-6 h-6 bg-white/90 rounded-full flex items-center justify-center">
+                          <div className="w-0 h-0 border-l-[4px] border-l-[#1c3ff9] border-y-[3px] border-y-transparent ml-0.5"></div>
                         </div>
                       </div>
-                      <div className="absolute bottom-0.5 left-0.5 bg-black/70 text-white text-[10px] px-1 rounded">1:24</div>
+                      <div className="absolute bottom-1 left-1 bg-black/70 text-white text-xs px-1 rounded">1:24</div>
                     </div>
-                    <div className="relative bg-gradient-to-br from-purple-100 to-pink-100 rounded aspect-video overflow-hidden">
+                    <div className="relative bg-gradient-to-br from-purple-100 to-pink-100 rounded-lg aspect-video overflow-hidden">
                       <div className="absolute inset-0 bg-black/20 flex items-center justify-center">
-                        <div className="w-4 h-4 bg-white/90 rounded-full flex items-center justify-center">
-                          <div className="w-0 h-0 border-l-[3px] border-l-[#1c3ff9] border-y-[2px] border-y-transparent ml-0.5"></div>
+                        <div className="w-6 h-6 bg-white/90 rounded-full flex items-center justify-center">
+                          <div className="w-0 h-0 border-l-[4px] border-l-[#1c3ff9] border-y-[3px] border-y-transparent ml-0.5"></div>
                         </div>
                       </div>
-                      <div className="absolute bottom-0.5 left-0.5 bg-black/70 text-white text-[10px] px-1 rounded">0:45</div>
+                      <div className="absolute bottom-1 left-1 bg-black/70 text-white text-xs px-1 rounded">0:45</div>
                     </div>
                   </div>
                 </div>
                 
-                <div className="flex items-center gap-1 text-xs text-gray-600">
-                  <MapPin className="w-3 h-3 text-[#1c3ff9]" />
+                <div className="flex items-center gap-2 text-sm text-gray-600">
+                  <MapPin className="w-4 h-4 text-[#1c3ff9]" />
                   <span>123 Rue de la République, Tours</span>
                 </div>
                 
-                <div className="flex items-center gap-1 text-xs">
-                  <div className="w-1.5 h-1.5 rounded-full bg-[#10B981]"></div>
+                <div className="flex items-center gap-2 text-sm">
+                  <div className="w-2 h-2 rounded-full bg-[#10B981]"></div>
                   <span className="text-[#10B981] font-medium">Ouvert</span>
                   <span className="text-gray-600">· Ferme à 19h00</span>
                 </div>
                 
-                <div className="flex items-center gap-1 text-xs text-gray-600">
-                  <Phone className="w-3 h-3 text-[#1c3ff9]" />
+                <div className="flex items-center gap-2 text-sm text-gray-600">
+                  <Phone className="w-4 h-4 text-[#1c3ff9]" />
                   <span>06 86 01 80 54</span>
                 </div>
                 
-                <div className="flex gap-1.5 pt-1">
-                  <button className="flex-1 bg-[#1c3ff9] text-white py-1.5 px-2 rounded-lg text-xs font-medium">
+                <div className="flex gap-2 pt-2">
+                  <button className="flex-1 bg-[#1c3ff9] text-white py-2 px-4 rounded-lg text-sm font-medium">
                     Appeler
                   </button>
-                  <button className="flex-1 border border-gray-300 text-gray-700 py-1.5 px-2 rounded-lg text-xs font-medium">
+                  <button className="flex-1 border border-gray-300 text-gray-700 py-2 px-4 rounded-lg text-sm font-medium">
                     Itinéraire
                   </button>
                 </div>
               </div>
             </div>
             
-            <div className="absolute -top-3 -left-3 bg-[#10B981] text-white px-2 py-1 rounded-full text-xs font-bold shadow-xl animate-bounce-slow z-20">
+            <div className="absolute -top-4 -left-4 bg-[#10B981] text-white px-3 py-1.5 rounded-full text-sm font-bold shadow-xl animate-bounce-slow z-20">
               AVEC KAPTA
             </div>
             
@@ -1379,6 +1464,8 @@ const ProblemComparison = () => {
 // Case Studies Section - Honest version
 const CaseStudies = () => {
   const ref = useRef(null);
+  const caseStudiesProgressRef = useRef(null);
+  const videoProgressRef = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
   const [selectedVideo, setSelectedVideo] = useState(null);
   const [videosExpanded, setVideosExpanded] = useState(false);
@@ -1461,15 +1548,7 @@ const CaseStudies = () => {
           <div 
             className="flex gap-3 md:gap-6 overflow-x-auto pb-4 snap-x snap-mandatory scrollbar-hide px-4 -mx-4"
             onScroll={(e) => {
-              const container = e.target;
-              const scrollLeft = container.scrollLeft;
-              const maxScroll = container.scrollWidth - container.clientWidth;
-              const progress = maxScroll > 0 ? (scrollLeft / maxScroll) * 100 : 0;
-              
-              const progressBar = document.querySelector('.case-studies-progress-bar');
-              if (progressBar) {
-                progressBar.style.width = `${progress}%`;
-              }
+              updateScrollProgress(e.currentTarget, caseStudiesProgressRef);
             }}
           >
             {caseStudies.map((caseStudy, index) => (
@@ -1487,8 +1566,13 @@ const CaseStudies = () => {
                     <div className="h-52 md:h-80 relative overflow-hidden">
                       <img 
                         src={caseStudy.beforeImage} 
+                        srcSet={buildImageSrcSet(caseStudy.beforeImage)}
+                        sizes="(max-width: 768px) 220px, 300px"
                         alt="Avant"
+                        width="960"
+                        height="1280"
                         loading="lazy"
+                        decoding="async"
                         className="w-full h-full object-contain object-center bg-gray-100"
                       />
                     </div>
@@ -1499,8 +1583,13 @@ const CaseStudies = () => {
                     <div className="h-52 md:h-80 relative overflow-hidden">
                       <img 
                         src={caseStudy.afterImage} 
+                        srcSet={buildImageSrcSet(caseStudy.afterImage)}
+                        sizes="(max-width: 768px) 220px, 300px"
                         alt="Après"
+                        width="960"
+                        height="1280"
                         loading="lazy"
+                        decoding="async"
                         className="w-full h-full object-contain object-center bg-white scale-125"
                       />
                     </div>
@@ -1515,7 +1604,8 @@ const CaseStudies = () => {
             {/* Progress track */}
             <div className="w-32 md:w-48 h-1 bg-gray-200 rounded-full overflow-hidden">
               <div 
-                className="case-studies-progress-bar h-full bg-[#1c3ff9] rounded-full transition-all duration-200 ease-out"
+                ref={caseStudiesProgressRef}
+                className="h-full bg-[#1c3ff9] rounded-full transition-all duration-200 ease-out"
                 style={{ width: '0%' }}
               />
             </div>
@@ -1698,17 +1788,10 @@ const CaseStudies = () => {
           transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
           className="overflow-hidden"
         >
-          <div className="pb-4 md:pb-6">
+          {videosExpanded && <div className="pb-4 md:pb-6">
             {/* Grille responsive pour desktop, scroll horizontal pour mobile */}
             <div className="hidden md:grid md:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6 px-4">
-              {[
-                { id: 1, videoId: "U6FaRhs9W2c", title: "Vidéo 1" },
-                { id: 2, videoId: "Pw_k894Lsk0", title: "Vidéo 2" },
-                { id: 3, videoId: "GnDY-5dOt3Q", title: "Vidéo 3" },
-                { id: 4, videoId: "EiySSMwTCz4", title: "Vidéo 4" },
-                { id: 5, videoId: "D9M0JMP_V5I", title: "Vidéo 5" },
-                { id: 6, videoId: "q2CnDcUkiMM", title: "Vidéo 6" }
-              ].map((video, index) => (
+              {VIDEO_ITEMS.map((video, index) => (
                 <motion.div
                   key={video.id}
                   initial={{ opacity: 0, y: 20 }}
@@ -1725,7 +1808,10 @@ const CaseStudies = () => {
                       <img 
                         src={`https://img.youtube.com/vi/${video.videoId}/hqdefault.jpg`}
                         alt={`Vidéo professionnelle KAPTA Media ${video.id}`}
+                        width="480"
+                        height="360"
                         loading="lazy"
+                        decoding="async"
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent group-hover:from-black/60 transition-all duration-300"></div>
@@ -1752,25 +1838,10 @@ const CaseStudies = () => {
               <div 
                 className="flex gap-4 overflow-x-auto pb-4 snap-x snap-mandatory scrollbar-hide px-4 -mx-4"
                 onScroll={(e) => {
-                  const container = e.target;
-                  const scrollLeft = container.scrollLeft;
-                  const maxScroll = container.scrollWidth - container.clientWidth;
-                  const progress = maxScroll > 0 ? (scrollLeft / maxScroll) * 100 : 0;
-                  
-                  const progressBar = document.querySelector('.youtube-progress-bar');
-                  if (progressBar) {
-                    progressBar.style.width = `${progress}%`;
-                  }
+                  updateScrollProgress(e.currentTarget, videoProgressRef);
                 }}
               >
-                {[
-                  { id: 1, videoId: "U6FaRhs9W2c" },
-                  { id: 2, videoId: "Pw_k894Lsk0" },
-                  { id: 3, videoId: "GnDY-5dOt3Q" },
-                  { id: 4, videoId: "EiySSMwTCz4" },
-                  { id: 5, videoId: "D9M0JMP_V5I" },
-                  { id: 6, videoId: "q2CnDcUkiMM" }
-                ].map((video, index) => (
+                {VIDEO_ITEMS.map((video, index) => (
                   <motion.div
                     key={video.id}
                     initial={{ opacity: 0, scale: 0.9 }}
@@ -1787,7 +1858,10 @@ const CaseStudies = () => {
                         <img 
                           src={`https://img.youtube.com/vi/${video.videoId}/hqdefault.jpg`}
                           alt={`Vidéo professionnelle KAPTA Media ${video.id}`}
+                          width="480"
+                          height="360"
                           loading="lazy"
+                          decoding="async"
                           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent"></div>
@@ -1813,7 +1887,8 @@ const CaseStudies = () => {
               <div className="flex flex-col items-center mt-4 space-y-2">
                 <div className="w-32 h-1 bg-gray-200 rounded-full overflow-hidden">
                   <div 
-                    className="youtube-progress-bar h-full bg-[#1c3ff9] rounded-full transition-all duration-200 ease-out"
+                    ref={videoProgressRef}
+                    className="h-full bg-[#1c3ff9] rounded-full transition-all duration-200 ease-out"
                     style={{ width: '0%' }}
                   />
                 </div>
@@ -1823,7 +1898,7 @@ const CaseStudies = () => {
                 </div>
               </div>
             </div>
-          </div>
+          </div>}
         </motion.div>
       </div>
     </section>
@@ -1867,6 +1942,7 @@ const CaseStudies = () => {
               title="Vidéo KAPTA"
               className="w-full h-full"
               frameBorder="0"
+              loading="lazy"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen
             />
@@ -2351,46 +2427,6 @@ const FAQ = () => {
           highlight="NOS RÉPONSES"
         />
         
-        {/* Guarantee Box - Version améliorée */}
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          whileInView={{ scale: [1, 1.02, 1] }}
-          viewport={{ once: false }}
-          className="mb-6 md:mb-8 p-4 md:p-5 rounded-xl bg-gradient-to-r from-[#10B981]/10 to-[#059669]/10 border-2 border-[#10B981]/30 relative overflow-hidden"
-          data-testid="guarantee-box"
-          style={{
-            boxShadow: '0 10px 30px -10px rgba(16, 185, 129, 0.2)'
-          }}
-        >
-          {/* Barre verte en haut */}
-          <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#10B981] to-[#059669]" />
-          
-          <div className="flex items-start gap-3 md:gap-4">
-            <motion.div 
-              className="w-10 h-10 md:w-12 md:h-12 rounded-xl bg-gradient-to-br from-[#10B981] to-[#059669] flex items-center justify-center flex-shrink-0 shadow-lg"
-              animate={{
-                rotate: [0, 5, -5, 0],
-                scale: [1, 1.1, 1]
-              }}
-              transition={{
-                duration: 3,
-                repeat: Infinity,
-                repeatDelay: 2
-              }}
-            >
-              <ShieldCheck className="w-5 h-5 md:w-6 md:h-6 text-white" />
-            </motion.div>
-            <div>
-              <h3 className="text-base md:text-lg font-bold text-[#0A0A0A] mb-1">Garantie 30 Jours</h3>
-              <p className="text-xs md:text-sm text-[#52525B] leading-relaxed">
-                Aucun résultat visible en 30 jours ? Remboursement intégral. Sans question.
-              </p>
-            </div>
-          </div>
-        </motion.div>
-        
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
@@ -2442,16 +2478,71 @@ const ContactForm = () => {
 
   // Ensure Calendly widget loads properly when shown
   useEffect(() => {
-    if (showCalendly && window.Calendly) {
-      setTimeout(() => {
-        window.Calendly.initInlineWidget({
-          url: 'https://calendly.com/charly-silva/appel-decouverte',
-          parentElement: document.querySelector('.calendly-inline-widget'),
-          prefill: {},
-          utm: {}
-        });
-      }, 100);
+    if (!showCalendly) return;
+
+    let cancelled = false;
+    const calendlyContainer = document.querySelector(".calendly-inline-widget");
+    if (!calendlyContainer) return;
+
+    const showFallbackIfNeeded = () => {
+      const calendlyFallback = document.querySelector(".calendly-fallback");
+      if (!calendlyContainer || !calendlyFallback) return;
+      const hasCalendlyContent = calendlyContainer.querySelector("iframe") || calendlyContainer.innerHTML.trim().length > 200;
+      if (!hasCalendlyContent) {
+        calendlyContainer.style.display = "none";
+        calendlyFallback.style.display = "block";
+      }
+    };
+
+    const initCalendly = () => {
+      if (cancelled || !window.Calendly) return;
+      const calendlyFallback = document.querySelector(".calendly-fallback");
+
+      if (calendlyFallback) {
+        calendlyFallback.style.display = "none";
+      }
+
+      calendlyContainer.style.display = "block";
+      calendlyContainer.innerHTML = "";
+
+      window.Calendly.initInlineWidget({
+        url: "https://calendly.com/charly-silva/appel-decouverte",
+        parentElement: calendlyContainer,
+        prefill: {},
+        utm: {}
+      });
+
+      setTimeout(showFallbackIfNeeded, 4000);
+    };
+
+    const existingScript = document.querySelector("script[data-calendly-widget='true']");
+    if (window.Calendly) {
+      initCalendly();
+      return () => {
+        cancelled = true;
+      };
     }
+
+    if (existingScript) {
+      existingScript.addEventListener("load", initCalendly);
+      return () => {
+        cancelled = true;
+        existingScript.removeEventListener("load", initCalendly);
+      };
+    }
+
+    const script = document.createElement("script");
+    script.src = "https://assets.calendly.com/assets/external/widget.js";
+    script.async = true;
+    script.defer = true;
+    script.dataset.calendlyWidget = "true";
+    script.addEventListener("load", initCalendly);
+    document.body.appendChild(script);
+
+    return () => {
+      cancelled = true;
+      script.removeEventListener("load", initCalendly);
+    };
   }, [showCalendly]);
 
   const toggleDropdown = (dropdown) => {
@@ -2716,7 +2807,7 @@ const ContactForm = () => {
 };
 
 // Footer Section
-const Footer = () => {
+const Footer = ({ onOpenLegalModal = () => {} }) => {
   return (
     <footer className="py-12 md:py-24 bg-[#0A0A0A] relative overflow-hidden" data-testid="footer">
       {/* Background brand decoration */}
@@ -2759,9 +2850,14 @@ const Footer = () => {
         <div className="border-t border-[#1f1f1f] pt-6 md:pt-8 flex flex-col md:flex-row items-center justify-between gap-4 md:gap-6">
           <a href="#" className="flex items-center">
             <img 
-              src="https://customer-assets.emergentagent.com/job_e9af3148-6038-40b0-a95f-b7160e86bcee/artifacts/v4yy8wt0_logo2.webp" 
+              src="/logo-64.webp"
+              srcSet={LOGO_SRC_SET}
+              sizes="(max-width: 768px) 20px, 24px"
               alt="KAPTA Media - Logo agence marketing local Tours" 
               loading="lazy"
+              width="96"
+              height="96"
+              decoding="async"
               className="h-5 md:h-6 w-auto brightness-0 invert"
               style={{
                 pointerEvents: 'none',
@@ -2793,13 +2889,13 @@ const Footer = () => {
         
         {/* Legal Links */}
         <div className="flex flex-wrap justify-center gap-4 md:gap-6 mt-6 md:mt-8 text-xs text-[#52525B]">
-          <button onClick={() => document.getElementById('modal-mentions')?.classList.remove('hidden')} className="hover:text-white transition-colors">
+          <button onClick={() => onOpenLegalModal("mentions")} className="hover:text-white transition-colors">
             Mentions légales
           </button>
-          <button onClick={() => document.getElementById('modal-privacy')?.classList.remove('hidden')} className="hover:text-white transition-colors">
+          <button onClick={() => onOpenLegalModal("privacy")} className="hover:text-white transition-colors">
             Politique de confidentialité
           </button>
-          <button onClick={() => document.getElementById('modal-cgv')?.classList.remove('hidden')} className="hover:text-white transition-colors">
+          <button onClick={() => onOpenLegalModal("cgv")} className="hover:text-white transition-colors">
             CGV
           </button>
         </div>
@@ -2814,12 +2910,19 @@ const Footer = () => {
 
 // Mobile Sticky CTA
 const MobileStickyCTA = () => {
+  const reduceMotion = useReducedMotion();
   const [visible, setVisible] = useState(false);
   const [hideOnContact, setHideOnContact] = useState(false);
 
   useEffect(() => {
+    let ticking = false;
     const handleScroll = () => {
-      setVisible(window.scrollY > 600);
+      if (ticking) return;
+      ticking = true;
+      window.requestAnimationFrame(() => {
+        setVisible(window.scrollY > 600);
+        ticking = false;
+      });
     };
 
     // Observer pour détecter quand on arrive sur la section contact
@@ -2843,7 +2946,7 @@ const MobileStickyCTA = () => {
       contactObserver.observe(contactSection);
     }
 
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     
     return () => {
       window.removeEventListener("scroll", handleScroll);
@@ -2856,17 +2959,18 @@ const MobileStickyCTA = () => {
 
   return (
     <motion.div 
-      initial={{ scale: 0, opacity: 0 }}
+      initial={reduceMotion ? false : { scale: 0, opacity: 0 }}
       animate={{ 
-        scale: 1, 
+        scale: 1,
         opacity: 1,
         y: hideOnContact ? 100 : 0
       }}
-      exit={{ scale: 0, opacity: 0, y: 100 }}
+      exit={reduceMotion ? { opacity: 0 } : { scale: 0, opacity: 0, y: 100 }}
       transition={{ 
-        type: "spring", 
+        type: reduceMotion ? "tween" : "spring",
         stiffness: 260, 
         damping: 20,
+        duration: reduceMotion ? 0.2 : undefined,
         y: { duration: 0.4, ease: "easeInOut" }
       }}
       className="md:hidden sticky-cta-mobile"
@@ -2890,62 +2994,77 @@ const MobileStickyCTA = () => {
   );
 };
 
+const LEGAL_MODAL_CONTENT = {
+  mentions: {
+    title: "Mentions Légales",
+    lines: [
+      ["Éditeur du site :", "Kapta Media"],
+      ["Responsable de la publication :", "[Votre nom]"],
+      ["Adresse :", "[Votre adresse], Tours, France"],
+      ["Téléphone :", "06 86 01 80 54"],
+      ["Email :", "contact@kaptamedia.fr"],
+      ["SIRET :", "[Numéro SIRET]"],
+      ["Hébergeur :", "[Nom de l'hébergeur]"]
+    ]
+  },
+  privacy: {
+    title: "Politique de Confidentialité",
+    lines: [
+      ["Données collectées :", "Nom, email, téléphone, nom de l'établissement."],
+      ["Finalité :", "Vous recontacter pour l'audit gratuit et le suivi de votre projet."],
+      ["Conservation :", "Vos données sont conservées pendant 3 ans maximum."],
+      ["Partage :", "Vos données ne sont jamais vendues ni partagées à des tiers."],
+      ["Vos droits :", "Accès, rectification, suppression. Contactez-nous à contact@kaptamedia.fr"],
+      ["Cookies :", "Ce site n'utilise pas de cookies de tracking."]
+    ]
+  },
+  cgv: {
+    title: "Conditions Générales de Vente",
+    lines: [
+      ["Prestation :", "Création de contenu vidéo et photo, optimisation de fiche Google Business, fourniture d'une borne NFC."],
+      ["Tarif pilote :", "350€ HT - Paiement unique, pas d'abonnement."],
+      ["Livraison :", "Sous 14 jours ouvrés après le tournage."],
+      ["Garantie :", "Satisfait ou remboursé sous 30 jours si vous n'êtes pas satisfait du travail livré."],
+      ["Propriété :", "Vous êtes propriétaire de tous les contenus créés (vidéo, photos)."],
+      ["Témoignage :", "En contrepartie du tarif pilote, vous acceptez de fournir un témoignage vidéo si satisfait."]
+    ]
+  }
+};
+
 // Legal Modals Component
-const LegalModals = () => (
-  <>
-    {/* Mentions Légales Modal */}
-    <div id="modal-mentions" className="hidden fixed inset-0 z-[100] bg-black/50 flex items-center justify-center p-4" onClick={(e) => e.target.id === 'modal-mentions' && e.target.classList.add('hidden')}>
+const LegalModals = ({ activeModal, onClose }) => {
+  if (!activeModal || !LEGAL_MODAL_CONTENT[activeModal]) return null;
+
+  const { title, lines } = LEGAL_MODAL_CONTENT[activeModal];
+
+  return (
+    <div
+      className="fixed inset-0 z-[100] bg-black/50 flex items-center justify-center p-4"
+      onClick={(e) => {
+        if (e.target === e.currentTarget) onClose();
+      }}
+    >
       <div className="bg-white rounded-2xl max-w-2xl max-h-[80vh] overflow-y-auto p-6 md:p-8">
-        <h2 className="text-xl font-bold mb-4">Mentions Légales</h2>
+        <h2 className="text-xl font-bold mb-4">{title}</h2>
         <div className="text-sm text-[#52525B] space-y-4">
-          <p><strong>Éditeur du site :</strong> Kapta Media</p>
-          <p><strong>Responsable de la publication :</strong> [Votre nom]</p>
-          <p><strong>Adresse :</strong> [Votre adresse], Tours, France</p>
-          <p><strong>Téléphone :</strong> 06 86 01 80 54</p>
-          <p><strong>Email :</strong> contact@kaptamedia.fr</p>
-          <p><strong>SIRET :</strong> [Numéro SIRET]</p>
-          <p><strong>Hébergeur :</strong> [Nom de l'hébergeur]</p>
+          {lines.map(([label, value]) => (
+            <p key={label}>
+              <strong>{label}</strong> {value}
+            </p>
+          ))}
         </div>
-        <button onClick={() => document.getElementById('modal-mentions')?.classList.add('hidden')} className="mt-6 px-4 py-2 bg-[#1c3ff9] text-white rounded-lg">Fermer</button>
+        <button onClick={onClose} className="mt-6 px-4 py-2 bg-[#1c3ff9] text-white rounded-lg">
+          Fermer
+        </button>
       </div>
     </div>
-    
-    {/* Politique de Confidentialité Modal */}
-    <div id="modal-privacy" className="hidden fixed inset-0 z-[100] bg-black/50 flex items-center justify-center p-4" onClick={(e) => e.target.id === 'modal-privacy' && e.target.classList.add('hidden')}>
-      <div className="bg-white rounded-2xl max-w-2xl max-h-[80vh] overflow-y-auto p-6 md:p-8">
-        <h2 className="text-xl font-bold mb-4">Politique de Confidentialité</h2>
-        <div className="text-sm text-[#52525B] space-y-4">
-          <p><strong>Données collectées :</strong> Nom, email, téléphone, nom de l'établissement.</p>
-          <p><strong>Finalité :</strong> Vous recontacter pour l'audit gratuit et le suivi de votre projet.</p>
-          <p><strong>Conservation :</strong> Vos données sont conservées pendant 3 ans maximum.</p>
-          <p><strong>Partage :</strong> Vos données ne sont jamais vendues ni partagées à des tiers.</p>
-          <p><strong>Vos droits :</strong> Accès, rectification, suppression. Contactez-nous à contact@kaptamedia.fr</p>
-          <p><strong>Cookies :</strong> Ce site n'utilise pas de cookies de tracking.</p>
-        </div>
-        <button onClick={() => document.getElementById('modal-privacy')?.classList.add('hidden')} className="mt-6 px-4 py-2 bg-[#1c3ff9] text-white rounded-lg">Fermer</button>
-      </div>
-    </div>
-    
-    {/* CGV Modal */}
-    <div id="modal-cgv" className="hidden fixed inset-0 z-[100] bg-black/50 flex items-center justify-center p-4" onClick={(e) => e.target.id === 'modal-cgv' && e.target.classList.add('hidden')}>
-      <div className="bg-white rounded-2xl max-w-2xl max-h-[80vh] overflow-y-auto p-6 md:p-8">
-        <h2 className="text-xl font-bold mb-4">Conditions Générales de Vente</h2>
-        <div className="text-sm text-[#52525B] space-y-4">
-          <p><strong>Prestation :</strong> Création de contenu vidéo et photo, optimisation de fiche Google Business, fourniture d'une borne NFC.</p>
-          <p><strong>Tarif pilote :</strong> 350€ HT - Paiement unique, pas d'abonnement.</p>
-          <p><strong>Livraison :</strong> Sous 14 jours ouvrés après le tournage.</p>
-          <p><strong>Garantie :</strong> Satisfait ou remboursé sous 30 jours si vous n'êtes pas satisfait du travail livré.</p>
-          <p><strong>Propriété :</strong> Vous êtes propriétaire de tous les contenus créés (vidéo, photos).</p>
-          <p><strong>Témoignage :</strong> En contrepartie du tarif pilote, vous acceptez de fournir un témoignage vidéo si satisfait.</p>
-        </div>
-        <button onClick={() => document.getElementById('modal-cgv')?.classList.add('hidden')} className="mt-6 px-4 py-2 bg-[#1c3ff9] text-white rounded-lg">Fermer</button>
-      </div>
-    </div>
-  </>
-);
+  );
+};
 
 // Main App Component
 function App() {
+  const [activeLegalModal, setActiveLegalModal] = useState(null);
+
   // Initialize analytics on mount
   useEffect(() => {
     Analytics.initAnalytics();
@@ -2956,15 +3075,21 @@ function App() {
       <Navbar />
       <Hero />
       <BeforeAfter />
-      <ProblemComparison />
-      <CaseStudies />
+      <DeferredSection minHeight={1000}>
+        <ProblemComparison />
+      </DeferredSection>
+      <DeferredSection minHeight={1200}>
+        <CaseStudies />
+      </DeferredSection>
       <Mechanism />
       <Pricing />
       <FAQ />
       <ContactForm />
-      <Footer />
+      <DeferredSection minHeight={460}>
+        <Footer onOpenLegalModal={setActiveLegalModal} />
+      </DeferredSection>
       <MobileStickyCTA />
-      <LegalModals />
+      <LegalModals activeModal={activeLegalModal} onClose={() => setActiveLegalModal(null)} />
     </div>
   );
 }

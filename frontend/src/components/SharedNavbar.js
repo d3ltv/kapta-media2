@@ -5,13 +5,15 @@ import { ArrowRight, Phone, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import * as Analytics from "@/utils/analytics";
 
+const LOGO_SRC_SET = "/logo-64.webp 64w, /logo-96.webp 96w, /logo-128.webp 128w";
+
 const SharedNavbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50);
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
@@ -50,9 +52,8 @@ const SharedNavbar = () => {
 
   return (
     <motion.nav
-      initial={{ y: -100 }}
+      initial={false}
       animate={{ y: 0 }}
-      transition={{ duration: 0.6 }}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled ? "glassmorphism shadow-premium" : "bg-transparent"
       }`}
@@ -62,10 +63,15 @@ const SharedNavbar = () => {
         <div className="flex items-center justify-between h-16 md:h-20">
           <Link to="/" className="flex items-center gap-2" data-testid="logo">
             <img 
-              src="https://customer-assets.emergentagent.com/job_e9af3148-6038-40b0-a95f-b7160e86bcee/artifacts/v4yy8wt0_logo2.webp" 
+              src="/logo-96.webp"
+              srcSet={LOGO_SRC_SET}
+              sizes="(max-width: 768px) 24px, 32px"
               alt="KAPTA Media - Agence marketing local et optimisation Google Maps à Tours" 
               loading="eager"
               fetchPriority="high"
+              width="96"
+              height="96"
+              decoding="async"
               className="h-6 md:h-8 w-auto logo-transparent logo-isolated"
               style={{ 
                 background: 'transparent !important',

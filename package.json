@@ -5,7 +5,9 @@
   "scripts": {
     "build": "cd frontend && npm run build",
     "start": "cd frontend && npm start",
-    "setup:frontend": "cd frontend && npm install"
+    "setup:frontend": "cd frontend && npm install",
+    "images:logo": "node scripts/generate-logo-variants.js",
+    "images:compress": "node scripts/compress-public-images.js"
   },
   "workspaces": [
     "frontend"

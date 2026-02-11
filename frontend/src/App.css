@@ -8,12 +8,11 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Force GPU acceleration pour toutes les animations */
+/* Accélération GPU ciblée, pas globale */
 @media (prefers-reduced-motion: no-preference) {
-  * {
+  .gpu-accelerated {
     transform: translateZ(0);
     backface-visibility: hidden;
-    perspective: 1000px;
   }
 }
 
@@ -70,6 +69,16 @@
   50% { transform: translateY(-10px) translateZ(0); }
 }
 
+/* Sur mobile, on coupe les animations décoratives coûteuses */
+@media (max-width: 767px) {
+  .animate-pulse-glow,
+  .animate-shimmer,
+  .animate-twinkle,
+  .animate-bounce-slow {
+    animation: none !important;
+  }
+}
+
 /* Optimisation du scroll pour mobile */
 .mobile-scroll-container {
   -webkit-overflow-scrolling: touch;
@@ -80,16 +89,6 @@
 /* Désactiver will-change après animation pour économiser la mémoire */
 .animation-complete {
   will-change: auto;
-}
-
-/* Préchargement des images critiques */
-.hero-section::before {
-  content: '';
-  position: absolute;
-  width: 0;
-  height: 0;
-  background: url('https://customer-assets.emergentagent.com/job_e9af3148-6038-40b0-a95f-b7160e86bcee/artifacts/v4yy8wt0_logo2.webp');
-  background-size: 0;
 }
 
 /* ====== END PERFORMANCE OPTIMIZATIONS ====== */
