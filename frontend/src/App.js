@@ -1541,7 +1541,6 @@ const CaseStudies = () => {
           className="mt-8 md:mt-12 mb-4 md:mb-6 relative"
         >
           {/* Fond avec points de couleur pour détacher visuellement */}
-          <div className="absolute inset-0 bg-gradient-to-br from-[#1c3ff9]/5 via-transparent to-[#6366f1]/5 rounded-3xl -z-10"></div>
           <div 
             className="absolute inset-0 opacity-40 -z-10"
             style={{

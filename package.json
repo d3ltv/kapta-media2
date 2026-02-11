@@ -5,7 +5,7 @@
   "scripts": {
     "build": "cd frontend && npm run build",
     "start": "cd frontend && npm start",
-    "install": "cd frontend && npm install"
+    "setup:frontend": "cd frontend && npm install"
   },
   "workspaces": [
     "frontend"
