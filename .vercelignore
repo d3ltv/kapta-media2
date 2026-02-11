@@ -4,6 +4,7 @@ frontend/node_modules
 
 # Build outputs
 .next
+frontend/build
 
 # Environment files
 .env.local
@@ -60,3 +61,12 @@ venv/
 ENV/
 env.bak/
 venv.bak/
+
+# Documentation (not needed for build)
+*.md
+!README.md
+
+# Test files
+test-mockup.html
+*.test.js
+*.spec.js

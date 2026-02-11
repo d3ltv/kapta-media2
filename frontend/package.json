@@ -58,7 +58,7 @@
   },
   "scripts": {
     "start": "craco start",
-    "build": "NODE_OPTIONS=--max_old_space_size=4096 CI=false GENERATE_SOURCEMAP=false craco build",
+    "build": "NODE_OPTIONS='--max_old_space_size=2048' CI=false GENERATE_SOURCEMAP=false craco build",
     "test": "craco test",
     "analyze": "source-map-explorer 'build/static/js/*.js' --no-border-checks"
   },
