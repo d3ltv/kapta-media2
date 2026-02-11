@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { motion } from "framer-motion";
 import { ArrowRight, Phone, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import * as Analytics from "@/utils/analytics";
@@ -51,9 +50,7 @@ const SharedNavbar = () => {
   };
 
   return (
-    <motion.nav
-      initial={false}
-      animate={{ y: 0 }}
+    <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled ? "glassmorphism shadow-premium" : "bg-transparent"
       }`}
@@ -146,11 +143,11 @@ const SharedNavbar = () => {
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               className="flex items-center justify-center w-12 h-12 rounded-full bg-white/20 backdrop-blur-md border border-white/30 shadow-lg transition-all duration-300 hover:scale-110 hover:bg-white/30"
               data-testid="mobile-menu-button"
+              aria-label={mobileMenuOpen ? "Fermer le menu" : "Ouvrir le menu"}
+              aria-expanded={mobileMenuOpen}
+              aria-controls="mobile-menu-panel"
             >
-              <motion.div
-                animate={{ rotate: mobileMenuOpen ? 180 : 0 }}
-                transition={{ duration: 0.3 }}
-              >
+              <div className={`transition-transform duration-300 ${mobileMenuOpen ? "rotate-180" : ""}`}>
                 {mobileMenuOpen ? (
                   <X className="w-5 h-5 text-[#1c3ff9]" />
                 ) : (
@@ -160,7 +157,7 @@ const SharedNavbar = () => {
                     <div className="w-4 h-0.5 bg-[#1c3ff9] rounded-full" />
                   </div>
                 )}
-              </motion.div>
+              </div>
             </button>
 
             {/* Mobile Menu Dropdown */}
@@ -173,11 +170,8 @@ const SharedNavbar = () => {
                 />
                 
                 {/* Menu */}
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.95, y: -10 }}
-                  animate={{ opacity: 1, scale: 1, y: 0 }}
-                  exit={{ opacity: 0, scale: 0.95, y: -10 }}
-                  transition={{ duration: 0.2 }}
+                <div
+                  id="mobile-menu-panel"
                   className="absolute top-16 right-0 w-64 bg-white rounded-2xl shadow-2xl border border-gray-100 overflow-hidden z-50"
                 >
                   <div className="p-2">
@@ -185,11 +179,10 @@ const SharedNavbar = () => {
                       const isRoute = item.href.startsWith('/') && !item.href.startsWith('/#');
                       
                       return (
-                        <motion.div
+                        <div
                           key={item.label}
-                          initial={{ opacity: 0, x: 20 }}
-                          animate={{ opacity: 1, x: 0 }}
-                          transition={{ duration: 0.2, delay: index * 0.05 }}
+                          className="animate-in fade-in slide-in-from-right-2 duration-200"
+                          style={{ animationDelay: `${index * 30}ms` }}
                         >
                           {isRoute ? (
                             <Link
@@ -225,7 +218,7 @@ const SharedNavbar = () => {
                               <ArrowRight className="w-4 h-4 text-[#A1A1AA] group-hover:text-[#1c3ff9] group-hover:translate-x-1 transition-all ml-auto" />
                             </button>
                           )}
-                        </motion.div>
+                        </div>
                       );
                     })}
                   </div>
@@ -259,13 +252,13 @@ const SharedNavbar = () => {
                       06 86 01 80 54
                     </a>
                   </div>
-                </motion.div>
+                </div>
               </>
             )}
           </div>
         </div>
       </div>
-    </motion.nav>
+    </nav>
   );
 };
 

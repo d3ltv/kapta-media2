@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { motion } from "framer-motion";
 import { Search, TrendingUp, MapPin, Camera, MessageCircle, Target } from "lucide-react";
 import SharedNavbar from "@/components/SharedNavbar";
 import SEOHead from "@/components/SEOHead";
@@ -116,17 +115,13 @@ const Blog = () => {
       />
       <SharedNavbar />
 
+      <main id="main-content">
       {/* Hero Section */}
       <section className="relative pt-32 pb-16 md:pt-40 md:pb-20 overflow-hidden bg-gradient-to-br from-[#1c3ff9]/5 via-white to-[#6366f1]/5">
         <div className="absolute inset-0 bg-[linear-gradient(rgba(28,63,249,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(28,63,249,0.03)_1px,transparent_1px)] bg-[size:40px_40px]" />
         
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="text-center"
-          >
+          <div className="text-center">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#1c3ff9]/10 border border-[#1c3ff9]/20 mb-6">
               <span className="text-sm font-semibold text-[#1c3ff9]">📝 Blog</span>
             </div>
@@ -154,7 +149,7 @@ const Blog = () => {
                 />
               </div>
             </div>
-          </motion.div>
+          </div>
         </div>
       </section>
 
@@ -204,12 +199,10 @@ const Blog = () => {
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {filteredArticles.map((article, index) => (
-                <motion.div
+                <div
                   key={article.id}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.6, delay: index * 0.1 }}
+                  className="animate-in fade-in slide-in-from-bottom-2 duration-300"
+                  style={{ animationDelay: `${index * 40}ms` }}
                 >
                   <Link
                     to={article.link}
@@ -236,26 +229,27 @@ const Blog = () => {
                       </span>
                     </div>
 
-                    <h3 className="text-xl font-bold text-[#0A0A0A] mb-3 group-hover:text-[#1c3ff9] transition-colors line-clamp-2">
+                    <h2 className="text-xl font-bold text-[#0A0A0A] mb-3 group-hover:text-[#1c3ff9] transition-colors line-clamp-2">
                       {article.title}
-                    </h3>
+                    </h2>
 
                     <p className="text-[#52525B] mb-4 line-clamp-3 flex-1">
                       {article.excerpt}
                     </p>
 
-                    <div className="flex items-center justify-between text-sm text-[#A1A1AA] pt-4 border-t border-gray-100">
+                    <div className="flex items-center justify-between text-sm text-[#52525B] pt-4 border-t border-gray-100">
                       <span>{article.date}</span>
                       <span>{article.readTime}</span>
                     </div>
                   </div>
                 </Link>
-              </motion.div>
+              </div>
               ))}
             </div>
           )}
         </div>
       </section>
+      </main>
 
       {/* Footer */}
       <footer className="bg-[#0A0A0A] text-white py-12 md:py-16">

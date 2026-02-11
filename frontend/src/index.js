@@ -2,8 +2,8 @@ import React, { Suspense, lazy } from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "@/index.css";
-import App from "@/App";
 
+const App = lazy(() => import("@/App"));
 const Blog = lazy(() => import("@/pages/Blog"));
 const Article1 = lazy(() => import("@/pages/blog/Article1"));
 const Article2 = lazy(() => import("@/pages/blog/Article2"));
