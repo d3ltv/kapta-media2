@@ -76,13 +76,24 @@ const DeferredSection = ({
   children,
   minHeight = 480,
   rootMargin = "350px 0px",
-  className = ""
+  className = "",
+  disableOnMobile = true,
+  fallbackClassName = ""
 }) => {
-  const [shouldRender, setShouldRender] = useState(false);
+  const [shouldRender, setShouldRender] = useState(() => {
+    if (typeof window === "undefined") return false;
+    return disableOnMobile && window.innerWidth < 768;
+  });
   const sectionRef = useRef(null);
 
   useEffect(() => {
     if (shouldRender) return;
+    if (typeof window === "undefined") return;
+
+    if (disableOnMobile && window.innerWidth < 768) {
+      setShouldRender(true);
+      return;
+    }
 
     let timeoutId = null;
     let idleId = null;
@@ -105,22 +116,22 @@ const DeferredSection = ({
       observer.observe(sectionRef.current);
     }
 
-    if (typeof window !== "undefined" && "requestIdleCallback" in window) {
-      idleId = window.requestIdleCallback(reveal, { timeout: 2500 });
+    if ("requestIdleCallback" in window) {
+      idleId = window.requestIdleCallback(reveal, { timeout: 1200 });
     } else {
-      timeoutId = window.setTimeout(reveal, 2500);
+      timeoutId = window.setTimeout(reveal, 1200);
     }
 
     return () => {
       observer.disconnect();
-      if (idleId && typeof window !== "undefined" && "cancelIdleCallback" in window) {
+      if (idleId && "cancelIdleCallback" in window) {
         window.cancelIdleCallback(idleId);
       }
       if (timeoutId) {
         window.clearTimeout(timeoutId);
       }
     };
-  }, [rootMargin, shouldRender]);
+  }, [disableOnMobile, rootMargin, shouldRender]);
 
   return (
     <div
@@ -128,7 +139,14 @@ const DeferredSection = ({
       className={className}
       style={shouldRender ? undefined : { minHeight }}
     >
-      {shouldRender ? children : null}
+      {shouldRender ? (
+        children
+      ) : (
+        <div
+          className={`h-full min-h-full rounded-3xl bg-gradient-to-b from-[#F8FAFF] via-[#F3F6FF] to-[#FFFFFF] ${fallbackClassName}`}
+          aria-hidden="true"
+        />
+      )}
     </div>
   );
 };
@@ -2012,7 +2030,7 @@ const Mechanism = () => {
     if (isInView) {
       const interval = setInterval(() => {
         setActiveStep((prev) => (prev < 3 ? prev + 1 : prev));
-      }, 1000);
+      }, 450);
       return () => clearInterval(interval);
     }
   }, [isInView]);
@@ -2072,8 +2090,8 @@ const Mechanism = () => {
                       initial={{ scale: 0, rotate: -180 }}
                       animate={{ scale: 1, rotate: 0 }}
                       transition={{ 
-                        duration: 0.5,
-                        delay: i * 1.2 + 0.8,
+                        duration: 0.3,
+                        delay: i * 0.45 + 0.2,
                         type: "spring",
                         stiffness: 200
                       }}
@@ -2096,8 +2114,8 @@ const Mechanism = () => {
                       initial={{ scaleX: 0 }}
                       animate={isInView && activeStep > i ? { scaleX: 1 } : { scaleX: 0 }}
                       transition={{ 
-                        duration: 0.8,
-                        delay: i * 1.2,
+                        duration: 0.4,
+                        delay: i * 0.45,
                         ease: "easeInOut"
                       }}
                     />
