@@ -7,9 +7,9 @@ export const SEO_CONFIG = {
   // Informations de base
   siteName: 'Kapta Media',
   siteUrl: 'https://kaptamedia.fr',
-  defaultTitle: 'KAPTA Media - Top Google Maps en 14 jours | Tours',
+  defaultTitle: 'KAPTA Media - Visibilité Google Maps en 14 jours | Tours',
   titleTemplate: '%s | Kapta Media',
-  defaultDescription: 'Votre concurrent est N°1 sur Google Maps ? On vous met dans le Top 5 en 14 jours avec une vidéo pro + fiche optimisée. Agence marketing local à Tours.',
+  defaultDescription: 'Votre concurrent capte déjà vos prospects sur Google Maps ? Renforcez votre visibilité locale en 14 jours avec une vidéo pro + une fiche optimisée. Agence marketing local à Tours.',
   
   // Images par défaut
   defaultImage: 'https://kaptamedia.fr/og-image.jpg',
@@ -111,8 +111,8 @@ export const SEO_CONFIG = {
   // Pages principales avec métadonnées
   pages: {
     home: {
-      title: 'KAPTA Media - Top Google Maps en 14 jours | Tours',
-      description: 'Votre concurrent est N°1 sur Google Maps ? On vous met dans le Top 5 en 14 jours avec une vidéo pro + fiche optimisée. Agence marketing local à Tours.',
+      title: 'KAPTA Media - Visibilité Google Maps en 14 jours | Tours',
+      description: 'Votre concurrent capte déjà vos prospects sur Google Maps ? Renforcez votre visibilité locale en 14 jours avec une vidéo pro + une fiche optimisée. Agence marketing local à Tours.',
       keywords: 'google maps tours, référencement local tours, vidéo professionnelle, optimisation google business',
       path: '/'
     },
@@ -134,7 +134,7 @@ export const SEO_CONFIG = {
         name: 'Combien de temps pour voir des résultats ?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: '14 jours pour entrer dans le top 5 local. Résultats visibles dès la première semaine avec notre méthode éprouvée.'
+          text: 'Les premiers résultats de visibilité locale sont généralement observés sous 14 jours. Nous suivons des indicateurs concrets: vues, appels et interactions.'
         }
       },
       {

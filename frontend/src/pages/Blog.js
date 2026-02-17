@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { Search, TrendingUp, MapPin, Camera, MessageCircle, Target } from "lucide-react";
 import SharedNavbar from "@/components/SharedNavbar";
 import SEOHead from "@/components/SEOHead";
+import { BLOG_ARTICLES } from "@/data/blogArticles";
 import * as Analytics from "@/utils/analytics";
 
 const Blog = () => {
@@ -17,58 +18,7 @@ const Blog = () => {
 
   const categories = ["Tous", "Google Maps", "Marketing Local", "Vidéo", "Conseils"];
 
-  const articles = [
-    {
-      id: 1,
-      title: "5 Raisons d'Optimiser Votre Fiche Google en 2026",
-      excerpt: "Découvrez pourquoi optimiser votre fiche Google est crucial. Les entreprises du top 3 reçoivent 126% de clics en plus.",
-      category: "Google Maps",
-      readTime: "12 min",
-      date: "9 Février 2025",
-      emoji: "🎯",
-      link: "/blog/article1"
-    },
-    {
-      id: 2,
-      title: "Avis en Ligne : Pourquoi Sont-ils Essentiels ?",
-      excerpt: "81% des clients lisent systématiquement les avis avant de décider. Découvrez comment les gérer efficacement.",
-      category: "Marketing Local",
-      readTime: "10 min",
-      date: "6 Février 2025",
-      emoji: "⭐",
-      link: "/blog/article2"
-    },
-    {
-      id: 3,
-      title: "Le Pouvoir des Photos et Vidéos sur Votre Fiche Google",
-      excerpt: "Les fiches avec photos génèrent 35% de clics en plus. Guide complet avec statistiques.",
-      category: "Vidéo",
-      readTime: "9 min",
-      date: "3 Février 2025",
-      emoji: "📸",
-      link: "/blog/article3"
-    },
-    {
-      id: 4,
-      title: "La Puissance du Copywriting pour Votre SEO Local",
-      excerpt: "75% des internautes jugent votre crédibilité à la qualité de vos textes. Améliorez vos conversions de 30%.",
-      category: "Conseils",
-      readTime: "10 min",
-      date: "31 Janvier 2025",
-      emoji: "✍️",
-      link: "/blog/article4"
-    },
-    {
-      id: 5,
-      title: "Comment Dépasser Vos Concurrents sur Google en 2026",
-      excerpt: "Les 5 clés pour dominer votre marché local. IA, recherche vocale, optimisation Google.",
-      category: "Conseils",
-      readTime: "11 min",
-      date: "28 Janvier 2025",
-      emoji: "🏆",
-      link: "/blog/article5"
-    }
-  ];
+  const articles = [...BLOG_ARTICLES].sort((a, b) => b.id - a.id);
 
   const filteredArticles = articles.filter(article => {
     const matchesSearch = article.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -106,7 +56,7 @@ const Blog = () => {
   };
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white dark:bg-[#050505]">
       <SEOHead
         title="Blog Marketing Local & SEO | Kapta Media"
         description="Découvrez nos conseils d'experts en marketing local, SEO et optimisation Google Business Profile. Articles pratiques pour booster votre visibilité locale."
@@ -117,8 +67,8 @@ const Blog = () => {
 
       <main id="main-content">
       {/* Hero Section */}
-      <section className="relative pt-32 pb-16 md:pt-40 md:pb-20 overflow-hidden bg-gradient-to-br from-[#1c3ff9]/5 via-white to-[#6366f1]/5">
-        <div className="absolute inset-0 bg-[linear-gradient(rgba(28,63,249,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(28,63,249,0.03)_1px,transparent_1px)] bg-[size:40px_40px]" />
+      <section className="relative pt-32 pb-16 md:pt-40 md:pb-20 overflow-hidden bg-gradient-to-br from-[#1c3ff9]/5 via-white to-[#6366f1]/5 dark:from-[#0B0D12] dark:via-[#050505] dark:to-[#0B0D12]">
+        <div className="absolute inset-0 bg-[linear-gradient(rgba(28,63,249,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(28,63,249,0.03)_1px,transparent_1px)] dark:bg-[linear-gradient(rgba(147,197,253,0.08)_1px,transparent_1px),linear-gradient(90deg,rgba(147,197,253,0.08)_1px,transparent_1px)] bg-[size:40px_40px]" />
         
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
@@ -126,13 +76,13 @@ const Blog = () => {
               <span className="text-sm font-semibold text-[#1c3ff9]">📝 Blog</span>
             </div>
             
-            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-[#0A0A0A] mb-6 leading-tight">
+            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-[#0A0A0A] dark:text-[#F3F6FF] mb-6 leading-tight">
               Conseils & Actualités
               <br />
               <span className="text-[#1c3ff9]">Marketing Local</span>
             </h1>
             
-            <p className="text-lg md:text-xl text-[#52525B] max-w-3xl mx-auto mb-12">
+            <p className="text-lg md:text-xl text-[#52525B] dark:text-[#C2C8D8] max-w-3xl mx-auto mb-12">
               Découvrez nos articles d'experts pour optimiser votre visibilité locale et dominer Google Maps
             </p>
 
@@ -145,7 +95,7 @@ const Blog = () => {
                   placeholder="Rechercher un article..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full pl-12 pr-4 py-4 rounded-2xl border-2 border-gray-200 focus:border-[#1c3ff9] focus:outline-none transition-colors text-[#0A0A0A] placeholder:text-[#A1A1AA]"
+                  className="w-full pl-12 pr-4 py-4 rounded-2xl border-2 border-gray-200 dark:border-[#2A2E39] bg-white dark:bg-[#10131A] focus:border-[#1c3ff9] focus:outline-none transition-colors text-[#0A0A0A] dark:text-[#F3F6FF] placeholder:text-[#A1A1AA]"
                 />
               </div>
             </div>
@@ -154,7 +104,7 @@ const Blog = () => {
       </section>
 
       {/* Categories Filter */}
-      <section className="sticky top-16 md:top-20 z-40 bg-white/80 backdrop-blur-sm border-b border-gray-100 py-4">
+      <section className="sticky top-16 md:top-20 z-40 bg-white/80 dark:bg-[#050505]/85 backdrop-blur-sm border-b border-gray-100 dark:border-[#1E2430] py-4">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="relative">
             <div
@@ -169,7 +119,7 @@ const Blog = () => {
                   className={`flex items-center gap-2 px-4 py-2 rounded-full whitespace-nowrap transition-all duration-300 snap-start ${
                     selectedCategory === category
                       ? "bg-[#1c3ff9] text-white shadow-lg scale-105"
-                      : "bg-gray-100 text-[#52525B] hover:bg-gray-200"
+                      : "bg-gray-100 dark:bg-[#171B24] text-[#52525B] dark:text-[#C2C8D8] hover:bg-gray-200 dark:hover:bg-[#1E2430]"
                   }`}
                 >
                   {getCategoryIcon(category)}
@@ -206,9 +156,14 @@ const Blog = () => {
                 >
                   <Link
                     to={article.link}
-                    className="group flex flex-col bg-white rounded-2xl border border-gray-200 hover:border-[#1c3ff9] hover:shadow-xl transition-all duration-300 overflow-hidden h-full"
+                    className="group relative flex flex-col bg-white dark:bg-[#10131A] rounded-2xl border border-gray-200 dark:border-[#2A2E39] hover:border-[#1c3ff9] hover:shadow-xl transition-all duration-300 overflow-hidden h-full"
                     onClick={() => Analytics.trackCTAClick(article.title, 'Blog Article Click')}
                   >
+                  {article.isNew && (
+                    <span className="absolute right-4 top-4 z-20 inline-flex items-center px-3 py-1 rounded-full text-[11px] font-semibold tracking-[0.08em] uppercase text-[#10389C] dark:text-[#DCEBFF] border border-white/60 dark:border-[#60A5FA]/45 ring-1 ring-[#1D4ED8]/22 dark:ring-[#3B82F6]/35 bg-gradient-to-r from-[#EAF2FF]/95 via-[#DCE9FF]/90 to-[#C7DCFF]/90 dark:from-[#0F254B]/95 dark:via-[#12336A]/92 dark:to-[#184386]/90 backdrop-blur-xl shadow-[0_10px_24px_rgba(30,64,175,0.24)]">
+                      Nouveau
+                    </span>
+                  )}
                   {/* Image/Emoji Header */}
                   <div className="relative h-48 bg-gradient-to-br from-[#1c3ff9]/10 via-[#6366f1]/10 to-[#3B82F6]/10 flex items-center justify-center overflow-hidden">
                     <div className="absolute inset-0 bg-[linear-gradient(rgba(28,63,249,0.04)_1px,transparent_1px),linear-gradient(90deg,rgba(28,63,249,0.04)_1px,transparent_1px)] bg-[size:20px_20px]" />
@@ -229,15 +184,15 @@ const Blog = () => {
                       </span>
                     </div>
 
-                    <h2 className="text-xl font-bold text-[#0A0A0A] mb-3 group-hover:text-[#1c3ff9] transition-colors line-clamp-2">
+                    <h2 className="text-xl font-bold text-[#0A0A0A] dark:text-[#F3F6FF] mb-3 group-hover:text-[#1c3ff9] transition-colors line-clamp-2">
                       {article.title}
                     </h2>
 
-                    <p className="text-[#52525B] mb-4 line-clamp-3 flex-1">
+                    <p className="text-[#52525B] dark:text-[#C2C8D8] mb-4 line-clamp-3 flex-1">
                       {article.excerpt}
                     </p>
 
-                    <div className="flex items-center justify-between text-sm text-[#52525B] pt-4 border-t border-gray-100">
+                    <div className="flex items-center justify-between text-sm text-[#52525B] dark:text-[#98A2B6] pt-4 border-t border-gray-100 dark:border-[#2A2E39]">
                       <span>{article.date}</span>
                       <span>{article.readTime}</span>
                     </div>

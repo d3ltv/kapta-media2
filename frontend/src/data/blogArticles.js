@@ -93,6 +93,24 @@ export const BLOG_ARTICLES = [
     author: 'Kapta Media',
     image: 'https://kaptamedia.fr/og-article5.jpg',
     featured: false
+  },
+  {
+    id: 6,
+    slug: 'article6',
+    title: 'Votre Profil Google Business est-il Prêt pour 2026 ?',
+    excerpt: "En 2026, un profil incomplet vous rend invisible. Ce que révèle l'étude Birdeye et comment agir concrètement.",
+    description: "Pourquoi votre visibilité locale dépend d'un profil Google Business complet en 2026. Données Birdeye et plan d'action concret.",
+    category: 'Google Maps',
+    readTime: '8 min',
+    date: '14 Février 2026',
+    publishedTime: '2026-02-14T10:00:00+01:00',
+    modifiedTime: '2026-02-14T10:00:00+01:00',
+    emoji: '📍',
+    link: '/blog/article6',
+    keywords: 'google business profile 2026, visibilité locale, seo local, fiche google, avis google',
+    image: 'https://kaptamedia.fr/og-article6.jpg',
+    featured: true,
+    isNew: true
   }
 ];
 

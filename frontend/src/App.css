@@ -147,6 +147,11 @@
   opacity: 0.05;
 }
 
+html.dark .kapta-dots {
+  background-image: radial-gradient(circle, rgba(147, 197, 253, 0.75) 1px, transparent 1px);
+  opacity: 0.12;
+}
+
 /* Signature section marker */
 .kapta-section-marker {
   display: inline-flex;
@@ -441,6 +446,14 @@
   background: transparent !important;
   mix-blend-mode: multiply;
   filter: contrast(1.4) brightness(1.1) saturate(1.2);
+}
+
+html.dark .logo-transparent,
+html.dark .logo-no-bg,
+html.dark .logo-mask,
+html.dark .logo-isolated {
+  mix-blend-mode: screen !important;
+  filter: brightness(0) invert(1) contrast(1.08) !important;
 }
 
 /* Add padding to footer on mobile to account for sticky CTA */

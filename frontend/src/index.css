@@ -174,3 +174,100 @@
 ::-webkit-scrollbar-thumb:hover {
   background: #a1a1a1;
 }
+
+:root {
+  --kapta-grid-color: rgba(28, 63, 249, 0.06);
+  --kapta-grid-soft: rgba(28, 63, 249, 0.05);
+  --kapta-grid-strong: rgba(28, 63, 249, 0.085);
+}
+
+html.dark {
+  --kapta-grid-color: rgba(147, 197, 253, 0.11);
+  --kapta-grid-soft: rgba(147, 197, 253, 0.1);
+  --kapta-grid-strong: rgba(147, 197, 253, 0.16);
+}
+
+html.dark body {
+  background: #050505;
+  color: #f3f6ff;
+}
+
+html.dark .glassmorphism {
+  background: rgba(10, 12, 18, 0.72);
+  border-color: rgba(96, 165, 250, 0.18);
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.45);
+}
+
+html.dark .shadow-premium {
+  box-shadow:
+    0 10px 30px rgba(0, 0, 0, 0.35),
+    0 1px 0 rgba(255, 255, 255, 0.03) inset;
+}
+
+html.dark .bg-white {
+  background-color: #141b27 !important;
+}
+
+html.dark .bg-\[\#F8F9FA\],
+html.dark .bg-gray-50 {
+  background-color: #070a11 !important;
+}
+
+html.dark .bg-gray-100 {
+  background-color: #1a2230 !important;
+}
+
+html.dark .bg-gray-200 {
+  background-color: #273345 !important;
+}
+
+html.dark .bg-white\/80 {
+  background-color: rgba(20, 27, 39, 0.8) !important;
+}
+
+html.dark .bg-white\/90 {
+  background-color: rgba(20, 27, 39, 0.9) !important;
+}
+
+html.dark .bg-white\/95 {
+  background-color: rgba(20, 27, 39, 0.95) !important;
+}
+
+html.dark .text-\[\#0A0A0A\],
+html.dark .text-gray-900,
+html.dark .text-gray-800 {
+  color: #f3f6ff !important;
+}
+
+html.dark .text-\[\#52525B\],
+html.dark .text-\[\#71717A\],
+html.dark .text-gray-700,
+html.dark .text-gray-600 {
+  color: #c2c8d8 !important;
+}
+
+html.dark .text-\[\#A1A1AA\],
+html.dark .text-gray-500,
+html.dark .text-gray-400 {
+  color: #98a2b6 !important;
+}
+
+html.dark .text-gray-300 {
+  color: #aeb8cc !important;
+}
+
+html.dark .border-gray-100,
+html.dark .border-gray-200,
+html.dark .border-\[\#E4E4E7\] {
+  border-color: #2a2e39 !important;
+}
+
+html.dark .border-gray-300 {
+  border-color: #3a4356 !important;
+}
+
+html.dark .bg-\[linear-gradient\(rgba\(28\,63\,249\,0\.03\)_1px\,transparent_1px\)\,linear-gradient\(90deg\,rgba\(28\,63\,249\,0\.03\)_1px\,transparent_1px\)\] {
+  background-image:
+    linear-gradient(var(--kapta-grid-color) 1px, transparent 1px),
+    linear-gradient(90deg, var(--kapta-grid-color) 1px, transparent 1px) !important;
+}

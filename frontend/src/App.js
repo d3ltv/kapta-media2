@@ -21,12 +21,14 @@ import {
   MessageCircle
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import ThemeToggle from "@/components/ThemeToggle";
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import useTheme from "@/hooks/useTheme";
 import * as Analytics from "@/utils/analytics";
 
 // Animation variants
@@ -250,6 +252,7 @@ const SectionHeader = ({ number, label, title, highlight, description, centered 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const { isDark, toggleTheme } = useTheme();
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50);
@@ -334,7 +337,7 @@ const Navbar = () => {
               onDragStart={(e) => e.preventDefault()}
             />
             <div className="flex items-baseline gap-0.5">
-              <span className="text-lg md:text-xl font-black tracking-tight text-[#0A0A0A]" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>KAPTA</span>
+              <span className="text-lg md:text-xl font-black tracking-tight text-[#0A0A0A] dark:text-[#F3F6FF]" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>KAPTA</span>
               <span className="text-base md:text-lg font-medium italic text-[#1c3ff9]" style={{ fontFamily: 'Inter, sans-serif' }}>media</span>
             </div>
           </a>
@@ -345,7 +348,7 @@ const Navbar = () => {
                 Analytics.trackMenuClick('Mécanisme');
                 handleDesktopMenuClick('#mechanism');
               }} 
-              className="text-sm font-medium text-[#52525B] hover:text-[#0A0A0A] transition-colors"
+              className="text-sm font-medium text-[#52525B] hover:text-[#0A0A0A] transition-colors dark:text-[#C2C8D8] dark:hover:text-[#F3F6FF]"
             >
               Mécanisme
             </button>
@@ -354,14 +357,14 @@ const Navbar = () => {
                 Analytics.trackMenuClick('Tarifs');
                 handleDesktopMenuClick('#pricing');
               }} 
-              className="text-sm font-medium text-[#52525B] hover:text-[#0A0A0A] transition-colors"
+              className="text-sm font-medium text-[#52525B] hover:text-[#0A0A0A] transition-colors dark:text-[#C2C8D8] dark:hover:text-[#F3F6FF]"
             >
               Tarifs
             </button>
             <Link 
               to="/blog"
               onClick={() => Analytics.trackMenuClick('Blog')}
-              className="text-sm font-medium text-[#52525B] hover:text-[#0A0A0A] transition-colors"
+              className="text-sm font-medium text-[#52525B] hover:text-[#0A0A0A] transition-colors dark:text-[#C2C8D8] dark:hover:text-[#F3F6FF]"
             >
               Blog
             </Link>
@@ -370,10 +373,11 @@ const Navbar = () => {
                 Analytics.trackMenuClick('FAQ');
                 handleDesktopMenuClick('#faq');
               }} 
-              className="text-sm font-medium text-[#52525B] hover:text-[#0A0A0A] transition-colors"
+              className="text-sm font-medium text-[#52525B] hover:text-[#0A0A0A] transition-colors dark:text-[#C2C8D8] dark:hover:text-[#F3F6FF]"
             >
               FAQ
             </button>
+            <ThemeToggle isDark={isDark} onToggle={toggleTheme} compact />
             <Button 
               data-testid="cta-audit-desktop"
               className="bg-[#1c3ff9] hover:bg-[#1534d4] text-white rounded-full px-6 btn-shimmer"
@@ -415,7 +419,7 @@ const Navbar = () => {
               <>
                 {/* Overlay */}
                 <div 
-                  className="fixed inset-0 bg-black/20 backdrop-blur-sm z-40"
+                  className="fixed inset-x-0 top-16 bottom-0 bg-black/20 backdrop-blur-sm z-40"
                   onClick={() => setMobileMenuOpen(false)}
                 />
                 
@@ -425,7 +429,7 @@ const Navbar = () => {
                   animate={{ opacity: 1, scale: 1, y: 0 }}
                   exit={{ opacity: 0, scale: 0.95, y: -10 }}
                   transition={{ duration: 0.2 }}
-                  className="absolute top-16 right-0 w-64 bg-white rounded-2xl shadow-2xl border border-gray-100 overflow-hidden z-50"
+                  className="absolute top-16 right-0 w-64 bg-white dark:bg-[#10131A] rounded-2xl shadow-2xl border border-gray-100 dark:border-[#2A2E39] overflow-hidden z-50"
                 >
                   <div className="p-2">
                     {menuItems.map((item, index) => {
@@ -450,7 +454,7 @@ const Navbar = () => {
                               <span className="text-lg group-hover:scale-110 transition-transform">
                                 {item.icon}
                               </span>
-                              <span className="text-sm font-medium text-[#0A0A0A] group-hover:text-[#1c3ff9] transition-colors">
+                              <span className="text-sm font-medium text-[#0A0A0A] dark:text-[#F3F6FF] group-hover:text-[#1c3ff9] transition-colors">
                                 {item.label}
                               </span>
                               <ArrowRight className="w-4 h-4 text-[#A1A1AA] group-hover:text-[#1c3ff9] group-hover:translate-x-1 transition-all ml-auto" />
@@ -466,7 +470,7 @@ const Navbar = () => {
                               <span className="text-lg group-hover:scale-110 transition-transform">
                                 {item.icon}
                               </span>
-                              <span className="text-sm font-medium text-[#0A0A0A] group-hover:text-[#1c3ff9] transition-colors">
+                              <span className="text-sm font-medium text-[#0A0A0A] dark:text-[#F3F6FF] group-hover:text-[#1c3ff9] transition-colors">
                                 {item.label}
                               </span>
                               <ArrowRight className="w-4 h-4 text-[#A1A1AA] group-hover:text-[#1c3ff9] group-hover:translate-x-1 transition-all ml-auto" />
@@ -476,9 +480,12 @@ const Navbar = () => {
                       );
                     })}
                   </div>
+                  <div className="px-4 pb-2 pt-1 border-t border-gray-100 dark:border-[#2A2E39]">
+                    <ThemeToggle isDark={isDark} onToggle={toggleTheme} className="w-full justify-center" />
+                  </div>
                   
                   {/* CTA Button */}
-                  <div className="p-4 border-t border-gray-100">
+                  <div className="p-4 border-t border-gray-100 dark:border-[#2A2E39]">
                     <Button 
                       className="w-full bg-gradient-to-br from-[#0052FF] via-[#1c3ff9] to-[#3B82F6] hover:from-[#0041CC] hover:via-[#1534d4] hover:to-[#2563EB] text-white rounded-full px-6 py-3 text-sm font-semibold shadow-lg btn-shimmer"
                       onClick={() => {
@@ -493,10 +500,10 @@ const Navbar = () => {
                   </div>
                   
                   {/* Footer avec contact */}
-                  <div className="border-t border-gray-100 p-4 bg-[#F8F9FA]">
+                  <div className="border-t border-gray-100 dark:border-[#2A2E39] p-4 bg-[#F8F9FA] dark:bg-[#171B24]">
                     <a 
                       href="tel:0686018054"
-                      className="flex items-center gap-2 text-sm text-[#52525B] hover:text-[#1c3ff9] transition-colors"
+                      className="flex items-center gap-2 text-sm text-[#52525B] dark:text-[#C2C8D8] hover:text-[#1c3ff9] transition-colors"
                       onClick={() => {
                         Analytics.trackPhoneClick('06 86 01 80 54', 'Mobile Menu');
                         setMobileMenuOpen(false);
@@ -520,17 +527,20 @@ const Navbar = () => {
 const Hero = () => {
   return (
     <section 
-      className="relative min-h-screen pt-24 md:pt-28 pb-16 md:pb-20 overflow-hidden bg-white"
+      className="relative min-h-screen pt-24 md:pt-28 pb-16 md:pb-20 overflow-hidden bg-white dark:bg-gradient-to-br dark:from-[#070B14] dark:via-[#05070C] dark:to-[#0C1526]"
       data-testid="hero-section"
     >
-      {/* Strong Grid Background */}
-      <div className="absolute inset-0 bg-[linear-gradient(rgba(28,63,249,0.08)_1px,transparent_1px),linear-gradient(90deg,rgba(28,63,249,0.08)_1px,transparent_1px)] bg-[size:40px_40px]" />
+      {/* Grid Background */}
+      <div className="absolute inset-0 bg-[linear-gradient(rgba(28,63,249,0.08)_1px,transparent_1px),linear-gradient(90deg,rgba(28,63,249,0.08)_1px,transparent_1px)] bg-[size:40px_40px] dark:hidden" />
+      <div className="absolute inset-0 hidden dark:block bg-[linear-gradient(rgba(147,197,253,0.07)_1px,transparent_1px),linear-gradient(90deg,rgba(147,197,253,0.07)_1px,transparent_1px)] bg-[size:40px_40px]" />
       
       {/* Gradient overlay for depth */}
-      <div className="absolute inset-0 bg-gradient-to-b from-white via-transparent to-white pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-b from-white via-transparent to-white dark:from-[#070B14]/80 dark:via-[#05070C]/40 dark:to-[#0A1220]/90 pointer-events-none" />
       
-      {/* Soft Blue Glow */}
-      <div className="absolute top-1/3 right-1/4 w-[500px] h-[500px] bg-[#1c3ff9]/10 rounded-full blur-[120px] pointer-events-none" />
+      {/* Soft Glow */}
+      <div className="absolute top-1/3 right-1/4 w-[500px] h-[500px] bg-[#1c3ff9]/10 dark:bg-[#3B82F6]/16 rounded-full blur-[120px] pointer-events-none" />
+      <div className="absolute -top-20 left-[18%] w-[360px] h-[360px] hidden dark:block bg-[#60A5FA]/14 rounded-full blur-[130px] pointer-events-none" />
+      <div className="absolute bottom-[-120px] right-[12%] w-[420px] h-[420px] hidden dark:block bg-[#1D4ED8]/12 rounded-full blur-[150px] pointer-events-none" />
       
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center">
@@ -542,26 +552,26 @@ const Hero = () => {
               className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#1c3ff9]/5 border border-[#1c3ff9]/10 mb-8 md:mb-10"
             >
               <span className="w-2 h-2 rounded-full bg-[#10B981] animate-pulse" />
-              <span className="text-xs md:text-sm font-medium text-[#1c3ff9]">Top Google Maps en 14 jours</span>
+              <span className="text-xs md:text-sm font-medium text-[#1c3ff9]">Visibilité locale renforcée en 14 jours</span>
             </motion.div>
             
             {/* Main Headline */}
             <motion.h1 
               initial={false}
-              className="text-4xl sm:text-5xl md:text-6xl font-bold text-[#0A0A0A] leading-[1.05] mb-8 md:mb-10"
+              className="text-4xl sm:text-5xl md:text-6xl font-bold text-[#0A0A0A] dark:text-[#F4F7FF] leading-[1.05] mb-8 md:mb-10"
             >
               Votre concurrent est{" "}
               <span className="text-[#1c3ff9]">N°1</span>.
               <br />
-              <span className="text-[#71717A]">Ça vous va ?</span>
+              <span className="text-[#71717A] dark:text-[#BFC9DD]">Ça vous va ?</span>
             </motion.h1>
             
             {/* Subtitle */}
             <motion.p 
               initial={false}
-              className="text-base md:text-lg text-[#52525B] max-w-xl mx-auto mb-10 md:mb-12 leading-relaxed"
+              className="text-base md:text-lg text-[#52525B] dark:text-[#C7CFDE] max-w-xl mx-auto mb-10 md:mb-12 leading-relaxed"
             >
-              On vous met dans le <span className="font-semibold text-[#0A0A0A]">Top Google Maps</span> avec 
+              On améliore votre <span className="font-semibold text-[#0A0A0A] dark:text-[#F4F7FF]">visibilité Google Maps</span> avec 
               une vidéo pro + une fiche Google qui donne envie d'appeler.
             </motion.p>
             
@@ -638,18 +648,9 @@ const BeforeAfter = () => {
   return (
     <section 
       ref={ref}
-      className="py-8 md:py-12 bg-gradient-to-br from-white via-[#F8F9FA] to-white relative overflow-hidden"
+      className="py-8 md:py-12 bg-gradient-to-br from-white via-[#F8F9FA] to-white dark:from-[#050505] dark:via-[#0B0F17] dark:to-[#050505] relative overflow-hidden"
       data-testid="before-after-section"
     >
-      {/* Quadrillage subtil */}
-      <div 
-        className="absolute inset-0 opacity-30"
-        style={{
-          backgroundImage: `linear-gradient(rgba(28,63,249,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(28,63,249,0.03) 1px, transparent 1px)`,
-          backgroundSize: '32px 32px'
-        }}
-      />
-      
       {/* Artefacts blur */}
       <motion.div
         className="absolute w-64 h-64 bg-[#EF4444]/8 rounded-full blur-3xl"
@@ -1098,11 +1099,17 @@ const ProblemComparison = () => {
   return (
     <section 
       ref={ref}
-      className="py-8 md:py-12 bg-[#F8F9FA] relative overflow-hidden"
+      className="py-8 md:py-12 bg-[#F8F9FA] dark:bg-[#070A11] relative overflow-hidden"
       data-testid="comparison-section"
     >
       {/* Strong Grid Background */}
-      <div className="absolute inset-0 bg-[linear-gradient(rgba(28,63,249,0.04)_1px,transparent_1px),linear-gradient(90deg,rgba(28,63,249,0.04)_1px,transparent_1px)] bg-[size:32px_32px]" />
+      <div
+        className="absolute inset-0 bg-[size:32px_32px]"
+        style={{
+          backgroundImage:
+            "linear-gradient(var(--kapta-grid-soft) 1px, transparent 1px), linear-gradient(90deg, var(--kapta-grid-soft) 1px, transparent 1px)",
+        }}
+      />
       
       <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8 relative">
         <SectionHeader 
@@ -1547,7 +1554,7 @@ const CaseStudies = () => {
     <>
     <section 
       ref={ref}
-      className="py-8 md:py-16 bg-white relative overflow-hidden"
+      className="py-8 md:py-16 bg-white dark:bg-[#050505] relative overflow-hidden"
       data-testid="case-studies-section"
     >
       
@@ -1665,7 +1672,7 @@ const CaseStudies = () => {
               <div 
                 className="absolute inset-0 rounded-2xl border border-[#1c3ff9]/10 shadow-lg bg-white/80 backdrop-blur-sm overflow-hidden"
                 style={{
-                  backgroundImage: `linear-gradient(rgba(28,63,249,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(28,63,249,0.04) 1px, transparent 1px)`,
+                  backgroundImage: `linear-gradient(var(--kapta-grid-soft) 1px, transparent 1px), linear-gradient(90deg, var(--kapta-grid-soft) 1px, transparent 1px)`,
                   backgroundSize: '32px 32px'
                 }}
               >
@@ -2039,7 +2046,7 @@ const Mechanism = () => {
     <section 
       id="mechanism"
       ref={ref}
-      className="py-4 md:py-8 bg-white relative"
+      className="py-4 md:py-8 bg-white dark:bg-[#070A11] relative"
       data-testid="mechanism-section"
     >
       {/* Floating brand pins */}
@@ -2139,14 +2146,14 @@ const Pricing = () => {
     <section 
       id="pricing"
       ref={ref}
-      className="py-8 md:py-16 bg-gradient-to-br from-[#F8F9FA] via-[#F1F5F9] to-[#F8F9FA] relative overflow-hidden"
+      className="py-8 md:py-16 bg-gradient-to-br from-[#F8F9FA] via-[#F1F5F9] to-[#F8F9FA] dark:from-[#050505] dark:via-[#0D121C] dark:to-[#050505] relative overflow-hidden"
       data-testid="pricing-section"
     >
       {/* Quadrillage subtil en fond */}
       <div 
         className="absolute inset-0 opacity-50"
         style={{
-          backgroundImage: `linear-gradient(rgba(28,63,249,0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(28,63,249,0.08) 1px, transparent 1px)`,
+          backgroundImage: `linear-gradient(var(--kapta-grid-strong) 1px, transparent 1px), linear-gradient(90deg, var(--kapta-grid-strong) 1px, transparent 1px)`,
           backgroundSize: '32px 32px'
         }}
       />
@@ -2370,7 +2377,7 @@ const FAQ = () => {
     },
     {
       question: "Combien de temps ça prend vraiment ?",
-      answer: "Audit gratuit : 15 minutes par téléphone. Tournage : 2h chez vous, sans perturber votre service. Mise en ligne : 48h après le tournage. Premiers résultats : 14 jours en moyenne, garantie Top 5 sous 30 jours.",
+      answer: "Audit gratuit : 15 minutes par téléphone. Tournage : 2h chez vous, sans perturber votre service. Mise en ligne : 48h après le tournage. Premiers résultats : 14 jours en moyenne avec des indicateurs de visibilité mesurables.",
       icon: Calendar
     },
     {
@@ -2394,18 +2401,9 @@ const FAQ = () => {
     <section 
       id="faq"
       ref={ref}
-      className="py-8 md:py-16 bg-gradient-to-br from-white via-[#F8F9FA] to-white relative overflow-hidden"
+      className="py-8 md:py-16 bg-gradient-to-br from-white via-[#F8F9FA] to-white dark:from-[#050505] dark:via-[#0B0F17] dark:to-[#050505] relative overflow-hidden"
       data-testid="faq-section"
     >
-      {/* Quadrillage subtil en fond */}
-      <div 
-        className="absolute inset-0 opacity-40"
-        style={{
-          backgroundImage: `linear-gradient(rgba(28,63,249,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(28,63,249,0.04) 1px, transparent 1px)`,
-          backgroundSize: '32px 32px'
-        }}
-      />
-      
       {/* Artefacts blur animés */}
       <motion.div
         className="absolute w-48 h-48 bg-[#1c3ff9]/6 rounded-full blur-3xl"
@@ -2583,7 +2581,7 @@ const ContactForm = () => {
     <section 
       id="contact"
       ref={ref}
-      className="py-12 md:py-32 bg-[#F8F9FA] relative overflow-hidden"
+      className="py-12 md:py-32 bg-[#F8F9FA] dark:bg-[#070A11] relative overflow-hidden"
       data-testid="contact-section"
     >
       {/* Background brand pattern */}
@@ -3089,7 +3087,7 @@ function App() {
   }, []);
 
   return (
-    <div className="App min-h-screen bg-white">
+    <div className="App min-h-screen bg-white dark:bg-[#050505]">
       <Navbar />
       <Hero />
       <BeforeAfter />

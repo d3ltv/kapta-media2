@@ -5,6 +5,7 @@ import { ArrowLeft, Calendar, Clock, Star, MessageCircle, TrendingUp, Users, Che
 import { Button } from "@/components/ui/button";
 import SharedNavbar from "@/components/SharedNavbar";
 import SEOHead from "@/components/SEOHead";
+import InteractiveGlassTitle from "@/components/InteractiveGlassTitle";
 import * as Analytics from "@/utils/analytics";
 
 const Article2 = () => {
@@ -49,7 +50,7 @@ const Article2 = () => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white dark:bg-[#050505]">
       <SEOHead
         title="Avis en Ligne : Pourquoi Sont-ils Essentiels ? | Kapta Media"
         description="81% des clients lisent systématiquement les avis avant de décider. Découvrez pourquoi les avis Google sont cruciaux pour votre référencement local et comment les gérer efficacement."
@@ -62,26 +63,27 @@ const Article2 = () => {
       <SharedNavbar />
       
       {/* Hero Article */}
-      <section className="relative pt-24 pb-12 md:pt-32 md:pb-16 overflow-hidden bg-white">
+      <section className="relative pt-24 pb-6 md:pt-32 md:pb-8 overflow-hidden bg-white dark:bg-[#050505]">
         <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <Link to="/blog" className="inline-flex items-center gap-2 text-sm text-[#52525B] hover:text-[#1c3ff9] transition-colors mb-6">
-              <ArrowLeft className="w-4 h-4" />
-              Retour au blog
-            </Link>
+            <div className="mb-6 flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+              <Link to="/blog" className="inline-flex items-center gap-2 text-sm text-[#52525B] hover:text-[#1c3ff9] transition-colors">
+                <ArrowLeft className="w-4 h-4" />
+                Retour au blog
+              </Link>
 
-            {/* Breadcrumb visible */}
-            <nav className="flex items-center gap-2 text-xs text-[#A1A1AA] mb-4" aria-label="Breadcrumb">
-              <Link to="/" className="hover:text-[#1c3ff9] transition-colors">Accueil</Link>
-              <span>/</span>
-              <Link to="/blog" className="hover:text-[#1c3ff9] transition-colors">Blog</Link>
-              <span>/</span>
-              <span className="text-[#52525B]">Avis en Ligne</span>
-            </nav>
+              <nav className="flex items-center gap-2 text-xs text-[#A1A1AA] md:justify-end" aria-label="Breadcrumb">
+                <Link to="/" className="hover:text-[#1c3ff9] transition-colors">Accueil</Link>
+                <span>/</span>
+                <Link to="/blog" className="hover:text-[#1c3ff9] transition-colors">Blog</Link>
+                <span>/</span>
+                <span className="text-[#52525B]">Avis en Ligne</span>
+              </nav>
+            </div>
 
             <div className="mb-6">
               <span className="inline-flex items-center px-3 py-1.5 rounded-md bg-[#1c3ff9]/10 text-xs font-semibold text-[#1c3ff9] border border-[#1c3ff9]/20">
@@ -89,11 +91,11 @@ const Article2 = () => {
               </span>
             </div>
 
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-[#0A0A0A] leading-[1.1] mb-6 tracking-tight">
+            <InteractiveGlassTitle>
               Avis en Ligne : Pourquoi Sont-ils Essentiels ?
-            </h1>
+            </InteractiveGlassTitle>
 
-            <div className="flex items-center gap-4 text-sm text-[#71717A] mb-12 pb-6 border-b border-gray-200">
+            <div className="flex items-center gap-4 text-sm text-[#71717A] mb-10 pb-6 border-b border-gray-200 dark:border-[#2A2E39]">
               <span className="flex items-center gap-1.5">
                 <Calendar className="w-4 h-4" />
                 6 Février 2025
@@ -107,27 +109,8 @@ const Article2 = () => {
         </div>
       </section>
 
-      {/* Featured Image */}
-      <section className="relative pb-12 md:pb-16">
-        <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-          >
-            <div className="relative h-48 md:h-64 lg:h-80 bg-gradient-to-br from-[#1c3ff9]/10 via-[#6366f1]/10 to-[#3B82F6]/10 rounded-lg overflow-hidden">
-              <div className="absolute inset-0 bg-[linear-gradient(rgba(28,63,249,0.04)_1px,transparent_1px),linear-gradient(90deg,rgba(28,63,249,0.04)_1px,transparent_1px)] bg-[size:20px_20px]" />
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="text-6xl md:text-7xl lg:text-8xl">⭐</div>
-              </div>
-            </div>
-          </motion.div>
-        </div>
-      </section>
-
       {/* Article Content */}
-      <article className="py-12 md:py-16">
+      <article className="pt-2 pb-12 md:pt-4 md:pb-16">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="prose prose-lg max-w-none">
             {/* Introduction */}

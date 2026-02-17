@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { ArrowRight, Phone, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import ThemeToggle from "@/components/ThemeToggle";
+import useTheme from "@/hooks/useTheme";
 import * as Analytics from "@/utils/analytics";
 
 const LOGO_SRC_SET = "/logo-64.webp 64w, /logo-96.webp 96w, /logo-128.webp 128w";
@@ -9,6 +11,7 @@ const LOGO_SRC_SET = "/logo-64.webp 64w, /logo-96.webp 96w, /logo-128.webp 128w"
 const SharedNavbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const { isDark, toggleTheme } = useTheme();
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50);
@@ -84,7 +87,7 @@ const SharedNavbar = () => {
               onDragStart={(e) => e.preventDefault()}
             />
             <div className="flex items-baseline gap-0.5">
-              <span className="text-lg md:text-xl font-black tracking-tight text-[#0A0A0A]" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>KAPTA</span>
+              <span className="text-lg md:text-xl font-black tracking-tight text-[#0A0A0A] dark:text-[#F3F6FF]" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>KAPTA</span>
               <span className="text-base md:text-lg font-medium italic text-[#1c3ff9]" style={{ fontFamily: 'Inter, sans-serif' }}>media</span>
             </div>
           </Link>
@@ -95,7 +98,7 @@ const SharedNavbar = () => {
                 Analytics.trackMenuClick('Mécanisme');
                 handleDesktopMenuClick('/#mechanism');
               }} 
-              className="text-sm font-medium text-[#52525B] hover:text-[#0A0A0A] transition-colors"
+              className="text-sm font-medium text-[#52525B] hover:text-[#0A0A0A] transition-colors dark:text-[#C2C8D8] dark:hover:text-[#F3F6FF]"
             >
               Mécanisme
             </button>
@@ -104,14 +107,14 @@ const SharedNavbar = () => {
                 Analytics.trackMenuClick('Tarifs');
                 handleDesktopMenuClick('/#pricing');
               }} 
-              className="text-sm font-medium text-[#52525B] hover:text-[#0A0A0A] transition-colors"
+              className="text-sm font-medium text-[#52525B] hover:text-[#0A0A0A] transition-colors dark:text-[#C2C8D8] dark:hover:text-[#F3F6FF]"
             >
               Tarifs
             </button>
             <Link 
               to="/blog"
               onClick={() => Analytics.trackMenuClick('Blog')}
-              className="text-sm font-medium text-[#52525B] hover:text-[#0A0A0A] transition-colors"
+              className="text-sm font-medium text-[#52525B] hover:text-[#0A0A0A] transition-colors dark:text-[#C2C8D8] dark:hover:text-[#F3F6FF]"
             >
               Blog
             </Link>
@@ -120,10 +123,11 @@ const SharedNavbar = () => {
                 Analytics.trackMenuClick('FAQ');
                 handleDesktopMenuClick('/#faq');
               }} 
-              className="text-sm font-medium text-[#52525B] hover:text-[#0A0A0A] transition-colors"
+              className="text-sm font-medium text-[#52525B] hover:text-[#0A0A0A] transition-colors dark:text-[#C2C8D8] dark:hover:text-[#F3F6FF]"
             >
               FAQ
             </button>
+            <ThemeToggle isDark={isDark} onToggle={toggleTheme} compact />
             <Button 
               data-testid="cta-audit-desktop"
               className="bg-[#1c3ff9] hover:bg-[#1534d4] text-white rounded-full px-6 btn-shimmer"
@@ -165,14 +169,14 @@ const SharedNavbar = () => {
               <>
                 {/* Overlay */}
                 <div 
-                  className="fixed inset-0 bg-black/20 backdrop-blur-sm z-40"
+                  className="fixed inset-x-0 top-16 bottom-0 bg-black/20 backdrop-blur-sm z-40"
                   onClick={() => setMobileMenuOpen(false)}
                 />
                 
                 {/* Menu */}
                 <div
                   id="mobile-menu-panel"
-                  className="absolute top-16 right-0 w-64 bg-white rounded-2xl shadow-2xl border border-gray-100 overflow-hidden z-50"
+                  className="absolute top-16 right-0 w-64 bg-white dark:bg-[#10131A] rounded-2xl shadow-2xl border border-gray-100 dark:border-[#2A2E39] overflow-hidden z-50"
                 >
                   <div className="p-2">
                     {menuItems.map((item, index) => {
@@ -196,7 +200,7 @@ const SharedNavbar = () => {
                               <span className="text-lg group-hover:scale-110 transition-transform">
                                 {item.icon}
                               </span>
-                              <span className="text-sm font-medium text-[#0A0A0A] group-hover:text-[#1c3ff9] transition-colors">
+                              <span className="text-sm font-medium text-[#0A0A0A] dark:text-[#F3F6FF] group-hover:text-[#1c3ff9] transition-colors">
                                 {item.label}
                               </span>
                               <ArrowRight className="w-4 h-4 text-[#A1A1AA] group-hover:text-[#1c3ff9] group-hover:translate-x-1 transition-all ml-auto" />
@@ -212,7 +216,7 @@ const SharedNavbar = () => {
                               <span className="text-lg group-hover:scale-110 transition-transform">
                                 {item.icon}
                               </span>
-                              <span className="text-sm font-medium text-[#0A0A0A] group-hover:text-[#1c3ff9] transition-colors">
+                              <span className="text-sm font-medium text-[#0A0A0A] dark:text-[#F3F6FF] group-hover:text-[#1c3ff9] transition-colors">
                                 {item.label}
                               </span>
                               <ArrowRight className="w-4 h-4 text-[#A1A1AA] group-hover:text-[#1c3ff9] group-hover:translate-x-1 transition-all ml-auto" />
@@ -222,9 +226,12 @@ const SharedNavbar = () => {
                       );
                     })}
                   </div>
+                  <div className="px-4 pb-2 pt-1 border-t border-gray-100 dark:border-[#2A2E39]">
+                    <ThemeToggle isDark={isDark} onToggle={toggleTheme} className="w-full justify-center" />
+                  </div>
                   
                   {/* CTA Button */}
-                  <div className="p-4 border-t border-gray-100">
+                  <div className="p-4 border-t border-gray-100 dark:border-[#2A2E39]">
                     <Button 
                       className="w-full bg-gradient-to-br from-[#0052FF] via-[#1c3ff9] to-[#3B82F6] hover:from-[#0041CC] hover:via-[#1534d4] hover:to-[#2563EB] text-white rounded-full px-6 py-3 text-sm font-semibold shadow-lg btn-shimmer"
                       onClick={() => {
@@ -239,10 +246,10 @@ const SharedNavbar = () => {
                   </div>
                   
                   {/* Footer avec contact */}
-                  <div className="border-t border-gray-100 p-4 bg-[#F8F9FA]">
+                  <div className="border-t border-gray-100 dark:border-[#2A2E39] p-4 bg-[#F8F9FA] dark:bg-[#171B24]">
                     <a 
                       href="tel:0686018054"
-                      className="flex items-center gap-2 text-sm text-[#52525B] hover:text-[#1c3ff9] transition-colors"
+                      className="flex items-center gap-2 text-sm text-[#52525B] dark:text-[#C2C8D8] hover:text-[#1c3ff9] transition-colors"
                       onClick={() => {
                         Analytics.trackPhoneClick('06 86 01 80 54', 'Mobile Menu');
                         setMobileMenuOpen(false);
