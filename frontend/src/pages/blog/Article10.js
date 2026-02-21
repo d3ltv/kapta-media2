@@ -101,7 +101,7 @@ const Article10 = () => {
                 Google Maps
               </span>
               {showNewBadge && (
-                <span className="inline-flex items-center px-3.5 py-1.5 rounded-full text-[11px] font-semibold tracking-[0.08em] uppercase text-[#123A9B] border border-white/60 ring-1 ring-[#1D4ED8]/22 bg-gradient-to-r from-[#EAF2FF]/90 via-[#D8E7FF]/85 to-[#C2DAFF]/82 backdrop-blur-2xl backdrop-saturate-150 shadow-[0_12px_28px_rgba(30,64,175,0.26),inset_0_1px_0_rgba(255,255,255,0.62)]">
+                <span className="inline-flex items-center px-3.5 py-1.5 rounded-full text-[11px] font-semibold tracking-[0.08em] uppercase text-[#123A9B] dark:text-[#DCEBFF] border border-white/60 dark:border-[#60A5FA]/45 ring-1 ring-[#1D4ED8]/22 dark:ring-[#3B82F6]/35 bg-gradient-to-r from-[#EAF2FF]/90 via-[#D8E7FF]/85 to-[#C2DAFF]/82 dark:from-[#0F254B]/95 dark:via-[#12336A]/92 dark:to-[#184386]/90 backdrop-blur-2xl backdrop-saturate-150 shadow-[0_12px_28px_rgba(30,64,175,0.26),inset_0_1px_0_rgba(255,255,255,0.62)]">
                   Nouveau
                 </span>
               )}
@@ -131,13 +131,13 @@ const Article10 = () => {
 
       <article className="pt-2 pb-12 md:pt-4 md:pb-16">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="prose prose-lg max-w-none">
+          <div className="prose prose-lg max-w-none dark:prose-invert">
             <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }} className="mb-12">
-              <p className="text-lg text-[#52525B] leading-relaxed">
+              <p className="text-lg text-[#52525B] dark:text-[#C2C8D8] leading-relaxed">
                 Les recherches locales ne se limitent plus à une liste de liens bleus.
                 Les assistants IA synthétisent, comparent et recommandent directement.
               </p>
-              <p className="text-lg text-[#52525B] leading-relaxed">
+              <p className="text-lg text-[#52525B] dark:text-[#C2C8D8] leading-relaxed">
                 L'objectif 2026 : faire en sorte que votre entreprise soit citée comme la meilleure option locale.
               </p>
             </motion.div>
@@ -163,9 +163,9 @@ const Article10 = () => {
             />
 
             <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }} className="mb-12">
-              <div className="rounded-xl border border-gray-200 bg-[#F8F9FA] p-5">
-                <h3 className="text-lg font-bold text-[#0A0A0A] mb-3">Repères opérationnels</h3>
-                <ul className="space-y-2 text-[#52525B]">
+              <div className="rounded-xl border border-gray-200 dark:border-[#2A2E39] bg-[#F8F9FA] dark:bg-[#101722] p-5">
+                <h3 className="text-lg font-bold text-[#0A0A0A] dark:text-[#F3F6FF] mb-3">Repères opérationnels</h3>
+                <ul className="space-y-2 text-[#52525B] dark:text-[#C2C8D8]">
                   <li>Publiez des visuels récents qui prouvent vos services, vos produits et votre environnement.</li>
                   <li>Collectez des avis sur Google et hors Google (Yelp, Facebook, Apple Maps, Trustpilot).</li>
                   <li>Structurez vos contenus pour l'IA : réponses claires, listes, schéma LocalBusiness.</li>
@@ -176,9 +176,9 @@ const Article10 = () => {
             <motion.section initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }} className="mb-12">
               <div className="flex items-center gap-3 mb-4">
                 <Camera className="w-6 h-6 text-[#1c3ff9]" />
-                <h2 className="text-2xl md:text-3xl font-bold text-[#0A0A0A] m-0">1. Nourrissez l'IA avec des preuves visuelles</h2>
+                <h2 className="text-2xl md:text-3xl font-bold text-[#0A0A0A] dark:text-[#F3F6FF] m-0">1. Nourrissez l'IA avec des preuves visuelles</h2>
               </div>
-              <ul className="space-y-3 text-[#52525B]">
+              <ul className="space-y-3 text-[#52525B] dark:text-[#C2C8D8]">
                 <li>Montrez ce que vous promettez : produits, équipe, espace, avant/après.</li>
                 <li>Ajoutez régulièrement des photos et vidéos pour signaler une entreprise active.</li>
                 <li>Considérez chaque visuel comme une preuve que l'IA peut exploiter.</li>
@@ -188,9 +188,9 @@ const Article10 = () => {
             <motion.section initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }} className="mb-12">
               <div className="flex items-center gap-3 mb-4">
                 <Star className="w-6 h-6 text-[#1c3ff9]" />
-                <h2 className="text-2xl md:text-3xl font-bold text-[#0A0A0A] m-0">2. Diversifiez vos avis et citations</h2>
+                <h2 className="text-2xl md:text-3xl font-bold text-[#0A0A0A] dark:text-[#F3F6FF] m-0">2. Diversifiez vos avis et citations</h2>
               </div>
-              <p className="text-[#52525B] leading-relaxed">
+              <p className="text-[#52525B] dark:text-[#C2C8D8] leading-relaxed">
                 Les IA tierces n'ont pas toujours un accès complet aux données Google Business Profile.
                 Pour exister dans ChatGPT ou Perplexity, vous devez aussi travailler les plateformes ouvertes et les listes locales "best of".
               </p>
@@ -199,9 +199,9 @@ const Article10 = () => {
             <motion.section initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }} className="mb-12">
               <div className="flex items-center gap-3 mb-4">
                 <MessageCircle className="w-6 h-6 text-[#1c3ff9]" />
-                <h2 className="text-2xl md:text-3xl font-bold text-[#0A0A0A] m-0">3. Pratiquez l'opinion sculpting</h2>
+                <h2 className="text-2xl md:text-3xl font-bold text-[#0A0A0A] dark:text-[#F3F6FF] m-0">3. Pratiquez l'opinion sculpting</h2>
               </div>
-              <ul className="space-y-3 text-[#52525B]">
+              <ul className="space-y-3 text-[#52525B] dark:text-[#C2C8D8]">
                 <li>Encouragez des avis détaillés (service reçu, contexte, zone géographique).</li>
                 <li>Demandez un retour précis, pas juste "laissez un avis".</li>
                 <li>Plus le texte est utile, plus l'IA peut vous résumer en votre faveur.</li>
@@ -211,9 +211,9 @@ const Article10 = () => {
             <motion.section initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }} className="mb-12">
               <div className="flex items-center gap-3 mb-4">
                 <SearchCheck className="w-6 h-6 text-[#1c3ff9]" />
-                <h2 className="text-2xl md:text-3xl font-bold text-[#0A0A0A] m-0">4. Rédigez en mode conversationnel</h2>
+                <h2 className="text-2xl md:text-3xl font-bold text-[#0A0A0A] dark:text-[#F3F6FF] m-0">4. Rédigez en mode conversationnel</h2>
               </div>
-              <ul className="space-y-3 text-[#52525B]">
+              <ul className="space-y-3 text-[#52525B] dark:text-[#C2C8D8]">
                 <li>Traitez les questions longues comme les utilisateurs les formulent à l'oral.</li>
                 <li>Donnez la réponse principale dans les 100 premiers mots.</li>
                 <li>Utilisez une structure scannable (titres clairs, bullets, blocs courts).</li>
@@ -223,14 +223,14 @@ const Article10 = () => {
             <motion.section initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }}>
               <div className="flex items-center gap-3 mb-4">
                 <CheckCircle2 className="w-6 h-6 text-[#1c3ff9]" />
-                <h2 className="text-2xl md:text-3xl font-bold text-[#0A0A0A] m-0">5. Parlez le langage natif de l'IA</h2>
+                <h2 className="text-2xl md:text-3xl font-bold text-[#0A0A0A] dark:text-[#F3F6FF] m-0">5. Parlez le langage natif de l'IA</h2>
               </div>
-              <p className="text-[#52525B] leading-relaxed">
+              <p className="text-[#52525B] dark:text-[#C2C8D8] leading-relaxed">
                 Ajoutez du schéma markup (LocalBusiness, FAQPage, Review) pour relier clairement votre entité locale,
                 vos services et vos preuves sociales. Cela facilite l'extraction fiable par les IA.
               </p>
-              <div className="bg-[#0A0A0A] text-white rounded-2xl p-6 mt-6">
-                <p className="text-gray-300 mb-0">
+              <div className="bg-[#0A0A0A] dark:bg-[#101722] text-white rounded-2xl p-6 mt-6">
+                <p className="text-gray-300 dark:text-[#C2C8D8] mb-0">
                   En clair : soyez l'entreprise la plus documentée, la plus visible et la plus explicite localement.
                   C'est ce que les IA recommandent en premier.
                 </p>

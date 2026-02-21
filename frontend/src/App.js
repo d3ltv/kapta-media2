@@ -723,7 +723,7 @@ const BeforeAfter = () => {
           description="Votre concurrent a une fiche Google optimisée. Vous, vous êtes invisible."
         />
         
-        <div className="md:grid md:grid-cols-2 md:gap-4 md:gap-8 -mx-2 md:mx-0">
+        <div className="md:grid md:grid-cols-2 md:gap-4 md:gap-8 -mx-2 md:mx-0" data-nosnippet="true">
           {/* Mobile: Interactive slider optimisé pour la lisibilité */}
           <div className="md:hidden relative overflow-hidden bg-gray-50 rounded-xl p-2"
             onTouchStart={(e) => {
@@ -3097,8 +3097,8 @@ function App() {
   return (
     <div className="App min-h-screen bg-white dark:bg-[#050505]">
       <SEOHead
-        title="KAPTA Media - Visibilité Google Maps en 14 jours | Tours"
-        description="Votre concurrent capte déjà vos prospects sur Google Maps ? Renforcez votre visibilité locale en 14 jours avec une vidéo pro + une fiche optimisée."
+        title="KAPTA Media - Agence Google Maps à Tours"
+        description="Agence locale à Tours : optimisation Google Maps, vidéo professionnelle et système G.V.A. pour générer plus d'appels et de devis en 14 jours."
         keywords="google maps tours, référencement local tours, vidéo professionnelle, optimisation google business, marketing local tours"
         url="https://www.kaptamedia.fr/"
         image="https://www.kaptamedia.fr/logo2.webp"

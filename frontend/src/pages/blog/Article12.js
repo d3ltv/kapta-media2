@@ -101,7 +101,7 @@ const Article12 = () => {
                 Google Maps
               </span>
               {showNewBadge && (
-                <span className="inline-flex items-center px-3.5 py-1.5 rounded-full text-[11px] font-semibold tracking-[0.08em] uppercase text-[#123A9B] border border-white/60 ring-1 ring-[#1D4ED8]/22 bg-gradient-to-r from-[#EAF2FF]/90 via-[#D8E7FF]/85 to-[#C2DAFF]/82 backdrop-blur-2xl backdrop-saturate-150 shadow-[0_12px_28px_rgba(30,64,175,0.26),inset_0_1px_0_rgba(255,255,255,0.62)]">
+                <span className="inline-flex items-center px-3.5 py-1.5 rounded-full text-[11px] font-semibold tracking-[0.08em] uppercase text-[#123A9B] dark:text-[#DCEBFF] border border-white/60 dark:border-[#60A5FA]/45 ring-1 ring-[#1D4ED8]/22 dark:ring-[#3B82F6]/35 bg-gradient-to-r from-[#EAF2FF]/90 via-[#D8E7FF]/85 to-[#C2DAFF]/82 dark:from-[#0F254B]/95 dark:via-[#12336A]/92 dark:to-[#184386]/90 backdrop-blur-2xl backdrop-saturate-150 shadow-[0_12px_28px_rgba(30,64,175,0.26),inset_0_1px_0_rgba(255,255,255,0.62)]">
                   Nouveau
                 </span>
               )}
@@ -131,12 +131,12 @@ const Article12 = () => {
 
       <article className="pt-2 pb-12 md:pt-4 md:pb-16">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="prose prose-lg max-w-none">
+          <div className="prose prose-lg max-w-none dark:prose-invert">
             <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }} className="mb-12">
-              <p className="text-lg text-[#52525B] leading-relaxed">
+              <p className="text-lg text-[#52525B] dark:text-[#C2C8D8] leading-relaxed">
                 La concurrence locale à Tours est réelle. Mais la bataille principale ne se joue plus seulement dans la rue Nationale, aux Halles ou à la Place Plumereau.
               </p>
-              <p className="text-lg text-[#52525B] leading-relaxed">
+              <p className="text-lg text-[#52525B] dark:text-[#C2C8D8] leading-relaxed">
                 Elle se joue sur un écran: Google Maps. Et sur cet écran, trois places captent l'essentiel des appels.
               </p>
             </motion.div>
@@ -164,9 +164,9 @@ const Article12 = () => {
             <motion.section initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }} className="mb-12">
               <div className="flex items-center gap-3 mb-4">
                 <Smartphone className="w-6 h-6 text-[#1c3ff9]" />
-                <h2 className="text-2xl md:text-3xl font-bold text-[#0A0A0A] m-0">1. L'erreur fatale des entreprises locales</h2>
+                <h2 className="text-2xl md:text-3xl font-bold text-[#0A0A0A] dark:text-[#F3F6FF] m-0">1. L'erreur fatale des entreprises locales</h2>
               </div>
-              <p className="text-[#52525B] leading-relaxed">
+              <p className="text-[#52525B] dark:text-[#C2C8D8] leading-relaxed">
                 Les clients ne choisissent plus au hasard. Ils tapent des requêtes ultra-locales:
                 "restaurant italien Tours centre", "plombier urgence Chambray-lès-Tours", "coiffeur visagiste Tours Nord".
                 Si votre fiche n'apparaît pas dans les premiers résultats, vous devenez invisible.
@@ -176,37 +176,37 @@ const Article12 = () => {
             <motion.section initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }} className="mb-12">
               <div className="flex items-center gap-3 mb-4">
                 <BadgeEuro className="w-6 h-6 text-[#1c3ff9]" />
-                <h2 className="text-2xl md:text-3xl font-bold text-[#0A0A0A] m-0">2. Le coût silencieux de l'invisibilité</h2>
+                <h2 className="text-2xl md:text-3xl font-bold text-[#0A0A0A] dark:text-[#F3F6FF] m-0">2. Le coût silencieux de l'invisibilité</h2>
               </div>
-              <ul className="space-y-3 text-[#52525B]">
-                <li><strong className="text-[#0A0A0A]">Commerces et restaurants:</strong> touristes, étudiants et salariés du centre-ville partent vers les fiches mieux optimisées.</li>
-                <li><strong className="text-[#0A0A0A]">Artisans métropole:</strong> en urgence, le client clique le premier numéro crédible avec des avis récents.</li>
-                <li><strong className="text-[#0A0A0A]">Conséquence:</strong> une perte régulière de chiffre d'affaires sans alerte visible.</li>
+              <ul className="space-y-3 text-[#52525B] dark:text-[#C2C8D8]">
+                <li><strong className="text-[#0A0A0A] dark:text-[#EDF3FF]">Commerces et restaurants:</strong> touristes, étudiants et salariés du centre-ville partent vers les fiches mieux optimisées.</li>
+                <li><strong className="text-[#0A0A0A] dark:text-[#EDF3FF]">Artisans métropole:</strong> en urgence, le client clique le premier numéro crédible avec des avis récents.</li>
+                <li><strong className="text-[#0A0A0A] dark:text-[#EDF3FF]">Conséquence:</strong> une perte régulière de chiffre d'affaires sans alerte visible.</li>
               </ul>
             </motion.section>
 
             <motion.section initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }} className="mb-12">
               <div className="flex items-center gap-3 mb-4">
                 <Radar className="w-6 h-6 text-[#1c3ff9]" />
-                <h2 className="text-2xl md:text-3xl font-bold text-[#0A0A0A] m-0">3. L'avantage du terrain: la méthode G.V.A.™</h2>
+                <h2 className="text-2xl md:text-3xl font-bold text-[#0A0A0A] dark:text-[#F3F6FF] m-0">3. L'avantage du terrain: la méthode G.V.A.™</h2>
               </div>
-              <ul className="space-y-3 text-[#52525B]">
-                <li><strong className="text-[#0A0A0A]">[G] Google Domination:</strong> aligner votre fiche sur les requêtes exactes des habitants de Tours et de la métropole.</li>
-                <li><strong className="text-[#0A0A0A]">[V] Vidéo Magnétique:</strong> montrer l'ambiance de votre lieu ou la qualité de vos interventions avant l'appel.</li>
-                <li><strong className="text-[#0A0A0A]">[A] Avis Automatisés:</strong> transformer les clients satisfaits en preuve sociale rapide via NFC.</li>
+              <ul className="space-y-3 text-[#52525B] dark:text-[#C2C8D8]">
+                <li><strong className="text-[#0A0A0A] dark:text-[#EDF3FF]">[G] Google Domination:</strong> aligner votre fiche sur les requêtes exactes des habitants de Tours et de la métropole.</li>
+                <li><strong className="text-[#0A0A0A] dark:text-[#EDF3FF]">[V] Vidéo Magnétique:</strong> montrer l'ambiance de votre lieu ou la qualité de vos interventions avant l'appel.</li>
+                <li><strong className="text-[#0A0A0A] dark:text-[#EDF3FF]">[A] Avis Automatisés:</strong> transformer les clients satisfaits en preuve sociale rapide via NFC.</li>
               </ul>
             </motion.section>
 
             <motion.section initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }}>
               <div className="flex items-center gap-3 mb-4">
                 <MapPin className="w-6 h-6 text-[#1c3ff9]" />
-                <h2 className="text-2xl md:text-3xl font-bold text-[#0A0A0A] m-0">4. Reprendre la place n°1 dans votre quartier</h2>
+                <h2 className="text-2xl md:text-3xl font-bold text-[#0A0A0A] dark:text-[#F3F6FF] m-0">4. Reprendre la place n°1 dans votre quartier</h2>
               </div>
-              <p className="text-[#52525B] leading-relaxed mb-6">
+              <p className="text-[#52525B] dark:text-[#C2C8D8] leading-relaxed mb-6">
                 Il n'y a pas de place infinie en haut de Google Maps. Le plus tôt vous structurez votre présence locale, le plus vite vous bloquez l'avance des concurrents sur votre zone.
               </p>
-              <div className="bg-[#0A0A0A] text-white rounded-2xl p-6">
-                <p className="text-gray-300 mb-0">
+              <div className="bg-[#0A0A0A] dark:bg-[#101722] text-white rounded-2xl p-6">
+                <p className="text-gray-300 dark:text-[#C2C8D8] mb-0">
                   Votre marché local ne se gagne pas avec des promesses vagues.
                   Il se gagne avec un système clair, adapté à Tours et à vos vrais clients.
                 </p>

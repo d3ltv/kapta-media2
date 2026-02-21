@@ -101,7 +101,7 @@ const Article11 = () => {
                 Google Maps
               </span>
               {showNewBadge && (
-                <span className="inline-flex items-center px-3.5 py-1.5 rounded-full text-[11px] font-semibold tracking-[0.08em] uppercase text-[#123A9B] border border-white/60 ring-1 ring-[#1D4ED8]/22 bg-gradient-to-r from-[#EAF2FF]/90 via-[#D8E7FF]/85 to-[#C2DAFF]/82 backdrop-blur-2xl backdrop-saturate-150 shadow-[0_12px_28px_rgba(30,64,175,0.26),inset_0_1px_0_rgba(255,255,255,0.62)]">
+                <span className="inline-flex items-center px-3.5 py-1.5 rounded-full text-[11px] font-semibold tracking-[0.08em] uppercase text-[#123A9B] dark:text-[#DCEBFF] border border-white/60 dark:border-[#60A5FA]/45 ring-1 ring-[#1D4ED8]/22 dark:ring-[#3B82F6]/35 bg-gradient-to-r from-[#EAF2FF]/90 via-[#D8E7FF]/85 to-[#C2DAFF]/82 dark:from-[#0F254B]/95 dark:via-[#12336A]/92 dark:to-[#184386]/90 backdrop-blur-2xl backdrop-saturate-150 shadow-[0_12px_28px_rgba(30,64,175,0.26),inset_0_1px_0_rgba(255,255,255,0.62)]">
                   Nouveau
                 </span>
               )}
@@ -131,13 +131,13 @@ const Article11 = () => {
 
       <article className="pt-2 pb-12 md:pt-4 md:pb-16">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="prose prose-lg max-w-none">
+          <div className="prose prose-lg max-w-none dark:prose-invert">
             <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }} className="mb-12">
-              <p className="text-lg text-[#52525B] leading-relaxed">
+              <p className="text-lg text-[#52525B] dark:text-[#C2C8D8] leading-relaxed">
                 Soyons directs: votre concurrent n'est pas forcément meilleur que vous.
                 Il est surtout mieux visible quand un client tape votre métier sur Google Maps.
               </p>
-              <p className="text-lg text-[#52525B] leading-relaxed">
+              <p className="text-lg text-[#52525B] dark:text-[#C2C8D8] leading-relaxed">
                 En 2026, le meilleur n'est pas seulement celui qui travaille bien.
                 C'est aussi celui qu'on voit en premier.
               </p>
@@ -166,9 +166,9 @@ const Article11 = () => {
             <motion.section initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }} className="mb-12">
               <div className="flex items-center gap-3 mb-4">
                 <MapPin className="w-6 h-6 text-[#1c3ff9]" />
-                <h2 className="text-2xl md:text-3xl font-bold text-[#0A0A0A] m-0">1. L'illusion du bouche-à-oreille</h2>
+                <h2 className="text-2xl md:text-3xl font-bold text-[#0A0A0A] dark:text-[#F3F6FF] m-0">1. L'illusion du bouche-à-oreille</h2>
               </div>
-              <p className="text-[#52525B] leading-relaxed">
+              <p className="text-[#52525B] dark:text-[#C2C8D8] leading-relaxed">
                 Même quand on vous recommande, le réflexe reste le même: le prospect ouvre Google Maps, vérifie vos avis, vos horaires, vos photos, puis compare.
                 Une fiche vide ou mal tenue casse la confiance en quelques secondes.
               </p>
@@ -177,37 +177,37 @@ const Article11 = () => {
             <motion.section initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }} className="mb-12">
               <div className="flex items-center gap-3 mb-4">
                 <BadgeEuro className="w-6 h-6 text-[#1c3ff9]" />
-                <h2 className="text-2xl md:text-3xl font-bold text-[#0A0A0A] m-0">2. Ce que l'invisibilité coûte ce mois-ci</h2>
+                <h2 className="text-2xl md:text-3xl font-bold text-[#0A0A0A] dark:text-[#F3F6FF] m-0">2. Ce que l'invisibilité coûte ce mois-ci</h2>
               </div>
-              <ul className="space-y-3 text-[#52525B]">
-                <li><strong className="text-[#0A0A0A]">Restaurant:</strong> 15 à 30 réservations perdues, soit souvent 2 000 € à 3 800 € de chiffre d'affaires.</li>
-                <li><strong className="text-[#0A0A0A]">Artisan du bâtiment:</strong> 2 à 3 chantiers ou urgences qui partent ailleurs.</li>
-                <li><strong className="text-[#0A0A0A]">Effet cumulatif:</strong> chaque mois sans action renforce la position du concurrent visible.</li>
+              <ul className="space-y-3 text-[#52525B] dark:text-[#C2C8D8]">
+                <li><strong className="text-[#0A0A0A] dark:text-[#EDF3FF]">Restaurant:</strong> 15 à 30 réservations perdues, soit souvent 2 000 € à 3 800 € de chiffre d'affaires.</li>
+                <li><strong className="text-[#0A0A0A] dark:text-[#EDF3FF]">Artisan du bâtiment:</strong> 2 à 3 chantiers ou urgences qui partent ailleurs.</li>
+                <li><strong className="text-[#0A0A0A] dark:text-[#EDF3FF]">Effet cumulatif:</strong> chaque mois sans action renforce la position du concurrent visible.</li>
               </ul>
             </motion.section>
 
             <motion.section initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }} className="mb-12">
               <div className="flex items-center gap-3 mb-4">
                 <Radar className="w-6 h-6 text-[#1c3ff9]" />
-                <h2 className="text-2xl md:text-3xl font-bold text-[#0A0A0A] m-0">3. Inverser la tendance avec la méthode G.V.A.™</h2>
+                <h2 className="text-2xl md:text-3xl font-bold text-[#0A0A0A] dark:text-[#F3F6FF] m-0">3. Inverser la tendance avec la méthode G.V.A.™</h2>
               </div>
-              <ul className="space-y-3 text-[#52525B]">
-                <li><strong className="text-[#0A0A0A]">[G] Google Domination:</strong> optimisation locale de votre fiche pour remonter sur vos requêtes métier.</li>
-                <li><strong className="text-[#0A0A0A]">[V] Vidéo Magnétique:</strong> preuve visuelle claire de votre savoir-faire avant le premier appel.</li>
-                <li><strong className="text-[#0A0A0A]">[A] Avis Automatisés:</strong> collecte simple et rapide avec plaque NFC chez vos clients satisfaits.</li>
+              <ul className="space-y-3 text-[#52525B] dark:text-[#C2C8D8]">
+                <li><strong className="text-[#0A0A0A] dark:text-[#EDF3FF]">[G] Google Domination:</strong> optimisation locale de votre fiche pour remonter sur vos requêtes métier.</li>
+                <li><strong className="text-[#0A0A0A] dark:text-[#EDF3FF]">[V] Vidéo Magnétique:</strong> preuve visuelle claire de votre savoir-faire avant le premier appel.</li>
+                <li><strong className="text-[#0A0A0A] dark:text-[#EDF3FF]">[A] Avis Automatisés:</strong> collecte simple et rapide avec plaque NFC chez vos clients satisfaits.</li>
               </ul>
             </motion.section>
 
             <motion.section initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }}>
               <div className="flex items-center gap-3 mb-4">
                 <CheckCircle2 className="w-6 h-6 text-[#1c3ff9]" />
-                <h2 className="text-2xl md:text-3xl font-bold text-[#0A0A0A] m-0">4. Action immédiate</h2>
+                <h2 className="text-2xl md:text-3xl font-bold text-[#0A0A0A] dark:text-[#F3F6FF] m-0">4. Action immédiate</h2>
               </div>
-              <p className="text-[#52525B] leading-relaxed mb-6">
+              <p className="text-[#52525B] dark:text-[#C2C8D8] leading-relaxed mb-6">
                 Votre savoir-faire mérite d'être vu. Le sujet n'est pas d'ajouter du jargon marketing: le sujet est de reprendre les appels qualifiés dans votre quartier.
               </p>
-              <div className="bg-[#0A0A0A] text-white rounded-2xl p-6">
-                <p className="text-gray-300 mb-0">
+              <div className="bg-[#0A0A0A] dark:bg-[#101722] text-white rounded-2xl p-6">
+                <p className="text-gray-300 dark:text-[#C2C8D8] mb-0">
                   Si votre concurrent vous passe devant aujourd'hui, c'est surtout un problème de système.
                   Et un système se corrige.
                 </p>
