@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import { createPortal } from "react-dom";
 import { Link } from "react-router-dom";
 import "@/App.css";
 import { motion, useInView, useReducedMotion } from "framer-motion";
@@ -22,6 +23,7 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import ThemeToggle from "@/components/ThemeToggle";
+import SEOHead from "@/components/SEOHead";
 import {
   Accordion,
   AccordionContent,
@@ -260,6 +262,32 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  useEffect(() => {
+    if (!mobileMenuOpen || typeof document === "undefined") return undefined;
+
+    const previousOverflow = document.body.style.overflow;
+    const previousTouchAction = document.body.style.touchAction;
+
+    document.body.style.overflow = "hidden";
+    document.body.style.touchAction = "none";
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      document.body.style.touchAction = previousTouchAction;
+    };
+  }, [mobileMenuOpen]);
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 768) {
+        setMobileMenuOpen(false);
+      }
+    };
+
+    window.addEventListener("resize", handleResize, { passive: true });
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   const menuItems = [
     { label: "Accueil", href: "#", icon: "🏠" },
     { label: "Mécanisme", href: "#mechanism", icon: "⚙️" },
@@ -271,255 +299,261 @@ const Navbar = () => {
 
   const handleMenuClick = (href) => {
     setMobileMenuOpen(false);
-    
-    // Si c'est un lien externe (commence par /), ne rien faire (Link s'en occupe)
-    if (href.startsWith('/')) {
+
+    if (href.startsWith("/")) {
       return;
     }
-    
+
     if (href === "#") {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    } else {
-      const element = document.querySelector(href);
-      if (element) {
-        const offsetTop = element.offsetTop - 80; // Compensation pour la navbar fixe
-        window.scrollTo({ top: offsetTop, behavior: 'smooth' });
-      }
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      return;
+    }
+
+    const element = document.querySelector(href);
+    if (element) {
+      const offsetTop = element.offsetTop - 80;
+      window.scrollTo({ top: offsetTop, behavior: "smooth" });
     }
   };
 
   const handleDesktopMenuClick = (href) => {
     if (href === "#") {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    } else {
-      const element = document.querySelector(href);
-      if (element) {
-        const offsetTop = element.offsetTop - 80; // Compensation pour la navbar fixe
-        window.scrollTo({ top: offsetTop, behavior: 'smooth' });
-      }
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      return;
+    }
+
+    const element = document.querySelector(href);
+    if (element) {
+      const offsetTop = element.offsetTop - 80;
+      window.scrollTo({ top: offsetTop, behavior: "smooth" });
     }
   };
 
-  return (
-    <motion.nav
-      initial={false}
-      animate={{ y: 0 }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled ? "glassmorphism shadow-premium" : "bg-transparent"
-      }`}
-      data-testid="navbar"
-    >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16 md:h-20">
-          <a href="#" className="flex items-center gap-2" data-testid="logo">
-            <img 
-              src="/logo-96.webp"
-              srcSet={LOGO_SRC_SET}
-              sizes="(max-width: 768px) 24px, 32px"
-              alt="KAPTA Media - Agence marketing local et optimisation Google Maps à Tours" 
-              loading="eager"
-              fetchPriority="high"
-              width="96"
-              height="96"
-              decoding="async"
-              className="h-6 md:h-8 w-auto logo-transparent logo-isolated"
-              style={{ 
-                background: 'transparent !important',
-                mixBlendMode: 'multiply',
-                filter: 'contrast(1.4) brightness(1.1) saturate(1.2)',
-                pointerEvents: 'none',
-                userSelect: 'none',
-                WebkitUserDrag: 'none',
-                WebkitTouchCallout: 'none'
-              }}
-              draggable="false"
-              onContextMenu={(e) => e.preventDefault()}
-              onDragStart={(e) => e.preventDefault()}
-            />
-            <div className="flex items-baseline gap-0.5">
-              <span className="text-lg md:text-xl font-black tracking-tight text-[#0A0A0A] dark:text-[#F3F6FF]" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>KAPTA</span>
-              <span className="text-base md:text-lg font-medium italic text-[#1c3ff9]" style={{ fontFamily: 'Inter, sans-serif' }}>media</span>
-            </div>
-          </a>
-          
-          <div className="hidden md:flex items-center gap-8">
-            <button 
+  const mobileMenuLayer = mobileMenuOpen && typeof document !== "undefined"
+    ? createPortal(
+      <>
+        <div
+          className="fixed inset-0 z-[70] bg-black/45 md:hidden"
+          onClick={() => setMobileMenuOpen(false)}
+          aria-hidden="true"
+        />
+        <motion.div
+          id="mobile-menu-panel"
+          initial={{ opacity: 0, scale: 0.96, y: -8 }}
+          animate={{ opacity: 1, scale: 1, y: 0 }}
+          exit={{ opacity: 0, scale: 0.96, y: -8 }}
+          transition={{ duration: 0.16 }}
+          className="fixed right-4 z-[71] w-[min(20rem,calc(100vw-2rem))] bg-white dark:bg-[#10131A] rounded-2xl shadow-2xl border border-gray-100 dark:border-[#2A2E39] overflow-hidden md:hidden"
+          style={{ top: "calc(4rem + env(safe-area-inset-top))" }}
+          role="dialog"
+          aria-modal="true"
+        >
+          <div className="p-2">
+            {menuItems.map((item, index) => {
+              const isRoute = item.href.startsWith("/");
+
+              return (
+                <motion.div
+                  key={item.label}
+                  initial={{ opacity: 0, x: 12 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.18, delay: index * 0.03 }}
+                >
+                  {isRoute ? (
+                    <Link
+                      to={item.href}
+                      onClick={() => {
+                        Analytics.trackMenuClick(item.label);
+                        setMobileMenuOpen(false);
+                      }}
+                      className="w-full flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-[#1c3ff9]/5 transition-all duration-200 group"
+                    >
+                      <span className="text-lg group-hover:scale-110 transition-transform">
+                        {item.icon}
+                      </span>
+                      <span className="text-sm font-medium text-[#0A0A0A] dark:text-[#F3F6FF] group-hover:text-[#1c3ff9] transition-colors">
+                        {item.label}
+                      </span>
+                      <ArrowRight className="w-4 h-4 text-[#A1A1AA] group-hover:text-[#1c3ff9] group-hover:translate-x-1 transition-all ml-auto" />
+                    </Link>
+                  ) : (
+                    <button
+                      onClick={() => {
+                        Analytics.trackMenuClick(item.label);
+                        handleMenuClick(item.href);
+                      }}
+                      className="w-full flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-[#1c3ff9]/5 transition-all duration-200 group"
+                    >
+                      <span className="text-lg group-hover:scale-110 transition-transform">
+                        {item.icon}
+                      </span>
+                      <span className="text-sm font-medium text-[#0A0A0A] dark:text-[#F3F6FF] group-hover:text-[#1c3ff9] transition-colors">
+                        {item.label}
+                      </span>
+                      <ArrowRight className="w-4 h-4 text-[#A1A1AA] group-hover:text-[#1c3ff9] group-hover:translate-x-1 transition-all ml-auto" />
+                    </button>
+                  )}
+                </motion.div>
+              );
+            })}
+          </div>
+          <div className="px-4 pb-2 pt-1 border-t border-gray-100 dark:border-[#2A2E39]">
+            <ThemeToggle isDark={isDark} onToggle={toggleTheme} className="w-full justify-center" />
+          </div>
+
+          <div className="p-4 border-t border-gray-100 dark:border-[#2A2E39]">
+            <Button
+              className="w-full bg-gradient-to-br from-[#0052FF] via-[#1c3ff9] to-[#3B82F6] hover:from-[#0041CC] hover:via-[#1534d4] hover:to-[#2563EB] text-white rounded-full px-6 py-3 text-sm font-semibold shadow-lg btn-shimmer"
               onClick={() => {
-                Analytics.trackMenuClick('Mécanisme');
-                handleDesktopMenuClick('#mechanism');
-              }} 
-              className="text-sm font-medium text-[#52525B] hover:text-[#0A0A0A] transition-colors dark:text-[#C2C8D8] dark:hover:text-[#F3F6FF]"
-            >
-              Mécanisme
-            </button>
-            <button 
-              onClick={() => {
-                Analytics.trackMenuClick('Tarifs');
-                handleDesktopMenuClick('#pricing');
-              }} 
-              className="text-sm font-medium text-[#52525B] hover:text-[#0A0A0A] transition-colors dark:text-[#C2C8D8] dark:hover:text-[#F3F6FF]"
-            >
-              Tarifs
-            </button>
-            <Link 
-              to="/blog"
-              onClick={() => Analytics.trackMenuClick('Blog')}
-              className="text-sm font-medium text-[#52525B] hover:text-[#0A0A0A] transition-colors dark:text-[#C2C8D8] dark:hover:text-[#F3F6FF]"
-            >
-              Blog
-            </Link>
-            <button 
-              onClick={() => {
-                Analytics.trackMenuClick('FAQ');
-                handleDesktopMenuClick('#faq');
-              }} 
-              className="text-sm font-medium text-[#52525B] hover:text-[#0A0A0A] transition-colors dark:text-[#C2C8D8] dark:hover:text-[#F3F6FF]"
-            >
-              FAQ
-            </button>
-            <ThemeToggle isDark={isDark} onToggle={toggleTheme} compact />
-            <Button 
-              data-testid="cta-audit-desktop"
-              className="bg-[#1c3ff9] hover:bg-[#1534d4] text-white rounded-full px-6 btn-shimmer"
-              onClick={() => {
-                Analytics.trackCTAClick('AUDIT GRATUIT', 'Navbar Desktop');
-                Analytics.trackAuditRequest('Navbar Desktop');
-                handleDesktopMenuClick('#contact');
+                Analytics.trackCTAClick("AUDIT GRATUIT", "Mobile Menu");
+                Analytics.trackAuditRequest("Mobile Menu");
+                setMobileMenuOpen(false);
+                handleMenuClick("#contact");
               }}
             >
               AUDIT GRATUIT
             </Button>
           </div>
 
-          {/* Mobile Menu Button */}
-          <div className="md:hidden relative">
-            <button
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="flex items-center justify-center w-12 h-12 rounded-full bg-white/20 backdrop-blur-md border border-white/30 shadow-lg transition-all duration-300 hover:scale-110 hover:bg-white/30"
-              data-testid="mobile-menu-button"
+          <div className="border-t border-gray-100 dark:border-[#2A2E39] p-4 bg-[#F8F9FA] dark:bg-[#171B24]">
+            <a
+              href="tel:0686018054"
+              className="flex items-center gap-2 text-sm text-[#52525B] dark:text-[#C2C8D8] hover:text-[#1c3ff9] transition-colors"
+              onClick={() => {
+                Analytics.trackPhoneClick("06 86 01 80 54", "Mobile Menu");
+                setMobileMenuOpen(false);
+              }}
             >
-              <motion.div
-                animate={{ rotate: mobileMenuOpen ? 180 : 0 }}
-                transition={{ duration: 0.3 }}
-              >
-                {mobileMenuOpen ? (
-                  <X className="w-5 h-5 text-[#1c3ff9]" />
-                ) : (
-                  <div className="flex flex-col gap-1">
-                    <div className="w-4 h-0.5 bg-[#1c3ff9] rounded-full" />
-                    <div className="w-4 h-0.5 bg-[#1c3ff9] rounded-full" />
-                    <div className="w-4 h-0.5 bg-[#1c3ff9] rounded-full" />
-                  </div>
-                )}
-              </motion.div>
-            </button>
+              <Phone className="w-4 h-4" />
+              06 86 01 80 54
+            </a>
+          </div>
+        </motion.div>
+      </>,
+      document.body,
+    )
+    : null;
 
-            {/* Mobile Menu Dropdown */}
-            {mobileMenuOpen && (
-              <>
-                {/* Overlay */}
-                <div 
-                  className="fixed inset-x-0 top-16 bottom-0 bg-black/20 backdrop-blur-sm z-40"
-                  onClick={() => setMobileMenuOpen(false)}
-                />
-                
-                {/* Menu */}
+  return (
+    <>
+      <nav
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+          scrolled ? "glassmorphism shadow-premium" : "bg-transparent"
+        }`}
+        data-testid="navbar"
+      >
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between h-16 md:h-20">
+            <a href="#" className="flex items-center gap-2" data-testid="logo">
+              <img
+                src="/logo-96.webp"
+                srcSet={LOGO_SRC_SET}
+                sizes="(max-width: 768px) 24px, 32px"
+                alt="KAPTA Media - Agence marketing local et optimisation Google Maps à Tours"
+                loading="eager"
+                fetchPriority="high"
+                width="96"
+                height="96"
+                decoding="async"
+                className="h-6 md:h-8 w-auto logo-transparent logo-isolated"
+                style={{
+                  background: "transparent !important",
+                  mixBlendMode: "multiply",
+                  filter: "contrast(1.4) brightness(1.1) saturate(1.2)",
+                  pointerEvents: "none",
+                  userSelect: "none",
+                  WebkitUserDrag: "none",
+                  WebkitTouchCallout: "none"
+                }}
+                draggable="false"
+                onContextMenu={(e) => e.preventDefault()}
+                onDragStart={(e) => e.preventDefault()}
+              />
+              <div className="flex items-baseline gap-0.5">
+                <span className="text-lg md:text-xl font-black tracking-tight text-[#0A0A0A] dark:text-[#F3F6FF]" style={{ fontFamily: "Space Grotesk, sans-serif" }}>KAPTA</span>
+                <span className="text-base md:text-lg font-medium italic text-[#1c3ff9]" style={{ fontFamily: "Inter, sans-serif" }}>media</span>
+              </div>
+            </a>
+
+            <div className="hidden md:flex items-center gap-8">
+              <button
+                onClick={() => {
+                  Analytics.trackMenuClick("Mécanisme");
+                  handleDesktopMenuClick("#mechanism");
+                }}
+                className="text-sm font-medium text-[#52525B] hover:text-[#0A0A0A] transition-colors dark:text-[#C2C8D8] dark:hover:text-[#F3F6FF]"
+              >
+                Mécanisme
+              </button>
+              <button
+                onClick={() => {
+                  Analytics.trackMenuClick("Tarifs");
+                  handleDesktopMenuClick("#pricing");
+                }}
+                className="text-sm font-medium text-[#52525B] hover:text-[#0A0A0A] transition-colors dark:text-[#C2C8D8] dark:hover:text-[#F3F6FF]"
+              >
+                Tarifs
+              </button>
+              <Link
+                to="/blog"
+                onClick={() => Analytics.trackMenuClick("Blog")}
+                className="text-sm font-medium text-[#52525B] hover:text-[#0A0A0A] transition-colors dark:text-[#C2C8D8] dark:hover:text-[#F3F6FF]"
+              >
+                Blog
+              </Link>
+              <button
+                onClick={() => {
+                  Analytics.trackMenuClick("FAQ");
+                  handleDesktopMenuClick("#faq");
+                }}
+                className="text-sm font-medium text-[#52525B] hover:text-[#0A0A0A] transition-colors dark:text-[#C2C8D8] dark:hover:text-[#F3F6FF]"
+              >
+                FAQ
+              </button>
+              <ThemeToggle isDark={isDark} onToggle={toggleTheme} compact />
+              <Button
+                data-testid="cta-audit-desktop"
+                className="bg-[#1c3ff9] hover:bg-[#1534d4] text-white rounded-full px-6 btn-shimmer"
+                onClick={() => {
+                  Analytics.trackCTAClick("AUDIT GRATUIT", "Navbar Desktop");
+                  Analytics.trackAuditRequest("Navbar Desktop");
+                  handleDesktopMenuClick("#contact");
+                }}
+              >
+                AUDIT GRATUIT
+              </Button>
+            </div>
+
+            <div className="md:hidden relative">
+              <button
+                onClick={() => setMobileMenuOpen((prev) => !prev)}
+                className="flex items-center justify-center w-12 h-12 rounded-full bg-white/25 dark:bg-[#101722]/85 border border-white/35 dark:border-[#2A2E39] shadow-lg transition-all duration-300"
+                data-testid="mobile-menu-button"
+                aria-label={mobileMenuOpen ? "Fermer le menu" : "Ouvrir le menu"}
+                aria-expanded={mobileMenuOpen}
+                aria-controls="mobile-menu-panel"
+              >
                 <motion.div
-                  initial={{ opacity: 0, scale: 0.95, y: -10 }}
-                  animate={{ opacity: 1, scale: 1, y: 0 }}
-                  exit={{ opacity: 0, scale: 0.95, y: -10 }}
+                  animate={{ rotate: mobileMenuOpen ? 180 : 0 }}
                   transition={{ duration: 0.2 }}
-                  className="absolute top-16 right-0 w-64 bg-white dark:bg-[#10131A] rounded-2xl shadow-2xl border border-gray-100 dark:border-[#2A2E39] overflow-hidden z-50"
                 >
-                  <div className="p-2">
-                    {menuItems.map((item, index) => {
-                      const isRoute = item.href.startsWith('/');
-                      
-                      return (
-                        <motion.div
-                          key={item.label}
-                          initial={{ opacity: 0, x: 20 }}
-                          animate={{ opacity: 1, x: 0 }}
-                          transition={{ duration: 0.2, delay: index * 0.05 }}
-                        >
-                          {isRoute ? (
-                            <Link
-                              to={item.href}
-                              onClick={() => {
-                                Analytics.trackMenuClick(item.label);
-                                setMobileMenuOpen(false);
-                              }}
-                              className="w-full flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-[#1c3ff9]/5 transition-all duration-200 group"
-                            >
-                              <span className="text-lg group-hover:scale-110 transition-transform">
-                                {item.icon}
-                              </span>
-                              <span className="text-sm font-medium text-[#0A0A0A] dark:text-[#F3F6FF] group-hover:text-[#1c3ff9] transition-colors">
-                                {item.label}
-                              </span>
-                              <ArrowRight className="w-4 h-4 text-[#A1A1AA] group-hover:text-[#1c3ff9] group-hover:translate-x-1 transition-all ml-auto" />
-                            </Link>
-                          ) : (
-                            <button
-                              onClick={() => {
-                                Analytics.trackMenuClick(item.label);
-                                handleMenuClick(item.href);
-                              }}
-                              className="w-full flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-[#1c3ff9]/5 transition-all duration-200 group"
-                            >
-                              <span className="text-lg group-hover:scale-110 transition-transform">
-                                {item.icon}
-                              </span>
-                              <span className="text-sm font-medium text-[#0A0A0A] dark:text-[#F3F6FF] group-hover:text-[#1c3ff9] transition-colors">
-                                {item.label}
-                              </span>
-                              <ArrowRight className="w-4 h-4 text-[#A1A1AA] group-hover:text-[#1c3ff9] group-hover:translate-x-1 transition-all ml-auto" />
-                            </button>
-                          )}
-                        </motion.div>
-                      );
-                    })}
-                  </div>
-                  <div className="px-4 pb-2 pt-1 border-t border-gray-100 dark:border-[#2A2E39]">
-                    <ThemeToggle isDark={isDark} onToggle={toggleTheme} className="w-full justify-center" />
-                  </div>
-                  
-                  {/* CTA Button */}
-                  <div className="p-4 border-t border-gray-100 dark:border-[#2A2E39]">
-                    <Button 
-                      className="w-full bg-gradient-to-br from-[#0052FF] via-[#1c3ff9] to-[#3B82F6] hover:from-[#0041CC] hover:via-[#1534d4] hover:to-[#2563EB] text-white rounded-full px-6 py-3 text-sm font-semibold shadow-lg btn-shimmer"
-                      onClick={() => {
-                        Analytics.trackCTAClick('AUDIT GRATUIT', 'Mobile Menu');
-                        Analytics.trackAuditRequest('Mobile Menu');
-                        setMobileMenuOpen(false);
-                        handleMenuClick('#contact');
-                      }}
-                    >
-                      AUDIT GRATUIT
-                    </Button>
-                  </div>
-                  
-                  {/* Footer avec contact */}
-                  <div className="border-t border-gray-100 dark:border-[#2A2E39] p-4 bg-[#F8F9FA] dark:bg-[#171B24]">
-                    <a 
-                      href="tel:0686018054"
-                      className="flex items-center gap-2 text-sm text-[#52525B] dark:text-[#C2C8D8] hover:text-[#1c3ff9] transition-colors"
-                      onClick={() => {
-                        Analytics.trackPhoneClick('06 86 01 80 54', 'Mobile Menu');
-                        setMobileMenuOpen(false);
-                      }}
-                    >
-                      <Phone className="w-4 h-4" />
-                      06 86 01 80 54
-                    </a>
-                  </div>
+                  {mobileMenuOpen ? (
+                    <X className="w-5 h-5 text-[#1c3ff9]" />
+                  ) : (
+                    <div className="flex flex-col gap-1">
+                      <div className="w-4 h-0.5 bg-[#1c3ff9] rounded-full" />
+                      <div className="w-4 h-0.5 bg-[#1c3ff9] rounded-full" />
+                      <div className="w-4 h-0.5 bg-[#1c3ff9] rounded-full" />
+                    </div>
+                  )}
                 </motion.div>
-              </>
-            )}
+              </button>
+            </div>
           </div>
         </div>
-      </div>
-    </motion.nav>
+      </nav>
+      {mobileMenuLayer}
+    </>
   );
 };
 
@@ -538,9 +572,9 @@ const Hero = () => {
       <div className="absolute inset-0 bg-gradient-to-b from-white via-transparent to-white dark:from-[#070B14]/80 dark:via-[#05070C]/40 dark:to-[#0A1220]/90 pointer-events-none" />
       
       {/* Soft Glow */}
-      <div className="absolute top-1/3 right-1/4 w-[500px] h-[500px] bg-[#1c3ff9]/10 dark:bg-[#3B82F6]/16 rounded-full blur-[120px] pointer-events-none" />
-      <div className="absolute -top-20 left-[18%] w-[360px] h-[360px] hidden dark:block bg-[#60A5FA]/14 rounded-full blur-[130px] pointer-events-none" />
-      <div className="absolute bottom-[-120px] right-[12%] w-[420px] h-[420px] hidden dark:block bg-[#1D4ED8]/12 rounded-full blur-[150px] pointer-events-none" />
+      <div className="ios-mobile-heavy-blur hidden md:block absolute top-1/3 right-1/4 w-[500px] h-[500px] bg-[#1c3ff9]/10 dark:bg-[#3B82F6]/16 rounded-full blur-[120px] pointer-events-none" />
+      <div className="ios-mobile-heavy-blur absolute -top-20 left-[18%] w-[360px] h-[360px] hidden md:dark:block bg-[#60A5FA]/14 rounded-full blur-[130px] pointer-events-none" />
+      <div className="ios-mobile-heavy-blur absolute bottom-[-120px] right-[12%] w-[420px] h-[420px] hidden md:dark:block bg-[#1D4ED8]/12 rounded-full blur-[150px] pointer-events-none" />
       
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center">
@@ -1349,10 +1383,10 @@ const ProblemComparison = () => {
           transition={{ duration: 0.6, delay: 0.6 }}
           className="mt-6 md:mt-8 p-4 md:p-4 rounded-xl bg-white border border-[#1c3ff9]/20 shadow-lg"
         >
-          <motion.div 
-            initial={{ opacity: 0, filter: "blur(10px)" }}
-            animate={isInView ? { opacity: 1, filter: "blur(0px)" } : {}}
-            transition={{ duration: 0.8, delay: 0.2 }}
+          <motion.div
+            initial={{ opacity: 0, y: 8 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.6, delay: 0.2 }}
             className="text-center mb-3 md:mb-3"
           >
             <h3 className="text-base md:text-base font-bold text-[#0A0A0A] mb-1">Calculateur d'impact</h3>
@@ -1363,10 +1397,10 @@ const ProblemComparison = () => {
           <div className="space-y-3 md:space-y-0">
             {/* Première ligne - 2 cartes */}
             <div className="grid grid-cols-2 gap-3 md:hidden">
-              <motion.div 
-                initial={{ opacity: 0, scale: 0.8, filter: "blur(8px)" }}
-                animate={isInView ? { opacity: 1, scale: 1, filter: "blur(0px)" } : {}}
-                transition={{ duration: 0.6, delay: 0.4 }}
+              <motion.div
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={isInView ? { opacity: 1, scale: 1 } : {}}
+                transition={{ duration: 0.45, delay: 0.35 }}
                 className="text-center p-3 rounded-lg bg-[#1c3ff9]/5 border border-[#1c3ff9]/10"
               >
                 <motion.p 
@@ -1379,10 +1413,10 @@ const ProblemComparison = () => {
                 </motion.p>
                 <p className="text-xs text-[#52525B]">Investissement unique</p>
               </motion.div>
-              <motion.div 
-                initial={{ opacity: 0, scale: 0.8, filter: "blur(8px)" }}
-                animate={isInView ? { opacity: 1, scale: 1, filter: "blur(0px)" } : {}}
-                transition={{ duration: 0.6, delay: 0.6 }}
+              <motion.div
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={isInView ? { opacity: 1, scale: 1 } : {}}
+                transition={{ duration: 0.45, delay: 0.5 }}
                 className="text-center p-3 rounded-lg bg-[#1c3ff9]/5 border border-[#1c3ff9]/10"
               >
                 <motion.p 
@@ -1408,10 +1442,10 @@ const ProblemComparison = () => {
                 >
                   =
                 </motion.div>
-                <motion.div 
-                  initial={{ opacity: 0, scale: 0.8, filter: "blur(8px)" }}
-                  animate={isInView ? { opacity: 1, scale: 1, filter: "blur(0px)" } : {}}
-                  transition={{ duration: 0.6, delay: 1.4 }}
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={isInView ? { opacity: 1, scale: 1 } : {}}
+                  transition={{ duration: 0.45, delay: 1.05 }}
                   className="text-center p-3 rounded-lg bg-[#1c3ff9]/5 border border-[#1c3ff9]/10 w-32"
                 >
                   <motion.p 
@@ -1429,10 +1463,10 @@ const ProblemComparison = () => {
             
             {/* Layout desktop - 3 cartes en ligne */}
             <div className="hidden md:grid md:grid-cols-3 md:gap-3">
-              <motion.div 
-                initial={{ opacity: 0, scale: 0.8, filter: "blur(8px)" }}
-                animate={isInView ? { opacity: 1, scale: 1, filter: "blur(0px)" } : {}}
-                transition={{ duration: 0.6, delay: 0.4 }}
+              <motion.div
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={isInView ? { opacity: 1, scale: 1 } : {}}
+                transition={{ duration: 0.45, delay: 0.35 }}
                 className="text-center p-2.5 rounded-lg bg-[#1c3ff9]/5 border border-[#1c3ff9]/10"
               >
                 <motion.p 
@@ -1445,10 +1479,10 @@ const ProblemComparison = () => {
                 </motion.p>
                 <p className="text-xs text-[#52525B]">Investissement unique</p>
               </motion.div>
-              <motion.div 
-                initial={{ opacity: 0, scale: 0.8, filter: "blur(8px)" }}
-                animate={isInView ? { opacity: 1, scale: 1, filter: "blur(0px)" } : {}}
-                transition={{ duration: 0.6, delay: 0.6 }}
+              <motion.div
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={isInView ? { opacity: 1, scale: 1 } : {}}
+                transition={{ duration: 0.45, delay: 0.5 }}
                 className="text-center p-2.5 rounded-lg bg-[#1c3ff9]/5 border border-[#1c3ff9]/10"
               >
                 <motion.p 
@@ -1461,10 +1495,10 @@ const ProblemComparison = () => {
                 </motion.p>
                 <p className="text-xs text-[#52525B]">Clients/mois en moyenne</p>
               </motion.div>
-              <motion.div 
-                initial={{ opacity: 0, scale: 0.8, filter: "blur(8px)" }}
-                animate={isInView ? { opacity: 1, scale: 1, filter: "blur(0px)" } : {}}
-                transition={{ duration: 0.6, delay: 0.8 }}
+              <motion.div
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={isInView ? { opacity: 1, scale: 1 } : {}}
+                transition={{ duration: 0.45, delay: 0.65 }}
                 className="text-center p-2.5 rounded-lg bg-[#1c3ff9]/5 border border-[#1c3ff9]/10"
               >
                 <motion.p 
@@ -3088,6 +3122,13 @@ function App() {
 
   return (
     <div className="App min-h-screen bg-white dark:bg-[#050505]">
+      <SEOHead
+        title="KAPTA Media - Visibilité Google Maps en 14 jours | Tours"
+        description="Votre concurrent capte déjà vos prospects sur Google Maps ? Renforcez votre visibilité locale en 14 jours avec une vidéo pro + une fiche optimisée."
+        keywords="google maps tours, référencement local tours, vidéo professionnelle, optimisation google business, marketing local tours"
+        url="https://www.kaptamedia.fr/"
+        image="https://www.kaptamedia.fr/logo2.webp"
+      />
       <Navbar />
       <Hero />
       <BeforeAfter />

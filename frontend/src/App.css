@@ -407,7 +407,7 @@ html.dark .kapta-dots {
 /* Mobile sticky CTA */
 .sticky-cta-mobile {
   position: fixed;
-  bottom: 2rem;
+  bottom: calc(1.25rem + env(safe-area-inset-bottom));
   right: 1rem;
   z-index: 40;
   /* Suppression du fond - bouton flottant */
@@ -417,6 +417,33 @@ html.dark .kapta-dots {
   border: none;
   box-shadow: none;
   padding: 0;
+}
+
+@supports (-webkit-touch-callout: none) {
+  html.ios-safari .glassmorphism {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    background: rgba(12, 16, 26, 0.94) !important;
+  }
+
+  html.ios-safari .backdrop-blur-sm,
+  html.ios-safari .backdrop-blur-md,
+  html.ios-safari .backdrop-blur-xl {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+
+  html.ios-safari .ios-mobile-heavy-blur {
+    display: none !important;
+  }
+
+  html.ios-safari .logo-transparent,
+  html.ios-safari .logo-no-bg,
+  html.ios-safari .logo-mask,
+  html.ios-safari .logo-isolated {
+    mix-blend-mode: normal !important;
+    filter: none !important;
+  }
 }
 
 /* Logo avec fond transparent - approche améliorée */

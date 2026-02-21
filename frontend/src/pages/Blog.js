@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { Search, TrendingUp, MapPin, Camera, MessageCircle, Target } from "lucide-react";
 import SharedNavbar from "@/components/SharedNavbar";
 import SEOHead from "@/components/SEOHead";
-import { BLOG_ARTICLES } from "@/data/blogArticles";
+import { BLOG_ARTICLES, isArticleNew } from "@/data/blogArticles";
 import * as Analytics from "@/utils/analytics";
 
 const Blog = () => {
@@ -14,6 +14,92 @@ const Blog = () => {
   useEffect(() => {
     Analytics.initAnalytics();
     window.scrollTo(0, 0);
+  }, []);
+
+  useEffect(() => {
+    const scriptId = "blog-list-jsonld";
+    let script = document.getElementById(scriptId);
+
+    const sortedArticles = [...BLOG_ARTICLES].sort(
+      (a, b) => new Date(b.publishedTime).getTime() - new Date(a.publishedTime).getTime()
+    );
+
+    const itemListElement = sortedArticles.map((article, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      url: `https://www.kaptamedia.fr${article.link}`,
+      name: article.title,
+    }));
+
+    const blogPost = sortedArticles.map((article) => ({
+      "@type": "BlogPosting",
+      headline: article.title,
+      description: article.description,
+      url: `https://www.kaptamedia.fr${article.link}`,
+      datePublished: article.publishedTime,
+      dateModified: article.modifiedTime || article.publishedTime,
+      image: article.image,
+      author: {
+        "@type": "Organization",
+        name: article.author || "Kapta Media",
+      },
+      publisher: {
+        "@type": "Organization",
+        name: "Kapta Media",
+        logo: {
+          "@type": "ImageObject",
+          url: "https://www.kaptamedia.fr/logo2.webp",
+        },
+      },
+      mainEntityOfPage: {
+        "@type": "WebPage",
+        "@id": `https://www.kaptamedia.fr${article.link}`,
+      },
+    }));
+
+    const structuredData = [
+      {
+        "@context": "https://schema.org",
+        "@type": "Blog",
+        name: "Kapta Media - Blog Marketing Local & SEO",
+        url: "https://www.kaptamedia.fr/blog",
+        inLanguage: "fr-FR",
+        description:
+          "Découvrez nos conseils d'experts en marketing local, SEO et optimisation Google Business Profile.",
+        publisher: {
+          "@type": "Organization",
+          name: "Kapta Media",
+          logo: {
+            "@type": "ImageObject",
+            url: "https://www.kaptamedia.fr/logo2.webp",
+          },
+        },
+        blogPost,
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "ItemList",
+        name: "Liste des articles Kapta Media",
+        itemListOrder: "https://schema.org/ItemListOrderDescending",
+        numberOfItems: itemListElement.length,
+        itemListElement,
+      },
+    ];
+
+    if (!script) {
+      script = document.createElement("script");
+      script.setAttribute("id", scriptId);
+      script.setAttribute("type", "application/ld+json");
+      document.head.appendChild(script);
+    }
+
+    script.textContent = JSON.stringify(structuredData);
+
+    return () => {
+      if (script?.parentNode) {
+        script.parentNode.removeChild(script);
+      }
+    };
   }, []);
 
   const categories = ["Tous", "Google Maps", "Marketing Local", "Vidéo", "Conseils"];
@@ -61,7 +147,7 @@ const Blog = () => {
         title="Blog Marketing Local & SEO | Kapta Media"
         description="Découvrez nos conseils d'experts en marketing local, SEO et optimisation Google Business Profile. Articles pratiques pour booster votre visibilité locale."
         keywords="blog marketing local, SEO local, google business profile, conseils marketing, optimisation google maps, avis clients, référencement local"
-        url="https://kaptamedia.fr/blog"
+        url="https://www.kaptamedia.fr/blog"
       />
       <SharedNavbar />
 
@@ -159,7 +245,7 @@ const Blog = () => {
                     className="group relative flex flex-col bg-white dark:bg-[#10131A] rounded-2xl border border-gray-200 dark:border-[#2A2E39] hover:border-[#1c3ff9] hover:shadow-xl transition-all duration-300 overflow-hidden h-full"
                     onClick={() => Analytics.trackCTAClick(article.title, 'Blog Article Click')}
                   >
-                  {article.isNew && (
+                  {isArticleNew(article) && (
                     <span className="absolute right-4 top-4 z-20 inline-flex items-center px-3 py-1 rounded-full text-[11px] font-semibold tracking-[0.08em] uppercase text-[#10389C] dark:text-[#DCEBFF] border border-white/60 dark:border-[#60A5FA]/45 ring-1 ring-[#1D4ED8]/22 dark:ring-[#3B82F6]/35 bg-gradient-to-r from-[#EAF2FF]/95 via-[#DCE9FF]/90 to-[#C7DCFF]/90 dark:from-[#0F254B]/95 dark:via-[#12336A]/92 dark:to-[#184386]/90 backdrop-blur-xl shadow-[0_10px_24px_rgba(30,64,175,0.24)]">
                       Nouveau
                     </span>

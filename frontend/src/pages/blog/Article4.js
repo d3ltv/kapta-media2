@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import SharedNavbar from "@/components/SharedNavbar";
 import SEOHead from "@/components/SEOHead";
 import InteractiveGlassTitle from "@/components/InteractiveGlassTitle";
+import BlogCompleteGuide from "@/components/blog/BlogCompleteGuide";
 import * as Analytics from "@/utils/analytics";
 
 const Article4 = () => {
@@ -20,7 +21,7 @@ const Article4 = () => {
         title="La Puissance du Copywriting pour Votre SEO Local | Kapta Media"
         description="75% des internautes jugent votre crédibilité à la qualité de vos textes. Découvrez comment le copywriting améliore votre référencement local et vos conversions de 30%."
         keywords="copywriting, rédaction web, SEO local, contenu optimisé, rédaction persuasive, texte commercial, mots-clés locaux, conversion, référencement"
-        url="https://kaptamedia.fr/blog/puissance-copywriting-seo-local"
+        url="https://www.kaptamedia.fr/blog/article4"
         publishedTime="2025-01-31T10:00:00+01:00"
         modifiedTime="2025-01-31T10:00:00+01:00"
         category="Conseils"
@@ -67,7 +68,7 @@ const Article4 = () => {
               </span>
               <span className="flex items-center gap-1.5">
                 <Clock className="w-4 h-4" />
-                10 min de lecture
+                7 min de lecture
               </span>
             </div>
           </motion.div>
@@ -457,6 +458,8 @@ const Article4 = () => {
           </div>
         </div>
       </article>
+
+      <BlogCompleteGuide articleSlug="article4" />
 
       {/* CTA Section */}
       <section className="py-16 md:py-20 bg-[#F8F9FA]">

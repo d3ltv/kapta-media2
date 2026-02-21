@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import SharedNavbar from "@/components/SharedNavbar";
 import SEOHead from "@/components/SEOHead";
 import InteractiveGlassTitle from "@/components/InteractiveGlassTitle";
+import BlogCompleteGuide from "@/components/blog/BlogCompleteGuide";
 import * as Analytics from "@/utils/analytics";
 
 const Article2 = () => {
@@ -24,19 +25,19 @@ const Article2 = () => {
           "@type": "ListItem",
           "position": 1,
           "name": "Accueil",
-          "item": "https://kaptamedia.fr"
+          "item": "https://www.kaptamedia.fr"
         },
         {
           "@type": "ListItem",
           "position": 2,
           "name": "Blog",
-          "item": "https://kaptamedia.fr/blog"
+          "item": "https://www.kaptamedia.fr/blog"
         },
         {
           "@type": "ListItem",
           "position": 3,
           "name": "Avis en Ligne : Pourquoi Sont-ils Essentiels ?",
-          "item": "https://kaptamedia.fr/blog/article2"
+          "item": "https://www.kaptamedia.fr/blog/article2"
         }
       ]
     });
@@ -55,7 +56,7 @@ const Article2 = () => {
         title="Avis en Ligne : Pourquoi Sont-ils Essentiels ? | Kapta Media"
         description="81% des clients lisent systématiquement les avis avant de décider. Découvrez pourquoi les avis Google sont cruciaux pour votre référencement local et comment les gérer efficacement."
         keywords="avis google, avis clients, e-réputation, gestion avis, référencement local, google reviews, avis en ligne, réputation en ligne, collecte avis"
-        url="https://kaptamedia.fr/blog/avis-en-ligne-pourquoi-essentiels"
+        url="https://www.kaptamedia.fr/blog/article2"
         publishedTime="2025-02-06T10:00:00+01:00"
         modifiedTime="2025-02-06T10:00:00+01:00"
         category="Marketing Local"
@@ -102,7 +103,7 @@ const Article2 = () => {
               </span>
               <span className="flex items-center gap-1.5">
                 <Clock className="w-4 h-4" />
-                10 min de lecture
+                8 min de lecture
               </span>
             </div>
           </motion.div>
@@ -436,6 +437,8 @@ const Article2 = () => {
           </div>
         </div>
       </article>
+
+      <BlogCompleteGuide articleSlug="article2" />
 
       {/* CTA Section */}
       <section className="py-16 md:py-20 bg-[#F8F9FA]">

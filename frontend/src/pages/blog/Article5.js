@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import SharedNavbar from "@/components/SharedNavbar";
 import SEOHead from "@/components/SEOHead";
 import InteractiveGlassTitle from "@/components/InteractiveGlassTitle";
+import BlogCompleteGuide from "@/components/blog/BlogCompleteGuide";
 import * as Analytics from "@/utils/analytics";
 
 const Article5 = () => {
@@ -20,7 +21,7 @@ const Article5 = () => {
         title="Comment Dépasser Vos Concurrents sur Google en 2026 | Kapta Media"
         description="Découvrez les 5 clés pour dominer votre marché local en 2026. IA, recherche vocale, optimisation Google : tout ce qu'il faut savoir pour dépasser vos concurrents."
         keywords="dépasser concurrents, dominer google maps, stratégie SEO local, IA google, recherche vocale, google local services, analyse concurrence, leader local"
-        url="https://kaptamedia.fr/blog/depasser-concurrents-google-2026"
+        url="https://www.kaptamedia.fr/blog/article5"
         publishedTime="2025-01-28T10:00:00+01:00"
         modifiedTime="2025-01-28T10:00:00+01:00"
         category="Conseils"
@@ -67,7 +68,7 @@ const Article5 = () => {
               </span>
               <span className="flex items-center gap-1.5">
                 <Clock className="w-4 h-4" />
-                11 min de lecture
+                8 min de lecture
               </span>
             </div>
           </motion.div>
@@ -513,6 +514,8 @@ const Article5 = () => {
           </div>
         </div>
       </article>
+
+      <BlogCompleteGuide articleSlug="article5" />
 
       {/* CTA Section */}
       <section className="py-16 md:py-20 bg-[#F8F9FA]">

@@ -4,71 +4,71 @@ const SEOHead = ({
   title, 
   description, 
   keywords, 
-  url = 'https://kaptamedia.fr',
-  image = 'https://kaptamedia.fr/og-image.jpg',
+  url = 'https://www.kaptamedia.fr',
+  image = 'https://www.kaptamedia.fr/logo2.webp',
   publishedTime,
   modifiedTime,
   category,
   author = 'Kapta Media'
 }) => {
   useEffect(() => {
-    // Update document title
+    const isArticlePage = Boolean(publishedTime);
+
     if (title) {
       document.title = title;
     }
 
-    // Update or create meta tags
-    const updateMetaTag = (name, content, property = false) => {
-      if (!content) return;
-      
+    const setMetaTag = (name, content, property = false) => {
       const attribute = property ? 'property' : 'name';
-      let element = document.querySelector(`meta[${attribute}="${name}"]`);
-      
+      const selector = `meta[${attribute}="${name}"]`;
+      let element = document.querySelector(selector);
+
+      if (!content) {
+        if (element) element.remove();
+        return;
+      }
+
       if (!element) {
         element = document.createElement('meta');
         element.setAttribute(attribute, name);
         document.head.appendChild(element);
       }
-      
+
       element.setAttribute('content', content);
     };
 
-    // Primary Meta Tags
-    updateMetaTag('description', description);
-    updateMetaTag('keywords', keywords);
-    updateMetaTag('author', author);
+    setMetaTag('description', description);
+    setMetaTag('keywords', keywords);
+    setMetaTag('author', author);
 
-    // Open Graph / Facebook
-    updateMetaTag('og:type', 'article', true);
-    updateMetaTag('og:url', url, true);
-    updateMetaTag('og:title', title, true);
-    updateMetaTag('og:description', description, true);
-    updateMetaTag('og:image', image, true);
-    updateMetaTag('og:site_name', 'Kapta Media', true);
-    
-    if (publishedTime) {
-      updateMetaTag('article:published_time', publishedTime, true);
-    }
-    if (modifiedTime) {
-      updateMetaTag('article:modified_time', modifiedTime, true);
-    }
-    if (category) {
-      updateMetaTag('article:section', category, true);
-    }
-    updateMetaTag('article:author', author, true);
+    setMetaTag('og:type', isArticlePage ? 'article' : 'website', true);
+    setMetaTag('og:url', url, true);
+    setMetaTag('og:title', title, true);
+    setMetaTag('og:description', description, true);
+    setMetaTag('og:image', image, true);
+    setMetaTag('og:image:secure_url', image, true);
+    setMetaTag('og:image:alt', title, true);
+    setMetaTag('og:site_name', 'Kapta Media', true);
+    setMetaTag('og:locale', 'fr_FR', true);
 
-    // Twitter
-    updateMetaTag('twitter:card', 'summary_large_image');
-    updateMetaTag('twitter:url', url);
-    updateMetaTag('twitter:title', title);
-    updateMetaTag('twitter:description', description);
-    updateMetaTag('twitter:image', image);
+    setMetaTag('article:published_time', isArticlePage ? publishedTime : null, true);
+    setMetaTag('article:modified_time', isArticlePage ? (modifiedTime || publishedTime) : null, true);
+    setMetaTag('article:section', isArticlePage ? category : null, true);
+    setMetaTag('article:author', isArticlePage ? author : null, true);
+    setMetaTag('article:publisher', isArticlePage ? 'https://www.kaptamedia.fr' : null, true);
 
-    // Robots
-    updateMetaTag('robots', 'index, follow');
-    updateMetaTag('googlebot', 'index, follow');
+    setMetaTag('twitter:card', 'summary_large_image');
+    setMetaTag('twitter:url', url);
+    setMetaTag('twitter:title', title);
+    setMetaTag('twitter:description', description);
+    setMetaTag('twitter:image', image);
+    setMetaTag('twitter:image:alt', title);
+    setMetaTag('twitter:creator', '@kaptamedia');
+    setMetaTag('twitter:site', '@kaptamedia');
 
-    // Canonical link
+    setMetaTag('robots', 'index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1');
+    setMetaTag('googlebot', 'index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1');
+
     let canonical = document.querySelector('link[rel="canonical"]');
     if (!canonical) {
       canonical = document.createElement('link');
@@ -77,26 +77,32 @@ const SEOHead = ({
     }
     canonical.setAttribute('href', url);
 
-    // JSON-LD Structured Data
-    if (publishedTime) {
+    const scriptId = 'seo-article-jsonld';
+    let script = document.getElementById(scriptId);
+
+    if (isArticlePage) {
       const structuredData = {
         "@context": "https://schema.org",
-        "@type": "Article",
+        "@type": "BlogPosting",
         "headline": title,
         "description": description,
         "image": image,
+        "url": url,
+        "inLanguage": "fr-FR",
+        "articleSection": category || "Blog",
+        "keywords": keywords || "",
         "author": {
           "@type": "Organization",
           "name": author
         },
-        "publisher": {
-          "@type": "Organization",
-          "name": "Kapta Media",
-          "logo": {
-            "@type": "ImageObject",
-            "url": "https://kaptamedia.fr/logo.png"
-          }
-        },
+          "publisher": {
+            "@type": "Organization",
+            "name": "Kapta Media",
+            "logo": {
+              "@type": "ImageObject",
+              "url": "https://www.kaptamedia.fr/logo2.webp"
+            }
+          },
         "datePublished": publishedTime,
         "dateModified": modifiedTime || publishedTime,
         "mainEntityOfPage": {
@@ -105,13 +111,15 @@ const SEOHead = ({
         }
       };
 
-      let script = document.querySelector('script[type="application/ld+json"]');
       if (!script) {
         script = document.createElement('script');
+        script.setAttribute('id', scriptId);
         script.setAttribute('type', 'application/ld+json');
         document.head.appendChild(script);
       }
       script.textContent = JSON.stringify(structuredData);
+    } else if (script) {
+      script.remove();
     }
   }, [title, description, keywords, url, image, publishedTime, modifiedTime, category, author]);
 

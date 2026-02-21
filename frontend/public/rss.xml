@@ -1,102 +1,119 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<rss version="2.0" 
+<rss version="2.0"
      xmlns:atom="http://www.w3.org/2005/Atom"
      xmlns:content="http://purl.org/rss/1.0/modules/content/"
      xmlns:dc="http://purl.org/dc/elements/1.1/">
   <channel>
     <title>Kapta Media - Blog Marketing Local &amp; SEO</title>
-    <link>https://kaptamedia.fr/blog</link>
+    <link>https://www.kaptamedia.fr/blog</link>
     <description>Conseils d'experts en marketing local, SEO et optimisation Google Business Profile. Articles pratiques pour booster votre visibilité locale.</description>
     <language>fr-FR</language>
-    <lastBuildDate>Mon, 10 Feb 2025 10:00:00 +0100</lastBuildDate>
-    <atom:link href="https://kaptamedia.fr/rss.xml" rel="self" type="application/rss+xml"/>
+    <lastBuildDate>Sat, 21 Feb 2026 17:00:00 +0100</lastBuildDate>
+    <atom:link href="https://www.kaptamedia.fr/rss.xml" rel="self" type="application/rss+xml"/>
     <image>
-      <url>https://kaptamedia.fr/logo2.webp</url>
+      <url>https://www.kaptamedia.fr/logo2.webp</url>
       <title>Kapta Media</title>
-      <link>https://kaptamedia.fr</link>
+      <link>https://www.kaptamedia.fr</link>
     </image>
-    <copyright>© 2025 Kapta Media. Tous droits réservés.</copyright>
+    <copyright>© 2026 Kapta Media. Tous droits réservés.</copyright>
     <managingEditor>contact@kaptamedia.fr (Kapta Media)</managingEditor>
     <webMaster>contact@kaptamedia.fr (Kapta Media)</webMaster>
-    <category>Marketing Local</category>
-    <category>SEO</category>
-    <category>Google Maps</category>
-    
-    <!-- Article 1 -->
+
+    <item>
+      <title>2026 : Optimiser sa Fiche Google pour Dominer les Recherches IA (GEO)</title>
+      <link>https://www.kaptamedia.fr/blog/article10</link>
+      <guid isPermaLink="true">https://www.kaptamedia.fr/blog/article10</guid>
+      <description>Les actions essentielles pour que votre entreprise soit recommandée par Google SGE, Gemini, ChatGPT et Perplexity.</description>
+      <category>Google Maps</category>
+      <pubDate>Sat, 21 Feb 2026 17:00:00 +0100</pubDate>
+      <dc:creator>Kapta Media</dc:creator>
+    </item>
+
+    <item>
+      <title>Répondre aux Avis Google : Stratégies et Meilleures Pratiques</title>
+      <link>https://www.kaptamedia.fr/blog/article9</link>
+      <guid isPermaLink="true">https://www.kaptamedia.fr/blog/article9</guid>
+      <description>La méthode claire pour répondre aux avis Google, renforcer votre réputation et améliorer votre visibilité locale.</description>
+      <category>Marketing Local</category>
+      <pubDate>Fri, 20 Feb 2026 15:00:00 +0100</pubDate>
+      <dc:creator>Kapta Media</dc:creator>
+    </item>
+
+    <item>
+      <title>Avis Google 2026 : Méthode 30 Jours pour Doubler Vos Avis</title>
+      <link>https://www.kaptamedia.fr/blog/article8</link>
+      <guid isPermaLink="true">https://www.kaptamedia.fr/blog/article8</guid>
+      <description>Une méthode simple en 30 jours pour augmenter le volume et la qualité de vos avis Google sans forcer vos clients.</description>
+      <category>Marketing Local</category>
+      <pubDate>Thu, 19 Feb 2026 09:00:00 +0100</pubDate>
+      <dc:creator>Kapta Media</dc:creator>
+    </item>
+
+    <item>
+      <title>7 Signaux Google qui Boostent Votre Fiche Locale en 2026</title>
+      <link>https://www.kaptamedia.fr/blog/article7</link>
+      <guid isPermaLink="true">https://www.kaptamedia.fr/blog/article7</guid>
+      <description>Les 7 signaux les plus impactants pour améliorer votre classement local Google en 2026, avec un plan d'action concret sur 14 jours.</description>
+      <category>Google Maps</category>
+      <pubDate>Wed, 18 Feb 2026 10:00:00 +0100</pubDate>
+      <dc:creator>Kapta Media</dc:creator>
+    </item>
+
+    <item>
+      <title>Votre Profil Google Business est-il Prêt pour 2026 ?</title>
+      <link>https://www.kaptamedia.fr/blog/article6</link>
+      <guid isPermaLink="true">https://www.kaptamedia.fr/blog/article6</guid>
+      <description>En 2026, un profil Google Business incomplet vous rend invisible. Données Birdeye et plan d'action concret.</description>
+      <category>Google Maps</category>
+      <pubDate>Sat, 14 Feb 2026 10:00:00 +0100</pubDate>
+      <dc:creator>Kapta Media</dc:creator>
+    </item>
+
     <item>
       <title>5 Raisons d'Optimiser Votre Fiche Google en 2026</title>
-      <link>https://kaptamedia.fr/blog/article1</link>
-      <guid isPermaLink="true">https://kaptamedia.fr/blog/article1</guid>
-      <description>Découvrez pourquoi optimiser votre fiche Google est crucial en 2026. Les entreprises du top 3 reçoivent 126% de clics en plus. Guide complet avec statistiques et conseils.</description>
-      <content:encoded><![CDATA[
-        <p>En 2026, <strong>votre fiche Google Business Profile</strong> est devenue votre vitrine digitale n°1. Plus importante que votre site web pour la visibilité locale.</p>
-        <p>Voici 5 raisons concrètes (avec chiffres à l'appui) pour lesquelles optimiser cette fiche est crucial pour votre entreprise.</p>
-        <p><a href="https://kaptamedia.fr/blog/article1">Lire l'article complet →</a></p>
-      ]]></content:encoded>
+      <link>https://www.kaptamedia.fr/blog/article1</link>
+      <guid isPermaLink="true">https://www.kaptamedia.fr/blog/article1</guid>
+      <description>Découvrez pourquoi optimiser votre fiche Google est crucial en 2026. Les entreprises du top 3 reçoivent 126% de clics en plus.</description>
       <category>Google Maps</category>
       <pubDate>Sun, 09 Feb 2025 10:00:00 +0100</pubDate>
       <dc:creator>Kapta Media</dc:creator>
     </item>
-    
-    <!-- Article 2 -->
+
     <item>
       <title>Avis en Ligne : Pourquoi Sont-ils Essentiels ?</title>
-      <link>https://kaptamedia.fr/blog/article2</link>
-      <guid isPermaLink="true">https://kaptamedia.fr/blog/article2</guid>
-      <description>81% des clients lisent systématiquement les avis avant de décider. Découvrez pourquoi les avis Google sont cruciaux pour votre référencement local et comment les gérer efficacement.</description>
-      <content:encoded><![CDATA[
-        <p>Les <strong>avis en ligne</strong> sont devenus le nouveau bouche-à-oreille digital. Ils influencent directement vos ventes et votre visibilité sur Google.</p>
-        <p>Découvrez pourquoi ils sont cruciaux et comment les transformer en avantage compétitif.</p>
-        <p><a href="https://kaptamedia.fr/blog/article2">Lire l'article complet →</a></p>
-      ]]></content:encoded>
+      <link>https://www.kaptamedia.fr/blog/article2</link>
+      <guid isPermaLink="true">https://www.kaptamedia.fr/blog/article2</guid>
+      <description>81% des clients lisent systématiquement les avis avant de décider. Découvrez pourquoi les avis Google sont cruciaux.</description>
       <category>Marketing Local</category>
       <pubDate>Thu, 06 Feb 2025 10:00:00 +0100</pubDate>
       <dc:creator>Kapta Media</dc:creator>
     </item>
-    
-    <!-- Article 3 -->
+
     <item>
       <title>Le Pouvoir des Photos et Vidéos sur Votre Fiche Google</title>
-      <link>https://kaptamedia.fr/blog/article3</link>
-      <guid isPermaLink="true">https://kaptamedia.fr/blog/article3</guid>
-      <description>Les fiches avec photos génèrent 35% de clics en plus. Découvrez comment les visuels transforment votre fiche Google en machine à clients. Guide complet avec statistiques.</description>
-      <content:encoded><![CDATA[
-        <p><strong>Un visuel vaut mille mots</strong> - les visuels sont devenus indispensables pour promouvoir votre entreprise locale et convaincre vos clients potentiels.</p>
-        <p>Découvrez les 4 pouvoirs des photos et vidéos pour transformer votre fiche Google en machine à clients.</p>
-        <p><a href="https://kaptamedia.fr/blog/article3">Lire l'article complet →</a></p>
-      ]]></content:encoded>
+      <link>https://www.kaptamedia.fr/blog/article3</link>
+      <guid isPermaLink="true">https://www.kaptamedia.fr/blog/article3</guid>
+      <description>Les fiches avec photos génèrent 35% de clics en plus. Guide complet avec statistiques.</description>
       <category>Vidéo</category>
       <pubDate>Mon, 03 Feb 2025 10:00:00 +0100</pubDate>
       <dc:creator>Kapta Media</dc:creator>
     </item>
-    
-    <!-- Article 4 -->
+
     <item>
       <title>La Puissance du Copywriting pour Votre SEO Local</title>
-      <link>https://kaptamedia.fr/blog/article4</link>
-      <guid isPermaLink="true">https://kaptamedia.fr/blog/article4</guid>
-      <description>75% des internautes jugent votre crédibilité à la qualité de vos textes. Découvrez comment le copywriting améliore votre SEO local et vos conversions de 30%.</description>
-      <content:encoded><![CDATA[
-        <p>Le <strong>copywriting</strong> n'est pas qu'une question de style. C'est un levier puissant pour améliorer votre référencement local et vos conversions.</p>
-        <p>Découvrez comment des textes bien écrits peuvent transformer votre fiche Google en machine à clients.</p>
-        <p><a href="https://kaptamedia.fr/blog/article4">Lire l'article complet →</a></p>
-      ]]></content:encoded>
+      <link>https://www.kaptamedia.fr/blog/article4</link>
+      <guid isPermaLink="true">https://www.kaptamedia.fr/blog/article4</guid>
+      <description>75% des internautes jugent votre crédibilité à la qualité de vos textes. Améliorez votre SEO local.</description>
       <category>Conseils</category>
       <pubDate>Fri, 31 Jan 2025 10:00:00 +0100</pubDate>
       <dc:creator>Kapta Media</dc:creator>
     </item>
-    
-    <!-- Article 5 -->
+
     <item>
       <title>Comment Dépasser Vos Concurrents sur Google en 2026</title>
-      <link>https://kaptamedia.fr/blog/article5</link>
-      <guid isPermaLink="true">https://kaptamedia.fr/blog/article5</guid>
-      <description>Les 5 clés pour dominer votre marché local en 2026. IA, recherche vocale, optimisation Google. Stratégies concrètes pour dépasser vos concurrents.</description>
-      <content:encoded><![CDATA[
-        <p>En 2026, la compétition sur Google Maps est plus féroce que jamais. Mais avec les bonnes stratégies, vous pouvez <strong>dominer votre marché local</strong>.</p>
-        <p>Découvrez les 5 clés pour dépasser vos concurrents et attirer plus de clients.</p>
-        <p><a href="https://kaptamedia.fr/blog/article5">Lire l'article complet →</a></p>
-      ]]></content:encoded>
+      <link>https://www.kaptamedia.fr/blog/article5</link>
+      <guid isPermaLink="true">https://www.kaptamedia.fr/blog/article5</guid>
+      <description>Les 5 clés pour dominer votre marché local en 2026. IA, recherche vocale, optimisation Google.</description>
       <category>Conseils</category>
       <pubDate>Tue, 28 Jan 2025 10:00:00 +0100</pubDate>
       <dc:creator>Kapta Media</dc:creator>

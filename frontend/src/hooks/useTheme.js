@@ -1,8 +1,8 @@
 import { useCallback, useEffect, useState } from "react";
 import {
   applyThemeToDocument,
+  getSystemTheme,
   getStoredTheme,
-  getTimeBasedTheme,
   persistTheme,
   resolveTheme,
 } from "@/utils/theme";
@@ -26,17 +26,27 @@ const useTheme = () => {
         return;
       }
 
-      const scheduleTheme = getTimeBasedTheme();
-      setTheme((currentTheme) => (currentTheme === scheduleTheme ? currentTheme : scheduleTheme));
+      const systemTheme = getSystemTheme();
+      setTheme((currentTheme) => (currentTheme === systemTheme ? currentTheme : systemTheme));
     };
 
     syncTheme();
-    const interval = window.setInterval(syncTheme, 60_000);
     window.addEventListener("storage", syncTheme);
 
+    const mediaQuery = window.matchMedia ? window.matchMedia("(prefers-color-scheme: dark)") : null;
+    if (mediaQuery && typeof mediaQuery.addEventListener === "function") {
+      mediaQuery.addEventListener("change", syncTheme);
+    } else if (mediaQuery && typeof mediaQuery.addListener === "function") {
+      mediaQuery.addListener(syncTheme);
+    }
+
     return () => {
-      window.clearInterval(interval);
       window.removeEventListener("storage", syncTheme);
+      if (mediaQuery && typeof mediaQuery.removeEventListener === "function") {
+        mediaQuery.removeEventListener("change", syncTheme);
+      } else if (mediaQuery && typeof mediaQuery.removeListener === "function") {
+        mediaQuery.removeListener(syncTheme);
+      }
     };
   }, []);
 

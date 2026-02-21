@@ -10,6 +10,18 @@ export const getTimeBasedTheme = (date = new Date()) => {
   return isNight ? "dark" : "light";
 };
 
+export const getSystemTheme = () => {
+  if (typeof window === "undefined" || typeof window.matchMedia !== "function") {
+    return "light";
+  }
+
+  try {
+    return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+  } catch {
+    return "light";
+  }
+};
+
 export const getStoredTheme = () => {
   if (typeof window === "undefined") return null;
 
@@ -21,7 +33,7 @@ export const getStoredTheme = () => {
   }
 };
 
-export const resolveTheme = () => getStoredTheme() || getTimeBasedTheme();
+export const resolveTheme = () => getStoredTheme() || getSystemTheme();
 
 export const applyThemeToDocument = (theme) => {
   if (typeof document === "undefined") return;

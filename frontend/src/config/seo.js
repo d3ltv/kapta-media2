@@ -6,15 +6,15 @@
 export const SEO_CONFIG = {
   // Informations de base
   siteName: 'Kapta Media',
-  siteUrl: 'https://kaptamedia.fr',
+  siteUrl: 'https://www.kaptamedia.fr',
   defaultTitle: 'KAPTA Media - Visibilité Google Maps en 14 jours | Tours',
   titleTemplate: '%s | Kapta Media',
   defaultDescription: 'Votre concurrent capte déjà vos prospects sur Google Maps ? Renforcez votre visibilité locale en 14 jours avec une vidéo pro + une fiche optimisée. Agence marketing local à Tours.',
   
   // Images par défaut
-  defaultImage: 'https://kaptamedia.fr/og-image.jpg',
-  logo: 'https://kaptamedia.fr/logo2.webp',
-  favicon: 'https://kaptamedia.fr/favicon.webp',
+  defaultImage: 'https://www.kaptamedia.fr/logo2.webp',
+  logo: 'https://www.kaptamedia.fr/logo2.webp',
+  favicon: 'https://www.kaptamedia.fr/favicon.webp',
   
   // Réseaux sociaux
   social: {
@@ -79,7 +79,7 @@ export const SEO_CONFIG = {
     '@type': 'LocalBusiness',
     name: 'KAPTA Media',
     description: 'Agence de marketing local spécialisée dans l\'optimisation Google Maps et la création de contenu vidéo professionnel',
-    url: 'https://kaptamedia.fr',
+    url: 'https://www.kaptamedia.fr',
     telephone: '+33686018054',
     email: 'contact@kaptamedia.fr',
     address: {
@@ -164,7 +164,7 @@ export const SEO_CONFIG = {
       '@type': 'ListItem',
       position: index + 1,
       name: item.name,
-      item: `https://kaptamedia.fr${item.path}`
+      item: `https://www.kaptamedia.fr${item.path}`
     }))
   }),
   
@@ -174,7 +174,7 @@ export const SEO_CONFIG = {
     '@type': 'Article',
     headline: article.title,
     description: article.description,
-    image: article.image || 'https://kaptamedia.fr/og-image.jpg',
+    image: article.image || 'https://www.kaptamedia.fr/logo2.webp',
     author: {
       '@type': 'Organization',
       name: 'Kapta Media'
@@ -184,14 +184,14 @@ export const SEO_CONFIG = {
       name: 'Kapta Media',
       logo: {
         '@type': 'ImageObject',
-        url: 'https://kaptamedia.fr/logo2.webp'
+        url: 'https://www.kaptamedia.fr/logo2.webp'
       }
     },
     datePublished: article.publishedTime,
     dateModified: article.modifiedTime || article.publishedTime,
     mainEntityOfPage: {
       '@type': 'WebPage',
-      '@id': `https://kaptamedia.fr${article.path}`
+      '@id': `https://www.kaptamedia.fr${article.path}`
     }
   })
 };

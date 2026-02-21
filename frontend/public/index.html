@@ -2,7 +2,7 @@
 <html lang="fr">
     <head>
         <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
         <meta name="theme-color" content="#1c3ff9" />
         
         <!-- SEO Meta Tags -->
@@ -15,7 +15,7 @@
         
         <!-- Open Graph / Facebook -->
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://kaptamedia.fr/" />
+        <meta property="og:url" content="https://www.kaptamedia.fr/" />
         <meta property="og:title" content="KAPTA Media - Visibilité Google Maps en 14 jours" />
         <meta property="og:description" content="Votre concurrent capte déjà vos prospects ? Renforcez votre visibilité locale en 14 jours avec une vidéo pro + fiche optimisée." />
         <meta property="og:image" content="%PUBLIC_URL%/logo2.webp" />
@@ -25,11 +25,13 @@
         <meta property="og:site_name" content="KAPTA Media" />
         
         <!-- Twitter -->
-        <meta property="twitter:card" content="summary_large_image" />
-        <meta property="twitter:url" content="https://kaptamedia.fr/" />
-        <meta property="twitter:title" content="KAPTA Media - Visibilité Google Maps en 14 jours" />
-        <meta property="twitter:description" content="Votre concurrent capte déjà vos prospects ? Renforcez votre visibilité locale en 14 jours avec une vidéo pro + fiche optimisée." />
-        <meta property="twitter:image" content="%PUBLIC_URL%/logo2.webp" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:url" content="https://www.kaptamedia.fr/" />
+        <meta name="twitter:title" content="KAPTA Media - Visibilité Google Maps en 14 jours" />
+        <meta name="twitter:description" content="Votre concurrent capte déjà vos prospects ? Renforcez votre visibilité locale en 14 jours avec une vidéo pro + fiche optimisée." />
+        <meta name="twitter:image" content="%PUBLIC_URL%/logo2.webp" />
+        <meta name="twitter:site" content="@kaptamedia" />
+        <meta name="twitter:creator" content="@kaptamedia" />
         
         <!-- Geo Tags -->
         <meta name="geo.region" content="FR-37" />
@@ -39,7 +41,7 @@
         
         <!-- Business Info -->
         <meta name="contact" content="contact@kaptamedia.fr" />
-        <meta name="copyright" content="© 2025 KAPTA Media. Tous droits réservés." />
+        <meta name="copyright" content="© 2026 KAPTA Media. Tous droits réservés." />
         
         <!-- Technical SEO -->
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -56,7 +58,7 @@
           "@type": "LocalBusiness",
           "name": "KAPTA Media",
           "description": "Agence de marketing local spécialisée dans l'optimisation Google Maps et la création de contenu vidéo professionnel",
-          "url": "https://kaptamedia.fr",
+          "url": "https://www.kaptamedia.fr",
           "telephone": "+33686018054",
           "email": "contact@kaptamedia.fr",
           "address": {
@@ -91,6 +93,7 @@
         <link rel="icon" type="image/webp" href="%PUBLIC_URL%/favicon.webp" />
         <link rel="apple-touch-icon" href="%PUBLIC_URL%/favicon.webp" />
         <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.webp" />
+        <link rel="sitemap" type="application/xml" title="Sitemap" href="%PUBLIC_URL%/sitemap.xml" />
         
         <!-- RSS Feed -->
         <link rel="alternate" type="application/rss+xml" title="Kapta Media - Blog RSS Feed" href="%PUBLIC_URL%/rss.xml" />
@@ -137,10 +140,20 @@
               stored = localStorage.getItem(key);
             } catch (e) {}
 
-            var hour = new Date().getHours();
-            var scheduleTheme = hour >= 20 || hour < 8 ? "dark" : "light";
-            var theme = stored === "dark" || stored === "light" ? stored : scheduleTheme;
+            var systemDark = false;
+            try {
+              systemDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+            } catch (e) {}
+
+            var theme = stored === "dark" || stored === "light" ? stored : (systemDark ? "dark" : "light");
             var root = document.documentElement;
+            var ua = navigator.userAgent || "";
+            var isIOS = /iP(hone|ad|od)/.test(ua) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+            var isWebKit = /WebKit/i.test(ua);
+
+            if (isIOS && isWebKit) {
+              root.classList.add("ios-safari");
+            }
 
             if (theme === "dark") {
               root.classList.add("dark");

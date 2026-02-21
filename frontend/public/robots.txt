@@ -1,60 +1,13 @@
 # robots.txt pour kaptamedia.fr
-# Optimisé pour le SEO et le crawl budget
+# Version orientée indexation Google
 
 User-agent: *
 Allow: /
-Allow: /blog
-Allow: /blog/*
-
-# Sitemap
-Sitemap: https://kaptamedia.fr/sitemap.xml
-
-# Bloquer les ressources inutiles pour le SEO
-Disallow: /static/js/
-Disallow: /static/css/
-Disallow: /static/media/
-Disallow: /*.json$
 Disallow: /test.html
 Disallow: /build/
 Disallow: /node_modules/
 Disallow: /*.map$
 
-# Autoriser les ressources importantes
-Allow: /static/media/*.webp$
-Allow: /static/media/*.jpg$
-Allow: /static/media/*.png$
-
-# Autoriser les bots importants
-User-agent: Googlebot
-Allow: /
-Crawl-delay: 0
-
-User-agent: Googlebot-Image
-Allow: /
-Allow: /*.webp$
-Allow: /*.jpg$
-Allow: /*.png$
-
-User-agent: Bingbot
-Allow: /
-Crawl-delay: 1
-
-User-agent: Slurp
-Allow: /
-Crawl-delay: 1
-
-# Bloquer les mauvais bots
-User-agent: AhrefsBot
-Disallow: /
-
-User-agent: SemrushBot
-Disallow: /
-
-User-agent: DotBot
-Disallow: /
-
-User-agent: MJ12bot
-Disallow: /
-
-# Crawl-delay pour les autres bots
-Crawl-delay: 2
+Sitemap: https://www.kaptamedia.fr/sitemap.xml
+Sitemap: https://www.kaptamedia.fr/sitemap-blog.xml
+Sitemap: https://www.kaptamedia.fr/rss.xml

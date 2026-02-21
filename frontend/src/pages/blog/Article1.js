@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import SharedNavbar from "@/components/SharedNavbar";
 import SEOHead from "@/components/SEOHead";
 import InteractiveGlassTitle from "@/components/InteractiveGlassTitle";
+import BlogCompleteGuide from "@/components/blog/BlogCompleteGuide";
 import * as Analytics from "@/utils/analytics";
 
 const Article1 = () => {
@@ -24,19 +25,19 @@ const Article1 = () => {
           "@type": "ListItem",
           "position": 1,
           "name": "Accueil",
-          "item": "https://kaptamedia.fr"
+          "item": "https://www.kaptamedia.fr"
         },
         {
           "@type": "ListItem",
           "position": 2,
           "name": "Blog",
-          "item": "https://kaptamedia.fr/blog"
+          "item": "https://www.kaptamedia.fr/blog"
         },
         {
           "@type": "ListItem",
           "position": 3,
           "name": "5 Raisons d'Optimiser Votre Fiche Google en 2026",
-          "item": "https://kaptamedia.fr/blog/article1"
+          "item": "https://www.kaptamedia.fr/blog/article1"
         }
       ]
     });
@@ -55,7 +56,7 @@ const Article1 = () => {
         title="5 Raisons d'Optimiser Votre Fiche Google en 2026 | Kapta Media"
         description="Découvrez pourquoi optimiser votre fiche Google est crucial en 2026. Les entreprises du top 3 reçoivent 126% de clics en plus. Guide complet avec statistiques et conseils."
         keywords="fiche google, google business profile, référencement local, SEO local, optimisation google maps, visibilité locale, google my business, avis google, top 3 google maps"
-        url="https://kaptamedia.fr/blog/5-raisons-optimiser-fiche-google-2026"
+        url="https://www.kaptamedia.fr/blog/article1"
         publishedTime="2025-02-09T10:00:00+01:00"
         modifiedTime="2025-02-09T10:00:00+01:00"
         category="Google Maps"
@@ -104,7 +105,7 @@ const Article1 = () => {
               </span>
               <span className="flex items-center gap-1.5">
                 <Clock className="w-4 h-4" />
-                12 min de lecture
+                8 min de lecture
               </span>
             </div>
           </motion.div>
@@ -393,6 +394,8 @@ const Article1 = () => {
           </div>
         </div>
       </article>
+
+      <BlogCompleteGuide articleSlug="article1" />
 
       {/* CTA Section */}
       <section className="py-16 md:py-20 bg-[#F8F9FA]">

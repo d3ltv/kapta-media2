@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import SharedNavbar from "@/components/SharedNavbar";
 import SEOHead from "@/components/SEOHead";
 import InteractiveGlassTitle from "@/components/InteractiveGlassTitle";
+import BlogCompleteGuide from "@/components/blog/BlogCompleteGuide";
 import * as Analytics from "@/utils/analytics";
 
 const Article3 = () => {
@@ -24,19 +25,19 @@ const Article3 = () => {
           "@type": "ListItem",
           "position": 1,
           "name": "Accueil",
-          "item": "https://kaptamedia.fr"
+          "item": "https://www.kaptamedia.fr"
         },
         {
           "@type": "ListItem",
           "position": 2,
           "name": "Blog",
-          "item": "https://kaptamedia.fr/blog"
+          "item": "https://www.kaptamedia.fr/blog"
         },
         {
           "@type": "ListItem",
           "position": 3,
           "name": "Le Pouvoir des Photos et Vidéos",
-          "item": "https://kaptamedia.fr/blog/article3"
+          "item": "https://www.kaptamedia.fr/blog/article3"
         }
       ]
     });
@@ -55,7 +56,7 @@ const Article3 = () => {
         title="Le Pouvoir des Photos et Vidéos sur Votre Fiche Google | Kapta Media"
         description="Les fiches avec photos génèrent 35% de clics en plus. Découvrez comment les visuels transforment votre fiche Google en machine à clients. Guide complet avec statistiques."
         keywords="photos google, vidéo google business, visuels fiche google, photos professionnelles, vidéo entreprise, marketing visuel, contenu visuel, google maps photos"
-        url="https://kaptamedia.fr/blog/pouvoir-photos-videos-fiche-google"
+        url="https://www.kaptamedia.fr/blog/article3"
         publishedTime="2025-02-03T10:00:00+01:00"
         modifiedTime="2025-02-03T10:00:00+01:00"
         category="Vidéo"
@@ -102,7 +103,7 @@ const Article3 = () => {
               </span>
               <span className="flex items-center gap-1.5">
                 <Clock className="w-4 h-4" />
-                9 min de lecture
+                6 min de lecture
               </span>
             </div>
           </motion.div>
@@ -395,6 +396,8 @@ const Article3 = () => {
           </div>
         </div>
       </article>
+
+      <BlogCompleteGuide articleSlug="article3" />
 
       {/* CTA Section */}
       <section className="py-16 md:py-20 bg-[#F8F9FA]">

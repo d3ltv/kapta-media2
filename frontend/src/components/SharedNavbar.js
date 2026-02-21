@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { createPortal } from "react-dom";
 import { Link } from "react-router-dom";
 import { ArrowRight, Phone, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -17,6 +18,32 @@ const SharedNavbar = () => {
     const handleScroll = () => setScrolled(window.scrollY > 50);
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  useEffect(() => {
+    if (!mobileMenuOpen || typeof document === "undefined") return undefined;
+
+    const previousOverflow = document.body.style.overflow;
+    const previousTouchAction = document.body.style.touchAction;
+
+    document.body.style.overflow = "hidden";
+    document.body.style.touchAction = "none";
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      document.body.style.touchAction = previousTouchAction;
+    };
+  }, [mobileMenuOpen]);
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 768) {
+        setMobileMenuOpen(false);
+      }
+    };
+
+    window.addEventListener("resize", handleResize, { passive: true });
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   const menuItems = [
@@ -52,7 +79,108 @@ const SharedNavbar = () => {
     }
   };
 
+  const mobileMenuLayer = mobileMenuOpen && typeof document !== "undefined"
+    ? createPortal(
+      <>
+        <div
+          className="fixed inset-0 z-[70] bg-black/45 md:hidden"
+          onClick={() => setMobileMenuOpen(false)}
+          aria-hidden="true"
+        />
+        <div
+          id="mobile-menu-panel"
+          className="fixed right-4 z-[71] w-[min(20rem,calc(100vw-2rem))] bg-white dark:bg-[#10131A] rounded-2xl shadow-2xl border border-gray-100 dark:border-[#2A2E39] overflow-hidden md:hidden"
+          style={{ top: "calc(4rem + env(safe-area-inset-top))" }}
+          role="dialog"
+          aria-modal="true"
+        >
+          <div className="p-2">
+            {menuItems.map((item, index) => {
+              const isRoute = item.href.startsWith('/') && !item.href.startsWith('/#');
+
+              return (
+                <div
+                  key={item.label}
+                  className="animate-in fade-in slide-in-from-right-2 duration-200"
+                  style={{ animationDelay: `${index * 30}ms` }}
+                >
+                  {isRoute ? (
+                    <Link
+                      to={item.href}
+                      onClick={() => {
+                        Analytics.trackMenuClick(item.label);
+                        setMobileMenuOpen(false);
+                      }}
+                      className="w-full flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-[#1c3ff9]/5 transition-all duration-200 group"
+                    >
+                      <span className="text-lg group-hover:scale-110 transition-transform">
+                        {item.icon}
+                      </span>
+                      <span className="text-sm font-medium text-[#0A0A0A] dark:text-[#F3F6FF] group-hover:text-[#1c3ff9] transition-colors">
+                        {item.label}
+                      </span>
+                      <ArrowRight className="w-4 h-4 text-[#A1A1AA] group-hover:text-[#1c3ff9] group-hover:translate-x-1 transition-all ml-auto" />
+                    </Link>
+                  ) : (
+                    <button
+                      onClick={() => {
+                        Analytics.trackMenuClick(item.label);
+                        handleMenuClick(item.href);
+                      }}
+                      className="w-full flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-[#1c3ff9]/5 transition-all duration-200 group"
+                    >
+                      <span className="text-lg group-hover:scale-110 transition-transform">
+                        {item.icon}
+                      </span>
+                      <span className="text-sm font-medium text-[#0A0A0A] dark:text-[#F3F6FF] group-hover:text-[#1c3ff9] transition-colors">
+                        {item.label}
+                      </span>
+                      <ArrowRight className="w-4 h-4 text-[#A1A1AA] group-hover:text-[#1c3ff9] group-hover:translate-x-1 transition-all ml-auto" />
+                    </button>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+          <div className="px-4 pb-2 pt-1 border-t border-gray-100 dark:border-[#2A2E39]">
+            <ThemeToggle isDark={isDark} onToggle={toggleTheme} className="w-full justify-center" />
+          </div>
+
+          <div className="p-4 border-t border-gray-100 dark:border-[#2A2E39]">
+            <Button
+              className="w-full bg-gradient-to-br from-[#0052FF] via-[#1c3ff9] to-[#3B82F6] hover:from-[#0041CC] hover:via-[#1534d4] hover:to-[#2563EB] text-white rounded-full px-6 py-3 text-sm font-semibold shadow-lg btn-shimmer"
+              onClick={() => {
+                Analytics.trackCTAClick('AUDIT GRATUIT', 'Mobile Menu');
+                Analytics.trackAuditRequest('Mobile Menu');
+                setMobileMenuOpen(false);
+                handleMenuClick('/#contact');
+              }}
+            >
+              AUDIT GRATUIT
+            </Button>
+          </div>
+
+          <div className="border-t border-gray-100 dark:border-[#2A2E39] p-4 bg-[#F8F9FA] dark:bg-[#171B24]">
+            <a
+              href="tel:0686018054"
+              className="flex items-center gap-2 text-sm text-[#52525B] dark:text-[#C2C8D8] hover:text-[#1c3ff9] transition-colors"
+              onClick={() => {
+                Analytics.trackPhoneClick('06 86 01 80 54', 'Mobile Menu');
+                setMobileMenuOpen(false);
+              }}
+            >
+              <Phone className="w-4 h-4" />
+              06 86 01 80 54
+            </a>
+          </div>
+        </div>
+      </>,
+      document.body,
+    )
+    : null;
+
   return (
+    <>
     <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled ? "glassmorphism shadow-premium" : "bg-transparent"
@@ -145,7 +273,7 @@ const SharedNavbar = () => {
           <div className="md:hidden relative">
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="flex items-center justify-center w-12 h-12 rounded-full bg-white/20 backdrop-blur-md border border-white/30 shadow-lg transition-all duration-300 hover:scale-110 hover:bg-white/30"
+              className="flex items-center justify-center w-12 h-12 rounded-full bg-white/25 dark:bg-[#101722]/85 border border-white/35 dark:border-[#2A2E39] shadow-lg transition-all duration-300"
               data-testid="mobile-menu-button"
               aria-label={mobileMenuOpen ? "Fermer le menu" : "Ouvrir le menu"}
               aria-expanded={mobileMenuOpen}
@@ -163,109 +291,12 @@ const SharedNavbar = () => {
                 )}
               </div>
             </button>
-
-            {/* Mobile Menu Dropdown */}
-            {mobileMenuOpen && (
-              <>
-                {/* Overlay */}
-                <div 
-                  className="fixed inset-x-0 top-16 bottom-0 bg-black/20 backdrop-blur-sm z-40"
-                  onClick={() => setMobileMenuOpen(false)}
-                />
-                
-                {/* Menu */}
-                <div
-                  id="mobile-menu-panel"
-                  className="absolute top-16 right-0 w-64 bg-white dark:bg-[#10131A] rounded-2xl shadow-2xl border border-gray-100 dark:border-[#2A2E39] overflow-hidden z-50"
-                >
-                  <div className="p-2">
-                    {menuItems.map((item, index) => {
-                      const isRoute = item.href.startsWith('/') && !item.href.startsWith('/#');
-                      
-                      return (
-                        <div
-                          key={item.label}
-                          className="animate-in fade-in slide-in-from-right-2 duration-200"
-                          style={{ animationDelay: `${index * 30}ms` }}
-                        >
-                          {isRoute ? (
-                            <Link
-                              to={item.href}
-                              onClick={() => {
-                                Analytics.trackMenuClick(item.label);
-                                setMobileMenuOpen(false);
-                              }}
-                              className="w-full flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-[#1c3ff9]/5 transition-all duration-200 group"
-                            >
-                              <span className="text-lg group-hover:scale-110 transition-transform">
-                                {item.icon}
-                              </span>
-                              <span className="text-sm font-medium text-[#0A0A0A] dark:text-[#F3F6FF] group-hover:text-[#1c3ff9] transition-colors">
-                                {item.label}
-                              </span>
-                              <ArrowRight className="w-4 h-4 text-[#A1A1AA] group-hover:text-[#1c3ff9] group-hover:translate-x-1 transition-all ml-auto" />
-                            </Link>
-                          ) : (
-                            <button
-                              onClick={() => {
-                                Analytics.trackMenuClick(item.label);
-                                handleMenuClick(item.href);
-                              }}
-                              className="w-full flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-[#1c3ff9]/5 transition-all duration-200 group"
-                            >
-                              <span className="text-lg group-hover:scale-110 transition-transform">
-                                {item.icon}
-                              </span>
-                              <span className="text-sm font-medium text-[#0A0A0A] dark:text-[#F3F6FF] group-hover:text-[#1c3ff9] transition-colors">
-                                {item.label}
-                              </span>
-                              <ArrowRight className="w-4 h-4 text-[#A1A1AA] group-hover:text-[#1c3ff9] group-hover:translate-x-1 transition-all ml-auto" />
-                            </button>
-                          )}
-                        </div>
-                      );
-                    })}
-                  </div>
-                  <div className="px-4 pb-2 pt-1 border-t border-gray-100 dark:border-[#2A2E39]">
-                    <ThemeToggle isDark={isDark} onToggle={toggleTheme} className="w-full justify-center" />
-                  </div>
-                  
-                  {/* CTA Button */}
-                  <div className="p-4 border-t border-gray-100 dark:border-[#2A2E39]">
-                    <Button 
-                      className="w-full bg-gradient-to-br from-[#0052FF] via-[#1c3ff9] to-[#3B82F6] hover:from-[#0041CC] hover:via-[#1534d4] hover:to-[#2563EB] text-white rounded-full px-6 py-3 text-sm font-semibold shadow-lg btn-shimmer"
-                      onClick={() => {
-                        Analytics.trackCTAClick('AUDIT GRATUIT', 'Mobile Menu');
-                        Analytics.trackAuditRequest('Mobile Menu');
-                        setMobileMenuOpen(false);
-                        handleMenuClick('/#contact');
-                      }}
-                    >
-                      AUDIT GRATUIT
-                    </Button>
-                  </div>
-                  
-                  {/* Footer avec contact */}
-                  <div className="border-t border-gray-100 dark:border-[#2A2E39] p-4 bg-[#F8F9FA] dark:bg-[#171B24]">
-                    <a 
-                      href="tel:0686018054"
-                      className="flex items-center gap-2 text-sm text-[#52525B] dark:text-[#C2C8D8] hover:text-[#1c3ff9] transition-colors"
-                      onClick={() => {
-                        Analytics.trackPhoneClick('06 86 01 80 54', 'Mobile Menu');
-                        setMobileMenuOpen(false);
-                      }}
-                    >
-                      <Phone className="w-4 h-4" />
-                      06 86 01 80 54
-                    </a>
-                  </div>
-                </div>
-              </>
-            )}
           </div>
         </div>
       </div>
     </nav>
+    {mobileMenuLayer}
+    </>
   );
 };
 
