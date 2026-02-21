@@ -242,11 +242,31 @@ const dateKeyToUtcMs = (dateKey) => {
   return Date.UTC(year, month - 1, day);
 };
 
-export const isArticleNew = (article, now = new Date()) => {
-  if (!article?.publishedTime) return false;
+const getArticleBadgeDate = (article) => {
+  if (!article) return null;
 
-  const publishedDate = new Date(article.publishedTime);
-  const publishedDateKey = formatDateInTimezone(publishedDate);
+  const publishedDate = article?.publishedTime ? new Date(article.publishedTime) : null;
+  const modifiedDate = article?.modifiedTime ? new Date(article.modifiedTime) : null;
+
+  const publishedMs = publishedDate instanceof Date && !Number.isNaN(publishedDate.getTime())
+    ? publishedDate.getTime()
+    : Number.NaN;
+  const modifiedMs = modifiedDate instanceof Date && !Number.isNaN(modifiedDate.getTime())
+    ? modifiedDate.getTime()
+    : Number.NaN;
+
+  if (Number.isNaN(publishedMs) && Number.isNaN(modifiedMs)) return null;
+  if (Number.isNaN(publishedMs)) return modifiedDate;
+  if (Number.isNaN(modifiedMs)) return publishedDate;
+
+  return modifiedMs >= publishedMs ? modifiedDate : publishedDate;
+};
+
+export const isArticleNew = (article, now = new Date()) => {
+  const articleBadgeDate = getArticleBadgeDate(article);
+  if (!articleBadgeDate) return false;
+
+  const publishedDateKey = formatDateInTimezone(articleBadgeDate);
   const nowDateKey = formatDateInTimezone(now);
 
   const publishedUtcMs = dateKeyToUtcMs(publishedDateKey);
@@ -260,16 +280,21 @@ export const isArticleNew = (article, now = new Date()) => {
 
   const visibleNewArticleIds = BLOG_ARTICLES
     .filter((item) => {
-      if (!item?.publishedTime) return false;
-      const itemDate = new Date(item.publishedTime);
-      const itemDateKey = formatDateInTimezone(itemDate);
+      const itemBadgeDate = getArticleBadgeDate(item);
+      if (!itemBadgeDate) return false;
+
+      const itemDateKey = formatDateInTimezone(itemBadgeDate);
       const itemUtcMs = dateKeyToUtcMs(itemDateKey);
       if (Number.isNaN(itemUtcMs) || Number.isNaN(nowUtcMs)) return false;
       const itemDiffDays = Math.floor((nowUtcMs - itemUtcMs) / (24 * 60 * 60 * 1000));
       return itemDiffDays >= 0 && itemDiffDays < NEW_BADGE_DURATION_DAYS;
     })
     .sort((a, b) => {
-      const byPublishedTime = new Date(b.publishedTime).getTime() - new Date(a.publishedTime).getTime();
+      const dateA = getArticleBadgeDate(a);
+      const dateB = getArticleBadgeDate(b);
+      const timeA = dateA ? dateA.getTime() : 0;
+      const timeB = dateB ? dateB.getTime() : 0;
+      const byPublishedTime = timeB - timeA;
       if (byPublishedTime !== 0) return byPublishedTime;
       return (b.id || 0) - (a.id || 0);
     })
