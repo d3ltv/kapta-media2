@@ -5,6 +5,7 @@ import "@/index.css";
 import App from "@/App";
 
 const Blog = lazy(() => import("@/pages/Blog"));
+const NotFound = lazy(() => import("@/pages/NotFound"));
 const Article1 = lazy(() => import("@/pages/blog/Article1"));
 const Article2 = lazy(() => import("@/pages/blog/Article2"));
 const Article3 = lazy(() => import("@/pages/blog/Article3"));
@@ -15,6 +16,7 @@ const Article7 = lazy(() => import("@/pages/blog/Article7"));
 const Article8 = lazy(() => import("@/pages/blog/Article8"));
 const Article9 = lazy(() => import("@/pages/blog/Article9"));
 const Article10 = lazy(() => import("@/pages/blog/Article10"));
+const Article11 = lazy(() => import("@/pages/blog/Article11"));
 
 const RouteLoader = () => (
   <div className="min-h-screen bg-white dark:bg-[#050505] flex items-center justify-center">
@@ -43,6 +45,8 @@ root.render(
           <Route path="/blog/article8" element={<Article8 />} />
           <Route path="/blog/article9" element={<Article9 />} />
           <Route path="/blog/article10" element={<Article10 />} />
+          <Route path="/blog/article11" element={<Article11 />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </Suspense>
     </BrowserRouter>

@@ -527,6 +527,59 @@ export const BLOG_COMPLETE_EXTENSIONS = {
         ]
       }
     ]
+  },
+
+  article11: {
+    omittedTitle: "Informations omises de la version courte",
+    omittedIntro:
+      "Cette extension ajoute les détails concrets de prospection locale: objections réelles, calcul de pertes et ordre d'exécution terrain.",
+    omittedBlocks: [
+      {
+        heading: "Pourquoi des entreprises solides restent invisibles",
+        body: "Le décalage vient rarement du métier. Il vient surtout d'une fiche mal maintenue et d'un manque de preuves visibles.",
+        bullets: [
+          "Catégorie principale mal alignée avec le service le plus rentable.",
+          "Avis positifs présents mais non valorisés par des réponses utiles.",
+          "Photos anciennes qui ne reflètent plus la réalité du commerce.",
+          "Informations critiques incohérentes entre site et fiche Google.",
+          "Aucune routine hebdomadaire de maintenance locale."
+        ]
+      },
+      {
+        heading: "Calcul rapide du manque à gagner",
+        body: "Sans formules complexes, on peut estimer la perte mensuelle liée à une mauvaise visibilité.",
+        bullets: [
+          "Compter les appels mensuels potentiels par requête métier locale.",
+          "Appliquer une part de capture réaliste selon position actuelle.",
+          "Relier chaque appel à un panier moyen ou à une valeur de chantier.",
+          "Comparer avec la performance d'un concurrent direct mieux classé.",
+          "Fixer un objectif de récupération progressif sur 30 à 60 jours."
+        ]
+      },
+      {
+        heading: "Séquence d'attaque locale pour passer devant",
+        body: "Le bon ordre d'action évite de perdre du temps sur des optimisations secondaires.",
+        bullets: [
+          "Semaine 1: fiabilité totale des données + CTA clairs.",
+          "Semaine 2: preuve visuelle récente + activation avis.",
+          "Semaine 3: réponses avis et ajustements de conversion.",
+          "Semaine 4: contrôle KPI et correction des points faibles.",
+          "Boucle mensuelle courte pour conserver l'avantage acquis."
+        ]
+      }
+    ],
+    checklists: [
+      {
+        heading: "Checklist exécution locale",
+        items: [
+          "Fiche Google 100 % à jour",
+          "Preuves visuelles récentes",
+          "Avis traités sans retard",
+          "Comparatif concurrent mensuel",
+          "KPI business suivis chaque semaine"
+        ]
+      }
+    ]
   }
 };
 

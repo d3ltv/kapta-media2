@@ -523,6 +523,58 @@ export const BLOG_COMPLETE_GUIDES = {
       },
     ],
   },
+  article11: {
+    fullTitle: "Dossier Complet : Pourquoi Votre Concurrence Locale Passe Devant sur Google Maps",
+    strapline:
+      "Version longue pour artisans et commerces de Tours qui veulent reprendre les appels perdus sans jargon inutile.",
+    sections: [
+      {
+        id: "article11-constat",
+        menu: "Constat",
+        heading: "Le vrai problème: visibilité avant qualité perçue",
+        paragraphs: [
+          "Sur le terrain, vous pouvez être excellent. Mais sur Google Maps, la décision se joue en quelques secondes avec des signaux visibles: note, volume d'avis, fraîcheur des photos, clarté des infos, facilité d'appel.",
+          "Le prospect ne compare pas votre niveau technique réel en premier. Il compare ce qui est affiché. La meilleure prestation ne compense pas une fiche faible ou incomplète.",
+        ],
+      },
+      {
+        id: "article11-cout",
+        menu: "Coût",
+        heading: "Transformer la perte de visibilité en coût business mesurable",
+        paragraphs: [
+          "Le langage utile n'est pas “algorithme” ou “SEO”, c'est marge, volume d'appels et chiffre d'affaires. Une perte de position locale peut se traduire par des réservations et des devis en moins chaque semaine.",
+          "Piloter ce sujet impose de suivre des indicateurs simples: appels entrants, demandes d'itinéraire, clics vers le site, volume et délai de réponse aux avis, progression de classement sur les requêtes métier locales.",
+        ],
+      },
+      {
+        id: "article11-action",
+        menu: "Action",
+        heading: "Plan opérationnel en 14 jours",
+        paragraphs: [
+          "Jours 1 à 3: fiabilité complète de la fiche (catégorie, services, horaires, description, zones desservies). Jours 4 à 7: preuves visuelles et CTA clairs. Jours 8 à 14: collecte active d'avis et réponses systématiques.",
+          "L'objectif n'est pas de “faire joli”, mais de créer un différentiel net face aux concurrents sur votre zone: plus de confiance perçue, plus de clics qualifiés, plus d'appels exploitables.",
+        ],
+      },
+    ],
+    sources: [
+      {
+        label: "Google Business Profile - Improve your local ranking",
+        url: "https://support.google.com/business/answer/7091",
+      },
+      {
+        label: "Google Business Profile - Read and reply to reviews",
+        url: "https://support.google.com/business/answer/3474050",
+      },
+      {
+        label: "Whitespark - Local Search Ranking Factors",
+        url: "https://whitespark.ca/local-search-ranking-factors/",
+      },
+      {
+        label: "BrightLocal - Local Consumer Review Survey",
+        url: "https://www.brightlocal.com/research/local-consumer-review-survey/",
+      },
+    ],
+  },
 };
 
 export const getCompleteGuideBySlug = (slug) => {
