@@ -59,7 +59,7 @@
   "scripts": {
     "start": "craco start",
     "build": "NODE_OPTIONS='--max_old_space_size=2048' CI=false GENERATE_SOURCEMAP=false craco build",
-    "postbuild": "if [ -x \"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome\" ]; then PUPPETEER_EXECUTABLE_PATH=\"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome\" react-snap; else react-snap; fi",
+    "postbuild": "if [ \"$VERCEL\" = \"1\" ] || [ \"$CI\" = \"true\" ]; then echo \"Skipping react-snap in CI\"; elif [ -x \"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome\" ]; then PUPPETEER_EXECUTABLE_PATH=\"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome\" react-snap; else react-snap; fi",
     "test": "craco test",
     "analyze": "source-map-explorer 'build/static/js/*.js' --no-border-checks"
   },
