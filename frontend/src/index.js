@@ -17,6 +17,7 @@ const Article8 = lazy(() => import("@/pages/blog/Article8"));
 const Article9 = lazy(() => import("@/pages/blog/Article9"));
 const Article10 = lazy(() => import("@/pages/blog/Article10"));
 const Article11 = lazy(() => import("@/pages/blog/Article11"));
+const Article12 = lazy(() => import("@/pages/blog/Article12"));
 
 const RouteLoader = () => (
   <div className="min-h-screen bg-white dark:bg-[#050505] flex items-center justify-center">
@@ -46,6 +47,7 @@ root.render(
           <Route path="/blog/article9" element={<Article9 />} />
           <Route path="/blog/article10" element={<Article10 />} />
           <Route path="/blog/article11" element={<Article11 />} />
+          <Route path="/blog/article12" element={<Article12 />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Suspense>

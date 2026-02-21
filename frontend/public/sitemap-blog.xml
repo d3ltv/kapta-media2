@@ -2,6 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
+    <loc>https://www.kaptamedia.fr/blog/article12</loc>
+    <lastmod>2026-02-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://www.kaptamedia.fr/logo2.webp</image:loc>
+      <image:title>La guerre invisible de Tours : pourquoi les clients de votre quartier vous échappent (et comment les récupérer)</image:title>
+    </image:image>
+  </url>
+  <url>
     <loc>https://www.kaptamedia.fr/blog/article11</loc>
     <lastmod>2026-02-22</lastmod>
     <changefreq>weekly</changefreq>

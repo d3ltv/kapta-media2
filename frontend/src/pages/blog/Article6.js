@@ -67,7 +67,7 @@ const Article6 = () => {
       <SEOHead
         title="Votre Profil Google Business est-il Prêt pour 2026 ? | Kapta Media"
         description="En 2026, un profil Google Business incomplet vous rend invisible. Analyse des données Birdeye et plan d'action concret pour renforcer votre visibilité locale."
-        keywords="google business profile 2026, visibilité locale, référencement local, avis google, AI overviews, optimisation fiche google"
+        keywords="google business profile 2026, visibilité locale, référencement local, avis google, aperçus IA, optimisation fiche google"
         url="https://www.kaptamedia.fr/blog/article6"
         publishedTime="2026-02-14T10:00:00+01:00"
         modifiedTime="2026-02-14T10:00:00+01:00"
@@ -149,7 +149,7 @@ const Article6 = () => {
                 },
                 {
                   title: "Impact visibilité",
-                  value: "+80%",
+                  value: "+80 %",
                   description: "Un profil complet et actif améliore fortement la présence dans les résultats locaux.",
                 },
                 {
@@ -215,7 +215,7 @@ const Article6 = () => {
                   <tbody className="divide-y divide-gray-100">
                     <tr>
                       <td className="px-4 py-3 text-[#52525B]">Visibilité recherche locale</td>
-                      <td className="px-4 py-3 text-[#0A0A0A] font-medium">+80%</td>
+                      <td className="px-4 py-3 text-[#0A0A0A] font-medium">+80 %</td>
                     </tr>
                     <tr>
                       <td className="px-4 py-3 text-[#52525B]">Visites du site web</td>
@@ -223,11 +223,11 @@ const Article6 = () => {
                     </tr>
                     <tr>
                       <td className="px-4 py-3 text-[#52525B]">Appels entrants</td>
-                      <td className="px-4 py-3 text-[#0A0A0A] font-medium">+12%</td>
+                      <td className="px-4 py-3 text-[#0A0A0A] font-medium">+12 %</td>
                     </tr>
                     <tr>
                       <td className="px-4 py-3 text-[#52525B]">Demandes d'itinéraire</td>
-                      <td className="px-4 py-3 text-[#0A0A0A] font-medium">+10%</td>
+                      <td className="px-4 py-3 text-[#0A0A0A] font-medium">+10 %</td>
                     </tr>
                   </tbody>
                 </table>

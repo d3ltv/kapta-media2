@@ -54,7 +54,7 @@ const Article1 = () => {
     <div className="min-h-screen bg-white dark:bg-[#050505]">
       <SEOHead
         title="5 Raisons d'Optimiser Votre Fiche Google en 2026 | Kapta Media"
-        description="Découvrez pourquoi optimiser votre fiche Google est crucial en 2026. Les entreprises du top 3 reçoivent 126% de clics en plus. Guide complet avec statistiques et conseils."
+        description="Découvrez pourquoi optimiser votre fiche Google est crucial en 2026. Les entreprises du top 3 reçoivent 126 % de clics en plus, avec des actions concrètes à appliquer."
         keywords="fiche google, google business profile, référencement local, SEO local, optimisation google maps, visibilité locale, google my business, avis google, top 3 google maps"
         url="https://www.kaptamedia.fr/blog/article1"
         publishedTime="2025-02-09T10:00:00+01:00"
@@ -154,15 +154,15 @@ const Article1 = () => {
                 <ul className="space-y-3">
                   <li className="flex items-start gap-3">
                     <span className="text-[#1c3ff9] font-bold">•</span>
-                    <span className="text-[#52525B]"><strong className="text-[#1c3ff9]">46%</strong> de toutes les recherches Google ont une intention locale</span>
+                    <span className="text-[#52525B]"><strong className="text-[#1c3ff9]">46 %</strong> de toutes les recherches Google ont une intention locale</span>
                   </li>
                   <li className="flex items-start gap-3">
                     <span className="text-[#1c3ff9] font-bold">•</span>
-                    <span className="text-[#52525B]">Les 3 premiers résultats locaux captent <strong className="text-[#1c3ff9]">126%</strong> de clics en plus que les suivants</span>
+                    <span className="text-[#52525B]">Les 3 premiers résultats locaux captent <strong className="text-[#1c3ff9]">126 %</strong> de clics en plus que les suivants</span>
                   </li>
                   <li className="flex items-start gap-3">
                     <span className="text-[#1c3ff9] font-bold">•</span>
-                    <span className="text-[#52525B]"><strong className="text-[#1c3ff9]">76%</strong> des personnes qui font une recherche locale visitent l'entreprise dans les 24h</span>
+                    <span className="text-[#52525B]"><strong className="text-[#1c3ff9]">76 %</strong> des personnes qui font une recherche locale visitent l'entreprise dans les 24h</span>
                   </li>
                 </ul>
               </div>
@@ -200,15 +200,15 @@ const Article1 = () => {
                 <ul className="space-y-3">
                   <li className="flex items-start gap-3">
                     <span className="text-[#1c3ff9] font-bold">•</span>
-                    <span className="text-[#52525B]"><strong className="text-[#1c3ff9]">88%</strong> des consommateurs font autant confiance aux avis en ligne qu'aux recommandations personnelles</span>
+                    <span className="text-[#52525B]"><strong className="text-[#1c3ff9]">88 %</strong> des consommateurs font autant confiance aux avis en ligne qu'aux recommandations personnelles</span>
                   </li>
                   <li className="flex items-start gap-3">
                     <span className="text-[#1c3ff9] font-bold">•</span>
-                    <span className="text-[#52525B]">Une note de <strong className="text-[#1c3ff9]">4,5★</strong> ou plus augmente les chances de visite de 70%</span>
+                    <span className="text-[#52525B]">Une note de <strong className="text-[#1c3ff9]">4,5★</strong> ou plus augmente les chances de visite de 70 %</span>
                   </li>
                   <li className="flex items-start gap-3">
                     <span className="text-[#1c3ff9] font-bold">•</span>
-                    <span className="text-[#52525B]"><strong className="text-[#1c3ff9]">73%</strong> des clients ne font confiance qu'aux entreprises avec des avis positifs récents</span>
+                    <span className="text-[#52525B]"><strong className="text-[#1c3ff9]">73 %</strong> des clients ne font confiance qu'aux entreprises avec des avis positifs récents</span>
                   </li>
                 </ul>
               </div>
@@ -306,7 +306,7 @@ const Article1 = () => {
 
               <div className="bg-[#1c3ff9]/5 border-l-4 border-[#1c3ff9] p-4 rounded">
                 <p className="text-sm text-[#52525B]">
-                  💡 Devinez lequel capte 80% des nouveaux clients ? L'optimisation de votre fiche = votre meilleure arme face à la concurrence.
+                  💡 Devinez lequel capte 80 % des nouveaux clients ? L'optimisation de votre fiche = votre meilleure arme face à la concurrence.
                 </p>
               </div>
             </motion.div>
@@ -333,7 +333,7 @@ const Article1 = () => {
                 <ul className="space-y-3">
                   <li className="flex items-start gap-3">
                     <span className="text-[#10B981] font-bold">✓</span>
-                    <span className="text-[#52525B]"><strong className="text-[#0A0A0A]">100% gratuit</strong> - Pas de frais d'inscription ou d'abonnement</span>
+                    <span className="text-[#52525B]"><strong className="text-[#0A0A0A]">100 % gratuit</strong> - Pas de frais d'inscription ou d'abonnement</span>
                   </li>
                   <li className="flex items-start gap-3">
                     <span className="text-[#10B981] font-bold">✓</span>
@@ -367,11 +367,11 @@ const Article1 = () => {
                 <ul className="space-y-3 mb-6">
                   <li className="flex items-start gap-3">
                     <span className="text-[#1c3ff9] font-bold">✓</span>
-                    <span>Capter 46% des recherches locales</span>
+                    <span>Capter 46 % des recherches locales</span>
                   </li>
                   <li className="flex items-start gap-3">
                     <span className="text-[#1c3ff9] font-bold">✓</span>
-                    <span>Gagner la confiance de 88% des clients</span>
+                    <span>Gagner la confiance de 88 % des clients</span>
                   </li>
                   <li className="flex items-start gap-3">
                     <span className="text-[#1c3ff9] font-bold">✓</span>
@@ -431,7 +431,7 @@ const Article1 = () => {
       <footer className="bg-[#0A0A0A] text-white py-12 md:py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center text-sm text-[#A1A1AA]">
-            <p>© 2025 Kapta Media. Tous droits réservés.</p>
+            <p>© 2026 Kapta Media. Tous droits réservés.</p>
           </div>
         </div>
       </footer>

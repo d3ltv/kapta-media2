@@ -36,7 +36,7 @@ const Article2 = () => {
         {
           "@type": "ListItem",
           "position": 3,
-          "name": "Avis en Ligne : Pourquoi Sont-ils Essentiels ?",
+          "name": "Avis en ligne : pourquoi sont-ils essentiels ?",
           "item": "https://www.kaptamedia.fr/blog/article2"
         }
       ]
@@ -53,8 +53,8 @@ const Article2 = () => {
   return (
     <div className="min-h-screen bg-white dark:bg-[#050505]">
       <SEOHead
-        title="Avis en Ligne : Pourquoi Sont-ils Essentiels ? | Kapta Media"
-        description="81% des clients lisent systématiquement les avis avant de décider. Découvrez pourquoi les avis Google sont cruciaux pour votre référencement local et comment les gérer efficacement."
+        title="Avis en ligne : pourquoi sont-ils essentiels ? | Kapta Media"
+        description="81 % des clients lisent systématiquement les avis avant de décider. Découvrez pourquoi les avis Google sont cruciaux pour votre référencement local et comment les gérer efficacement."
         keywords="avis google, avis clients, e-réputation, gestion avis, référencement local, google reviews, avis en ligne, réputation en ligne, collecte avis"
         url="https://www.kaptamedia.fr/blog/article2"
         publishedTime="2025-02-06T10:00:00+01:00"
@@ -93,7 +93,7 @@ const Article2 = () => {
             </div>
 
             <InteractiveGlassTitle>
-              Avis en Ligne : Pourquoi Sont-ils Essentiels ?
+              Avis en ligne : pourquoi sont-ils essentiels ?
             </InteractiveGlassTitle>
 
             <div className="flex items-center gap-4 text-sm text-[#71717A] mb-10 pb-6 border-b border-gray-200 dark:border-[#2A2E39]">
@@ -158,15 +158,15 @@ const Article2 = () => {
                   <ul className="space-y-3">
                     <li className="flex items-start gap-3">
                       <span className="text-[#1c3ff9] font-bold">•</span>
-                      <span className="text-[#52525B]"><strong className="text-[#1c3ff9]">81%</strong> des clients lisent systématiquement les avis avant de décider</span>
+                      <span className="text-[#52525B]"><strong className="text-[#1c3ff9]">81 %</strong> des clients lisent systématiquement les avis avant de décider</span>
                     </li>
                     <li className="flex items-start gap-3">
                       <span className="text-[#1c3ff9] font-bold">•</span>
-                      <span className="text-[#52525B]"><strong className="text-[#1c3ff9]">93%</strong> affirment que les avis influencent leur choix</span>
+                      <span className="text-[#52525B]"><strong className="text-[#1c3ff9]">93 %</strong> affirment que les avis influencent leur choix</span>
                     </li>
                     <li className="flex items-start gap-3">
                       <span className="text-[#1c3ff9] font-bold">•</span>
-                      <span className="text-[#52525B]">Une note de <strong className="text-[#1c3ff9]">4,5★</strong> ou plus augmente les conversions de <strong className="text-[#1c3ff9]">70%</strong></span>
+                      <span className="text-[#52525B]">Une note de <strong className="text-[#1c3ff9]">4,5★</strong> ou plus augmente les conversions de <strong className="text-[#1c3ff9]">70 %</strong></span>
                     </li>
                   </ul>
                 </div>
@@ -198,7 +198,7 @@ const Article2 = () => {
                   <ul className="space-y-3">
                     <li className="flex items-start gap-3">
                       <span className="text-[#1c3ff9] font-bold">•</span>
-                      <span className="text-[#52525B]">Les avis représentent <strong className="text-[#1c3ff9]">15%</strong> du classement dans le Local Pack</span>
+                      <span className="text-[#52525B]">Les avis représentent <strong className="text-[#1c3ff9]">15 %</strong> du classement dans le Local Pack</span>
                     </li>
                     <li className="flex items-start gap-3">
                       <span className="text-[#1c3ff9] font-bold">•</span>
@@ -410,11 +410,11 @@ const Article2 = () => {
                 <ul className="space-y-3 mb-6">
                   <li className="flex items-start gap-3">
                     <span className="text-[#1c3ff9] font-bold">✓</span>
-                    <span>Influencent 93% des décisions d'achat</span>
+                    <span>Influencent 93 % des décisions d'achat</span>
                   </li>
                   <li className="flex items-start gap-3">
                     <span className="text-[#1c3ff9] font-bold">✓</span>
-                    <span>Représentent 15% de votre classement Google</span>
+                    <span>Représentent 15 % de votre classement Google</span>
                   </li>
                   <li className="flex items-start gap-3">
                     <span className="text-[#1c3ff9] font-bold">✓</span>
@@ -474,7 +474,7 @@ const Article2 = () => {
       <footer className="bg-[#0A0A0A] text-white py-12 md:py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center text-sm text-[#A1A1AA]">
-            <p>© 2025 Kapta Media. Tous droits réservés.</p>
+            <p>© 2026 Kapta Media. Tous droits réservés.</p>
           </div>
         </div>
       </footer>

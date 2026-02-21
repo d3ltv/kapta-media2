@@ -8,7 +8,7 @@
     <link>https://www.kaptamedia.fr/blog</link>
     <description>Conseils d'experts en marketing local, SEO et optimisation Google Business Profile. Articles pratiques pour booster votre visibilité locale.</description>
     <language>fr-FR</language>
-    <lastBuildDate>Sun, 22 Feb 2026 09:00:00 +0100</lastBuildDate>
+    <lastBuildDate>Mon, 23 Feb 2026 09:00:00 +0100</lastBuildDate>
     <atom:link href="https://www.kaptamedia.fr/rss.xml" rel="self" type="application/rss+xml"/>
     <image>
       <url>https://www.kaptamedia.fr/logo2.webp</url>
@@ -18,6 +18,16 @@
     <copyright>© 2026 Kapta Media. Tous droits réservés.</copyright>
     <managingEditor>contact@kaptamedia.fr (Kapta Media)</managingEditor>
     <webMaster>contact@kaptamedia.fr (Kapta Media)</webMaster>
+
+    <item>
+      <title>La guerre invisible de Tours : pourquoi les clients de votre quartier vous échappent (et comment les récupérer)</title>
+      <link>https://www.kaptamedia.fr/blog/article12</link>
+      <guid isPermaLink="true">https://www.kaptamedia.fr/blog/article12</guid>
+      <description>Commerçants, restaurateurs et artisans de Tours : pourquoi vous perdez des clients locaux sur Google Maps et comment reprendre la première place.</description>
+      <category>Google Maps</category>
+      <pubDate>Mon, 23 Feb 2026 09:00:00 +0100</pubDate>
+      <dc:creator>Kapta Media</dc:creator>
+    </item>
 
     <item>
       <title>Le concurrent d'en face n'est pas meilleur que vous (il a juste compris Google Maps).</title>

@@ -54,7 +54,7 @@ const Article3 = () => {
     <div className="min-h-screen bg-white dark:bg-[#050505]">
       <SEOHead
         title="Le Pouvoir des Photos et Vidéos sur Votre Fiche Google | Kapta Media"
-        description="Les fiches avec photos génèrent 35% de clics en plus. Découvrez comment les visuels transforment votre fiche Google en machine à clients. Guide complet avec statistiques."
+        description="Les fiches avec photos génèrent 35 % de clics en plus. Découvrez comment les visuels transforment votre fiche Google en levier d'acquisition locale, avec une méthode simple et mesurable."
         keywords="photos google, vidéo google business, visuels fiche google, photos professionnelles, vidéo entreprise, marketing visuel, contenu visuel, google maps photos"
         url="https://www.kaptamedia.fr/blog/article3"
         publishedTime="2025-02-03T10:00:00+01:00"
@@ -126,7 +126,7 @@ const Article3 = () => {
                 <strong className="text-[#0A0A0A]">Un visuel vaut mille mots</strong> - les visuels sont devenus indispensables pour promouvoir votre entreprise locale et convaincre vos clients potentiels.
               </p>
               <p className="text-lg text-[#52525B] leading-relaxed">
-                Découvrez les 4 pouvoirs des photos et vidéos pour transformer votre fiche Google en machine à clients.
+                Découvrez les 4 pouvoirs des photos et vidéos pour transformer votre fiche Google en levier d'acquisition locale.
               </p>
             </motion.div>
 
@@ -186,11 +186,11 @@ const Article3 = () => {
                   <ul className="space-y-3">
                     <li className="flex items-start gap-3">
                       <span className="text-[#1c3ff9] font-bold">•</span>
-                      <span className="text-[#52525B]">Fiches Google avec photos génèrent <strong className="text-[#1c3ff9]">35% de clics en plus</strong> vers le site</span>
+                      <span className="text-[#52525B]">Fiches Google avec photos génèrent <strong className="text-[#1c3ff9]">35 % de clics en plus</strong> vers le site</span>
                     </li>
                     <li className="flex items-start gap-3">
                       <span className="text-[#1c3ff9] font-bold">•</span>
-                      <span className="text-[#52525B]"><strong className="text-[#1c3ff9]">50%</strong> des internautes font davantage confiance après avoir visionné une courte vidéo</span>
+                      <span className="text-[#52525B]"><strong className="text-[#1c3ff9]">50 %</strong> des internautes font davantage confiance après avoir visionné une courte vidéo</span>
                     </li>
                   </ul>
                 </div>
@@ -216,11 +216,11 @@ const Article3 = () => {
                   <ul className="space-y-3">
                     <li className="flex items-start gap-3">
                       <span className="text-[#1c3ff9] font-bold">•</span>
-                      <span className="text-[#52525B]">Vidéo sur page d'accueil peut augmenter le taux de conversion de <strong className="text-[#1c3ff9]">80%</strong></span>
+                      <span className="text-[#52525B]">Vidéo sur page d'accueil peut augmenter le taux de conversion de <strong className="text-[#1c3ff9]">80 %</strong></span>
                     </li>
                     <li className="flex items-start gap-3">
                       <span className="text-[#1c3ff9] font-bold">•</span>
-                      <span className="text-[#52525B]">Vidéo sur fiche produit : <strong className="text-[#1c3ff9]">+34%</strong> de conversions</span>
+                      <span className="text-[#52525B]">Vidéo sur fiche produit : <strong className="text-[#1c3ff9]">+34 %</strong> de conversions</span>
                     </li>
                   </ul>
                 </div>
@@ -373,11 +373,11 @@ const Article3 = () => {
                   </li>
                   <li className="flex items-start gap-3">
                     <span className="text-[#1c3ff9] font-bold">✓</span>
-                    <span>Génèrent 35% de clics en plus</span>
+                    <span>Génèrent 35 % de clics en plus</span>
                   </li>
                   <li className="flex items-start gap-3">
                     <span className="text-[#1c3ff9] font-bold">✓</span>
-                    <span>Augmentent les conversions de 80%</span>
+                    <span>Augmentent les conversions de 80 %</span>
                   </li>
                   <li className="flex items-start gap-3">
                     <span className="text-[#1c3ff9] font-bold">✓</span>
@@ -412,7 +412,7 @@ const Article3 = () => {
               Prêt à booster votre visibilité avec des visuels pro ?
             </h2>
             <p className="text-base md:text-lg text-[#52525B] mb-8 max-w-2xl mx-auto">
-              Découvrez comment nous créons des photos et vidéos qui transforment votre fiche Google en machine à clients.
+              Découvrez comment nous créons des photos et vidéos qui transforment votre fiche Google en levier d'acquisition locale.
             </p>
             <Button
               size="lg"
@@ -433,7 +433,7 @@ const Article3 = () => {
       <footer className="bg-[#0A0A0A] text-white py-12 md:py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center text-sm text-[#A1A1AA]">
-            <p>© 2025 Kapta Media. Tous droits réservés.</p>
+            <p>© 2026 Kapta Media. Tous droits réservés.</p>
           </div>
         </div>
       </footer>

@@ -254,7 +254,7 @@ const Article8 = () => {
             <motion.section initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }} className="mb-14">
               <div className="flex items-center gap-3 mb-5">
                 <CheckCircle2 className="w-6 h-6 text-[#1c3ff9]" />
-                <h2 className="text-2xl md:text-3xl font-bold text-[#0A0A0A] m-0">Étape 4 : Répondre à 100% des avis</h2>
+                <h2 className="text-2xl md:text-3xl font-bold text-[#0A0A0A] m-0">Étape 4 : Répondre à 100 % des avis</h2>
               </div>
               <p className="text-[#52525B] leading-relaxed">
                 Répondre améliore la perception client, renforce la preuve sociale, et envoie un signal positif à Google.

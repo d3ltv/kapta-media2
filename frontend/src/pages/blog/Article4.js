@@ -13,13 +13,48 @@ const Article4 = () => {
   useEffect(() => {
     Analytics.initAnalytics();
     window.scrollTo(0, 0);
+
+    const breadcrumbScript = document.createElement("script");
+    breadcrumbScript.type = "application/ld+json";
+    breadcrumbScript.text = JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        {
+          "@type": "ListItem",
+          position: 1,
+          name: "Accueil",
+          item: "https://www.kaptamedia.fr",
+        },
+        {
+          "@type": "ListItem",
+          position: 2,
+          name: "Blog",
+          item: "https://www.kaptamedia.fr/blog",
+        },
+        {
+          "@type": "ListItem",
+          position: 3,
+          name: "La Puissance du Copywriting pour Votre SEO Local",
+          item: "https://www.kaptamedia.fr/blog/article4",
+        },
+      ],
+    });
+
+    document.head.appendChild(breadcrumbScript);
+
+    return () => {
+      if (breadcrumbScript.parentNode) {
+        breadcrumbScript.parentNode.removeChild(breadcrumbScript);
+      }
+    };
   }, []);
 
   return (
     <div className="min-h-screen bg-white dark:bg-[#050505]">
       <SEOHead
         title="La Puissance du Copywriting pour Votre SEO Local | Kapta Media"
-        description="75% des internautes jugent votre crédibilité à la qualité de vos textes. Découvrez comment le copywriting améliore votre référencement local et vos conversions de 30%."
+        description="75 % des internautes jugent votre crédibilité à la qualité de vos textes. Découvrez comment le copywriting améliore votre référencement local et vos conversions de 30 %."
         keywords="copywriting, rédaction web, SEO local, contenu optimisé, rédaction persuasive, texte commercial, mots-clés locaux, conversion, référencement"
         url="https://www.kaptamedia.fr/blog/article4"
         publishedTime="2025-01-31T10:00:00+01:00"
@@ -176,7 +211,7 @@ const Article4 = () => {
                   <ul className="space-y-3">
                     <li className="flex items-start gap-3">
                       <span className="text-[#1c3ff9] font-bold">•</span>
-                      <span className="text-[#52525B]"><strong className="text-[#1c3ff9]">75%</strong> des internautes jugent la crédibilité d'une entreprise à la qualité de ses textes</span>
+                      <span className="text-[#52525B]"><strong className="text-[#1c3ff9]">75 %</strong> des internautes jugent la crédibilité d'une entreprise à la qualité de ses textes</span>
                     </li>
                     <li className="flex items-start gap-3">
                       <span className="text-[#1c3ff9] font-bold">•</span>
@@ -280,7 +315,7 @@ const Article4 = () => {
                   <ul className="space-y-3">
                     <li className="flex items-start gap-3">
                       <span className="text-[#1c3ff9] font-bold">•</span>
-                      <span className="text-[#52525B]">Un bon copywriting peut augmenter les conversions de <strong className="text-[#1c3ff9]">30%</strong></span>
+                      <span className="text-[#52525B]">Un bon copywriting peut augmenter les conversions de <strong className="text-[#1c3ff9]">30 %</strong></span>
                     </li>
                     <li className="flex items-start gap-3">
                       <span className="text-[#1c3ff9] font-bold">•</span>
@@ -435,7 +470,7 @@ const Article4 = () => {
                   </li>
                   <li className="flex items-start gap-3">
                     <span className="text-[#1c3ff9] font-bold">✓</span>
-                    <span>Établit votre crédibilité (75% jugent sur la qualité des textes)</span>
+                    <span>Établit votre crédibilité (75 % jugent sur la qualité des textes)</span>
                   </li>
                   <li className="flex items-start gap-3">
                     <span className="text-[#1c3ff9] font-bold">✓</span>
@@ -443,7 +478,7 @@ const Article4 = () => {
                   </li>
                   <li className="flex items-start gap-3">
                     <span className="text-[#1c3ff9] font-bold">✓</span>
-                    <span>Augmente les conversions de 30%</span>
+                    <span>Augmente les conversions de 30 %</span>
                   </li>
                   <li className="flex items-start gap-3">
                     <span className="text-[#1c3ff9] font-bold">✓</span>
@@ -495,7 +530,7 @@ const Article4 = () => {
       <footer className="bg-[#0A0A0A] text-white py-12 md:py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center text-sm text-[#A1A1AA]">
-            <p>© 2025 Kapta Media. Tous droits réservés.</p>
+            <p>© 2026 Kapta Media. Tous droits réservés.</p>
           </div>
         </div>
       </footer>

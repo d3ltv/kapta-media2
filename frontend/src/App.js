@@ -10,7 +10,6 @@ import {
   X, 
   Radar, 
   Camera, 
-  Cpu, 
   Trophy,
   Star,
   Nfc,
@@ -650,6 +649,7 @@ const Hero = () => {
         <button
           onClick={() => document.querySelector('[data-testid="before-after-section"]')?.scrollIntoView({ behavior: 'smooth' })}
           className="flex flex-col items-center gap-2 text-[#A1A1AA] hover:text-[#1c3ff9] transition-colors cursor-pointer group"
+          aria-label="Découvrir la section suivante"
         >
           <motion.div
             animate={{ y: [0, 8, 0] }}
@@ -2037,44 +2037,32 @@ const CaseStudies = () => {
 // Mechanism Section
 const Mechanism = () => {
   const ref = useRef(null);
+  const mobileProgressRef = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
-  const [activeStep, setActiveStep] = useState(0);
   
   const steps = [
-    { 
-      id: "01", 
-      title: "AUDIT GRATUIT", 
+    {
+      id: "G",
+      title: "Google Domination",
       icon: Radar,
-      description: "Je regarde votre fiche Google, celle de vos 3 concurrents, et je vous montre où vous perdez des clients. 15 minutes."
+      description:
+        "Optimisation technique totale de votre fiche : catégories, mots-clés, horaires et structure locale. On aligne votre fiche avec ce que Google veut montrer en priorité.",
     },
-    { 
-      id: "02", 
-      title: "TOURNAGE", 
+    {
+      id: "V",
+      title: "Vidéo Magnétique",
       icon: Camera,
-      description: "Je filme votre équipe, votre espace, vos produits. 2h chez vous, sans perturber votre service."
+      description:
+        "On vient filmer votre savoir-faire sur place. Une vidéo verticale professionnelle, claire et crédible, qui déclenche l'appel avant même la comparaison des prix.",
     },
-    { 
-      id: "03", 
-      title: "MISE EN LIGNE", 
-      icon: Cpu,
-      description: "Vidéo + photos + textes optimisés pour que Google vous comprenne. Votre fiche passe de 'basique' à 'premium' en 48h."
+    {
+      id: "A",
+      title: "Avis Automatisés",
+      icon: Nfc,
+      description:
+        "On installe une plaque NFC intelligente pour simplifier la collecte d'avis. Vos clients satisfaits laissent un avis en quelques secondes, sans friction.",
     },
-    { 
-      id: "04", 
-      title: "RÉSULTATS", 
-      icon: Trophy,
-      description: "Vous montez dans le classement. On suit votre position chaque semaine pendant 30 jours."
-    }
   ];
-
-  useEffect(() => {
-    if (isInView) {
-      const interval = setInterval(() => {
-        setActiveStep((prev) => (prev < 3 ? prev + 1 : prev));
-      }, 450);
-      return () => clearInterval(interval);
-    }
-  }, [isInView]);
 
   return (
     <section 
@@ -2091,78 +2079,64 @@ const Mechanism = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         <SectionHeader 
           number="05"
-          label="Comment ça marche"
-          title="4 ÉTAPES,"
-          highlight="14 JOURS"
-          description="Concrètement, voici ce qui se passe."
+          label="Le Système"
+          title="SYSTÈME"
+          highlight="G.V.A.™"
+          description="On ne vend pas du SEO isolé, on installe un écosystème complet en 14 jours."
         />
         
-        {/* Steps */}
         <div className="relative">
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-6 relative z-10">
+          <div 
+            className="md:hidden flex gap-3 overflow-x-auto pb-4 snap-x snap-mandatory scrollbar-hide"
+            onScroll={(e) => updateScrollProgress(e.currentTarget, mobileProgressRef)}
+          >
             {steps.map((step, i) => (
-              <div key={step.id} className="relative">
-                <motion.div
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={isInView ? { opacity: 1, y: 0 } : {}}
-                  transition={{ duration: 0.5, delay: i * 0.15 }}
-                  className={`relative p-4 md:p-6 rounded-2xl bg-white border-2 transition-all duration-500 card-hover ${
-                    i <= activeStep 
-                      ? "border-[#1c3ff9] shadow-glow-sm" 
-                      : "border-[#E4E4E7]"
-                  }`}
-                  data-testid={`step-${step.id}`}
-                >
-                  <div className={`w-10 h-10 md:w-12 md:h-12 rounded-xl flex items-center justify-center mb-3 md:mb-4 transition-colors duration-500 ${
-                    i <= activeStep ? "bg-[#1c3ff9]" : "bg-[#F8F9FA]"
-                  }`}>
-                    <step.icon className={`w-5 h-5 md:w-6 md:h-6 transition-colors duration-500 ${
-                      i <= activeStep ? "text-white" : "text-[#52525B]"
-                    }`} />
-                  </div>
-                  
-                  <span className="font-mono text-[10px] md:text-xs text-[#A1A1AA] mb-1 md:mb-2 block">{step.id}</span>
-                  <h3 className="text-sm md:text-lg font-bold text-[#0A0A0A] mb-1 md:mb-2">{step.title}</h3>
-                  <p className="text-[11px] md:text-sm text-[#52525B] leading-relaxed">{step.description}</p>
-                  
-                  {/* Coche verte qui apparaît après l'animation de la ligne */}
-                  {i <= activeStep && (
-                    <motion.div
-                      initial={{ scale: 0, rotate: -180 }}
-                      animate={{ scale: 1, rotate: 0 }}
-                      transition={{ 
-                        duration: 0.3,
-                        delay: i * 0.45 + 0.2,
-                        type: "spring",
-                        stiffness: 200
-                      }}
-                      className="absolute -top-1.5 -right-1.5 md:-top-2 md:-right-2 w-5 h-5 md:w-6 md:h-6 rounded-full bg-[#10B981] flex items-center justify-center shadow-lg"
-                    >
-                      <Check className="w-3 h-3 md:w-4 md:h-4 text-white" />
-                    </motion.div>
-                  )}
-                </motion.div>
-                
-                {/* Ligne de progression entre les cartes (sauf après la dernière) */}
-                {i < steps.length - 1 && (
-                  <div className="hidden lg:block absolute top-1/2 -right-3 md:-right-6 w-3 md:w-6 h-1 -translate-y-1/2 z-0">
-                    {/* Ligne de fond grise */}
-                    <div className="absolute inset-0 bg-[#E4E4E7] rounded-full" />
-                    
-                    {/* Ligne bleue animée */}
-                    <motion.div
-                      className="absolute inset-0 bg-[#1c3ff9] rounded-full origin-left"
-                      initial={{ scaleX: 0 }}
-                      animate={isInView && activeStep > i ? { scaleX: 1 } : { scaleX: 0 }}
-                      transition={{ 
-                        duration: 0.4,
-                        delay: i * 0.45,
-                        ease: "easeInOut"
-                      }}
-                    />
-                  </div>
-                )}
-              </div>
+              <motion.div
+                key={step.id}
+                initial={{ opacity: 0, y: 20 }}
+                animate={isInView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.45, delay: i * 0.1 }}
+                className="relative min-w-[86%] snap-start p-4 rounded-2xl bg-white border-2 border-[#E4E4E7]"
+                data-testid={`step-${step.id}`}
+              >
+                <div className="w-10 h-10 rounded-xl flex items-center justify-center mb-3 bg-[#F8F9FA]">
+                  <step.icon className="w-5 h-5 text-[#1c3ff9]" />
+                </div>
+                <span className="font-mono text-[10px] text-[#1c3ff9] mb-1 block">[{step.id}]</span>
+                <h3 className="text-sm font-bold text-[#0A0A0A] mb-2">{step.title}</h3>
+                <p className="text-xs text-[#52525B] leading-relaxed">{step.description}</p>
+              </motion.div>
+            ))}
+          </div>
+
+          <div className="md:hidden flex flex-col items-center mt-2 gap-2">
+            <div className="w-24 h-1 bg-gray-200 rounded-full overflow-hidden">
+              <div
+                ref={mobileProgressRef}
+                className="h-full bg-[#1c3ff9] rounded-full transition-all duration-200 ease-out"
+                style={{ width: "0%" }}
+              />
+            </div>
+            <p className="text-xs text-[#A1A1AA]">Glissez pour voir les 3 piliers</p>
+          </div>
+
+          <div className="hidden md:grid md:grid-cols-3 gap-6 relative z-10">
+            {steps.map((step, i) => (
+              <motion.div
+                key={step.id}
+                initial={{ opacity: 0, y: 30 }}
+                animate={isInView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.5, delay: i * 0.12 }}
+                className="relative p-6 rounded-2xl bg-white border-2 border-[#E4E4E7] hover:border-[#1c3ff9] hover:shadow-glow-sm transition-all duration-300"
+                data-testid={`step-${step.id}-desktop`}
+              >
+                <div className="w-12 h-12 rounded-xl flex items-center justify-center mb-4 bg-[#F8F9FA]">
+                  <step.icon className="w-6 h-6 text-[#1c3ff9]" />
+                </div>
+                <span className="font-mono text-xs text-[#1c3ff9] mb-2 block">[{step.id}]</span>
+                <h3 className="text-lg font-bold text-[#0A0A0A] mb-2">{step.title}</h3>
+                <p className="text-sm text-[#52525B] leading-relaxed">{step.description}</p>
+              </motion.div>
             ))}
           </div>
         </div>
@@ -2921,7 +2895,7 @@ const Footer = ({ onOpenLegalModal = () => {} }) => {
             />
           </a>
           
-          <p className="text-[10px] md:text-xs font-mono text-[#52525B] tracking-wider hidden md:block">
+          <p className="text-[10px] md:text-xs font-mono text-[#8A93A5] tracking-wider hidden md:block">
             LA VISIBILITÉ, C'EST NOUS.
           </p>
           
@@ -2938,20 +2912,20 @@ const Footer = ({ onOpenLegalModal = () => {} }) => {
         </div>
         
         {/* Legal Links */}
-        <div className="flex flex-wrap justify-center gap-4 md:gap-6 mt-6 md:mt-8 text-xs text-[#52525B]">
-          <button onClick={() => onOpenLegalModal("mentions")} className="hover:text-white transition-colors">
+        <div className="flex flex-wrap justify-center gap-4 md:gap-6 mt-6 md:mt-8 text-xs text-[#9BA3B5]">
+          <button onClick={() => onOpenLegalModal("mentions")} className="text-[#9BA3B5] hover:text-white transition-colors">
             Mentions légales
           </button>
-          <button onClick={() => onOpenLegalModal("privacy")} className="hover:text-white transition-colors">
+          <button onClick={() => onOpenLegalModal("privacy")} className="text-[#9BA3B5] hover:text-white transition-colors">
             Politique de confidentialité
           </button>
-          <button onClick={() => onOpenLegalModal("cgv")} className="hover:text-white transition-colors">
+          <button onClick={() => onOpenLegalModal("cgv")} className="text-[#9BA3B5] hover:text-white transition-colors">
             CGV
           </button>
         </div>
         
-        <p className="text-center text-xs md:text-sm text-[#52525B] mt-4 md:mt-6">
-          © 2025 Kapta Media. Tous droits réservés.
+        <p className="text-center text-xs md:text-sm text-[#9BA3B5] mt-4 md:mt-6">
+          © 2026 Kapta Media. Tous droits réservés.
         </p>
       </div>
     </footer>

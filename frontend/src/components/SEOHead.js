@@ -9,7 +9,9 @@ const SEOHead = ({
   publishedTime,
   modifiedTime,
   category,
-  author = 'Kapta Media'
+  author = 'Kapta Media',
+  robots = 'index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1',
+  googlebot = 'index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1',
 }) => {
   useEffect(() => {
     const isArticlePage = Boolean(publishedTime);
@@ -66,8 +68,8 @@ const SEOHead = ({
     setMetaTag('twitter:creator', '@kaptamedia');
     setMetaTag('twitter:site', '@kaptamedia');
 
-    setMetaTag('robots', 'index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1');
-    setMetaTag('googlebot', 'index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1');
+    setMetaTag('robots', robots);
+    setMetaTag('googlebot', googlebot);
 
     let canonical = document.querySelector('link[rel="canonical"]');
     if (!canonical) {
@@ -121,7 +123,7 @@ const SEOHead = ({
     } else if (script) {
       script.remove();
     }
-  }, [title, description, keywords, url, image, publishedTime, modifiedTime, category, author]);
+  }, [title, description, keywords, url, image, publishedTime, modifiedTime, category, author, robots, googlebot]);
 
   return null;
 };

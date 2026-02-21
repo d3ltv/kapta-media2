@@ -575,6 +575,58 @@ export const BLOG_COMPLETE_GUIDES = {
       },
     ],
   },
+  article12: {
+    fullTitle: "Dossier Complet : La Guerre Invisible de Tours sur Google Maps",
+    strapline:
+      "Comment les commerçants, restaurateurs et artisans de Tours peuvent reprendre la première place locale.",
+    sections: [
+      {
+        id: "article12-terrain",
+        menu: "Terrain",
+        heading: "La concurrence locale est d'abord un problème de visibilité",
+        paragraphs: [
+          "À Tours, les décisions se prennent vite. Un habitant ou un touriste compare en quelques secondes les fiches visibles dans Google Maps avant d'appeler ou de réserver.",
+          "Le niveau réel de service compte, mais il n'est pas vu en premier. Les signaux visibles (avis, photos, cohérence des informations, CTA) déterminent qui capte l'opportunité.",
+        ],
+      },
+      {
+        id: "article12-geographie",
+        menu: "Géographie",
+        heading: "Pourquoi l'ancrage quartier par quartier fait la différence",
+        paragraphs: [
+          "Place Plumereau, Les Halles, Tours Nord, Joué-lès-Tours, Saint-Avertin, Chambray-lès-Tours: chaque zone a ses requêtes, ses volumes et ses intentions d'achat.",
+          "Une stratégie locale performante tient compte de ces micro-zones et adapte les messages, preuves et offres à la réalité de terrain, pas à un discours générique.",
+        ],
+      },
+      {
+        id: "article12-systeme",
+        menu: "Système",
+        heading: "Déployer un système local plutôt qu'une suite de tâches isolées",
+        paragraphs: [
+          "Le modèle efficace combine trois couches: optimisation Google, preuve visuelle, et moteur d'avis continu. C'est l'effet cumulé qui crée la différence durable.",
+          "L'objectif final reste business: plus d'appels qualifiés, plus de réservations, meilleur taux de transformation. Le ranking seul n'est qu'un moyen.",
+        ],
+      },
+    ],
+    sources: [
+      {
+        label: "Google Business Profile - Improve your local ranking",
+        url: "https://support.google.com/business/answer/7091",
+      },
+      {
+        label: "Google Business Profile - Read and reply to reviews",
+        url: "https://support.google.com/business/answer/3474050",
+      },
+      {
+        label: "Whitespark - Local Search Ranking Factors",
+        url: "https://whitespark.ca/local-search-ranking-factors/",
+      },
+      {
+        label: "BrightLocal - Local Consumer Review Survey",
+        url: "https://www.brightlocal.com/research/local-consumer-review-survey/",
+      },
+    ],
+  },
 };
 
 export const getCompleteGuideBySlug = (slug) => {

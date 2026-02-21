@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { Search, TrendingUp, MapPin, Camera, MessageCircle, Target } from "lucide-react";
 import SharedNavbar from "@/components/SharedNavbar";
@@ -102,7 +102,19 @@ const Blog = () => {
     };
   }, []);
 
-  const categories = ["Tous", "Google Maps", "Marketing Local", "Vidéo", "Conseils"];
+  const categories = useMemo(() => {
+    const preferredOrder = ["Google Maps", "Marketing Local", "Vidéo", "Conseils"];
+    const discoveredCategories = Array.from(
+      new Set(BLOG_ARTICLES.map((article) => article.category).filter(Boolean))
+    );
+
+    const orderedCategories = [
+      ...preferredOrder.filter((category) => discoveredCategories.includes(category)),
+      ...discoveredCategories.filter((category) => !preferredOrder.includes(category)),
+    ];
+
+    return ["Tous", ...orderedCategories];
+  }, []);
 
   const articles = [...BLOG_ARTICLES].sort((a, b) => b.id - a.id);
 
@@ -296,7 +308,7 @@ const Blog = () => {
       <footer className="bg-[#0A0A0A] text-white py-12 md:py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center text-sm text-[#A1A1AA]">
-            <p>© 2025 Kapta Media. Tous droits réservés.</p>
+            <p>© 2026 Kapta Media. Tous droits réservés.</p>
           </div>
         </div>
       </footer>

@@ -13,6 +13,41 @@ const Article5 = () => {
   useEffect(() => {
     Analytics.initAnalytics();
     window.scrollTo(0, 0);
+
+    const breadcrumbScript = document.createElement("script");
+    breadcrumbScript.type = "application/ld+json";
+    breadcrumbScript.text = JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        {
+          "@type": "ListItem",
+          position: 1,
+          name: "Accueil",
+          item: "https://www.kaptamedia.fr",
+        },
+        {
+          "@type": "ListItem",
+          position: 2,
+          name: "Blog",
+          item: "https://www.kaptamedia.fr/blog",
+        },
+        {
+          "@type": "ListItem",
+          position: 3,
+          name: "Comment Dépasser Vos Concurrents sur Google en 2026",
+          item: "https://www.kaptamedia.fr/blog/article5",
+        },
+      ],
+    });
+
+    document.head.appendChild(breadcrumbScript);
+
+    return () => {
+      if (breadcrumbScript.parentNode) {
+        breadcrumbScript.parentNode.removeChild(breadcrumbScript);
+      }
+    };
   }, []);
 
   return (
@@ -131,7 +166,7 @@ const Article5 = () => {
                     </li>
                     <li className="flex items-start gap-3">
                       <span className="text-[#1c3ff9] font-bold">•</span>
-                      <span className="text-[#52525B]">Répondre à <strong className="text-[#1c3ff9]">100%</strong> des avis en moins de 48h</span>
+                      <span className="text-[#52525B]">Répondre à <strong className="text-[#1c3ff9]">100 %</strong> des avis en moins de 48h</span>
                     </li>
                   </ul>
                 </div>
@@ -175,12 +210,12 @@ const Article5 = () => {
                     <Trophy className="w-6 h-6 text-white" />
                   </div>
                   <h3 className="text-xl font-bold text-[#0A0A0A]">
-                    2️⃣ Optimisez Votre Fiche Google à 100%
+                    2️⃣ Optimisez Votre Fiche Google à 100 %
                   </h3>
                 </div>
 
                 <p className="text-[#52525B] leading-relaxed mb-6">
-                  Une fiche Google complète à 100% est <strong className="text-[#0A0A0A]">2,7x plus visible</strong> qu'une fiche incomplète.
+                  Une fiche Google complète à 100 % est <strong className="text-[#0A0A0A]">2,7x plus visible</strong> qu'une fiche incomplète.
                 </p>
 
                 <div className="bg-[#F8F9FA] rounded-xl p-6 md:p-8 mb-6">
@@ -265,7 +300,7 @@ const Article5 = () => {
                       <span className="text-[#1c3ff9] font-bold">•</span>
                       <div>
                         <strong className="text-[#0A0A0A]">Mobile-first</strong>
-                        <p className="text-sm text-[#52525B] mt-1">70% des recherches locales sont sur mobile</p>
+                        <p className="text-sm text-[#52525B] mt-1">70 % des recherches locales sont sur mobile</p>
                       </div>
                     </li>
                     <li className="flex items-start gap-3">
@@ -314,7 +349,7 @@ const Article5 = () => {
                   <ul className="space-y-3">
                     <li className="flex items-start gap-3">
                       <span className="text-[#1c3ff9] font-bold">•</span>
-                      <span className="text-[#52525B]"><strong className="text-[#1c3ff9]">58%</strong> des recherches locales se font par <strong className="text-[#0A0A0A]">recherche vocale</strong></span>
+                      <span className="text-[#52525B]"><strong className="text-[#1c3ff9]">58 %</strong> des recherches locales se font par <strong className="text-[#0A0A0A]">recherche vocale</strong></span>
                     </li>
                     <li className="flex items-start gap-3">
                       <span className="text-[#1c3ff9] font-bold">•</span>
@@ -491,7 +526,7 @@ const Article5 = () => {
                   </li>
                   <li className="flex items-start gap-3">
                     <span className="text-[#1c3ff9] font-bold">2.</span>
-                    <span>Optimisez votre fiche Google à 100%</span>
+                    <span>Optimisez votre fiche Google à 100 %</span>
                   </li>
                   <li className="flex items-start gap-3">
                     <span className="text-[#1c3ff9] font-bold">3.</span>
@@ -551,7 +586,7 @@ const Article5 = () => {
       <footer className="bg-[#0A0A0A] text-white py-12 md:py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center text-sm text-[#A1A1AA]">
-            <p>© 2025 Kapta Media. Tous droits réservés.</p>
+            <p>© 2026 Kapta Media. Tous droits réservés.</p>
           </div>
         </div>
       </footer>

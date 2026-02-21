@@ -580,6 +580,59 @@ export const BLOG_COMPLETE_EXTENSIONS = {
         ]
       }
     ]
+  },
+
+  article12: {
+    omittedTitle: "Informations omises de la version courte",
+    omittedIntro:
+      "Cette extension détaille l'exécution hyper-locale sur Tours: requêtes quartier, erreurs fréquentes et protocoles d'activation terrain.",
+    omittedBlocks: [
+      {
+        heading: "Cartographie locale des intentions clients",
+        body: "Le même métier ne se cherche pas de la même façon selon le quartier et le contexte.",
+        bullets: [
+          "Lister les requêtes principales par zone (centre, nord, périphérie).",
+          "Distinguer les recherches d'urgence des recherches de confort.",
+          "Adapter la description fiche aux besoins réels de chaque zone.",
+          "Aligner les preuves visuelles sur les prestations les plus demandées.",
+          "Actualiser cette cartographie tous les trimestres."
+        ]
+      },
+      {
+        heading: "Erreurs récurrentes des entreprises de proximité",
+        body: "La plupart des pertes viennent d'une accumulation de frictions simples à corriger.",
+        bullets: [
+          "Horaires incomplets ou non mis à jour.",
+          "Catégories mal choisies par rapport au service principal.",
+          "Avis non traités, surtout les retours négatifs.",
+          "Aucune preuve vidéo récente sur la fiche.",
+          "Absence de routine mensuelle de contrôle concurrence."
+        ]
+      },
+      {
+        heading: "Protocole d'exécution en 14 jours",
+        body: "Un rythme court permet de produire un effet visible sans désorganiser l'activité.",
+        bullets: [
+          "J1-J3: fiabilisation totale des informations critiques.",
+          "J4-J7: shooting local + vidéo courte orientée conversion.",
+          "J8-J10: activation collecte avis avec parcours simple.",
+          "J11-J14: ajustements SEO local et suivi KPI.",
+          "Plan de maintien hebdomadaire à partir de J15."
+        ]
+      }
+    ],
+    checklists: [
+      {
+        heading: "Checklist domination quartier",
+        items: [
+          "Requêtes locales cartographiées",
+          "Fiche Google alignée",
+          "Visuels récents publiés",
+          "Collecte avis active",
+          "KPI hebdo suivis"
+        ]
+      }
+    ]
   }
 };
 

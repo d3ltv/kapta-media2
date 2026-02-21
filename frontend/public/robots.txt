@@ -9,5 +9,3 @@ Disallow: /node_modules/
 Disallow: /*.map$
 
 Sitemap: https://www.kaptamedia.fr/sitemap.xml
-Sitemap: https://www.kaptamedia.fr/sitemap-blog.xml
-Sitemap: https://www.kaptamedia.fr/rss.xml

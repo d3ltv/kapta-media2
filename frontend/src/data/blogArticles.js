@@ -200,10 +200,29 @@ export const BLOG_ARTICLES = [
     author: 'Kapta Media',
     image: 'https://www.kaptamedia.fr/logo2.webp',
     featured: true
+  },
+  {
+    id: 12,
+    slug: 'article12',
+    title: 'La guerre invisible de Tours : pourquoi les clients de votre quartier vous échappent (et comment les récupérer)',
+    excerpt: 'Commerçants, restaurateurs et artisans de Tours : la vraie bataille se joue sur Google Maps, pas uniquement en vitrine.',
+    description: 'Pourquoi les clients de votre quartier vous échappent sur Google Maps à Tours et comment récupérer votre visibilité locale avec une méthode terrain.',
+    category: 'Google Maps',
+    readTime: '4 min',
+    date: '23 Février 2026',
+    publishedTime: '2026-02-23T09:00:00+01:00',
+    modifiedTime: '2026-02-23T09:00:00+01:00',
+    emoji: '🗺️',
+    link: '/blog/article12',
+    keywords: 'google maps tours, visibilité locale tours, place plumereau, joue les tours, saint avertin, chambray les tours, artisan tours',
+    author: 'Kapta Media',
+    image: 'https://www.kaptamedia.fr/logo2.webp',
+    featured: true
   }
 ];
 
 export const NEW_BADGE_DURATION_DAYS = 3;
+export const NEW_BADGE_MAX_VISIBLE = 3;
 const NEW_BADGE_TIMEZONE = "Europe/Paris";
 
 const formatDateInTimezone = (date, timeZone = NEW_BADGE_TIMEZONE) => {
@@ -237,7 +256,27 @@ export const isArticleNew = (article, now = new Date()) => {
 
   const diffDays = Math.floor((nowUtcMs - publishedUtcMs) / (24 * 60 * 60 * 1000));
 
-  return diffDays >= 0 && diffDays < NEW_BADGE_DURATION_DAYS;
+  if (!(diffDays >= 0 && diffDays < NEW_BADGE_DURATION_DAYS)) return false;
+
+  const visibleNewArticleIds = BLOG_ARTICLES
+    .filter((item) => {
+      if (!item?.publishedTime) return false;
+      const itemDate = new Date(item.publishedTime);
+      const itemDateKey = formatDateInTimezone(itemDate);
+      const itemUtcMs = dateKeyToUtcMs(itemDateKey);
+      if (Number.isNaN(itemUtcMs) || Number.isNaN(nowUtcMs)) return false;
+      const itemDiffDays = Math.floor((nowUtcMs - itemUtcMs) / (24 * 60 * 60 * 1000));
+      return itemDiffDays >= 0 && itemDiffDays < NEW_BADGE_DURATION_DAYS;
+    })
+    .sort((a, b) => {
+      const byPublishedTime = new Date(b.publishedTime).getTime() - new Date(a.publishedTime).getTime();
+      if (byPublishedTime !== 0) return byPublishedTime;
+      return (b.id || 0) - (a.id || 0);
+    })
+    .slice(0, NEW_BADGE_MAX_VISIBLE)
+    .map((item) => item.id);
+
+  return visibleNewArticleIds.includes(article.id);
 };
 
 // Helper functions
