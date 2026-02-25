@@ -1,0 +1,1582 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="dark">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Kapta Media — SEO Local & Vidéo à Tours</title>
+<meta name="description" content="Kapta Media. Tours. On vient chez vous filmer. On vous place en tête de Google Maps. Audit gratuit en 48h."/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet"/>
+
+<style>
+/* ══════════════════════════════════════
+   RESET
+══════════════════════════════════════ */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;font-size:16px;-webkit-text-size-adjust:100%}
+
+/* ══════════════════════════════════════
+   DESIGN TOKENS — DARK (default)
+══════════════════════════════════════ */
+:root{
+  --bg:    #0C0C09;
+  --bg2:   #131310;
+  --bg3:   #1C1C17;
+  --bone:  #F2EDE0;
+  --muted: #6A6660;
+  --line:  rgba(242,237,224,.07);
+  --fire:  #F0521A;
+  --fire-l:#FF6B30;
+  --shadow:rgba(0,0,0,.4);
+  --nav-bg:rgba(12,12,9,.92);
+  --ff-head:'Bricolage Grotesque',sans-serif;
+  --ff-ser:'Instrument Serif',serif;
+  --trans: .35s cubic-bezier(.4,0,.2,1);
+}
+
+/* ── LIGHT MODE ── */
+[data-theme="light"]{
+  --bg:    #F4EFE3;
+  --bg2:   #EAE4D6;
+  --bg3:   #DDD7C8;
+  --bone:  #1A1815;
+  --muted: #7A7065;
+  --line:  rgba(26,24,21,.09);
+  --shadow:rgba(0,0,0,.12);
+  --nav-bg:rgba(244,239,227,.93);
+}
+
+/* ══════════════════════════════════════
+   BASE
+══════════════════════════════════════ */
+body{
+  font-family:var(--ff-head);
+  background:var(--bg);
+  color:var(--bone);
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+  transition:background var(--trans),color var(--trans);
+}
+a{color:inherit;text-decoration:none}
+img{display:block;max-width:100%}
+button{font-family:inherit;cursor:pointer;border:none;background:none}
+
+/* ── GRAIN (dark only) ── */
+[data-theme="dark"] body::after{
+  content:'';position:fixed;inset:0;pointer-events:none;z-index:998;
+  opacity:.022;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size:128px 128px;
+}
+
+/* ══════════════════════════════════════
+   NAV
+══════════════════════════════════════ */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  padding:14px 20px;
+  display:flex;align-items:center;justify-content:space-between;gap:12px;
+  background:var(--nav-bg);
+  backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--line);
+  transition:background var(--trans),border-color var(--trans);
+}
+.logo{
+  font-weight:800;font-size:.95rem;letter-spacing:-.02em;
+  display:flex;align-items:center;gap:8px;flex-shrink:0;
+}
+.logo-dot{
+  width:9px;height:9px;border-radius:50%;
+  background:var(--fire);
+  animation:throb 2.2s ease-in-out infinite;
+}
+@keyframes throb{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.5);opacity:.55}}
+
+.nav-right{display:flex;align-items:center;gap:10px}
+
+/* Theme toggle */
+.theme-btn{
+  width:40px;height:40px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  background:var(--bg3);border:1px solid var(--line);
+  color:var(--muted);
+  transition:background var(--trans),color .2s,transform .15s;
+  -webkit-tap-highlight-color:transparent;
+  flex-shrink:0;
+}
+.theme-btn:hover{color:var(--bone);background:var(--bg2)}
+.theme-btn:active{transform:scale(.92)}
+.theme-btn .icon-moon{display:block}
+.theme-btn .icon-sun{display:none}
+[data-theme="light"] .theme-btn .icon-moon{display:none}
+[data-theme="light"] .theme-btn .icon-sun{display:block}
+
+.nav-btn{
+  background:var(--fire);color:#fff;
+  font-weight:800;font-size:.78rem;
+  letter-spacing:.03em;text-transform:uppercase;
+  padding:10px 16px;border-radius:3px;
+  transition:background .2s,transform .15s;
+  -webkit-tap-highlight-color:transparent;
+  white-space:nowrap;
+}
+.nav-btn:active{transform:scale(.97)}
+.nav-btn:hover{background:var(--fire-l)}
+
+/* ══════════════════════════════════════
+   LAYOUT UTIL
+══════════════════════════════════════ */
+.wrap{width:100%;max-width:1120px;margin:0 auto;padding:0 20px}
+.s-label{
+  font-weight:700;font-size:.68rem;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--fire);
+  margin-bottom:12px;display:block;
+}
+section{padding:90px 0}
+
+/* ══════════════════════════════════════
+   HERO
+══════════════════════════════════════ */
+#hero{
+  min-height:100svh;
+  display:flex;flex-direction:column;justify-content:flex-end;
+  padding:80px 0 64px;
+  position:relative;overflow:hidden;
+}
+.hero-bg-word{
+  position:absolute;top:50%;left:-2%;
+  transform:translateY(-52%);
+  font-weight:800;
+  font-size:clamp(22vw,30vw,340px);
+  line-height:.85;letter-spacing:-.05em;
+  color:rgba(240,82,26,.05);
+  pointer-events:none;user-select:none;white-space:nowrap;
+  transition:color var(--trans);
+}
+[data-theme="light"] .hero-bg-word{color:rgba(240,82,26,.07)}
+
+.missed-call{
+  position:absolute;top:100px;right:20px;
+  background:var(--bg2);border:1px solid var(--line);
+  border-radius:14px;padding:12px 16px;
+  width:220px;
+  display:flex;align-items:center;gap:10px;
+  animation:callBounce 5s ease-in-out 1.2s infinite;
+  box-shadow:0 20px 40px var(--shadow);
+  transition:background var(--trans),border-color var(--trans);
+  z-index:2;
+}
+@keyframes callBounce{
+  0%{opacity:0;transform:translateY(-12px)}
+  12%{opacity:1;transform:translateY(0)}
+  80%{opacity:1;transform:translateY(0)}
+  100%{opacity:0;transform:translateY(-12px)}
+}
+.mc-icon{
+  width:36px;height:36px;border-radius:50%;
+  background:rgba(240,82,26,.15);
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+.mc-text{font-size:.72rem;line-height:1.4}
+.mc-text strong{display:block;font-weight:700;font-size:.78rem;color:var(--bone)}
+.mc-text span{color:var(--muted)}
+
+.hero-content{position:relative;z-index:2}
+
+/* Desktop: hero split */
+@media(min-width:900px){
+  .hero-inner{
+    display:grid;grid-template-columns:1fr 1fr;
+    gap:60px;align-items:end;
+  }
+}
+
+.hero-h1{
+  font-weight:800;
+  font-size:clamp(2.6rem,8vw,5.5rem);
+  line-height:1.02;letter-spacing:-.045em;
+  margin-bottom:24px;
+}
+.hero-h1 .thin{font-weight:200;letter-spacing:-.02em}
+.hero-h1 .fire{color:var(--fire)}
+
+.hero-body{
+  font-size:clamp(.92rem,2.2vw,1.05rem);
+  font-weight:300;line-height:1.72;
+  color:var(--muted);margin-bottom:32px;max-width:460px;
+}
+.hero-body strong{color:var(--bone);font-weight:500}
+
+.hero-ctas{display:flex;flex-direction:column;gap:12px}
+@media(min-width:500px){.hero-ctas{flex-direction:row;flex-wrap:wrap}}
+
+.cta-main{
+  display:inline-flex;align-items:center;justify-content:center;gap:10px;
+  background:var(--fire);color:#fff;
+  font-weight:800;font-size:.98rem;letter-spacing:-.01em;
+  padding:17px 24px;border-radius:3px;
+  transition:background .2s,transform .15s,box-shadow .2s;
+  -webkit-tap-highlight-color:transparent;
+}
+.cta-main:hover{background:var(--fire-l);box-shadow:0 8px 28px rgba(240,82,26,.3)}
+.cta-main:active{transform:scale(.98)}
+
+.cta-call{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  border:1px solid var(--line);color:var(--muted);
+  font-weight:500;font-size:.9rem;
+  padding:15px 20px;border-radius:3px;
+  transition:border-color .2s,color .2s;
+  -webkit-tap-highlight-color:transparent;
+}
+.cta-call:hover{border-color:var(--muted);color:var(--bone)}
+
+.hero-proof{
+  margin-top:36px;padding-top:28px;
+  border-top:1px solid var(--line);
+  display:flex;align-items:center;gap:14px;flex-wrap:wrap;
+}
+.proof-faces{display:flex}
+.proof-faces em{
+  width:32px;height:32px;border-radius:50%;
+  border:2px solid var(--bg);
+  background:var(--bg3);
+  display:flex;align-items:center;justify-content:center;
+  font-style:normal;font-weight:700;font-size:.68rem;color:var(--fire);
+  margin-left:-8px;transition:background var(--trans),border-color var(--trans);
+}
+.proof-faces em:first-child{margin-left:0}
+.proof-text{font-size:.78rem;color:var(--muted);line-height:1.5}
+.proof-text strong{color:var(--bone);display:block;font-weight:600}
+
+/* Hero right col — desktop "live proof" panel */
+.hero-right{display:none}
+@media(min-width:900px){
+  .hero-right{
+    display:flex;flex-direction:column;gap:16px;
+    padding-bottom:8px;
+  }
+}
+.live-card{
+  background:var(--bg2);border:1px solid var(--line);
+  border-radius:10px;padding:20px;
+  transition:background var(--trans),border-color var(--trans);
+}
+.lc-tag{
+  font-size:.65rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--fire);margin-bottom:10px;
+  display:flex;align-items:center;gap:6px;
+}
+.lc-tag::before{
+  content:'';width:6px;height:6px;border-radius:50%;
+  background:var(--fire);animation:throb 2s infinite;flex-shrink:0;
+}
+.lc-stat{
+  font-weight:800;font-size:2.4rem;letter-spacing:-.05em;
+  color:var(--bone);line-height:1;margin-bottom:4px;
+}
+.lc-desc{font-size:.8rem;color:var(--muted);line-height:1.5}
+
+/* ══════════════════════════════════════
+   TICKER
+══════════════════════════════════════ */
+#ticker{
+  overflow:hidden;
+  border-top:1px solid var(--line);
+  border-bottom:1px solid var(--line);
+  background:var(--bg2);padding:13px 0;
+  transition:background var(--trans);
+}
+.ticker-track{
+  display:flex;white-space:nowrap;
+  animation:tick 30s linear infinite;
+}
+.ticker-track:hover{animation-play-state:paused}
+@keyframes tick{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+.ticker-item{
+  display:inline-flex;align-items:center;gap:10px;
+  padding:0 28px;
+  font-weight:600;font-size:.8rem;letter-spacing:.02em;color:var(--muted);
+}
+.ticker-item span{color:var(--fire);font-weight:800;font-size:.95rem}
+
+/* ══════════════════════════════════════
+   QUESTION SECTION
+══════════════════════════════════════ */
+#question{background:var(--bg);transition:background var(--trans)}
+
+@media(min-width:900px){
+  .q-layout{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start}
+}
+.q-giant{
+  font-weight:800;
+  font-size:clamp(1.9rem,5.5vw,4rem);
+  line-height:1.06;letter-spacing:-.04em;margin-bottom:16px;
+}
+.q-sub{
+  font-family:var(--ff-ser);font-style:italic;
+  font-size:clamp(.95rem,2.2vw,1.2rem);
+  color:var(--muted);margin-bottom:40px;line-height:1.6;
+}
+
+/* Google Maps Mockup */
+.gmaps-mock{
+  border-radius:10px;overflow:hidden;
+  border:1px solid var(--line);
+  background:var(--bg2);
+  transition:background var(--trans),border-color var(--trans);
+}
+[data-theme="light"] .gmaps-mock{background:#E8E2D4}
+.gmaps-header{
+  background:var(--bg3);padding:12px 16px;
+  display:flex;align-items:center;gap:10px;
+  border-bottom:1px solid var(--line);
+  transition:background var(--trans);
+}
+.gmaps-search{
+  background:var(--bg2);border-radius:4px;
+  padding:9px 14px;flex:1;
+  font-size:.8rem;color:var(--muted);
+  display:flex;align-items:center;gap:8px;
+  transition:background var(--trans);
+}
+.gmaps-dot{width:8px;height:8px;border-radius:50%;background:#4285F4;flex-shrink:0}
+.gmap-result{
+  padding:16px;border-bottom:1px solid var(--line);
+  display:flex;align-items:flex-start;gap:12px;
+}
+.gmap-result:last-child{border-bottom:none}
+.gr-rank{
+  font-weight:800;font-size:1.1rem;width:28px;flex-shrink:0;
+  padding-top:2px;color:var(--muted);
+}
+.gmap-result.competitor .gr-rank{color:#4285F4}
+.gmap-result.you .gr-rank{color:var(--fire);animation:rankPulse 2.5s ease-in-out infinite}
+@keyframes rankPulse{0%,100%{opacity:.25}50%{opacity:1}}
+.gr-body{flex:1;min-width:0}
+.gr-name{font-weight:700;font-size:.88rem;margin-bottom:3px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.gmap-result.competitor .gr-name{color:var(--bone)}
+.gmap-result.you .gr-name{color:var(--muted);font-style:italic}
+.gr-stars{display:flex;align-items:center;gap:4px;margin-bottom:3px}
+.gr-star{color:#FBBC04;font-size:.72rem}
+.gr-star.g{color:var(--bg3);transition:color var(--trans)}
+.gr-rating{font-size:.7rem;color:var(--muted)}
+.gr-tag{
+  display:inline-block;font-size:.65rem;font-weight:700;
+  background:rgba(66,133,244,.1);color:#8AB4F8;
+  border-radius:3px;padding:2px 6px;margin-top:2px;
+}
+.gmap-result.you .gr-tag{background:rgba(240,82,26,.1);color:var(--fire)}
+
+.maps-caption{
+  margin-top:20px;
+  font-family:var(--ff-ser);font-style:italic;
+  font-size:clamp(.88rem,2vw,.98rem);
+  color:var(--muted);line-height:1.7;
+}
+.maps-caption strong{color:var(--bone);font-style:normal}
+
+/* ══════════════════════════════════════
+   STRIP — 88%
+══════════════════════════════════════ */
+#strip{
+  padding:80px 0;
+  background:var(--fire);overflow:hidden;position:relative;
+}
+.strip-bg-num{
+  position:absolute;right:-3%;top:50%;transform:translateY(-50%);
+  font-weight:800;
+  font-size:clamp(120px,28vw,300px);
+  line-height:.8;letter-spacing:-.05em;
+  color:rgba(12,12,9,.1);
+  pointer-events:none;user-select:none;
+}
+.strip-inner{position:relative;z-index:1}
+@media(min-width:900px){
+  .strip-inner{display:grid;grid-template-columns:auto 1fr;gap:48px;align-items:center}
+}
+.strip-stat{
+  font-weight:800;
+  font-size:clamp(4rem,14vw,9rem);
+  line-height:.9;letter-spacing:-.05em;
+  color:#0C0C09;margin-bottom:16px;
+}
+@media(min-width:900px){.strip-stat{margin-bottom:0}}
+.strip-label{
+  font-weight:400;font-size:clamp(1rem,2.5vw,1.25rem);
+  color:rgba(12,12,9,.65);line-height:1.6;
+}
+.strip-label strong{color:#0C0C09;font-weight:700}
+
+/* ══════════════════════════════════════
+   SOLUTION — PILIERS
+══════════════════════════════════════ */
+#solution{background:var(--bg2);padding:0;transition:background var(--trans)}
+.pilier{
+  padding:80px 20px;
+  max-width:1120px;margin:0 auto;
+  border-bottom:1px solid var(--line);
+  transition:border-color var(--trans);
+}
+@media(min-width:700px){
+  .pilier{display:grid;grid-template-columns:90px 1fr;gap:32px;align-items:start}
+}
+@media(min-width:900px){
+  .pilier{grid-template-columns:120px 1fr}
+}
+.pilier-num{
+  font-weight:800;
+  font-size:clamp(4rem,10vw,7rem);
+  line-height:.85;letter-spacing:-.05em;
+  color:var(--fire);opacity:.2;
+  padding-top:4px;
+  transition:opacity .4s;
+}
+.pilier:hover .pilier-num{opacity:1}
+.pilier-kicker{
+  font-weight:700;font-size:.68rem;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--fire);
+  margin-bottom:14px;display:block;
+}
+.pilier-h{
+  font-weight:800;
+  font-size:clamp(1.5rem,4vw,2.6rem);
+  line-height:1.06;letter-spacing:-.03em;margin-bottom:18px;
+}
+.pilier-p{
+  font-size:clamp(.88rem,1.8vw,.98rem);
+  font-weight:300;color:var(--muted);line-height:1.75;margin-bottom:22px;
+}
+.pilier-p strong{color:var(--bone);font-weight:500}
+.pilier-items{list-style:none;display:flex;flex-direction:column;gap:10px}
+.pilier-items li{
+  display:flex;align-items:flex-start;gap:10px;
+  font-size:.87rem;color:var(--muted);line-height:1.5;
+}
+.pilier-items li::before{content:'→';color:var(--fire);font-weight:700;flex-shrink:0}
+.pilier-items li strong{color:var(--bone);font-weight:500}
+
+/* ══════════════════════════════════════
+   DIFF TABLE
+══════════════════════════════════════ */
+#diff{padding:100px 0;background:var(--bg);transition:background var(--trans)}
+.diff-h{
+  font-weight:800;
+  font-size:clamp(1.8rem,5vw,3.2rem);
+  line-height:1.05;letter-spacing:-.04em;margin-bottom:12px;
+}
+.diff-h em{font-family:var(--ff-ser);font-style:italic;font-weight:400;font-size:.82em;color:var(--muted)}
+
+.diff-header-row,
+.diff-row{
+  display:grid;grid-template-columns:1fr 1fr;
+}
+.diff-table-wrap{margin-top:48px;overflow-x:auto}
+.diff-th{
+  padding:13px 18px;
+  font-weight:700;font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;
+}
+.diff-th.them{color:var(--muted);border-right:1px solid var(--line)}
+.diff-th.us{color:#0C0C09;background:var(--fire);border-radius:4px 4px 0 0}
+.diff-row{border-bottom:1px solid var(--line)}
+.diff-row:first-child{border-top:1px solid var(--line)}
+.diff-cell{padding:18px;font-size:.88rem;line-height:1.5;display:flex;align-items:flex-start;gap:9px}
+.diff-cell.them{color:var(--muted);border-right:1px solid var(--line)}
+.diff-cell.them::before{content:'✗';color:rgba(240,82,26,.4);font-weight:800;flex-shrink:0}
+.diff-cell.us{color:var(--bone);font-weight:500;background:rgba(240,82,26,.04)}
+.diff-cell.us::before{content:'✓';color:var(--fire);font-weight:800;flex-shrink:0}
+@media(min-width:640px){.diff-cell{padding:22px 24px}}
+
+/* ══════════════════════════════════════
+   SMS TÉMOIGNAGES
+══════════════════════════════════════ */
+#proof{padding:100px 0;background:var(--bg2);transition:background var(--trans)}
+
+@media(min-width:900px){
+  .proof-layout{display:grid;grid-template-columns:1fr 380px;gap:64px;align-items:start}
+}
+.proof-text-col h2{
+  font-weight:800;
+  font-size:clamp(1.8rem,5vw,3.2rem);
+  line-height:1.05;letter-spacing:-.04em;margin-bottom:20px;
+}
+.proof-text-col p{
+  font-size:.95rem;color:var(--muted);line-height:1.72;max-width:460px;margin-bottom:40px;
+}
+.proof-metrics{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:1px;background:var(--line);
+  border:1px solid var(--line);border-radius:8px;overflow:hidden;
+}
+@media(min-width:900px){.proof-metrics{margin-top:0}}
+.pm-cell{
+  background:var(--bg3);padding:24px 14px;text-align:center;
+  transition:background var(--trans);
+}
+.pm-val{
+  font-weight:800;font-size:clamp(1.5rem,4vw,2.2rem);
+  color:var(--fire);letter-spacing:-.04em;display:block;margin-bottom:6px;
+}
+.pm-label{font-size:.73rem;color:var(--muted);line-height:1.4}
+
+.sms-phone{
+  background:#111;border-radius:28px;border:5px solid #222;
+  max-width:360px;margin:40px auto 0;overflow:hidden;
+  box-shadow:0 40px 80px var(--shadow);
+}
+@media(min-width:900px){.sms-phone{margin:0}}
+.sms-topbar{
+  background:#1A1A1A;padding:14px 18px;
+  display:flex;align-items:center;gap:12px;
+  border-bottom:1px solid rgba(255,255,255,.04);
+}
+.sms-avatar{
+  width:36px;height:36px;border-radius:50%;
+  background:rgba(240,82,26,.15);
+  display:flex;align-items:center;justify-content:center;
+  font-weight:800;font-size:.8rem;color:var(--fire);flex-shrink:0;
+}
+.sms-name{font-weight:700;font-size:.85rem;color:#fff}
+.sms-job{font-size:.7rem;color:#666;margin-top:1px}
+.sms-body{padding:18px;display:flex;flex-direction:column;gap:12px;background:#0F0F0F;min-height:180px}
+.bubble{
+  max-width:88%;padding:11px 14px;border-radius:18px;
+  font-size:.85rem;line-height:1.55;position:relative;
+}
+.bubble.client{
+  background:#2A2A2A;color:#E0E0E0;
+  border-bottom-left-radius:4px;align-self:flex-start;
+}
+.bubble.kapta{
+  background:var(--fire);color:#0C0C09;
+  border-bottom-right-radius:4px;align-self:flex-end;font-weight:500;
+}
+.bubble-time{font-size:.62rem;color:#555;margin-top:4px}
+.bubble.kapta .bubble-time{text-align:right;color:rgba(12,12,9,.5)}
+.sms-nav{display:flex;border-top:1px solid rgba(255,255,255,.05);background:#1A1A1A}
+.sms-tab{
+  flex:1;padding:13px;text-align:center;font-weight:700;font-size:.7rem;
+  color:#555;border:none;background:transparent;
+  transition:color .2s,background .2s;-webkit-tap-highlight-color:transparent;
+}
+.sms-tab.active{color:var(--fire);background:rgba(240,82,26,.07)}
+
+/* ══════════════════════════════════════
+   OFFRE — GRAND SLAM
+══════════════════════════════════════ */
+#offer{padding:100px 0;background:var(--bg);transition:background var(--trans)}
+
+.offer-hook{
+  font-family:var(--ff-head);font-style:normal;
+  font-size:clamp(1.3rem,4vw,2.1rem);
+  font-weight:600;
+  line-height:1.5;color:var(--bone);margin-bottom:10px;
+}
+.offer-hook strong{
+  font-style:normal;font-family:var(--ff-head);font-weight:800;color:var(--fire);
+}
+.offer-intro{
+  font-size:.9rem;color:var(--muted);line-height:1.7;max-width:520px;margin-bottom:48px;
+}
+.offer-intro a{
+  color:var(--fire);font-weight:600;text-decoration:underline;
+  text-underline-offset:3px;text-decoration-color:rgba(240,82,26,.3);
+}
+.offer-intro a:hover{text-decoration-color:var(--fire)}
+
+.gs-card{
+  background:var(--bg2);border:1px solid rgba(240,82,26,.22);
+  border-radius:12px;overflow:hidden;position:relative;
+  transition:background var(--trans),border-color var(--trans);
+}
+.gs-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:3px;
+  background:linear-gradient(90deg,var(--fire),var(--fire-l));
+}
+.gs-header{padding:28px 24px 22px;border-bottom:1px solid var(--line)}
+.gs-badge-top{
+  display:inline-block;
+  background:var(--fire);color:#fff;
+  font-weight:800;font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;
+  padding:5px 12px;border-radius:3px;margin-bottom:14px;
+}
+.gs-tag{font-size:.78rem;color:var(--muted);margin-bottom:8px}
+.gs-tagline{
+  font-weight:700;
+  font-size:clamp(1.05rem,2.8vw,1.35rem);
+  line-height:1.3;color:var(--bone);letter-spacing:-.02em;
+}
+
+.gs-stack{padding:0 24px 8px}
+.gs-stack-title{
+  font-weight:700;font-size:.68rem;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--muted);
+  padding:22px 0 14px;border-bottom:1px solid var(--line);
+}
+.gs-item{
+  display:flex;align-items:flex-start;justify-content:space-between;
+  gap:14px;padding:18px 0;border-bottom:1px solid var(--line);
+}
+.gs-item.bonus{
+  background:rgba(240,82,26,.03);margin:0 -24px;padding:18px 24px;
+}
+.gs-item.bonus .gs-item-body::before{
+  content:'BONUS';
+  display:inline-block;font-size:.6rem;font-weight:800;letter-spacing:.14em;
+  color:var(--fire);border:1px solid rgba(240,82,26,.3);
+  border-radius:3px;padding:2px 6px;margin-bottom:6px;
+}
+.gs-item-body{flex:1;min-width:0}
+.gs-item-name{font-weight:700;font-size:.9rem;color:var(--bone);margin-bottom:4px;line-height:1.3}
+.gs-item-desc{font-size:.78rem;color:var(--muted);line-height:1.6}
+.gs-item-price{
+  font-weight:800;font-size:.88rem;
+  color:var(--muted);white-space:nowrap;flex-shrink:0;
+  text-decoration:line-through;opacity:.4;
+}
+
+.gs-totals{padding:0 24px}
+.gs-total-row{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:16px 0 6px;
+}
+.gs-total-label{font-size:.78rem;color:var(--muted)}
+.gs-total-val{font-weight:700;font-size:1rem;color:var(--muted);text-decoration:line-through;opacity:.4}
+.gs-price-row{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:10px 0 4px;border-top:1px solid rgba(240,82,26,.2);
+}
+.gs-price-label{font-weight:800;font-size:.88rem;color:var(--bone)}
+.gs-price-main{
+  font-weight:800;font-size:2.4rem;letter-spacing:-.04em;color:var(--fire);
+}
+.gs-roi{
+  font-family:var(--ff-ser);font-style:italic;
+  font-size:.9rem;color:var(--muted);
+  padding:14px 0 20px;line-height:1.6;
+  border-bottom:1px solid var(--line);
+}
+
+.gs-guarantee{
+  margin:0 24px;padding:20px;
+  background:rgba(240,82,26,.09);border:1px solid rgba(240,82,26,.18);
+  border-radius:8px;margin-top:20px;
+  display:flex;gap:14px;align-items:flex-start;
+}
+.gs-g-icon{
+  width:42px;height:42px;border-radius:50%;
+  background:var(--fire);
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+.gs-g-title{font-weight:800;font-size:.9rem;color:var(--bone);margin-bottom:5px}
+.gs-g-text{font-size:.8rem;color:var(--muted);line-height:1.65}
+
+.gs-cta{
+  display:flex;align-items:center;justify-content:center;gap:10px;
+  background:var(--fire);color:#fff;
+  font-weight:800;font-size:.98rem;
+  padding:17px 24px;margin:22px 24px 10px;border-radius:3px;
+  transition:background .2s,transform .15s;-webkit-tap-highlight-color:transparent;
+}
+.gs-cta:hover{background:var(--fire-l)}
+.gs-cta:active{transform:scale(.98)}
+
+.gs-scarcity{
+  display:flex;align-items:center;gap:8px;
+  padding:0 24px 22px;font-size:.76rem;color:var(--muted);line-height:1.5;
+}
+.gs-scarcity-dot{
+  width:7px;height:7px;border-radius:50%;
+  background:var(--fire);flex-shrink:0;
+  animation:throb 2s infinite;
+}
+
+/* Subscription teaser link */
+.sub-teaser{
+  margin-top:40px;
+  padding:24px;
+  background:var(--bg2);border:1px solid var(--line);border-radius:8px;
+  display:flex;align-items:center;justify-content:space-between;gap:16px;
+  flex-wrap:wrap;
+  transition:background var(--trans),border-color var(--trans);
+}
+.st-text h4{
+  font-weight:700;font-size:.95rem;margin-bottom:4px;
+}
+.st-text p{font-size:.82rem;color:var(--muted);line-height:1.5}
+.st-link{
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--bg3);color:var(--bone);
+  font-weight:700;font-size:.82rem;
+  padding:11px 18px;border-radius:3px;white-space:nowrap;
+  border:1px solid var(--line);
+  transition:border-color .2s,background .2s;flex-shrink:0;
+}
+.st-link:hover{border-color:var(--muted);background:var(--bg2)}
+
+.offer-legal{
+  margin-top:32px;padding:18px 22px;
+  background:var(--bg2);border-left:2px solid var(--fire);
+  font-size:.78rem;color:var(--muted);line-height:1.7;
+  transition:background var(--trans);
+}
+.offer-legal strong{color:var(--bone)}
+
+/* ══════════════════════════════════════
+   PROCESS — TIMELINE
+══════════════════════════════════════ */
+#process{padding:100px 0;background:var(--bg2);transition:background var(--trans)}
+
+@media(min-width:900px){
+  .process-layout{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start}
+  .process-layout .section-copy{position:sticky;top:100px}
+}
+.section-copy h2{
+  font-weight:800;
+  font-size:clamp(1.8rem,5vw,3.2rem);
+  line-height:1.05;letter-spacing:-.04em;margin-bottom:14px;
+}
+.section-copy h2 em{
+  font-family:var(--ff-ser);font-style:italic;font-weight:400;font-size:.82em;color:var(--muted);
+}
+.section-copy p{font-size:.92rem;color:var(--muted);line-height:1.7;max-width:380px;margin-top:14px}
+
+.timeline{
+  margin-top:48px;position:relative;padding-left:52px;
+}
+@media(min-width:900px){.timeline{margin-top:0}}
+.timeline::before{
+  content:'';position:absolute;left:16px;top:8px;bottom:8px;
+  width:1px;background:linear-gradient(to bottom,var(--fire),rgba(240,82,26,.05));
+}
+.tl-step{margin-bottom:44px;position:relative}
+.tl-step:last-child{margin-bottom:0}
+.tl-n{
+  position:absolute;left:-52px;top:0;
+  width:34px;height:34px;border-radius:50%;
+  background:var(--fire);color:#fff;
+  font-weight:800;font-size:.78rem;
+  display:flex;align-items:center;justify-content:center;
+}
+.tl-content h4{
+  font-weight:800;font-size:.98rem;letter-spacing:-.02em;
+  margin-bottom:6px;line-height:1.25;
+}
+.tl-content p{font-size:.85rem;color:var(--muted);line-height:1.65}
+.tl-content strong{color:var(--bone);font-weight:500}
+
+/* ══════════════════════════════════════
+   CTA FINAL
+══════════════════════════════════════ */
+#cta-final{padding:80px 0 0;background:var(--bg);transition:background var(--trans)}
+
+@media(min-width:900px){
+  .cta-layout{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start}
+}
+.cta-alarm{
+  font-family:var(--ff-head);font-style:normal;
+  font-size:clamp(1.4rem,5vw,2.6rem);
+  font-weight:600;
+  line-height:1.35;color:var(--bone);margin-bottom:14px;
+}
+.cta-alarm em{
+  color:var(--fire);font-style:normal;font-family:var(--ff-head);font-weight:800;
+}
+.cta-sub{font-size:.9rem;color:var(--muted);line-height:1.7;max-width:400px;margin-bottom:32px}
+
+.phone-block{
+  padding:28px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin-bottom:28px;
+}
+.phone-lbl{
+  font-size:.7rem;font-weight:700;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--muted);margin-bottom:10px;
+}
+.phone-num{
+  display:flex;align-items:center;gap:14px;
+  font-weight:800;font-size:clamp(2.2rem,8vw,3.8rem);
+  letter-spacing:-.05em;color:var(--bone);
+  transition:color .2s;
+}
+.phone-num:hover{color:var(--fire)}
+.phone-num svg{flex-shrink:0}
+.wa-link{
+  display:inline-flex;align-items:center;gap:8px;
+  margin-top:12px;
+  font-size:.82rem;color:var(--muted);
+  transition:color .2s;
+}
+.wa-link:hover{color:#25D366}
+.wa-link svg{flex-shrink:0}
+
+.or-divider{
+  display:flex;align-items:center;gap:14px;margin:8px 0 24px;
+}
+.or-divider::before,.or-divider::after{content:'';flex:1;height:1px;background:var(--line)}
+.or-divider span{font-size:.7rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+
+.cf{
+  background:var(--bg2);border:1px solid var(--line);
+  border-radius:8px;padding:26px;
+  transition:background var(--trans),border-color var(--trans);
+}
+.cf-title{font-weight:800;font-size:1.05rem;letter-spacing:-.02em;margin-bottom:22px}
+.fg{margin-bottom:12px}
+.fg label{
+  display:block;font-size:.7rem;font-weight:700;
+  letter-spacing:.1em;text-transform:uppercase;
+  color:var(--muted);margin-bottom:6px;
+}
+.fg input,.fg select{
+  width:100%;background:var(--bg3);border:1px solid var(--line);
+  border-radius:4px;padding:13px 14px;color:var(--bone);
+  font-family:var(--ff-head);font-size:.92rem;
+  outline:none;transition:border-color .2s,background var(--trans);
+  -webkit-appearance:none;
+}
+.fg input:focus,.fg select:focus{border-color:var(--fire)}
+.fg input::placeholder{color:var(--muted)}
+.fg select option{background:var(--bg3);color:var(--bone)}
+[data-theme="light"] .fg select option{background:#DDD7C8;color:#1A1815}
+
+.cf-submit{
+  width:100%;background:var(--fire);color:#fff;
+  font-weight:800;font-size:.98rem;
+  padding:17px;border-radius:3px;margin-top:4px;
+  display:flex;align-items:center;justify-content:center;gap:10px;
+  transition:background .2s,transform .15s;-webkit-tap-highlight-color:transparent;
+}
+.cf-submit:hover{background:var(--fire-l)}
+.cf-submit:active{transform:scale(.98)}
+.cf-privacy{margin-top:10px;font-size:.7rem;color:var(--muted);text-align:center;line-height:1.5}
+
+.scarcity-bar{
+  margin-top:48px;background:var(--fire);padding:22px 20px;
+  display:flex;align-items:flex-start;gap:14px;
+}
+.sc-dot{
+  width:26px;height:26px;border-radius:50%;
+  background:rgba(0,0,0,.12);flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;margin-top:2px;
+}
+.scarcity-bar p{font-weight:700;font-size:.9rem;color:#0C0C09;line-height:1.5}
+.scarcity-bar span{font-weight:400;font-size:.8rem;color:rgba(12,12,9,.6);display:block;margin-top:3px}
+
+/* ══════════════════════════════════════
+   WHATSAPP FLOAT
+══════════════════════════════════════ */
+.wa-float{
+  position:fixed;bottom:24px;right:20px;
+  z-index:300;
+  display:flex;flex-direction:column;align-items:flex-end;gap:10px;
+}
+.wa-bubble{
+  background:var(--bg2);border:1px solid var(--line);
+  border-radius:12px 12px 0 12px;
+  padding:10px 14px;
+  font-size:.75rem;color:var(--muted);
+  max-width:200px;text-align:right;line-height:1.4;
+  box-shadow:0 4px 20px var(--shadow);
+  animation:waBounce 6s ease-in-out 3s infinite;
+  transition:background var(--trans),border-color var(--trans);
+}
+@keyframes waBounce{
+  0%,85%,100%{transform:translateY(0)}
+  90%{transform:translateY(-4px)}
+  95%{transform:translateY(-2px)}
+}
+.wa-float-btn{
+  width:56px;height:56px;border-radius:50%;
+  background:#25D366;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 4px 20px rgba(37,211,102,.4);
+  transition:transform .2s,box-shadow .2s;
+  -webkit-tap-highlight-color:transparent;
+  flex-shrink:0;
+}
+.wa-float-btn:hover{transform:scale(1.08);box-shadow:0 6px 28px rgba(37,211,102,.5)}
+.wa-float-btn:active{transform:scale(.95)}
+
+/* ══════════════════════════════════════
+   FOOTER
+══════════════════════════════════════ */
+footer{
+  background:var(--bg2);padding:32px 20px;
+  border-top:1px solid var(--line);
+  transition:background var(--trans),border-color var(--trans);
+}
+.footer-inner{
+  max-width:1120px;margin:0 auto;
+  display:flex;flex-wrap:wrap;gap:16px;
+  justify-content:space-between;align-items:center;
+}
+.footer-logo{
+  font-weight:800;font-size:.9rem;
+  display:flex;align-items:center;gap:7px;
+}
+.fl-dot{width:7px;height:7px;border-radius:50%;background:var(--fire)}
+.footer-copy{font-size:.75rem;color:var(--muted)}
+.footer-links{display:flex;gap:20px;flex-wrap:wrap}
+.footer-links a{font-size:.75rem;color:var(--muted);transition:color .2s}
+.footer-links a:hover{color:var(--bone)}
+
+/* ══════════════════════════════════════
+   REVEAL ANIMATIONS
+══════════════════════════════════════ */
+.reveal{
+  opacity:0;transform:translateY(28px);
+  transition:opacity .6s cubic-bezier(.22,.68,0,1.2),transform .6s cubic-bezier(.22,.68,0,1.2);
+}
+.reveal.in{opacity:1;transform:translateY(0)}
+.reveal.d1{transition-delay:.1s}
+.reveal.d2{transition-delay:.2s}
+.reveal.d3{transition-delay:.3s}
+.reveal.d4{transition-delay:.4s}
+
+/* ══════════════════════════════════════
+   RESPONSIVE TWEAKS
+══════════════════════════════════════ */
+@media(max-width:480px){
+  .missed-call{width:190px;top:84px}
+  .proof-metrics{grid-template-columns:1fr 1fr}
+  .pm-cell:last-child{grid-column:1/-1}
+  .gs-item{flex-direction:column;gap:8px}
+  .gs-item-price{font-size:.78rem}
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════ NAV ═══════ -->
+<nav>
+  <div class="logo">
+    <div class="logo-dot"></div>
+    Kapta Media
+  </div>
+  <div class="nav-right">
+    <button class="theme-btn" onclick="toggleTheme()" aria-label="Changer de thème">
+      <svg class="icon-moon" width="18" height="18" viewBox="0 0 18 18" fill="none">
+        <path d="M15.5 12.4A7 7 0 0 1 5.6 2.5a7 7 0 1 0 9.9 9.9z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <svg class="icon-sun" width="18" height="18" viewBox="0 0 18 18" fill="none">
+        <circle cx="9" cy="9" r="4" stroke="currentColor" stroke-width="1.6"/>
+        <path d="M9 1v2M9 15v2M1 9h2M15 9h2M3.1 3.1l1.4 1.4M13.5 13.5l1.4 1.4M3.1 14.9l1.4-1.4M13.5 4.5l1.4-1.4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+      </svg>
+    </button>
+    <a href="#cta-final" class="nav-btn">Audit gratuit</a>
+  </div>
+</nav>
+
+<!-- ═══════ HERO ═══════ -->
+<section id="hero">
+  <div class="hero-bg-word" aria-hidden="true">VISIBLE</div>
+
+  <div class="missed-call" aria-hidden="true">
+    <div class="mc-icon">
+      <svg width="17" height="17" viewBox="0 0 18 18" fill="none">
+        <path d="M16.5 12.3a1.5 1.5 0 0 1-1.5 1.5A14 14 0 0 1 1.2 3a1.5 1.5 0 0 1 1.5-1.5H5.3L6.6 4.9l-2 1a11 11 0 0 0 6.5 6.5l1-2 3 1.3-.1.6z" fill="#F0521A"/>
+      </svg>
+    </div>
+    <div class="mc-text">
+      <strong>Appel manqué</strong>
+      <span>Nouveau client — cherchait un plombier</span>
+    </div>
+  </div>
+
+  <div class="wrap hero-content">
+    <div class="hero-inner">
+      <div class="hero-left">
+        <h1 class="hero-h1">
+          Quelqu'un vient<br>
+          <span class="thin">de décrocher</span><br>
+          <span class="fire">votre chantier.</span>
+        </h1>
+        <p class="hero-body">
+          C'est votre concurrent. Il était premier sur Google Maps.<br>
+          <strong>Vous n'étiez pas dans les résultats.</strong><br>
+          Kapta Media règle ça — depuis Tours, en venant chez vous.
+        </p>
+        <div class="hero-ctas">
+          <a href="#cta-final" class="cta-main">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Voir si ma zone est libre
+          </a>
+          <a href="tel:+33686018054" class="cta-call">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M12.8 10a1.2 1.2 0 0 1-1.2 1.2A12 12 0 0 1 1.2 1.4 1.2 1.2 0 0 1 2.4.2H4.6L5.8 3.2l-1.6.8a8.8 8.8 0 0 0 5.2 5.2l.8-1.6 3 1.2-.2.2z" fill="currentColor"/></svg>
+            06 86 01 80 54
+          </a>
+        </div>
+        <div class="hero-proof">
+          <div class="proof-faces">
+            <em>MB</em><em>TL</em><em>FC</em><em>+</em>
+          </div>
+          <div class="proof-text">
+            <strong>Artisans accompagnés à Tours</strong>
+            Plombiers, électriciens, installateurs PAC
+          </div>
+        </div>
+      </div>
+
+      <!-- Desktop right panel -->
+      <div class="hero-right" aria-hidden="true">
+        <div class="live-card reveal d1">
+          <div class="lc-tag">En ce moment sur Google Maps</div>
+          <div class="lc-stat">88%</div>
+          <div class="lc-desc">des internautes cliquent sur les 3 premières fiches.<br>Sans regarder plus loin.</div>
+        </div>
+        <div class="live-card reveal d2">
+          <div class="lc-tag">Votre concurrent — cette semaine</div>
+          <div class="lc-stat">×4</div>
+          <div class="lc-desc">plus d'appels reçus qu'une fiche non optimisée.<br>Mesurable. Documenté. Réel.</div>
+        </div>
+        <div class="live-card reveal d3">
+          <div class="lc-tag">Ce qu'on vous demande</div>
+          <div class="lc-stat">90 min</div>
+          <div class="lc-desc">de votre temps sur site.<br>On s'occupe de 100% du reste.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── TICKER ─── -->
+<div id="ticker" aria-hidden="true">
+  <div class="ticker-track">
+    <div class="ticker-item"><span>97%</span> des clients cherchent sur Google avant d'appeler &nbsp;·</div>
+    <div class="ticker-item"><span>88%</span> cliquent sur les 3 premiers résultats seulement &nbsp;·</div>
+    <div class="ticker-item">Vous êtes <span>en quelle position</span> ce soir ? &nbsp;·</div>
+    <div class="ticker-item"><span>Tours</span> · Joué-lès-Tours · Saint-Cyr · Fondettes &nbsp;·</div>
+    <div class="ticker-item"><span>1 seul</span> partenaire par métier et par secteur &nbsp;·</div>
+    <div class="ticker-item"><span>97%</span> des clients cherchent sur Google avant d'appeler &nbsp;·</div>
+    <div class="ticker-item"><span>88%</span> cliquent sur les 3 premiers résultats seulement &nbsp;·</div>
+    <div class="ticker-item">Vous êtes <span>en quelle position</span> ce soir ? &nbsp;·</div>
+    <div class="ticker-item"><span>Tours</span> · Joué-lès-Tours · Saint-Cyr · Fondettes &nbsp;·</div>
+    <div class="ticker-item"><span>1 seul</span> partenaire par métier et par secteur &nbsp;·</div>
+  </div>
+</div>
+
+<!-- ═══════ QUESTION ═══════ -->
+<section id="question">
+  <div class="wrap">
+    <div class="q-layout">
+      <div>
+        <span class="s-label">Le moment d'honnêteté</span>
+        <h2 class="q-giant reveal">Tapez votre métier sur Google Maps.<br>Vous êtes où ?</h2>
+        <p class="q-sub reveal d1">Si vous n'êtes pas dans les 3 premiers résultats, vos futurs clients ne vous verront jamais.</p>
+        <p class="maps-caption reveal d2">
+          Ce n'est pas un problème de réputation.<br>
+          <strong>C'est un problème de visibilité. Et ça, c'est réparable.</strong>
+        </p>
+      </div>
+
+      <div class="reveal d1">
+        <div class="gmaps-mock" aria-label="Illustration résultat Google Maps">
+          <div class="gmaps-header">
+            <div class="gmaps-search">
+              <div class="gmaps-dot"></div>
+              plombier Tours · résultats de la carte
+            </div>
+          </div>
+          <div class="gmap-result competitor">
+            <div class="gr-rank">1</div>
+            <div class="gr-body">
+              <div class="gr-name">Martin Plomberie · Tours Nord</div>
+              <div class="gr-stars">
+                <span class="gr-star">★</span><span class="gr-star">★</span><span class="gr-star">★</span><span class="gr-star">★</span><span class="gr-star">★</span>
+                <span class="gr-rating">4.9 · 47 avis</span>
+              </div>
+              <div class="gr-tag">Disponible cette semaine</div>
+            </div>
+          </div>
+          <div class="gmap-result competitor">
+            <div class="gr-rank">2</div>
+            <div class="gr-body">
+              <div class="gr-name">Dupont Chauffage & Plomberie</div>
+              <div class="gr-stars">
+                <span class="gr-star">★</span><span class="gr-star">★</span><span class="gr-star">★</span><span class="gr-star">★</span><span class="gr-star g">★</span>
+                <span class="gr-rating">4.6 · 31 avis</span>
+              </div>
+              <div class="gr-tag">Vidéo du chantier</div>
+            </div>
+          </div>
+          <div class="gmap-result you">
+            <div class="gr-rank">?</div>
+            <div class="gr-body">
+              <div class="gr-name">Votre entreprise — introuvable</div>
+              <div class="gr-stars">
+                <span class="gr-star g">★</span><span class="gr-star g">★</span><span class="gr-star g">★</span><span class="gr-star g">★</span><span class="gr-star g">★</span>
+                <span class="gr-rating">Fiche non optimisée</span>
+              </div>
+              <div class="gr-tag">Aucune vidéo · Aucun post récent</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ STRIP ═══════ -->
+<div id="strip">
+  <div class="strip-bg-num" aria-hidden="true">88</div>
+  <div class="wrap strip-inner">
+    <div class="strip-stat reveal">88%</div>
+    <p class="strip-label reveal d1">
+      des gens qui cherchent un artisan sur Google <strong>appellent l'un des 3 premiers résultats — sans regarder plus loin.</strong>
+      <br><br>Combien de fois c'était vous cette semaine ?
+    </p>
+  </div>
+</div>
+
+<!-- ═══════ SOLUTION ═══════ -->
+<section id="solution">
+  <div class="pilier reveal">
+    <div class="pilier-num" aria-hidden="true">01</div>
+    <div class="pilier-body">
+      <span class="pilier-kicker">Ce que personne d'autre ne peut faire</span>
+      <h3 class="pilier-h">On vient chez vous.<br>Ça vous prend 90 minutes.</h3>
+      <p class="pilier-p">
+        Pas depuis un bureau à Paris. Pas avec des photos de banque d'images d'un plombier en tenue trop propre.
+        <strong>On se déplace dans votre atelier, sur votre chantier, dans votre showroom.</strong>
+        On filme votre vrai travail pendant que vous continuez à bosser. C'est tout ce qu'on vous demande.
+        Le reste — montage, publication, distribution — c'est notre affaire.
+      </p>
+      <ul class="pilier-items">
+        <li><strong>90 minutes de votre temps</strong> sur site, on gère tout le reste</li>
+        <li>On en sort 10 à 15 clips courts publiés sur les 6 mois suivants</li>
+        <li>Zéro stock photo. Votre visage, vos mains, votre travail.</li>
+        <li>Aucune agence nationale ne peut envoyer quelqu'un chez vous. C'est notre barrière.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="pilier reveal">
+    <div class="pilier-num" aria-hidden="true">02</div>
+    <div class="pilier-body">
+      <span class="pilier-kicker">Pendant ce temps, vous travaillez</span>
+      <h3 class="pilier-h">On gère votre fiche.<br>Chaque semaine. Sans vous déranger.</h3>
+      <p class="pilier-p">
+        Google favorise les fiches actives. Une fiche qui n'a pas bougé depuis 6 mois descend dans les résultats.
+        C'est la mécanique de notre <strong>Méthode GVA™ (Google · Vidéo · Avis)</strong> : les trois piliers s'alimentent mutuellement.
+        Sans vidéo, la fiche est invisible. Sans avis, la vidéo ne convertit pas. Sans suivi continu, les deux s'effondrent.
+        On gère les trois. Vous, vous répondez aux appels.
+      </p>
+      <ul class="pilier-items">
+        <li>Publications hebdomadaires sur votre fiche Google</li>
+        <li>Réponse professionnelle à chaque avis client (bons et mauvais)</li>
+        <li>Suivi de votre classement face à vos concurrents nommément</li>
+        <li>Rapport mensuel d'une page — vous savez exactement où vous en êtes</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ DIFF ═══════ -->
+<section id="diff">
+  <div class="wrap">
+    <span class="s-label reveal">Ce qui change tout</span>
+    <h2 class="diff-h reveal">Kapta n'est pas<br>une agence comme les autres.<br><em>On n'a pas peur de le dire.</em></h2>
+
+    <div class="diff-table-wrap">
+      <div class="diff-header-row reveal">
+        <div class="diff-th them">Ce que font les autres</div>
+        <div class="diff-th us">Kapta Media</div>
+      </div>
+      <div class="reveal">
+        <div class="diff-row"><div class="diff-cell them">Gestion à distance depuis Paris ou Lyon</div><div class="diff-cell us">Déplacement physique chez vous, à Tours</div></div>
+        <div class="diff-row"><div class="diff-cell them">Photos de banque d'images génériques</div><div class="diff-cell us">Vidéos tournées dans votre établissement</div></div>
+        <div class="diff-row"><div class="diff-cell them">Rapport PDF de 50 pages illisible</div><div class="diff-cell us">Une page. Ce mois-ci. Vos chiffres.</div></div>
+        <div class="diff-row"><div class="diff-cell them">« Top 3 en 14 jours » — promesse illégale</div><div class="diff-cell us">Progression documentée, mois par mois</div></div>
+        <div class="diff-row"><div class="diff-cell them">Le même service pour tous les métiers</div><div class="diff-cell us">1 partenaire par métier et par secteur. Point.</div></div>
+        <div class="diff-row"><div class="diff-cell them">Contrat annuel impossible à quitter</div><div class="diff-cell us">Libre après 3 mois. On mérite votre confiance.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ TÉMOIGNAGES ═══════ -->
+<section id="proof">
+  <div class="wrap">
+    <div class="proof-layout">
+      <div class="proof-text-col">
+        <span class="s-label">Ce qu'ils disent — sans filtre</span>
+        <h2 class="reveal">Des artisans tourangeaux.<br>Des mots vrais.</h2>
+        <p class="reveal d1">On ne met pas de témoignages en étoiles sur fond blanc. On vous montre les vraies conversations.</p>
+        <div class="proof-metrics reveal d2">
+          <div class="pm-cell">
+            <span class="pm-val">×4</span>
+            <div class="pm-label">appels reçus<br>en 3 mois</div>
+          </div>
+          <div class="pm-cell">
+            <span class="pm-val">Top 3</span>
+            <div class="pm-label">position Maps<br>sans délai garanti</div>
+          </div>
+          <div class="pm-cell">
+            <span class="pm-val">12+</span>
+            <div class="pm-label">secteurs<br>couverts</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="sms-phone reveal d1">
+        <div class="sms-topbar">
+          <div class="sms-avatar" id="sms-avatar">MB</div>
+          <div>
+            <div class="sms-name" id="sms-name">Mathieu B.</div>
+            <div class="sms-job" id="sms-job">Plombier-chauffagiste · Joué-lès-Tours</div>
+          </div>
+        </div>
+        <div class="sms-body" id="sms-body">
+          <div class="bubble client">J'avais 2-3 appels par semaine depuis Google. Maintenant j'en ai entre 10 et 15. J'ai dû refuser des chantiers.<div class="bubble-time">Il y a 3 semaines</div></div>
+          <div class="bubble kapta">C'est pour ça qu'on est là.<div class="bubble-time">Vu ✓✓</div></div>
+          <div class="bubble client">La vidéo filmée sur mon chantier c'est ce qui a tout changé. Les clients appellent en me disant « j'ai vu comment vous travaillez ».<div class="bubble-time">Il y a 3 semaines</div></div>
+        </div>
+        <div class="sms-nav">
+          <button class="sms-tab active" onclick="switchSMS(0,this)">Mathieu B.</button>
+          <button class="sms-tab" onclick="switchSMS(1,this)">Thomas L.</button>
+          <button class="sms-tab" onclick="switchSMS(2,this)">Audrey D.</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ OFFRE ═══════ -->
+<section id="offer">
+  <div class="wrap">
+    <span class="s-label">L'offre</span>
+    <p class="offer-hook reveal">On vous demande <strong>90 minutes.</strong><br>On vous livre une infrastructure qui aspire les appels de vos concurrents.</p>
+    <p class="offer-intro reveal d1">
+      Un déploiement unique. Des résultats durables. 
+      Et si vous voulez aller plus loin, <a href="offre.html">découvrez l'abonnement mensuel →</a>
+    </p>
+
+    <div class="gs-card reveal d1">
+      <div class="gs-header">
+        <div class="gs-badge-top">Le Système Monopole Local BTP™</div>
+        <div class="gs-tag">One Shot · 100% Done-For-You · Méthode GVA™</div>
+        <div class="gs-tagline">On déploie l'infrastructure complète. Vous recevez les appels.</div>
+      </div>
+
+      <div class="gs-stack">
+        <div class="gs-stack-title">Ce que vous recevez</div>
+        <div class="gs-item">
+          <div class="gs-item-body">
+            <div class="gs-item-name">L'Infrastructure GMB "Dominateur Local"</div>
+            <div class="gs-item-desc">Configuration complète de votre fiche Google Maps. NAP, citations, Schema Markup, audit concurrentiel sur votre zone. 100% Done-For-You.</div>
+          </div>
+          <div class="gs-item-price">997 €</div>
+        </div>
+        <div class="gs-item">
+          <div class="gs-item-body">
+            <div class="gs-item-name">Tournage "Trust-Builder" sur site</div>
+            <div class="gs-item-desc">90 minutes chez vous. On filme votre vrai travail, on monte 10–15 clips courts orientés conversion. Vos futurs clients voient qui vous êtes avant d'appeler.</div>
+          </div>
+          <div class="gs-item-price">1 500 €</div>
+        </div>
+        <div class="gs-item bonus">
+          <div class="gs-item-body">
+            <div class="gs-item-name">Récolteur d'Avis Automatique</div>
+            <div class="gs-item-desc">Les scripts SMS exacts à copier-coller pour demander des avis à vos clients. Ceux qui mentionnent votre service et votre ville — les seuls que Google valorise vraiment.</div>
+          </div>
+          <div class="gs-item-price">497 €</div>
+        </div>
+        <div class="gs-item bonus">
+          <div class="gs-item-body">
+            <div class="gs-item-name">Script "Fermeture Inbound"</div>
+            <div class="gs-item-desc">Comment répondre au téléphone quand un client chaud appelle depuis Google Maps. Pour ne plus perdre des devis à cause d'une mauvaise première phrase.</div>
+          </div>
+          <div class="gs-item-price">349 €</div>
+        </div>
+      </div>
+
+      <div class="gs-totals">
+        <div class="gs-total-row">
+          <span class="gs-total-label">Valeur totale</span>
+          <span class="gs-total-val">3 343 €</span>
+        </div>
+        <div class="gs-price-row">
+          <span class="gs-price-label">Prix aujourd'hui</span>
+          <span class="gs-price-main">1 250 €</span>
+        </div>
+        <p class="gs-roi">1 250€ c'est moins de 10% de la marge d'une salle de bain. Combien vous en avez raté ce mois-ci ?</p>
+      </div>
+
+      <div class="gs-guarantee">
+        <div class="gs-g-icon">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10 2L4 5v4c0 4.5 2.5 8.7 6 10 3.5-1.3 6-5.5 6-10V5L10 2z" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M7 10l2 2 4-4" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div>
+          <div class="gs-g-title">Garantie "Chantier Signé"</div>
+          <div class="gs-g-text">Si dans les 90 jours suivant le déploiement vous n'avez pas signé au moins un nouveau chantier grâce à notre système — on continue à gérer votre fiche gratuitement jusqu'à ce que ce soit le cas. Sans débat.</div>
+        </div>
+      </div>
+
+      <a href="#cta-final" class="gs-cta">
+        Je veux déployer le système
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+      <p class="gs-scarcity">
+        <span class="gs-scarcity-dot"></span>
+        1 seul créneau de tournage disponible cette semaine — le premier qui valide verrouille sa zone.
+      </p>
+    </div>
+
+    <!-- Teaser abonnement -->
+    <div class="sub-teaser reveal">
+      <div class="st-text">
+        <h4>Vous voulez dominer Google Maps durablement ?</h4>
+        <p>Le One Shot pose les fondations. L'abonnement à 299€/mois les exploite au fil du temps. Découvrez ce qu'il inclut.</p>
+      </div>
+      <a href="offre.html" class="st-link">
+        Voir l'abonnement
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </div>
+
+    <div class="offer-legal reveal">
+      <strong>Note légale :</strong> Aucun classement précis garanti dans un délai défini — c'est impossible à promettre et illégal (Art. L.121-2 du Code de la consommation). Ce qu'on garantit : une progression documentée, tracée, et la garantie Chantier Signé ci-dessus. Si ça ne bouge pas, on vous le dit en face — pas dans un email automatique.
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ PROCESS ═══════ -->
+<section id="process">
+  <div class="wrap">
+    <div class="process-layout">
+      <div class="section-copy">
+        <span class="s-label">Comment ça se passe</span>
+        <h2 class="reveal">5 étapes.<br>Zéro prise de tête.<br><em>Vous n'avez pas à devenir expert en Google.</em></h2>
+        <p class="reveal d1">On gère. Vous bosser. C'est la répartition des rôles.</p>
+      </div>
+
+      <div class="timeline">
+        <div class="tl-step reveal">
+          <div class="tl-n">1</div>
+          <div class="tl-content">
+            <h4>Audit gratuit de votre fiche — sous 48h</h4>
+            <p>On analyse votre position actuelle et celle de vos concurrents dans votre secteur précis. On vous dit où vous en êtes. <strong>Sans engagement, sans baratin.</strong></p>
+          </div>
+        </div>
+        <div class="tl-step reveal d1">
+          <div class="tl-n">2</div>
+          <div class="tl-content">
+            <h4>Tournage sur site — 90 minutes</h4>
+            <p>On vient chez vous. On s'adapte à votre planning, pas l'inverse. <strong>Vous continuez à travailler — on vous filme en train de le faire.</strong></p>
+          </div>
+        </div>
+        <div class="tl-step reveal d2">
+          <div class="tl-n">3</div>
+          <div class="tl-content">
+            <h4>Mise en ligne et optimisation</h4>
+            <p>Votre fiche est reconfigurée, les vidéos publiées, les signaux envoyés à Google. Votre point de départ est documenté — <strong>vous saurez toujours d'où vous êtes partis.</strong></p>
+          </div>
+        </div>
+        <div class="tl-step reveal d3">
+          <div class="tl-n">4</div>
+          <div class="tl-content">
+            <h4>Rapport mensuel — une page</h4>
+            <p>Positions, tendances, ajustements. Lisible en 2 minutes. <strong>Pas un rapport de consultant.</strong></p>
+          </div>
+        </div>
+        <div class="tl-step reveal d4">
+          <div class="tl-n">5</div>
+          <div class="tl-content">
+            <h4>Votre téléphone sonne</h4>
+            <p>De vrais clients. Dans votre secteur. Pour les chantiers que vous voulez. <strong>C'est pour ça qu'on fait ce travail.</strong></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ CTA FINAL ═══════ -->
+<section id="cta-final">
+  <div class="wrap">
+    <div class="cta-layout">
+      <div>
+        <span class="s-label">Dernière chose</span>
+        <p class="cta-alarm reveal">
+          Votre concurrent vient peut-être<br>
+          de recevoir<br>
+          <em>cet audit gratuit.</em>
+        </p>
+        <p class="cta-sub reveal d1">
+          On n'accepte qu'un seul partenaire par métier et par secteur géographique.
+          Une fois votre zone attribuée, c'est fermé. On vous le dit immédiatement si c'est déjà le cas.
+        </p>
+
+        <div class="phone-block reveal d1">
+          <div class="phone-lbl">Appel direct — le plus rapide</div>
+          <a href="tel:+33686018054" class="phone-num">
+            <svg width="30" height="30" viewBox="0 0 30 30" fill="none">
+              <circle cx="15" cy="15" r="15" fill="rgba(240,82,26,.15)"/>
+              <path d="M21 18.4a1.6 1.6 0 0 1-1.6 1.6A15 15 0 0 1 8 7.6 1.6 1.6 0 0 1 9.6 6h2.6l1.2 2.8-1.8.9a10.4 10.4 0 0 0 5.9 5.9l.9-1.8 2.8 1.2-.2.4z" fill="#F0521A"/>
+            </svg>
+            06 86 01 80 54
+          </a>
+          <a href="https://wa.me/33686018054?text=Bonjour%20%F0%9F%91%8B%20je%20voudrais%20savoir%20si%20ma%20zone%20est%20encore%20disponible" class="wa-link" target="_blank" rel="noopener">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="#25D366">
+              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/>
+            </svg>
+            Ou par WhatsApp · Réponse rapide
+          </a>
+        </div>
+
+        <div class="or-divider reveal d2"><span>Ou remplissez le formulaire</span></div>
+      </div>
+
+      <div class="cf reveal d1">
+        <div class="cf-title">Audit gratuit de votre fiche Google Maps</div>
+        <div class="fg">
+          <label for="prenom">Prénom</label>
+          <input type="text" id="prenom" name="prenom" placeholder="Pascal" autocomplete="given-name"/>
+        </div>
+        <div class="fg">
+          <label for="metier">Votre activité</label>
+          <select id="metier" name="metier">
+            <option value="" disabled selected>Choisissez</option>
+            <option>Plombier-chauffagiste</option>
+            <option>Électricien</option>
+            <option>Installateur pompe à chaleur</option>
+            <option>Cuisiniste</option>
+            <option>Pisciniste</option>
+            <option>Aménagement intérieur / showroom</option>
+            <option>Autre artisan du bâtiment</option>
+          </select>
+        </div>
+        <div class="fg">
+          <label for="tel">Téléphone</label>
+          <input type="tel" id="tel" name="tel" placeholder="06 XX XX XX XX" autocomplete="tel"/>
+        </div>
+        <button class="cf-submit" onclick="submitForm()">
+          Vérifier si ma zone est encore libre
+          <svg width="15" height="15" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <p class="cf-privacy">Sans engagement · Réponse sous 48h · Données confidentielles</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="scarcity-bar">
+    <div class="sc-dot">
+      <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 1l1.5 3.1 3.5.5-2.5 2.4.6 3.5L6 8.8l-3.1 1.7.6-3.5L1 4.6l3.5-.5L6 1z" fill="rgba(12,12,9,.65)"/></svg>
+    </div>
+    <p>1 seul partenaire par métier et par secteur géographique.
+    <span>Plombier Joué-lès-Tours, électricien Saint-Cyr, cuisiniste Tours — chaque zone est unique. Si la vôtre est prise, on vous le dit en 24h.</span></p>
+  </div>
+</section>
+
+<!-- ═══════ FOOTER ═══════ -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">
+      <div class="fl-dot"></div>
+      Kapta Media
+    </div>
+    <p class="footer-copy">© 2026 Kapta Media · Tours, Indre-et-Loire</p>
+    <div class="footer-links">
+      <a href="#">Mentions légales</a>
+      <a href="#">Confidentialité</a>
+      <a href="offre.html">Nos offres</a>
+      <a href="#cta-final">Contact</a>
+    </div>
+  </div>
+</footer>
+
+<!-- ═══════ WHATSAPP FLOAT ═══════ -->
+<div class="wa-float">
+  <div class="wa-bubble">Votre concurrent est peut-être déjà en train de nous écrire.</div>
+  <a href="https://wa.me/33686018054?text=Bonjour%20%F0%9F%91%8B%20je%20voudrais%20savoir%20si%20ma%20zone%20est%20encore%20disponible" class="wa-float-btn" target="_blank" rel="noopener" aria-label="Contacter par WhatsApp">
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="white">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/>
+    </svg>
+  </a>
+</div>
+
+<script>
+/* ── Theme ── */
+function toggleTheme(){
+  const html = document.documentElement;
+  const next = html.dataset.theme === 'dark' ? 'light' : 'dark';
+  html.dataset.theme = next;
+  localStorage.setItem('km-theme', next);
+}
+(function(){
+  const saved = localStorage.getItem('km-theme');
+  const pref = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+  document.documentElement.dataset.theme = saved || pref;
+})();
+
+/* ── Scroll reveal ── */
+const ro = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('in'); ro.unobserve(e.target); }});
+}, {threshold:.1, rootMargin:'0px 0px -40px 0px'});
+document.querySelectorAll('.reveal').forEach(el => ro.observe(el));
+
+/* ── Hero parallax ── */
+const bgWord = document.querySelector('.hero-bg-word');
+if(bgWord){
+  window.addEventListener('scroll', () => {
+    bgWord.style.transform = `translateY(calc(-52% + ${window.scrollY*.18}px))`;
+  }, {passive:true});
+}
+
+/* ── WhatsApp bubble auto-hide after 10s ── */
+setTimeout(() => {
+  const b = document.querySelector('.wa-bubble');
+  if(b){ b.style.transition='opacity .6s'; b.style.opacity='0'; setTimeout(()=>b.remove(),700); }
+}, 10000);
+
+/* ── SMS switcher ── */
+const convos = [
+  {init:'MB',name:'Mathieu B.',job:'Plombier-chauffagiste · Joué-lès-Tours',msgs:[
+    {c:'client',text:"J'avais 2-3 appels par semaine depuis Google. Maintenant j'en ai entre 10 et 15. J'ai dû refuser des chantiers.",time:'Il y a 3 semaines'},
+    {c:'kapta',text:"C'est pour ça qu'on est là.",time:'Vu ✓✓'},
+    {c:'client',text:"La vidéo filmée sur mon chantier c'est ce qui a tout changé. Les clients appellent en me disant « j'ai vu comment vous travaillez ».",time:'Il y a 3 semaines'},
+  ]},
+  {init:'TL',name:'Thomas L.',job:'Électricien · Saint-Cyr-sur-Loire',msgs:[
+    {c:'client',text:"Mon concurrent m'a demandé ce que j'avais fait pour avoir autant d'appels. J'ai rien dit.",time:'Il y a 5 semaines'},
+    {c:'kapta',text:"On apprécie votre discrétion.",time:'Vu ✓✓'},
+    {c:'client',text:"Honnêtement j'étais sceptique. « Encore une agence qui promet » — je me disais. Mais là les appels sont réels et je les compte.",time:'Il y a 5 semaines'},
+  ]},
+  {init:'AD',name:'Audrey D.',job:'Cuisiniste · Tours Centre',msgs:[
+    {c:'client',text:"Mon showroom apparaît maintenant quand quelqu'un cherche 'cuisiniste Tours'. Avant j'étais invisible.",time:'Il y a 7 semaines'},
+    {c:'kapta',text:"Normal. Avant, votre fiche n'avait pas bougé depuis 14 mois.",time:'Vu ✓✓'},
+    {c:'client',text:"Ce qui me plaît c'est que vous m'envoyez une page par mois. Je comprends ce qui se passe. C'est la première fois.",time:'Il y a 7 semaines'},
+  ]},
+];
+function switchSMS(idx,btn){
+  const c=convos[idx];
+  document.getElementById('sms-avatar').textContent=c.init;
+  document.getElementById('sms-name').textContent=c.name;
+  document.getElementById('sms-job').textContent=c.job;
+  const body=document.getElementById('sms-body');
+  body.innerHTML='';
+  c.msgs.forEach((m,i)=>{
+    const b=document.createElement('div');
+    b.className='bubble '+m.c;
+    b.style.cssText='opacity:0;transform:translateY(8px);transition:opacity .3s '+i*.12+'s,transform .3s '+i*.12+'s';
+    b.innerHTML=m.text+'<div class="bubble-time">'+m.time+'</div>';
+    body.appendChild(b);
+    requestAnimationFrame(()=>requestAnimationFrame(()=>{b.style.opacity='1';b.style.transform='translateY(0)'}));
+  });
+  document.querySelectorAll('.sms-tab').forEach(t=>t.classList.remove('active'));
+  btn.classList.add('active');
+}
+
+/* ── Form ── */
+function submitForm(){
+  const p=document.getElementById('prenom').value.trim();
+  const m=document.getElementById('metier').value;
+  const t=document.getElementById('tel').value.trim();
+  if(!p||!m||!t){alert('Merci de remplir tous les champs.');return;}
+  const btn=document.querySelector('.cf-submit');
+  btn.innerHTML='✓ Demande reçue — réponse sous 48h';
+  btn.style.cssText='background:#2D6A3F;color:#fff;cursor:default';
+  btn.disabled=true;
+}
+</script>
+</body>
+</html>

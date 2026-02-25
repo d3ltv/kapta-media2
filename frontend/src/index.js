@@ -5,6 +5,8 @@ import "@/index.css";
 import App from "@/App";
 
 const Blog = lazy(() => import("@/pages/Blog"));
+const BTP = lazy(() => import("@/pages/BTP"));
+const Plombier = lazy(() => import("@/pages/Plombier"));
 const NotFound = lazy(() => import("@/pages/NotFound"));
 const Article1 = lazy(() => import("@/pages/blog/Article1"));
 const Article2 = lazy(() => import("@/pages/blog/Article2"));
@@ -36,6 +38,8 @@ root.render(
         <Routes>
           <Route path="/" element={<App />} />
           <Route path="/blog" element={<Blog />} />
+          <Route path="/btp" element={<BTP />} />
+          <Route path="/plombier" element={<Plombier />} />
           <Route path="/blog/article1" element={<Article1 />} />
           <Route path="/blog/article2" element={<Article2 />} />
           <Route path="/blog/article3" element={<Article3 />} />

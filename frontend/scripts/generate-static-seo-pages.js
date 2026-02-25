@@ -24,6 +24,24 @@ const pages = [
     type: "website",
   },
   {
+    route: "/btp",
+    title: "Artisans BTP Tours - Visibilité Google Maps | Kapta Media",
+    description:
+      "Spécialiste du marketing local pour artisans BTP à Tours. Vidéo pro + fiche Google optimisée. Devenez N°1 sur Google Maps dans votre secteur. Audit gratuit sous 48h.",
+    keywords:
+      "artisan tours, plombier tours, électricien tours, google maps btp, marketing local artisan, visibilité locale btp, fiche google artisan, vidéo professionnelle btp",
+    type: "website",
+  },
+  {
+    route: "/plombier",
+    title: "Plombiers Tours - Visibilité Google Maps | Kapta Media",
+    description:
+      "Spécialiste du marketing local pour plombiers-chauffagistes à Tours. Vidéo pro + fiche Google optimisée. Devenez N°1 sur Google Maps. Audit gratuit sous 48h.",
+    keywords:
+      "plombier tours, plombier chauffagiste tours, google maps plombier, marketing local plombier, visibilité locale plomberie, fiche google plombier",
+    type: "website",
+  },
+  {
     route: "/blog/article1",
     title: "5 Raisons d'Optimiser Votre Fiche Google en 2026 | Kapta Media",
     description:
