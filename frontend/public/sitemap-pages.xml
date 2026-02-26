@@ -14,6 +14,18 @@
   </url>
 
   <url>
+    <loc>https://www.kaptamedia.fr/btp</loc>
+    <lastmod>2026-02-26</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+    <image:image>
+      <image:loc>https://www.kaptamedia.fr/logo2.webp</image:loc>
+      <image:title>Kapta Media BTP - Visibilité Google Maps pour Artisans</image:title>
+      <image:caption>Optimisation Google Maps pour artisans BTP à Tours - Vidéo pro + fiche optimisée</image:caption>
+    </image:image>
+  </url>
+
+  <url>
     <loc>https://www.kaptamedia.fr/blog</loc>
     <lastmod>2026-02-23</lastmod>
     <changefreq>daily</changefreq>
