@@ -60,8 +60,9 @@ section{padding:90px 0}
 }
 .light .nav{background:rgba(245,240,232,.9)}
 .logo{font-weight:800;font-size:.88rem;display:flex;align-items:center;gap:7px}
-.logo-dot{width:7px;height:7px;border-radius:50%;background:var(--fire);animation:pulse 2.4s infinite}
-@keyframes pulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.7);opacity:.45}}
+.logo-icon{width:20px;height:20px;flex-shrink:0;animation:pulse 2.4s infinite}
+.foot-icon{width:16px;height:16px;flex-shrink:0}
+@keyframes pulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.15);opacity:.75}}
 .nav-r{display:flex;align-items:center;gap:10px}
 .theme-btn{
   width:36px;height:36px;border-radius:50%;
@@ -1186,7 +1187,6 @@ footer{
 }
 .foot-inner{max-width:1060px;margin:0 auto;display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between}
 .foot-logo{font-weight:800;font-size:.84rem;display:flex;align-items:center;gap:7px}
-.foot-dot{width:6px;height:6px;border-radius:50%;background:var(--fire)}
 .foot-copy{font-size:.68rem;color:var(--muted)}
 .foot-links{display:flex;gap:14px}
 .foot-links a{font-size:.68rem;color:var(--muted);transition:color .2s}
@@ -1295,7 +1295,8 @@ function Nav({ theme, toggle }) {
   return (
     <nav className="nav">
       <div className="logo">
-        <div className="logo-dot"/>Kapta Media
+        <img src="/logo-kapta-btp.png" alt="Kapta Media" className="logo-icon" width="24" height="24" />
+        Kapta Media
       </div>
       <div className="nav-r">
         <button className="theme-btn" onClick={toggle} aria-label="Thème">{theme==="dark"?<Sun/>:<Moon/>}</button>
@@ -2163,7 +2164,12 @@ export default function KaptaV9() {
       <Cta/>
       <footer>
         <div className="foot-inner">
-          <div className="foot-logo"><div className="foot-dot"/>Kapta Media</div>
+          <div className="foot-logo">
+            <svg className="foot-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 2L13.5 8.5L20 7L15 12L21 14L14.5 15.5L16 22L12 17L8 22L9.5 15.5L3 14L9 12L4 7L10.5 8.5L12 2Z" fill="#FF5722"/>
+            </svg>
+            Kapta Media
+          </div>
           <p className="foot-copy">© 2026 Kapta Media · Tours, Indre-et-Loire</p>
           <div className="foot-links">
             <a href="#">Mentions légales</a>
