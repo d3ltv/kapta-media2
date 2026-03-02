@@ -60,8 +60,8 @@ section{padding:90px 0}
 }
 .light .nav{background:rgba(245,240,232,.9)}
 .logo{font-weight:800;font-size:.88rem;display:flex;align-items:center;gap:7px}
-.logo-icon{width:20px;height:20px;flex-shrink:0;animation:pulse 2.4s infinite}
-.foot-icon{width:16px;height:16px;flex-shrink:0}
+.logo-icon{width:24px;height:24px;flex-shrink:0;animation:pulse 2.4s infinite;object-fit:contain}
+.foot-icon{width:18px;height:18px;flex-shrink:0;object-fit:contain}
 @keyframes pulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.15);opacity:.75}}
 .nav-r{display:flex;align-items:center;gap:10px}
 .theme-btn{
@@ -2165,9 +2165,7 @@ export default function KaptaV9() {
       <footer>
         <div className="foot-inner">
           <div className="foot-logo">
-            <svg className="foot-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M12 2L13.5 8.5L20 7L15 12L21 14L14.5 15.5L16 22L12 17L8 22L9.5 15.5L3 14L9 12L4 7L10.5 8.5L12 2Z" fill="#FF5722"/>
-            </svg>
+            <img src="/logo-kapta-btp.png" alt="Kapta Media" className="foot-icon" width="18" height="18" />
             Kapta Media
           </div>
           <p className="foot-copy">© 2026 Kapta Media · Tours, Indre-et-Loire</p>
