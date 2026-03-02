@@ -65,16 +65,23 @@
   },
   "reactSnap": {
     "source": "build",
-    "crawl": false,
+    "crawl": true,
     "skipThirdPartyRequests": true,
-    "inlineCss": false,
+    "inlineCss": true,
+    "minifyHtml": {
+      "collapseWhitespace": true,
+      "removeComments": false
+    },
     "puppeteerArgs": [
       "--no-sandbox",
-      "--disable-setuid-sandbox"
+      "--disable-setuid-sandbox",
+      "--disable-dev-shm-usage"
     ],
     "include": [
       "/",
       "/blog",
+      "/btp",
+      "/plombier",
       "/blog/article1",
       "/blog/article2",
       "/blog/article3",

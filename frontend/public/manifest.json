@@ -1,0 +1,24 @@
+{
+  "name": "Kapta Media BTP - Visibilité Google Maps Tours",
+  "short_name": "Kapta BTP",
+  "description": "Optimisation Google Maps pour artisans BTP à Tours",
+  "start_url": "/btp",
+  "display": "standalone",
+  "background_color": "#0C0C09",
+  "theme_color": "#F0521A",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/logo-kapta-btp.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/logo-kapta-btp.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

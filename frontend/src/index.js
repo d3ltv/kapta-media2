@@ -30,31 +30,69 @@ const RouteLoader = () => (
   </div>
 );
 
-const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(
-  <React.StrictMode>
-    <BrowserRouter>
-      <Suspense fallback={<RouteLoader />}>
-        <Routes>
-          <Route path="/" element={<App />} />
-          <Route path="/blog" element={<Blog />} />
-          <Route path="/btp" element={<BTP />} />
-          <Route path="/plombier" element={<Plombier />} />
-          <Route path="/blog/article1" element={<Article1 />} />
-          <Route path="/blog/article2" element={<Article2 />} />
-          <Route path="/blog/article3" element={<Article3 />} />
-          <Route path="/blog/article4" element={<Article4 />} />
-          <Route path="/blog/article5" element={<Article5 />} />
-          <Route path="/blog/article6" element={<Article6 />} />
-          <Route path="/blog/article7" element={<Article7 />} />
-          <Route path="/blog/article8" element={<Article8 />} />
-          <Route path="/blog/article9" element={<Article9 />} />
-          <Route path="/blog/article10" element={<Article10 />} />
-          <Route path="/blog/article11" element={<Article11 />} />
-          <Route path="/blog/article12" element={<Article12 />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </Suspense>
-    </BrowserRouter>
-  </React.StrictMode>,
-);
+const rootElement = document.getElementById("root");
+
+// Utiliser hydrateRoot si le contenu est pré-rendu, sinon createRoot
+const hasPrerenderedContent = rootElement.hasChildNodes();
+
+if (hasPrerenderedContent) {
+  // Hydratation pour le contenu pré-rendu par react-snap
+  ReactDOM.hydrateRoot(
+    rootElement,
+    <React.StrictMode>
+      <BrowserRouter>
+        <Suspense fallback={<RouteLoader />}>
+          <Routes>
+            <Route path="/" element={<App />} />
+            <Route path="/blog" element={<Blog />} />
+            <Route path="/btp" element={<BTP />} />
+            <Route path="/plombier" element={<Plombier />} />
+            <Route path="/blog/article1" element={<Article1 />} />
+            <Route path="/blog/article2" element={<Article2 />} />
+            <Route path="/blog/article3" element={<Article3 />} />
+            <Route path="/blog/article4" element={<Article4 />} />
+            <Route path="/blog/article5" element={<Article5 />} />
+            <Route path="/blog/article6" element={<Article6 />} />
+            <Route path="/blog/article7" element={<Article7 />} />
+            <Route path="/blog/article8" element={<Article8 />} />
+            <Route path="/blog/article9" element={<Article9 />} />
+            <Route path="/blog/article10" element={<Article10 />} />
+            <Route path="/blog/article11" element={<Article11 />} />
+            <Route path="/blog/article12" element={<Article12 />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </Suspense>
+      </BrowserRouter>
+    </React.StrictMode>
+  );
+} else {
+  // Rendu client classique
+  const root = ReactDOM.createRoot(rootElement);
+  root.render(
+    <React.StrictMode>
+      <BrowserRouter>
+        <Suspense fallback={<RouteLoader />}>
+          <Routes>
+            <Route path="/" element={<App />} />
+            <Route path="/blog" element={<Blog />} />
+            <Route path="/btp" element={<BTP />} />
+            <Route path="/plombier" element={<Plombier />} />
+            <Route path="/blog/article1" element={<Article1 />} />
+            <Route path="/blog/article2" element={<Article2 />} />
+            <Route path="/blog/article3" element={<Article3 />} />
+            <Route path="/blog/article4" element={<Article4 />} />
+            <Route path="/blog/article5" element={<Article5 />} />
+            <Route path="/blog/article6" element={<Article6 />} />
+            <Route path="/blog/article7" element={<Article7 />} />
+            <Route path="/blog/article8" element={<Article8 />} />
+            <Route path="/blog/article9" element={<Article9 />} />
+            <Route path="/blog/article10" element={<Article10 />} />
+            <Route path="/blog/article11" element={<Article11 />} />
+            <Route path="/blog/article12" element={<Article12 />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </Suspense>
+      </BrowserRouter>
+    </React.StrictMode>
+  );
+}

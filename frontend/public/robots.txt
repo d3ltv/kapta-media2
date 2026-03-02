@@ -1,11 +1,25 @@
-# robots.txt pour kaptamedia.fr
-# Version orientée indexation Google
-
+# Robots.txt pour Kapta Media BTP
 User-agent: *
 Allow: /
-Disallow: /test.html
-Disallow: /build/
-Disallow: /node_modules/
-Disallow: /*.map$
+Disallow: /admin/
+Disallow: /api/
+Disallow: /*.json$
 
-Sitemap: https://www.kaptamedia.fr/sitemap.xml
+# Sitemap
+Sitemap: https://kaptamedia.fr/sitemap.xml
+
+# Crawl-delay pour éviter la surcharge
+Crawl-delay: 1
+
+# Règles spécifiques pour les bots courants
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 0
+
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 1
+
+User-agent: Slurp
+Allow: /
+Crawl-delay: 2

@@ -85,13 +85,6 @@ section{padding:90px 0}
   display:flex;flex-direction:column;justify-content:center;
   position:relative;overflow:hidden;
 }
-@media(min-width:1024px){
-  #hero{
-    min-height:85vh;
-    padding-top:calc(var(--nav-h) + 20px);
-    padding-bottom:40px;
-  }
-}
 
 /* Grille blueprint subtile */
 .hero-bg{
@@ -116,12 +109,6 @@ section{padding:90px 0}
   letter-spacing:-.08em;line-height:.85;
   color:rgba(240,82,26,.028);pointer-events:none;user-select:none;z-index:0;
   transition:color var(--tr);
-}
-@media(min-width:1024px){
-  .hero-wordmark{
-    font-size:clamp(12vw,16vw,180px);
-    bottom:-4%;
-  }
 }
 .light .hero-wordmark{color:rgba(240,82,26,.05)}
 
@@ -148,21 +135,10 @@ section{padding:90px 0}
   line-height:1.0;letter-spacing:-.045em;
   max-width:780px;margin-bottom:24px;
 }
-@media(min-width:1024px){
-  .hero-h{
-    font-size:clamp(3.2rem,6vw,4.8rem);
-    margin-bottom:20px;
-  }
-}
 .hero-h span{display:block}
 .hero-h .hero-h-sub{
   font-size:.48em;font-weight:300;color:var(--muted);
   letter-spacing:.005em;margin-top:12px;line-height:1.4;
-}
-@media(min-width:1024px){
-  .hero-h .hero-h-sub{
-    margin-top:10px;
-  }
 }
 
 /* Sous-titre */
@@ -170,13 +146,6 @@ section{padding:90px 0}
   font-size:clamp(.95rem,2vw,1.12rem);color:var(--muted);
   line-height:1.7;max-width:460px;margin-bottom:40px;
   font-weight:400;
-}
-@media(min-width:1024px){
-  .hero-sub{
-    font-size:1rem;
-    max-width:420px;
-    margin-bottom:32px;
-  }
 }
 .hero-sub strong{color:var(--bone);font-weight:600}
 
@@ -388,47 +357,13 @@ section{padding:90px 0}
   display:grid;grid-template-columns:repeat(3,1fr);
   border-bottom:1px solid var(--line);
   transition:border-color var(--tr);
-  position:relative;
-}
-/* Indicateur "Cliquez" mobile */
-.sol-tabs::before{
-  content:'👆 Cliquez pour explorer';
-  position:absolute;
-  top:-32px;
-  left:50%;
-  transform:translateX(-50%);
-  font-size:.65rem;
-  font-weight:700;
-  letter-spacing:.08em;
-  text-transform:uppercase;
-  color:var(--fire);
-  background:rgba(240,82,26,.08);
-  padding:4px 12px;
-  border-radius:100px;
-  border:1px solid rgba(240,82,26,.15);
-  animation:tapHint 2s ease-in-out infinite;
-  pointer-events:none;
-}
-@keyframes tapHint{
-  0%,100%{opacity:.6;transform:translateX(-50%) translateY(0)}
-  50%{opacity:1;transform:translateX(-50%) translateY(-2px)}
-}
-@media(min-width:700px){
-  .sol-tabs::before{
-    content:'← Cliquez pour changer →';
-    top:-28px;
-  }
 }
 .sol-tab{
   padding:22px 20px;cursor:pointer;
   border-right:1px solid var(--line);
   background:var(--bg3);
-  transition:background var(--tr),border-color var(--tr),transform .2s;
+  transition:background var(--tr),border-color var(--tr);
   position:relative;
-}
-.sol-tab:hover{
-  background:var(--bg2);
-  transform:translateY(-2px);
 }
 .sol-tab:last-child{border-right:none}
 .sol-tab.active{background:var(--bg2)}
@@ -438,47 +373,12 @@ section{padding:90px 0}
   transition:transform .3s var(--ease);
 }
 .sol-tab.active::after{transform:scaleX(1)}
-/* Icône chevron pour indiquer cliquable */
-.sol-tab::before{
-  content:'›';
-  position:absolute;
-  top:50%;
-  right:8px;
-  transform:translateY(-50%);
-  font-size:1.4rem;
-  font-weight:800;
-  color:var(--muted);
-  opacity:0;
-  transition:opacity .2s,color .2s;
-}
-.sol-tab:hover::before{
-  opacity:.4;
-}
-.sol-tab.active::before{
-  content:'●';
-  opacity:1;
-  color:var(--fire);
-  font-size:.8rem;
-  right:10px;
-}
-@media(max-width:580px){
-  .sol-tab::before{
-    right:6px;
-    font-size:1.1rem;
-  }
-  .sol-tab.active::before{
-    font-size:.65rem;
-    right:8px;
-  }
-}
 .sol-tab-num{
   font-size:.58rem;font-weight:800;letter-spacing:.15em;
   text-transform:uppercase;color:var(--muted);margin-bottom:6px;
-  transition:color .2s;
 }
 .sol-tab.active .sol-tab-num{color:var(--fire)}
-.sol-tab-title{font-weight:800;font-size:.88rem;letter-spacing:-.02em;line-height:1.3;transition:color .2s}
-.sol-tab:hover .sol-tab-title{color:var(--bone)}
+.sol-tab-title{font-weight:800;font-size:.88rem;letter-spacing:-.02em;line-height:1.3}
 @media(max-width:580px){
   .sol-tab-title{font-size:.75rem}
   .sol-tab{padding:16px 12px}
@@ -799,9 +699,6 @@ section{padding:90px 0}
   background:#0A0A0A;border-radius:42px;
   border:5.5px solid #1E1E1E;overflow:hidden;
   width:100%;
-  height:580px;
-  display:flex;
-  flex-direction:column;
   box-shadow:0 32px 80px rgba(0,0,0,.55),0 0 0 1px rgba(255,255,255,.04);
 }
 .iphone-notch{
@@ -826,8 +723,7 @@ section{padding:90px 0}
 .iphone-status{font-size:.58rem;color:#3A3;display:flex;align-items:center;gap:4px;margin-top:1px}
 .iph-online{width:4px;height:4px;border-radius:50%;background:#3A3}
 .iphone-msgs{
-  padding:14px 12px 16px;
-  height:320px;
+  padding:14px 12px 16px;min-height:220px;max-height:280px;
   background:#0F0F0F;display:flex;flex-direction:column;gap:7px;overflow:hidden;
 }
 .bubble{max-width:82%;padding:9px 12px;border-radius:16px;font-size:.76rem;line-height:1.55}
@@ -1596,14 +1492,11 @@ function Solution(){
   return (
     <section id="solution">
       <div className="w">
-        <div className="r" style={{marginBottom:48}}>
+        <div className="r" style={{marginBottom:28}}>
           <span className="label" style={{display:"inline-flex",marginBottom:14}}>La solution</span>
           <h2 style={{fontWeight:800,fontSize:"clamp(1.9rem,4.5vw,3rem)",letterSpacing:"-.045em",lineHeight:1.06,maxWidth:500}}>
             Trois leviers. Un seul résultat.
           </h2>
-          <p style={{fontSize:".88rem",color:"var(--muted)",lineHeight:1.7,marginTop:12,maxWidth:480}}>
-            Explorez chaque levier ci-dessous pour comprendre comment on transforme votre visibilité.
-          </p>
         </div>
         <div className="sol-layout r d1">
           {/* Onglets */}
