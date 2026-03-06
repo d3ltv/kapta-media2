@@ -18,7 +18,9 @@ import {
   TrendingUp,
   ChevronDown,
   Calendar,
-  MessageCircle
+  MessageCircle,
+  Play,
+  Pause
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import ThemeToggle from "@/components/ThemeToggle";
@@ -750,6 +752,26 @@ const BeforeAfter = () => {
               }
             }}
           >
+            {/* Flèches de navigation */}
+            {mobileSlideIndex === 0 && (
+              <button
+                onClick={() => setMobileSlideIndex(1)}
+                className="absolute right-2 top-1/2 -translate-y-1/2 z-30 w-10 h-10 bg-[#10B981] text-white rounded-full shadow-xl flex items-center justify-center hover:scale-110 transition-transform"
+                aria-label="Voir après"
+              >
+                <ArrowRight className="w-5 h-5" />
+              </button>
+            )}
+            {mobileSlideIndex === 1 && (
+              <button
+                onClick={() => setMobileSlideIndex(0)}
+                className="absolute left-2 top-1/2 -translate-y-1/2 z-30 w-10 h-10 bg-[#EF4444] text-white rounded-full shadow-xl flex items-center justify-center hover:scale-110 transition-transform"
+                aria-label="Voir avant"
+              >
+                <ArrowRight className="w-5 h-5 rotate-180" />
+              </button>
+            )}
+            
             {/* Container with animation */}
             <motion.div
               animate={{ x: mobileSlideIndex === 0 ? 0 : '-100%' }}
@@ -1125,7 +1147,7 @@ const BeforeAfter = () => {
 };
 
 // Problem Comparison Section
-// Problem Comparison Section
+// Problem Comparison Section - Version simplifiée
 const ProblemComparison = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
@@ -1133,387 +1155,82 @@ const ProblemComparison = () => {
   return (
     <section 
       ref={ref}
-      className="py-8 md:py-12 bg-[#F8F9FA] dark:bg-[#070A11] relative overflow-hidden"
+      className="py-8 md:py-12 bg-white dark:bg-[#070A11] relative overflow-hidden"
       data-testid="comparison-section"
     >
-      {/* Strong Grid Background */}
-      <div
-        className="absolute inset-0 bg-[size:32px_32px]"
-        style={{
-          backgroundImage:
-            "linear-gradient(var(--kapta-grid-soft) 1px, transparent 1px), linear-gradient(90deg, var(--kapta-grid-soft) 1px, transparent 1px)",
-        }}
-      />
+      {/* Subtle Grid Background */}
+      <div className="absolute inset-0 bg-[linear-gradient(rgba(28,63,249,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(28,63,249,0.03)_1px,transparent_1px)] bg-[size:40px_40px] dark:hidden" />
       
-      <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8 relative">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         <SectionHeader 
           number="02"
           label="L'Impact"
           title="CE QUE ÇA VOUS"
-          highlight="COÛTE CONCRÈTEMENT"
-          description="Chaque jour sans optimisation = clients perdus définitivement."
+          highlight="COÛTE VRAIMENT"
+          description="Sans optimisation, vous perdez des clients chaque jour."
         />
         
-        <div className="md:grid md:grid-cols-2 md:gap-4 md:gap-8 -mx-2 md:mx-0">
-          {/* Mobile: Scrollable horizontal container */}
-          <div 
-            className="md:hidden flex gap-6 overflow-x-auto pb-4 snap-x snap-mandatory scrollbar-hide pl-2 pr-2"
-            onScroll={(e) => {
-              const container = e.target;
-              const scrollLeft = container.scrollLeft;
-              const maxScroll = container.scrollWidth - container.clientWidth;
-              const progress = maxScroll > 0 ? (scrollLeft / maxScroll) * 100 : 0;
-              
-              // Update progress indicator
-              const indicator = document.querySelector('.scroll-progress-indicator');
-              if (indicator) {
-                indicator.style.left = `${progress}%`;
-              }
-            }}
-          >
-            {/* Problème - Impact négatif - Mobile épuré */}
-            <motion.div 
-              initial={{ opacity: 0, x: -50 }}
-              animate={isInView ? { opacity: 1, x: 0 } : {}}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="relative p-4 rounded-xl bg-white border border-gray-200 shadow-lg min-w-[320px] snap-start flex-shrink-0 hover:shadow-xl transition-all duration-300"
-              data-testid="card-problem-impact-mobile"
-            >
-              <div className="absolute top-2 right-2 px-2 py-1 rounded-full bg-gray-100 text-[9px] font-medium text-gray-600 border border-gray-200">
-                💸 Perte quotidienne
-              </div>
-              
-              <h3 className="text-base font-bold text-gray-800 mb-3 mt-3">
-                SANS OPTIMISATION
-              </h3>
-              
-              <div className="space-y-3">
-                <div className="bg-gray-50 rounded-lg p-3 border border-gray-100">
-                  <div className="flex items-center gap-2 mb-1">
-                    <span className="text-sm">📉</span>
-                    <h4 className="font-bold text-gray-800 text-sm">Clients perdus</h4>
-                  </div>
-                  <p className="text-xs text-gray-600">15-30 clients/mois choisissent vos concurrents</p>
-                </div>
-                
-                <div className="bg-gray-50 rounded-lg p-3 border border-gray-100">
-                  <div className="flex items-center gap-2 mb-1">
-                    <span className="text-sm">💰</span>
-                    <h4 className="font-bold text-gray-800 text-sm">Manque à gagner</h4>
-                  </div>
-                  <p className="text-xs text-gray-600">3 000€ à 15 000€ de CA perdu/mois</p>
-                </div>
-                
-                <div className="bg-gray-50 rounded-lg p-3 border border-gray-100">
-                  <div className="flex items-center gap-2 mb-1">
-                    <span className="text-sm">⏰</span>
-                    <h4 className="font-bold text-gray-800 text-sm">Temps perdu</h4>
-                  </div>
-                  <p className="text-xs text-gray-600">Chaque mois d'attente = 6 mois pour rattraper</p>
-                </div>
-              </div>
-            </motion.div>
-            
-            {/* Solution - Impact positif - Mobile épuré */}
-            <motion.div 
-              initial={{ opacity: 0, x: 50 }}
-              animate={isInView ? { opacity: 1, x: 0 } : {}}
-              transition={{ duration: 0.6, delay: 0.4 }}
-              className="relative p-4 rounded-xl bg-white border-2 border-[#1c3ff9] shadow-lg min-w-[320px] snap-start flex-shrink-0 hover:shadow-xl transition-all duration-300"
-              data-testid="card-solution-impact-mobile"
-            >
-              <div className="absolute top-2 right-2 px-2 py-1 rounded-full bg-[#1c3ff9] text-[9px] font-bold text-white shadow-lg">
-                📈 ROI Immédiat
-              </div>
-              
-              <h3 className="text-base font-bold text-[#1c3ff9] mb-3 mt-3">
-                AVEC KAPTA
-              </h3>
-              
-              <div className="space-y-3">
-                <div className="bg-[#1c3ff9]/5 rounded-lg p-3 border border-[#1c3ff9]/10">
-                  <div className="flex items-center gap-2 mb-1">
-                    <span className="text-sm">🎯</span>
-                    <h4 className="font-bold text-gray-800 text-sm">Clients récupérés</h4>
-                  </div>
-                  <p className="text-xs text-gray-600">+127% d'appels = 20-40 nouveaux clients/mois</p>
-                </div>
-                
-                <div className="bg-[#1c3ff9]/5 rounded-lg p-3 border border-[#1c3ff9]/10">
-                  <div className="flex items-center gap-2 mb-1">
-                    <span className="text-sm">💎</span>
-                    <h4 className="font-bold text-gray-800 text-sm">ROI calculé</h4>
-                  </div>
-                  <p className="text-xs text-gray-600">Investissement récupéré en 1-2 semaines</p>
-                </div>
-                
-                <div className="bg-[#1c3ff9]/5 rounded-lg p-3 border border-[#1c3ff9]/10">
-                  <div className="flex items-center gap-2 mb-1">
-                    <span className="text-sm">🚀</span>
-                    <h4 className="font-bold text-gray-800 text-sm">Effet boule de neige</h4>
-                  </div>
-                  <p className="text-xs text-gray-600">Plus d'avis = meilleur classement = plus de clients</p>
-                </div>
-              </div>
-            </motion.div>
-          </div>
-          
-          {/* Scroll indicator for mobile */}
-          <div className="md:hidden flex flex-col items-center mt-2">
-            <motion.div
-              animate={{ x: [0, 8, 0] }}
-              transition={{ duration: 2, repeat: Infinity }}
-              className="flex items-center gap-1 text-[#A1A1AA] text-xs mb-2"
-            >
-              <span>Glissez</span>
-              <ArrowRight className="w-3 h-3" />
-            </motion.div>
-            
-            {/* Progress track */}
-            <div className="relative w-16 h-1 bg-gray-200 rounded-full overflow-hidden">
-              <div 
-                className="scroll-progress-indicator absolute top-0 w-3 h-1 bg-[#1c3ff9] rounded-full transition-all duration-200 ease-out shadow-sm"
-                style={{ left: '0%' }}
-              />
-            </div>
-          </div>
-
-          {/* Desktop: Original grid layout - Design épuré */}
+        <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+          {/* Sans optimisation */}
           <motion.div 
-            initial={{ opacity: 0, x: -50 }}
-            animate={isInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="hidden md:block relative p-4 md:p-5 rounded-2xl bg-white border border-gray-200 shadow-lg hover:shadow-xl transition-all duration-300"
-            data-testid="card-problem-impact"
+            initial={{ opacity: 0, y: 20 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.5 }}
+            className="bg-gray-50 rounded-xl p-6 border border-gray-200"
           >
-            <div className="absolute top-2 md:top-3 right-2 md:right-3 px-2 py-0.5 rounded-full bg-gray-100 text-[10px] font-medium text-gray-600 border border-gray-200">
-              💸 Perte quotidienne
+            <div className="flex items-center gap-3 mb-4">
+              <div className="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center text-lg">
+                📉
+              </div>
+              <h3 className="text-lg font-bold text-[#0A0A0A]">Sans optimisation</h3>
             </div>
             
-            <h3 className="text-base md:text-lg font-bold text-gray-800 mb-3 md:mb-4 mt-3">
-              SANS OPTIMISATION
-            </h3>
-            
-            <div className="space-y-2.5 md:space-y-3">
-              <div className="bg-gray-50 rounded-lg p-2.5 border border-gray-100">
-                <div className="flex items-center gap-2 mb-1">
-                  <div className="w-6 h-6 rounded-full bg-gray-100 flex items-center justify-center">
-                    <span className="text-sm">📉</span>
-                  </div>
-                  <h4 className="font-bold text-gray-800 text-sm">Clients perdus</h4>
-                </div>
-                <p className="text-xs text-gray-600">15-30 clients/mois choisissent vos concurrents mieux classés</p>
-              </div>
-              
-              <div className="bg-gray-50 rounded-lg p-2.5 border border-gray-100">
-                <div className="flex items-center gap-2 mb-1">
-                  <div className="w-6 h-6 rounded-full bg-gray-100 flex items-center justify-center">
-                    <span className="text-sm">💰</span>
-                  </div>
-                  <h4 className="font-bold text-gray-800 text-sm">Manque à gagner</h4>
-                </div>
-                <p className="text-xs text-gray-600">3 000€ à 15 000€ de CA perdu par mois selon votre secteur</p>
-              </div>
-              
-              <div className="bg-gray-50 rounded-lg p-2.5 border border-gray-100">
-                <div className="flex items-center gap-2 mb-1">
-                  <div className="w-6 h-6 rounded-full bg-gray-100 flex items-center justify-center">
-                    <span className="text-sm">⏰</span>
-                  </div>
-                  <h4 className="font-bold text-gray-800 text-sm">Temps perdu</h4>
-                </div>
-                <p className="text-xs text-gray-600">Chaque mois d'attente = 6 mois de plus pour rattraper</p>
-              </div>
-            </div>
+            <ul className="space-y-3 text-sm text-[#52525B]">
+              <li className="flex items-start gap-2">
+                <X className="w-4 h-4 text-gray-400 mt-0.5 flex-shrink-0" />
+                <span>15-30 clients/mois perdus au profit de concurrents</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <X className="w-4 h-4 text-gray-400 mt-0.5 flex-shrink-0" />
+                <span>3 000€ à 15 000€ de CA perdu par mois</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <X className="w-4 h-4 text-gray-400 mt-0.5 flex-shrink-0" />
+                <span>Chaque mois d'attente = 6 mois pour rattraper</span>
+              </li>
+            </ul>
           </motion.div>
-          
+
+          {/* Avec Kapta */}
           <motion.div 
-            initial={{ opacity: 0, x: 50 }}
-            animate={isInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            className="hidden md:block relative p-4 md:p-5 rounded-2xl bg-white border-2 border-[#1c3ff9] shadow-lg hover:shadow-xl transition-all duration-300"
-            data-testid="card-solution-impact"
+            initial={{ opacity: 0, y: 20 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="bg-[#1c3ff9]/5 rounded-xl p-6 border-2 border-[#1c3ff9]/20"
           >
-            <div className="absolute top-2 md:top-3 right-2 md:right-3 px-2 py-0.5 rounded-full bg-[#1c3ff9] text-[10px] font-bold text-white shadow-lg">
-              📈 ROI Immédiat
+            <div className="flex items-center gap-3 mb-4">
+              <div className="w-10 h-10 rounded-full bg-[#1c3ff9] flex items-center justify-center text-lg">
+                📈
+              </div>
+              <h3 className="text-lg font-bold text-[#1c3ff9]">Avec Kapta</h3>
             </div>
             
-            <h3 className="text-base md:text-lg font-bold text-[#1c3ff9] mb-3 md:mb-4 mt-3">
-              AVEC KAPTA
-            </h3>
-            
-            <div className="space-y-2.5 md:space-y-3">
-              <div className="bg-[#1c3ff9]/5 rounded-lg p-2.5 border border-[#1c3ff9]/10">
-                <div className="flex items-center gap-2 mb-1">
-                  <div className="w-6 h-6 rounded-full bg-[#1c3ff9]/10 flex items-center justify-center">
-                    <span className="text-sm">🎯</span>
-                  </div>
-                  <h4 className="font-bold text-gray-800 text-sm">Clients récupérés</h4>
-                </div>
-                <p className="text-xs text-gray-600">+127% d'appels en moyenne = 20-40 nouveaux clients/mois</p>
-              </div>
-              
-              <div className="bg-[#1c3ff9]/5 rounded-lg p-2.5 border border-[#1c3ff9]/10">
-                <div className="flex items-center gap-2 mb-1">
-                  <div className="w-6 h-6 rounded-full bg-[#1c3ff9]/10 flex items-center justify-center">
-                    <span className="text-sm">💎</span>
-                  </div>
-                  <h4 className="font-bold text-gray-800 text-sm">ROI calculé</h4>
-                </div>
-                <p className="text-xs text-gray-600">Investissement récupéré en 1-2 semaines selon votre panier moyen</p>
-              </div>
-              
-              <div className="bg-[#1c3ff9]/5 rounded-lg p-2.5 border border-[#1c3ff9]/10">
-                <div className="flex items-center gap-2 mb-1">
-                  <div className="w-6 h-6 rounded-full bg-[#1c3ff9]/10 flex items-center justify-center">
-                    <span className="text-sm">🚀</span>
-                  </div>
-                  <h4 className="font-bold text-gray-800 text-sm">Effet boule de neige</h4>
-                </div>
-                <p className="text-xs text-gray-600">Plus d'avis positifs = meilleur classement = encore plus de clients</p>
-              </div>
-            </div>
+            <ul className="space-y-3 text-sm text-[#0A0A0A]">
+              <li className="flex items-start gap-2">
+                <Check className="w-4 h-4 text-[#1c3ff9] mt-0.5 flex-shrink-0" />
+                <span><strong>+127% d'appels</strong> = 20-40 nouveaux clients/mois</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <Check className="w-4 h-4 text-[#1c3ff9] mt-0.5 flex-shrink-0" />
+                <span><strong>ROI en 1-2 semaines</strong> selon votre panier moyen</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <Check className="w-4 h-4 text-[#1c3ff9] mt-0.5 flex-shrink-0" />
+                <span><strong>Effet boule de neige</strong> : plus d'avis = meilleur classement</span>
+              </li>
+            </ul>
           </motion.div>
         </div>
-        
-        {/* ROI Calculator */}
-        <motion.div 
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, delay: 0.6 }}
-          className="mt-6 md:mt-8 p-4 md:p-4 rounded-xl bg-white border border-[#1c3ff9]/20 shadow-lg"
-        >
-          <motion.div
-            initial={{ opacity: 0, y: 8 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-center mb-3 md:mb-3"
-          >
-            <h3 className="text-base md:text-base font-bold text-[#0A0A0A] mb-1">Calculateur d'impact</h3>
-            <p className="text-xs text-[#52525B]">Estimation basée sur nos données sectorielles</p>
-          </motion.div>
-          
-          {/* Layout mobile: 2 cartes sur la première ligne, 1 centrée sur la deuxième */}
-          <div className="space-y-3 md:space-y-0">
-            {/* Première ligne - 2 cartes */}
-            <div className="grid grid-cols-2 gap-3 md:hidden">
-              <motion.div
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={isInView ? { opacity: 1, scale: 1 } : {}}
-                transition={{ duration: 0.45, delay: 0.35 }}
-                className="text-center p-3 rounded-lg bg-[#1c3ff9]/5 border border-[#1c3ff9]/10"
-              >
-                <motion.p 
-                  initial={{ opacity: 0 }}
-                  animate={isInView ? { opacity: 1 } : {}}
-                  transition={{ duration: 0.4, delay: 0.8 }}
-                  className="text-xl font-bold text-[#1c3ff9] mb-1"
-                >
-                  350€
-                </motion.p>
-                <p className="text-xs text-[#52525B]">Investissement unique</p>
-              </motion.div>
-              <motion.div
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={isInView ? { opacity: 1, scale: 1 } : {}}
-                transition={{ duration: 0.45, delay: 0.5 }}
-                className="text-center p-3 rounded-lg bg-[#1c3ff9]/5 border border-[#1c3ff9]/10"
-              >
-                <motion.p 
-                  initial={{ opacity: 0 }}
-                  animate={isInView ? { opacity: 1 } : {}}
-                  transition={{ duration: 0.4, delay: 1.0 }}
-                  className="text-xl font-bold text-[#1c3ff9] mb-1"
-                >
-                  +25
-                </motion.p>
-                <p className="text-xs text-[#52525B]">Clients/mois en moyenne</p>
-              </motion.div>
-            </div>
-            
-            {/* Deuxième ligne - 1 carte centrée avec effet "=" */}
-            <div className="flex justify-center md:hidden">
-              <div className="flex items-center space-x-2">
-                <motion.div
-                  initial={{ opacity: 0, scale: 0 }}
-                  animate={isInView ? { opacity: 1, scale: 1 } : {}}
-                  transition={{ duration: 0.3, delay: 1.2 }}
-                  className="text-2xl font-bold text-[#1c3ff9]"
-                >
-                  =
-                </motion.div>
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={isInView ? { opacity: 1, scale: 1 } : {}}
-                  transition={{ duration: 0.45, delay: 1.05 }}
-                  className="text-center p-3 rounded-lg bg-[#1c3ff9]/5 border border-[#1c3ff9]/10 w-32"
-                >
-                  <motion.p 
-                    initial={{ opacity: 0 }}
-                    animate={isInView ? { opacity: 1 } : {}}
-                    transition={{ duration: 0.4, delay: 1.8 }}
-                    className="text-xl font-bold text-[#1c3ff9] mb-1"
-                  >
-                    ROI 10x
-                  </motion.p>
-                  <p className="text-xs text-[#52525B]">Retour sur investissement</p>
-                </motion.div>
-              </div>
-            </div>
-            
-            {/* Layout desktop - 3 cartes en ligne */}
-            <div className="hidden md:grid md:grid-cols-3 md:gap-3">
-              <motion.div
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={isInView ? { opacity: 1, scale: 1 } : {}}
-                transition={{ duration: 0.45, delay: 0.35 }}
-                className="text-center p-2.5 rounded-lg bg-[#1c3ff9]/5 border border-[#1c3ff9]/10"
-              >
-                <motion.p 
-                  initial={{ opacity: 0 }}
-                  animate={isInView ? { opacity: 1 } : {}}
-                  transition={{ duration: 0.4, delay: 0.8 }}
-                  className="text-lg font-bold text-[#1c3ff9] mb-0.5"
-                >
-                  350€
-                </motion.p>
-                <p className="text-xs text-[#52525B]">Investissement unique</p>
-              </motion.div>
-              <motion.div
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={isInView ? { opacity: 1, scale: 1 } : {}}
-                transition={{ duration: 0.45, delay: 0.5 }}
-                className="text-center p-2.5 rounded-lg bg-[#1c3ff9]/5 border border-[#1c3ff9]/10"
-              >
-                <motion.p 
-                  initial={{ opacity: 0 }}
-                  animate={isInView ? { opacity: 1 } : {}}
-                  transition={{ duration: 0.4, delay: 1.0 }}
-                  className="text-lg font-bold text-[#1c3ff9] mb-0.5"
-                >
-                  +25
-                </motion.p>
-                <p className="text-xs text-[#52525B]">Clients/mois en moyenne</p>
-              </motion.div>
-              <motion.div
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={isInView ? { opacity: 1, scale: 1 } : {}}
-                transition={{ duration: 0.45, delay: 0.65 }}
-                className="text-center p-2.5 rounded-lg bg-[#1c3ff9]/5 border border-[#1c3ff9]/10"
-              >
-                <motion.p 
-                  initial={{ opacity: 0 }}
-                  animate={isInView ? { opacity: 1 } : {}}
-                  transition={{ duration: 0.4, delay: 1.2 }}
-                  className="text-lg font-bold text-[#1c3ff9] mb-0.5"
-                >
-                  ROI 10x
-                </motion.p>
-                <p className="text-xs text-[#52525B]">Retour sur investissement</p>
-              </motion.div>
-            </div>
-          </div>
-        </motion.div>
       </div>
     </section>
   );
@@ -1784,60 +1501,148 @@ const CaseStudies = () => {
                 Nos <span className="text-[#1c3ff9]">réalisations vidéo</span>
               </h2>
               
-              <p className="text-sm md:text-base text-[#52525B] max-w-2xl mx-auto mb-6">
+              <p className="text-sm md:text-base text-[#52525B] max-w-2xl mx-auto">
                 Découvrez les vidéos professionnelles que nous créons et intégrons sur les fiches Google
               </p>
-              
-              {/* Bouton dépliable avec animation de pulsation */}
-              <motion.button
-                onClick={() => {
-                  setVideosExpanded(!videosExpanded);
-                  if (!videosExpanded) {
-                    Analytics.trackVideoInteraction('expand', 'Videos Section');
-                  } else {
-                    Analytics.trackVideoInteraction('collapse', 'Videos Section');
-                  }
-                }}
-                animate={!videosExpanded ? {
-                  scale: [1, 1.05, 1],
-                } : {}}
-                transition={{
-                  duration: 2,
-                  repeat: Infinity,
-                  repeatDelay: 1
-                }}
-                className="inline-flex items-center gap-2 px-5 md:px-6 py-2.5 md:py-3 bg-[#1c3ff9] hover:bg-[#1534d4] text-white rounded-full font-semibold text-sm transition-all duration-300 shadow-lg hover:shadow-xl btn-shimmer group relative"
-              >
-                {/* Effet de pulsation visuel autour du bouton */}
-                {!videosExpanded && (
-                  <motion.div
-                    className="absolute inset-0 rounded-full border-2 border-[#1c3ff9]"
-                    animate={{
-                      scale: [1, 1.3, 1.3],
-                      opacity: [0.5, 0, 0]
-                    }}
-                    transition={{
-                      duration: 2,
-                      repeat: Infinity,
-                      repeatDelay: 1
-                    }}
-                  />
-                )}
-                
-                <Camera className="w-4 h-4" />
-                <span>{videosExpanded ? 'Masquer les vidéos' : 'Voir nos 6 vidéos'}</span>
-                <motion.div
-                  animate={{ rotate: videosExpanded ? 180 : 0 }}
-                  transition={{ duration: 0.3 }}
-                >
-                  <ChevronDown className="w-4 h-4" />
-                </motion.div>
-              </motion.button>
             </div>
           </div>
         </motion.div>
         
-        {/* Conteneur des vidéos avec animation fluide */}
+        {/* Afficher 3 vidéos directement - Desktop */}
+        <div className="hidden md:grid md:grid-cols-3 gap-4 lg:gap-6 px-4 mb-6">
+          {VIDEO_ITEMS.slice(0, 3).map((video, index) => (
+            <motion.div
+              key={video.id}
+              initial={{ opacity: 0, y: 20 }}
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.4, delay: index * 0.1 }}
+              className="group cursor-pointer"
+              onClick={() => {
+                Analytics.trackVideoInteraction('open', `Video ${video.id}`);
+                setSelectedVideo(video.videoId);
+              }}
+            >
+              <div className="relative bg-white rounded-xl overflow-hidden shadow-lg border border-gray-100 hover:border-[#1c3ff9]/30 hover:shadow-xl transition-all duration-300">
+                <div className="relative aspect-video overflow-hidden bg-gray-100">
+                  <img 
+                    src={`https://img.youtube.com/vi/${video.videoId}/hqdefault.jpg`}
+                    alt={`Vidéo professionnelle KAPTA Media ${video.id}`}
+                    width="480"
+                    height="360"
+                    loading="lazy"
+                    decoding="async"
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent group-hover:from-black/60 transition-all duration-300"></div>
+                  
+                  {/* Bouton play */}
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <div className="w-14 h-14 bg-[#1c3ff9] rounded-full flex items-center justify-center shadow-xl group-hover:scale-110 group-hover:bg-[#1534d4] transition-all duration-300">
+                      <div className="w-0 h-0 border-l-[8px] border-l-white border-y-[6px] border-y-transparent ml-1"></div>
+                    </div>
+                  </div>
+                  
+                  {/* Badge numéro */}
+                  <div className="absolute top-3 right-3 w-8 h-8 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center shadow-md">
+                    <span className="text-xs font-bold text-[#1c3ff9]">{video.id}</span>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+        
+        {/* Afficher 3 vidéos directement - Mobile scroll */}
+        <div className="md:hidden mb-6">
+          <div 
+            className="flex gap-4 overflow-x-auto pb-4 snap-x snap-mandatory scrollbar-hide px-4 -mx-4"
+            onScroll={(e) => {
+              updateScrollProgress(e.currentTarget, videoProgressRef);
+            }}
+          >
+            {VIDEO_ITEMS.slice(0, 3).map((video, index) => (
+              <motion.div
+                key={video.id}
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={isInView ? { opacity: 1, scale: 1 } : {}}
+                transition={{ duration: 0.3, delay: index * 0.05 }}
+                className="min-w-[280px] snap-start group cursor-pointer"
+                onClick={() => {
+                  Analytics.trackVideoInteraction('open', `Video ${video.id}`);
+                  setSelectedVideo(video.videoId);
+                }}
+              >
+                <div className="relative bg-white rounded-xl overflow-hidden shadow-lg border border-gray-100">
+                  <div className="relative aspect-video overflow-hidden bg-gray-100">
+                    <img 
+                      src={`https://img.youtube.com/vi/${video.videoId}/hqdefault.jpg`}
+                      alt={`Vidéo professionnelle KAPTA Media ${video.id}`}
+                      width="480"
+                      height="360"
+                      loading="lazy"
+                      decoding="async"
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent"></div>
+                    
+                    {/* Bouton play */}
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <div className="w-12 h-12 bg-[#1c3ff9] rounded-full flex items-center justify-center shadow-xl">
+                        <div className="w-0 h-0 border-l-[7px] border-l-white border-y-[5px] border-y-transparent ml-1"></div>
+                      </div>
+                    </div>
+                    
+                    {/* Badge numéro */}
+                    <div className="absolute top-2 right-2 w-7 h-7 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center shadow-md">
+                      <span className="text-xs font-bold text-[#1c3ff9]">{video.id}</span>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+          
+          {/* Indicateur de scroll mobile */}
+          <div className="flex flex-col items-center mt-4 space-y-2">
+            <div className="w-32 h-1 bg-gray-200 rounded-full overflow-hidden">
+              <div 
+                ref={videoProgressRef}
+                className="h-full bg-[#1c3ff9] rounded-full transition-all duration-200 ease-out"
+                style={{ width: '0%' }}
+              />
+            </div>
+            <div className="flex items-center gap-1 text-[#A1A1AA] text-xs">
+              <span>Glissez pour voir plus</span>
+              <ArrowRight className="w-3 h-3" />
+            </div>
+          </div>
+        </div>
+        
+        {/* Bouton pour voir les 3 autres vidéos */}
+        <div className="text-center mb-8">
+          <motion.button
+            onClick={() => {
+              setVideosExpanded(!videosExpanded);
+              if (!videosExpanded) {
+                Analytics.trackVideoInteraction('expand', 'Videos Section');
+              } else {
+                Analytics.trackVideoInteraction('collapse', 'Videos Section');
+              }
+            }}
+            className="inline-flex items-center gap-2 px-6 py-3 bg-white border-2 border-[#1c3ff9] text-[#1c3ff9] hover:bg-[#1c3ff9] hover:text-white rounded-full font-semibold text-sm transition-all duration-300 shadow-md hover:shadow-lg group"
+          >
+            <Camera className="w-4 h-4" />
+            <span>{videosExpanded ? 'Masquer les 3 autres vidéos' : 'Voir les 3 autres vidéos'}</span>
+            <motion.div
+              animate={{ rotate: videosExpanded ? 180 : 0 }}
+              transition={{ duration: 0.3 }}
+            >
+              <ChevronDown className="w-4 h-4" />
+            </motion.div>
+          </motion.button>
+        </div>
+        
+        {/* Conteneur des 3 vidéos supplémentaires avec animation fluide */}
         <motion.div
           initial={false}
           animate={{
@@ -1849,8 +1654,8 @@ const CaseStudies = () => {
         >
           {videosExpanded && <div className="pb-4 md:pb-6">
             {/* Grille responsive pour desktop, scroll horizontal pour mobile */}
-            <div className="hidden md:grid md:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6 px-4">
-              {VIDEO_ITEMS.map((video, index) => (
+            <div className="hidden md:grid md:grid-cols-3 gap-4 lg:gap-6 px-4">
+              {VIDEO_ITEMS.slice(3, 6).map((video, index) => (
                 <motion.div
                   key={video.id}
                   initial={{ opacity: 0, y: 20 }}
@@ -1896,11 +1701,8 @@ const CaseStudies = () => {
             <div className="md:hidden">
               <div 
                 className="flex gap-4 overflow-x-auto pb-4 snap-x snap-mandatory scrollbar-hide px-4 -mx-4"
-                onScroll={(e) => {
-                  updateScrollProgress(e.currentTarget, videoProgressRef);
-                }}
               >
-                {VIDEO_ITEMS.map((video, index) => (
+                {VIDEO_ITEMS.slice(3, 6).map((video, index) => (
                   <motion.div
                     key={video.id}
                     initial={{ opacity: 0, scale: 0.9 }}
@@ -1940,21 +1742,6 @@ const CaseStudies = () => {
                     </div>
                   </motion.div>
                 ))}
-              </div>
-              
-              {/* Indicateur de scroll mobile */}
-              <div className="flex flex-col items-center mt-4 space-y-2">
-                <div className="w-32 h-1 bg-gray-200 rounded-full overflow-hidden">
-                  <div 
-                    ref={videoProgressRef}
-                    className="h-full bg-[#1c3ff9] rounded-full transition-all duration-200 ease-out"
-                    style={{ width: '0%' }}
-                  />
-                </div>
-                <div className="flex items-center gap-1 text-[#A1A1AA] text-xs">
-                  <span>Glissez pour voir plus</span>
-                  <ArrowRight className="w-3 h-3" />
-                </div>
               </div>
             </div>
           </div>}
@@ -2045,6 +1832,7 @@ const Mechanism = () => {
       id: "G",
       title: "Google Domination",
       icon: Radar,
+      gradient: "from-[#1c3ff9] to-[#1534d4]",
       description:
         "Optimisation technique totale de votre fiche : catégories, mots-clés, horaires et structure locale. On aligne votre fiche avec ce que Google veut montrer en priorité.",
     },
@@ -2052,6 +1840,7 @@ const Mechanism = () => {
       id: "V",
       title: "Vidéo Magnétique",
       icon: Camera,
+      gradient: "from-[#1c3ff9] to-[#1534d4]",
       description:
         "On vient filmer votre savoir-faire sur place. Une vidéo verticale professionnelle, claire et crédible, qui déclenche l'appel avant même la comparaison des prix.",
     },
@@ -2059,6 +1848,7 @@ const Mechanism = () => {
       id: "A",
       title: "Avis Automatisés",
       icon: Nfc,
+      gradient: "from-[#1c3ff9] to-[#1534d4]",
       description:
         "On installe une plaque NFC intelligente pour simplifier la collecte d'avis. Vos clients satisfaits laissent un avis en quelques secondes, sans friction.",
     },
@@ -2068,13 +1858,11 @@ const Mechanism = () => {
     <section 
       id="mechanism"
       ref={ref}
-      className="py-4 md:py-8 bg-white dark:bg-[#070A11] relative"
+      className="py-8 md:py-12 bg-white dark:bg-[#070A11] relative overflow-hidden"
       data-testid="mechanism-section"
     >
-      {/* Floating brand pins */}
-      <div className="absolute top-20 left-10 w-12 h-12 opacity-5 hidden md:block">
-        <MapPin className="w-full h-full text-[#1c3ff9]" />
-      </div>
+      {/* Background grid subtil */}
+      <div className="absolute inset-0 bg-[linear-gradient(rgba(28,63,249,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(28,63,249,0.02)_1px,transparent_1px)] bg-[size:40px_40px]" />
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         <SectionHeader 
@@ -2086,8 +1874,9 @@ const Mechanism = () => {
         />
         
         <div className="relative">
+          {/* Mobile - Scroll horizontal */}
           <div 
-            className="md:hidden flex gap-3 overflow-x-auto pb-4 snap-x snap-mandatory scrollbar-hide"
+            className="md:hidden flex gap-4 overflow-x-auto pb-4 snap-x snap-mandatory scrollbar-hide -mx-4 px-4"
             onScroll={(e) => updateScrollProgress(e.currentTarget, mobileProgressRef)}
           >
             {steps.map((step, i) => (
@@ -2096,30 +1885,50 @@ const Mechanism = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={isInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.45, delay: i * 0.1 }}
-                className="relative min-w-[86%] snap-start p-4 rounded-2xl bg-white border-2 border-[#E4E4E7]"
+                className="relative min-w-[85%] snap-start"
                 data-testid={`step-${step.id}`}
               >
-                <div className="w-10 h-10 rounded-xl flex items-center justify-center mb-3 bg-[#F8F9FA]">
-                  <step.icon className="w-5 h-5 text-[#1c3ff9]" />
+                {/* Card simple et propre */}
+                <div className="relative p-6 rounded-xl bg-white border border-gray-100 shadow-lg h-[300px] flex flex-col">
+                  {/* Badge pilier + Icône sur la même ligne */}
+                  <div className="flex items-center justify-between mb-4">
+                    <div className="inline-flex items-center gap-2 px-3 py-1 bg-[#1c3ff9]/10 rounded-full">
+                      <span className="text-xs font-mono text-[#1c3ff9] font-semibold">PILIER {i + 1}</span>
+                    </div>
+                    
+                    {/* Icône avec gradient */}
+                    <div className={`w-12 h-12 rounded-xl flex items-center justify-center bg-gradient-to-br ${step.gradient} shadow-md`}>
+                      <step.icon className="w-6 h-6 text-white" />
+                    </div>
+                  </div>
+                  
+                  {/* Badge lettre G/V/A + Titre */}
+                  <div className="flex items-center gap-2 mb-3">
+                    <div className={`w-8 h-8 rounded-lg bg-gradient-to-br ${step.gradient} flex items-center justify-center shadow-sm`}>
+                      <span className="text-white font-bold text-sm">{step.id}</span>
+                    </div>
+                    <h3 className="text-base font-bold text-[#0A0A0A]">{step.title}</h3>
+                  </div>
+                  
+                  <p className="text-sm text-[#52525B] leading-relaxed flex-1">{step.description}</p>
                 </div>
-                <span className="font-mono text-[10px] text-[#1c3ff9] mb-1 block">[{step.id}]</span>
-                <h3 className="text-sm font-bold text-[#0A0A0A] mb-2">{step.title}</h3>
-                <p className="text-xs text-[#52525B] leading-relaxed">{step.description}</p>
               </motion.div>
             ))}
           </div>
 
-          <div className="md:hidden flex flex-col items-center mt-2 gap-2">
+          {/* Indicateur mobile */}
+          <div className="md:hidden flex flex-col items-center mt-4 gap-2">
             <div className="w-24 h-1 bg-gray-200 rounded-full overflow-hidden">
               <div
                 ref={mobileProgressRef}
-                className="h-full bg-[#1c3ff9] rounded-full transition-all duration-200 ease-out"
+                className="h-full bg-gradient-to-r from-[#1c3ff9] to-[#1534d4] rounded-full transition-all duration-200 ease-out"
                 style={{ width: "0%" }}
               />
             </div>
             <p className="text-xs text-[#A1A1AA]">Glissez pour voir les 3 piliers</p>
           </div>
 
+          {/* Desktop - Grille 3 colonnes */}
           <div className="hidden md:grid md:grid-cols-3 gap-6 relative z-10">
             {steps.map((step, i) => (
               <motion.div
@@ -2127,19 +1936,217 @@ const Mechanism = () => {
                 initial={{ opacity: 0, y: 30 }}
                 animate={isInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.5, delay: i * 0.12 }}
-                className="relative p-6 rounded-2xl bg-white border-2 border-[#E4E4E7] hover:border-[#1c3ff9] hover:shadow-glow-sm transition-all duration-300"
+                className="relative group"
                 data-testid={`step-${step.id}-desktop`}
               >
-                <div className="w-12 h-12 rounded-xl flex items-center justify-center mb-4 bg-[#F8F9FA]">
-                  <step.icon className="w-6 h-6 text-[#1c3ff9]" />
+                {/* Card simple et propre */}
+                <div className="relative p-8 rounded-xl bg-white border border-gray-100 shadow-lg hover:shadow-xl hover:border-[#1c3ff9]/20 transition-all duration-300">
+                  {/* Badge pilier + Icône sur la même ligne */}
+                  <div className="flex items-center justify-between mb-5">
+                    <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-[#1c3ff9]/10 rounded-full">
+                      <span className="text-xs font-mono text-[#1c3ff9] font-semibold">PILIER {i + 1}</span>
+                    </div>
+                    
+                    {/* Icône avec gradient */}
+                    <div className={`w-14 h-14 rounded-xl flex items-center justify-center bg-gradient-to-br ${step.gradient} shadow-md group-hover:shadow-lg transition-shadow duration-300`}>
+                      <step.icon className="w-7 h-7 text-white" />
+                    </div>
+                  </div>
+                  
+                  {/* Badge lettre G/V/A + Titre */}
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className={`w-10 h-10 rounded-lg bg-gradient-to-br ${step.gradient} flex items-center justify-center shadow-sm`}>
+                      <span className="text-white font-bold text-base">{step.id}</span>
+                    </div>
+                    <h3 className="text-xl font-bold text-[#0A0A0A] group-hover:text-[#1c3ff9] transition-colors duration-300">
+                      {step.title}
+                    </h3>
+                  </div>
+                  
+                  <p className="text-sm text-[#52525B] leading-relaxed">{step.description}</p>
                 </div>
-                <span className="font-mono text-xs text-[#1c3ff9] mb-2 block">[{step.id}]</span>
-                <h3 className="text-lg font-bold text-[#0A0A0A] mb-2">{step.title}</h3>
-                <p className="text-sm text-[#52525B] leading-relaxed">{step.description}</p>
               </motion.div>
             ))}
           </div>
         </div>
+      </div>
+    </section>
+  );
+};
+
+// Timeline Section - 14 jours - Style cohérent avec le branding
+const Timeline = () => {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const [activeIndex, setActiveIndex] = useState(0);
+  const scrollContainerRef = useRef(null);
+
+  // Handler pour détecter le scroll et mettre à jour l'index actif
+  const handleScroll = () => {
+    if (scrollContainerRef.current) {
+      const container = scrollContainerRef.current;
+      const scrollLeft = container.scrollLeft;
+      const cardWidth = container.scrollWidth / timelineSteps.length;
+      const newIndex = Math.round(scrollLeft / cardWidth);
+      setActiveIndex(newIndex);
+    }
+  };
+  
+  const timelineSteps = [
+    {
+      day: "J+1",
+      title: "Audit Gratuit",
+      description: "15 min par téléphone pour analyser votre fiche Google",
+      icon: Phone,
+    },
+    {
+      day: "J+2-3",
+      title: "Tournage",
+      description: "2h chez vous pour filmer et photographier votre activité",
+      icon: Camera,
+    },
+    {
+      day: "J+4-5",
+      title: "Optimisation",
+      description: "Montage vidéo, SEO de votre fiche et installation NFC",
+      icon: Radar,
+    },
+    {
+      day: "J+14",
+      title: "Résultats",
+      description: "+127% d'appels en moyenne, position améliorée",
+      icon: TrendingUp,
+    }
+  ];
+
+  return (
+    <section 
+      ref={ref}
+      className="py-8 md:py-12 bg-white dark:bg-[#070A11] relative overflow-hidden"
+      data-testid="timeline-section"
+    >
+      {/* Background grid */}
+      <div className="absolute inset-0 bg-[linear-gradient(rgba(28,63,249,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(28,63,249,0.03)_1px,transparent_1px)] bg-[size:40px_40px] dark:hidden" />
+      
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+        <SectionHeader 
+          number="05B"
+          label="Processus"
+          title="CONCRÈTEMENT,"
+          highlight="IL SE PASSE QUOI ?"
+          description="Pas de blabla. Voici exactement ce qui va se passer, jour par jour."
+        />
+        
+        {/* Timeline - Scroll horizontal mobile, grille desktop */}
+        <div className="relative">
+          {/* Desktop - Grille 4 colonnes */}
+          <div className="hidden md:grid md:grid-cols-4 gap-6">
+            {timelineSteps.map((step, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 30 }}
+                animate={isInView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                className="relative"
+              >
+                {/* Ligne de connexion */}
+                {index < timelineSteps.length - 1 && (
+                  <div className="absolute top-8 left-[calc(50%+2rem)] w-[calc(100%+1.5rem)] h-0.5 bg-gradient-to-r from-[#1c3ff9] to-[#1c3ff9]/30 z-0" />
+                )}
+                
+                <div className="relative z-10 bg-white rounded-xl p-5 shadow-lg border border-gray-100 hover:shadow-xl hover:border-[#1c3ff9]/20 transition-all duration-300">
+                  {/* Icône */}
+                  <div className="w-12 h-12 mx-auto mb-4 rounded-full bg-gradient-to-br from-[#1c3ff9] to-[#1534d4] flex items-center justify-center shadow-md">
+                    <step.icon className="w-6 h-6 text-white" />
+                  </div>
+                  
+                  {/* Badge jour */}
+                  <div className="text-center mb-3">
+                    <span className="inline-block px-3 py-1 bg-[#1c3ff9]/10 text-[#1c3ff9] text-xs font-bold rounded-full">
+                      {step.day}
+                    </span>
+                  </div>
+                  
+                  {/* Contenu */}
+                  <h3 className="text-base font-bold text-[#0A0A0A] mb-2 text-center">
+                    {step.title}
+                  </h3>
+                  <p className="text-xs text-[#52525B] text-center leading-relaxed">
+                    {step.description}
+                  </p>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+          
+          {/* Mobile - Scroll horizontal */}
+          <div className="md:hidden">
+            <div 
+              ref={scrollContainerRef}
+              onScroll={handleScroll}
+              className="flex gap-4 overflow-x-auto pb-4 snap-x snap-mandatory scrollbar-hide -mx-4 px-4"
+            >
+              {timelineSteps.map((step, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={isInView ? { opacity: 1, scale: 1 } : {}}
+                  transition={{ duration: 0.4, delay: index * 0.1 }}
+                  className="min-w-[75%] snap-start bg-white rounded-xl p-5 shadow-lg border border-gray-100 flex-shrink-0"
+                >
+                  {/* Icône */}
+                  <div className="w-12 h-12 mx-auto mb-4 rounded-full bg-gradient-to-br from-[#1c3ff9] to-[#1534d4] flex items-center justify-center shadow-md">
+                    <step.icon className="w-6 h-6 text-white" />
+                  </div>
+                  
+                  {/* Badge jour */}
+                  <div className="text-center mb-3">
+                    <span className="inline-block px-3 py-1 bg-[#1c3ff9]/10 text-[#1c3ff9] text-xs font-bold rounded-full">
+                      {step.day}
+                    </span>
+                  </div>
+                  
+                  {/* Contenu */}
+                  <h3 className="text-base font-bold text-[#0A0A0A] mb-2 text-center">
+                    {step.title}
+                  </h3>
+                  <p className="text-sm text-[#52525B] text-center leading-relaxed">
+                    {step.description}
+                  </p>
+                </motion.div>
+              ))}
+            </div>
+            
+            {/* Indicateur de scroll */}
+            <div className="flex items-center justify-center gap-2 mt-4">
+              {timelineSteps.map((_, index) => (
+                <div 
+                  key={index} 
+                  className={`rounded-full transition-all duration-300 ${
+                    index === activeIndex 
+                      ? 'w-6 h-2 bg-[#1c3ff9]' 
+                      : 'w-2 h-2 bg-gray-300'
+                  }`}
+                />
+              ))}
+            </div>
+          </div>
+        </div>
+        
+        {/* Badge garantie + CTA */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6, delay: 0.6 }}
+          className="text-center mt-10 md:mt-12"
+        >
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-[#10B981]/10 to-[#059669]/10 rounded-full border border-[#10B981]/20 mb-6">
+            <ShieldCheck className="w-4 h-4 text-[#10B981]" />
+            <span className="text-sm font-semibold text-[#0A0A0A]">
+              Garantie satisfait ou remboursé 30 jours
+            </span>
+          </div>
+        </motion.div>
       </div>
     </section>
   );
@@ -2222,12 +2229,12 @@ const Pricing = () => {
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
         >
-          <SectionHeader 
-            number="06"
-            label="Tarif"
-            title="TARIF PILOTE"
-            highlight="350€"
-            description=""
+        <SectionHeader 
+          number="06"
+          label="Tarif"
+          title="TARIF PILOTE"
+          highlight="490€"
+          description=""
           />
         </motion.div>
         
@@ -2273,13 +2280,22 @@ const Pricing = () => {
               viewport={{ once: false }}
               className="absolute -top-2.5 left-1/2 -translate-x-1/2 px-3 py-1 rounded-full bg-gradient-to-r from-[#1c3ff9] to-[#1534d4] text-white text-xs font-semibold shadow-lg"
             >
-              <span className="relative z-10">5 PLACES RESTANTES</span>
+              <span className="relative z-10">OFFRE PILOTE TOURS</span>
               <div className="absolute inset-0 rounded-full bg-white/20 animate-pulse" />
             </motion.div>
             
             <div className="relative z-10">
               <div className="text-center mb-4 sm:mb-5">
                 <p className="text-xs text-[#52525B] mb-1">Installation complète</p>
+                
+                {/* Badge Garantie visible */}
+                <div className="flex items-center justify-center gap-2 mb-2">
+                  <div className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-gradient-to-r from-[#10B981]/10 to-[#059669]/10 rounded-full border border-[#10B981]/30">
+                    <ShieldCheck className="w-3.5 h-3.5 text-[#10B981]" />
+                    <span className="text-xs font-semibold text-[#10B981]">Garantie 30 jours</span>
+                  </div>
+                </div>
+                
                 <div className="flex items-baseline justify-center gap-2">
                   <motion.span 
                     initial={{ scale: 0 }}
@@ -2287,14 +2303,14 @@ const Pricing = () => {
                     transition={{ duration: 0.6, delay: 0.8, type: "spring" }}
                     className="text-3xl sm:text-4xl font-bold text-[#0A0A0A] relative"
                   >
-                    350€
+                    490€
                     <div className="absolute -inset-2 bg-[#1c3ff9]/5 rounded-lg -z-10 animate-pulse" />
                   </motion.span>
                   <span className="text-sm text-[#52525B]">HT</span>
                 </div>
                 <p className="text-xs text-[#A1A1AA] mt-1">
-                  <span className="line-through opacity-60">790€</span>
-                  <span className="ml-2 text-[#10B981] font-semibold">-56%</span>
+                  <span className="line-through opacity-60">990€</span>
+                  <span className="ml-2 text-[#10B981] font-semibold">-51%</span>
                 </p>
               </div>
               
@@ -2367,6 +2383,354 @@ const Pricing = () => {
   );
 };
 
+// Testimonials Section - iPhone avec conversations auto-cycle
+const CYCLE_DURATION = 10000; // ms par conversation
+
+const CONVERSATIONS = [
+  {
+    init: "MD",
+    name: "Marc D.",
+    business: "Garage automobile",
+    location: "Tours Sud",
+    msgs: [
+      { who: "them", text: "En 2 semaines, je suis passé de la page 2 à la position N°1.", time: "J-14" },
+      { who: "us", text: "C'est exactement ce qu'on vise. Les appels ont suivi ?", time: "Lu ✓✓" },
+      { who: "them", text: "Les appels ont explosé, je dois refuser des clients maintenant. +220% d'appels.", time: "J-7" }
+    ]
+  },
+  {
+    init: "SL",
+    name: "Sophie L.",
+    business: "Salon de coiffure",
+    location: "Tours Nord",
+    msgs: [
+      { who: "them", text: "La vidéo fait toute la différence. Les clients me disent qu'ils m'ont choisie grâce à elle.", time: "J-10" },
+      { who: "us", text: "C'est le but — créer la confiance avant même l'appel.", time: "Lu ✓✓" },
+      { who: "them", text: "Investissement rentabilisé en 10 jours. +180% d'appels.", time: "J-5" }
+    ]
+  },
+  {
+    init: "TB",
+    name: "Thomas B.",
+    business: "Restaurant",
+    location: "Tours Centre",
+    msgs: [
+      { who: "them", text: "Enfin une solution qui marche. Fini de payer des pubs Google Ads qui ne convertissent pas.", time: "J-20" },
+      { who: "us", text: "Google Maps, c'est du trafic local qualifié. Pas de budget pub.", time: "Lu ✓✓" },
+      { who: "them", text: "Là, ce sont des vrais clients locaux. +160% d'appels.", time: "J-12" }
+    ]
+  }
+];
+
+const Testimonials = () => {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [progress, setProgress] = useState(0);
+  const [msgs, setMsgs] = useState([]);
+  const [msgKey, setMsgKey] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
+  const timerRef = useRef(null);
+  const startRef = useRef(null);
+  const rafRef = useRef(null);
+  const pausedProgressRef = useRef(0);
+
+  const showConvo = (idx) => {
+    setActiveIndex(idx);
+    setMsgs([]);
+    setProgress(0);
+    pausedProgressRef.current = 0;
+    setIsPaused(false);
+    setTimeout(() => {
+      setMsgs(CONVERSATIONS[idx].msgs);
+      setMsgKey(k => k + 1);
+    }, 50);
+  };
+
+  // Progress bar via requestAnimationFrame
+  const startProgress = (idx, resumeFrom = 0) => {
+    cancelAnimationFrame(rafRef.current);
+    clearTimeout(timerRef.current);
+    startRef.current = performance.now() - (resumeFrom * CYCLE_DURATION / 100);
+    
+    const tick = (now) => {
+      if (isPaused) {
+        pausedProgressRef.current = progress;
+        return;
+      }
+      
+      const elapsed = now - startRef.current;
+      const pct = Math.min((elapsed / CYCLE_DURATION) * 100, 100);
+      setProgress(pct);
+      
+      if (pct < 100) {
+        rafRef.current = requestAnimationFrame(tick);
+      } else {
+        timerRef.current = setTimeout(() => {
+          const next = (idx + 1) % CONVERSATIONS.length;
+          showConvo(next);
+          startProgress(next);
+        }, 200);
+      }
+    };
+    
+    rafRef.current = requestAnimationFrame(tick);
+  };
+
+  // Toggle pause/play
+  const togglePause = () => {
+    setIsPaused(prev => !prev);
+  };
+
+  // Effect pour gérer la pause/reprise
+  useEffect(() => {
+    if (isPaused) {
+      cancelAnimationFrame(rafRef.current);
+      clearTimeout(timerRef.current);
+      pausedProgressRef.current = progress;
+    } else if (pausedProgressRef.current > 0) {
+      startProgress(activeIndex, pausedProgressRef.current);
+    }
+  }, [isPaused]);
+
+  useEffect(() => {
+    showConvo(0);
+    startProgress(0);
+    
+    return () => {
+      cancelAnimationFrame(rafRef.current);
+      clearTimeout(timerRef.current);
+    };
+  }, []);
+
+  const currentConvo = CONVERSATIONS[activeIndex];
+  const nextIdx = (activeIndex + 1) % CONVERSATIONS.length;
+
+  return (
+    <section 
+      ref={ref}
+      className="py-12 md:py-20 bg-white dark:bg-[#070A11] relative overflow-hidden"
+      data-testid="testimonials-section"
+    >
+      {/* Background grid */}
+      <div className="absolute inset-0 bg-[linear-gradient(rgba(28,63,249,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(28,63,249,0.03)_1px,transparent_1px)] bg-[size:40px_40px] dark:hidden" />
+      
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+        <SectionHeader 
+          number="07"
+          label="Témoignages"
+          title="LES VRAIES"
+          highlight="CONVERSATIONS"
+          description="Pas de témoignages formatés. Ce que nos clients disent vraiment après le déploiement."
+        />
+        
+        <div className="flex flex-col md:flex-row items-center gap-12 md:gap-16">
+          
+          {/* Texte gauche */}
+          <motion.div
+            initial={{ opacity: 0, x: -30 }}
+            animate={isInView ? { opacity: 1, x: 0 } : {}}
+            transition={{ duration: 0.6 }}
+            className="flex-1 max-w-md w-full"
+          >
+            <p className="text-sm text-[#52525B] leading-relaxed mb-6">
+              Pas de témoignages formatés.
+              <br/>
+              <span className="font-semibold text-[#0A0A0A]">Ce qu'ils disent vraiment.</span>
+            </p>
+
+            {/* Bouton Pause/Play - Desktop uniquement */}
+            <div className="hidden md:flex items-center justify-between mb-4">
+              <button
+                onClick={togglePause}
+                className="flex items-center gap-2 px-4 py-2 bg-[#1c3ff9]/10 hover:bg-[#1c3ff9]/20 text-[#1c3ff9] rounded-full transition-all duration-200 text-sm font-semibold"
+              >
+                {isPaused ? (
+                  <>
+                    <Play className="w-4 h-4" />
+                    Reprendre
+                  </>
+                ) : (
+                  <>
+                    <Pause className="w-4 h-4" />
+                    Pause
+                  </>
+                )}
+              </button>
+              <span className="text-xs text-[#A1A1AA]">
+                {activeIndex + 1} / {CONVERSATIONS.length}
+              </span>
+            </div>
+
+            {/* Indicateurs de progression - Desktop uniquement */}
+            <div className="hidden md:flex gap-2 mb-4">
+              {CONVERSATIONS.map((_, i) => (
+                <div
+                  key={i}
+                  className="flex-1 h-1 bg-gray-200 rounded-full overflow-hidden cursor-pointer"
+                  onClick={() => { showConvo(i); startProgress(i); }}
+                >
+                  <div
+                    className="h-full bg-[#1c3ff9] rounded-full transition-all"
+                    style={{
+                      width: i < activeIndex ? '100%' : i === activeIndex ? `${progress}%` : '0%',
+                      transition: i === activeIndex ? 'none' : 'width 0.3s'
+                    }}
+                  />
+                </div>
+              ))}
+            </div>
+
+            {/* Nom actif - Desktop uniquement */}
+            <div className="hidden md:flex items-center gap-3">
+              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#1c3ff9] to-[#1534d4] flex items-center justify-center text-white font-bold text-sm">
+                {currentConvo.init}
+              </div>
+              <div>
+                <p className="font-bold text-[#0A0A0A] text-sm">{currentConvo.name}</p>
+                <p className="text-xs text-[#52525B]">{currentConvo.business} · {currentConvo.location}</p>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* iPhone à droite */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={isInView ? { opacity: 1, scale: 1 } : {}}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="flex-shrink-0 w-full max-w-[320px]"
+          >
+            <div className="bg-[#0A0A0A] rounded-[42px] border-[5.5px] border-[#1E1E1E] overflow-hidden shadow-2xl">
+              {/* Notch */}
+              <div className="h-7 bg-[#0A0A0A] flex items-center justify-center">
+                <div className="w-20 h-1.5 bg-[#1A1A1A] rounded-full" />
+              </div>
+
+              {/* Barre de contact */}
+              <div className="bg-[#111] px-4 py-3 flex items-center gap-3 border-b border-white/5">
+                <div className="w-8 h-8 rounded-full bg-[#1c3ff9]/20 flex items-center justify-center text-[#1c3ff9] font-bold text-xs flex-shrink-0">
+                  {currentConvo.init}
+                </div>
+                <div className="flex-1 min-w-0">
+                  <p className="text-white text-xs font-bold truncate">{currentConvo.name}</p>
+                  <p className="text-[#3A3] text-[10px] flex items-center gap-1">
+                    <span className="w-1 h-1 rounded-full bg-[#3A3]" />
+                    En ligne
+                  </p>
+                </div>
+              </div>
+
+              {/* Messages */}
+              <div className="bg-[#0F0F0F] px-3 py-4 h-[320px] flex flex-col gap-2 overflow-hidden" key={msgKey}>
+                {msgs.map((m, i) => (
+                  <div
+                    key={i}
+                    className={`max-w-[82%] px-3 py-2 rounded-2xl text-xs leading-relaxed ${
+                      m.who === "them"
+                        ? "bg-[#1E1E1E] text-[#C8C8C8] rounded-bl-sm self-start"
+                        : "bg-[#1c3ff9] text-white rounded-br-sm self-end font-medium"
+                    }`}
+                    style={{
+                      opacity: 0,
+                      transform: 'translateY(8px)',
+                      animation: `fadeInUp 0.4s ${i * 0.2}s forwards`
+                    }}
+                  >
+                    {m.text}
+                    <div className={`text-[9px] mt-1 ${m.who === "them" ? "text-[#444]" : "text-white/40"}`}>
+                      {m.time}
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              {/* Barre de progression en bas */}
+              <div className="bg-[#111] px-4 py-3 flex flex-col gap-2">
+                <div className="h-0.5 bg-white/10 rounded-full overflow-hidden">
+                  <div
+                    className="h-full bg-[#1c3ff9] rounded-full"
+                    style={{ width: `${progress}%`, transition: 'none' }}
+                  />
+                </div>
+                <div className="flex items-center justify-between text-[9px]">
+                  <span className="text-white/40 font-bold">{currentConvo.business}</span>
+                  <span className="text-white/30">Suivant : {CONVERSATIONS[nextIdx].name.split(" ")[0]} →</span>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+
+        </div>
+
+        {/* Contrôles mobile - Sous l'iPhone */}
+        <div className="md:hidden mt-8 w-full max-w-[320px] mx-auto">
+          {/* Indicateurs de progression */}
+          <div className="flex gap-2 mb-4">
+            {CONVERSATIONS.map((_, i) => (
+              <div
+                key={i}
+                className="flex-1 h-1 bg-gray-200 rounded-full overflow-hidden"
+                onClick={() => { showConvo(i); startProgress(i); }}
+              >
+                <div
+                  className="h-full bg-[#1c3ff9] rounded-full transition-all"
+                  style={{
+                    width: i < activeIndex ? '100%' : i === activeIndex ? `${progress}%` : '0%',
+                    transition: i === activeIndex ? 'none' : 'width 0.3s'
+                  }}
+                />
+              </div>
+            ))}
+          </div>
+
+          {/* Bouton Pause/Play et compteur */}
+          <div className="flex items-center justify-between">
+            <button
+              onClick={togglePause}
+              className="flex items-center gap-2 px-4 py-2 bg-[#1c3ff9]/10 hover:bg-[#1c3ff9]/20 text-[#1c3ff9] rounded-full transition-all duration-200 text-sm font-semibold"
+            >
+              {isPaused ? (
+                <>
+                  <Play className="w-4 h-4" />
+                  Reprendre
+                </>
+              ) : (
+                <>
+                  <Pause className="w-4 h-4" />
+                  Pause
+                </>
+              )}
+            </button>
+            <span className="text-xs text-[#A1A1AA]">
+              {activeIndex + 1} / {CONVERSATIONS.length}
+            </span>
+          </div>
+
+          {/* Nom actif */}
+          <div className="flex items-center gap-3 mt-4">
+            <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#1c3ff9] to-[#1534d4] flex items-center justify-center text-white font-bold text-sm">
+              {currentConvo.init}
+            </div>
+            <div>
+              <p className="font-bold text-[#0A0A0A] text-sm">{currentConvo.name}</p>
+              <p className="text-xs text-[#52525B]">{currentConvo.business} · {currentConvo.location}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <style jsx>{`
+        @keyframes fadeInUp {
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+      `}</style>
+    </section>
+  );
+};
+
 // FAQ Section
 const FAQ = () => {
   const ref = useRef(null);
@@ -2375,7 +2739,7 @@ const FAQ = () => {
   const faqs = [
     {
       question: "Vous avez déjà des clients satisfaits ?",
-      answer: "Nous lançons notre activité sur Tours. Les 5 premiers partenaires sont en cours d'installation. Leurs résultats (avec captures d'écran Google Maps) seront publiés sous 30 jours. C'est pour ça qu'on propose le tarif pilote à 350€ au lieu de 790€.",
+      answer: "Nous lançons notre activité sur Tours. Les 5 premiers partenaires sont en cours d'installation. Leurs résultats (avec captures d'écran Google Maps) seront publiés sous 30 jours. C'est pour ça qu'on propose le tarif pilote à 490€ au lieu de 990€.",
       icon: Trophy
     },
     {
@@ -2445,7 +2809,7 @@ const FAQ = () => {
       
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         <SectionHeader 
-          number="07"
+          number="08"
           label="Questions"
           title="VOS QUESTIONS,"
           highlight="NOS RÉPONSES"
@@ -2597,7 +2961,7 @@ const ContactForm = () => {
       
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         <SectionHeader 
-          number="07"
+          number="09"
           label="Contact"
           title="AUDIT"
           highlight="GRATUIT"
@@ -2610,13 +2974,41 @@ const ContactForm = () => {
           transition={{ duration: 0.4 }}
           className="text-center text-xs md:text-sm text-[#52525B] max-w-xl mx-auto mb-8 md:mb-10 leading-relaxed"
         >
-          <span className="font-semibold text-[#0A0A0A]">5 places disponibles</span> pour le lancement. 
-          Choisissez votre méthode de contact préférée.
+          Réservez votre créneau en 2 clics. Audit gratuit de 15 minutes par téléphone.
           <br />
           <span className="text-xs text-[#A1A1AA] italic">
             Le calendrier nécessite quelques secondes de chargement pour s'afficher correctement.
           </span>
         </motion.p>
+        
+        {/* CTA Principal - Ouvrir Calendly directement */}
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.5, delay: 0.15 }}
+          className="flex justify-center mb-8"
+        >
+          <Button
+            size="lg"
+            className="bg-gradient-to-br from-[#0052FF] via-[#1c3ff9] to-[#3B82F6] hover:from-[#0041CC] hover:via-[#1534d4] hover:to-[#2563EB] text-white rounded-full px-8 py-6 text-base font-semibold shadow-[0_10px_40px_rgba(28,63,249,0.6)] hover:shadow-[0_15px_50px_rgba(28,63,249,0.8)] hover:scale-105 btn-shimmer group transition-all duration-300"
+            onClick={() => {
+              Analytics.trackCalendlyOpen('Contact Section Main CTA');
+              Analytics.trackAuditRequest('Contact Section Main CTA');
+              openCalendly();
+            }}
+          >
+            <Calendar className="w-5 h-5 mr-2" />
+            RÉSERVER MON CRÉNEAU GRATUIT
+            <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+          </Button>
+        </motion.div>
+        
+        {/* Divider */}
+        <div className="flex items-center gap-4 mb-8 max-w-md mx-auto">
+          <div className="flex-1 h-px bg-gray-200"></div>
+          <span className="text-xs text-[#A1A1AA]">ou contactez-nous</span>
+          <div className="flex-1 h-px bg-gray-200"></div>
+        </div>
         
         {/* Quick contact options */}
         <motion.div 
@@ -2807,22 +3199,17 @@ const ContactForm = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.3 }}
-            className="text-center mt-8 p-6 bg-gray-50 rounded-xl border border-gray-100"
+            className="text-center mt-8 p-6 bg-gradient-to-br from-[#1c3ff9]/5 to-[#6366f1]/5 rounded-xl border border-[#1c3ff9]/10"
           >
-            <Calendar className="w-8 h-8 text-[#1c3ff9] mx-auto mb-3" />
-            <p className="text-gray-600 mb-4">
-              Cliquez sur l'icône <strong>Calendrier</strong> ci-dessus pour réserver votre créneau
+            <div className="flex items-center justify-center gap-2 mb-3">
+              <Check className="w-5 h-5 text-[#10B981]" />
+              <span className="text-sm font-semibold text-[#0A0A0A]">Audit 100% gratuit</span>
+            </div>
+            <p className="text-sm text-gray-600 mb-2">
+              ✓ 15 minutes par téléphone<br />
+              ✓ Analyse de votre fiche Google<br />
+              ✓ Plan d'action personnalisé
             </p>
-            <button 
-              onClick={() => {
-                Analytics.trackCalendlyOpen('Contact Section Bottom');
-                openCalendly();
-              }}
-              className="inline-flex items-center gap-2 px-6 py-3 bg-[#1c3ff9] text-white rounded-lg hover:bg-[#1534d4] transition-colors"
-            >
-              <Calendar className="w-5 h-5" />
-              Ouvrir le calendrier
-            </button>
           </motion.div>
         )}
       </div>
@@ -3046,7 +3433,7 @@ const LEGAL_MODAL_CONTENT = {
     title: "Conditions Générales de Vente",
     lines: [
       ["Prestation :", "Création de contenu vidéo et photo, optimisation de fiche Google Business, fourniture d'une borne NFC."],
-      ["Tarif pilote :", "350€ HT - Paiement unique, pas d'abonnement."],
+      ["Tarif pilote :", "490€ HT - Paiement unique, pas d'abonnement."],
       ["Livraison :", "Sous 14 jours ouvrés après le tournage."],
       ["Garantie :", "Satisfait ou remboursé sous 30 jours si vous n'êtes pas satisfait du travail livré."],
       ["Propriété :", "Vous êtes propriétaire de tous les contenus créés (vidéo, photos)."],
@@ -3113,7 +3500,9 @@ function App() {
         <CaseStudies />
       </DeferredSection>
       <Mechanism />
+      <Timeline />
       <Pricing />
+      <Testimonials />
       <FAQ />
       <ContactForm />
       <DeferredSection minHeight={460}>
