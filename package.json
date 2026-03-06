@@ -3,16 +3,10 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "build": "cd frontend && npm run build",
-    "start": "cd frontend && npm start",
-    "setup:frontend": "cd frontend && npm install",
-    "images:logo": "node scripts/generate-logo-variants.js",
-    "images:compress": "node scripts/compress-public-images.js"
+    "vercel-build": "cd frontend && yarn install --frozen-lockfile && yarn build"
   },
-  "workspaces": [
-    "frontend"
-  ],
-  "dependencies": {
-    "sharp": "^0.34.5"
+  "engines": {
+    "node": ">=18.0.0",
+    "yarn": ">=1.22.0"
   }
 }
