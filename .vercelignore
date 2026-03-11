@@ -1,19 +1,49 @@
-node_modules
-.git
-.DS_Store
+# Fichiers à ignorer lors du déploiement Vercel
+
+# Documentation
+*.md
+!README.md
+
+# Tests
+**/__tests__/**
+**/*.test.js
+**/*.test.jsx
+**/*.spec.js
+**/*.spec.jsx
+
+# Scripts de développement
+frontend/scripts/test-*.js
+frontend/scripts/optimize-*.js
+
+# Fichiers temporaires
 *.log
+*.tmp
+.DS_Store
+
+# Node modules (déjà ignorés par défaut)
+node_modules/
+**/node_modules/
+
+# Build artifacts locaux
+frontend/build/
+dist/
+
+# Environnement
 .env.local
 .env.development.local
 .env.test.local
-.env.production.local
-backend
-docs
-btp
-a inseré
-*.md
-!README.md
-frontend/node_modules
-frontend/.cache
-frontend/coverage
-frontend/src/**/*.test.js
-frontend/src/**/*.spec.js
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Python (backend)
+backend/venv/
+backend/__pycache__/
+**/*.pyc
+
+# Autres
+.git/
+.github/
