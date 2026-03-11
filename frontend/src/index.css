@@ -43,11 +43,14 @@
 
   html {
     scroll-behavior: smooth;
+    overflow-x: hidden;
   }
 
   body {
     @apply bg-background text-foreground antialiased;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Inter", Roboto, Helvetica, Arial, sans-serif;
+    overflow-x: hidden;
+    width: 100%;
   }
 
   h1, h2, h3, h4, h5, h6 {
@@ -157,7 +160,8 @@
   overflow: hidden;
 }
 
-::-webkit-scrollbar {
+/* Scrollbars - DÉSACTIVÉ car géré dans App.css */
+/* ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
 }
@@ -173,7 +177,7 @@
 
 ::-webkit-scrollbar-thumb:hover {
   background: #a1a1a1;
-}
+} */
 
 :root {
   --kapta-grid-color: rgba(28, 63, 249, 0.06);
