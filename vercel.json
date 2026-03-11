@@ -1,4 +1,8 @@
 {
+  "buildCommand": "cd frontend && yarn install --frozen-lockfile && yarn build",
+  "outputDirectory": "frontend/build",
+  "installCommand": "yarn --version",
+  "framework": null,
   "rewrites": [
     {
       "source": "/(.*)",
@@ -7,15 +11,11 @@
   ],
   "headers": [
     {
-      "source": "/(.*)",
+      "source": "/static/(.*)",
       "headers": [
         {
-          "key": "X-Frame-Options",
-          "value": "SAMEORIGIN"
-        },
-        {
-          "key": "X-Content-Type-Options",
-          "value": "nosniff"
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
         }
       ]
     }
