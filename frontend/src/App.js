@@ -27,7 +27,6 @@ import ThemeToggle from "@/components/ThemeToggle";
 import SEOHead from "@/components/SEOHead";
 import CounterStat from "@/components/CounterStat";
 import RippleButton from "@/components/RippleButton";
-import LoadingScreen from "@/components/LoadingScreen";
 import MorphingShapes from "@/components/MorphingShapes";
 import PullToRefreshIndicator from "@/components/PullToRefreshIndicator";
 import ParticleBackground from "@/components/ParticleBackground";
@@ -3109,7 +3108,6 @@ const LegalModals = ({ activeModal, onClose }) => {
 // Main App Component
 function App() {
   const [activeLegalModal, setActiveLegalModal] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
 
   // Respecter les préférences d'accessibilité
   useReducedMotion();
@@ -3158,42 +3156,32 @@ function App() {
   };
 
   return (
-    <>
-      <AnimatePresence>
-        {isLoading && (
-          <LoadingScreen onComplete={() => setIsLoading(false)} />
-        )}
-      </AnimatePresence>
-
-      {!isLoading && (
-        <div className="App min-h-screen bg-white dark:bg-[#050505] custom-cursor pattern-kapta-animated">
-          <ReadingProgress />
-          <MorphingShapes />
-          <ParticleBackground particleCount={30} />
-          <PullToRefreshIndicator {...pullToRefresh} />
-          <SEOHead
-            title="KAPTA Media - Agence Google Maps à Tours"
-            description="Agence locale à Tours : optimisation Google Maps, vidéo professionnelle et système G.V.A. pour générer plus d'appels et de devis en 14 jours."
-            keywords="google maps tours, référencement local tours, vidéo professionnelle, optimisation google business, marketing local tours"
-            url="https://www.kaptamedia.fr/"
-            image="https://www.kaptamedia.fr/logo2.webp"
-          />
-          <Navbar onCTAClick={handleCTAClick} />
-          <Hero onCTAClick={handleCTAClick} />
-          <MapsSplit />
-          <Solution />
-          <CaseStudies />
-          <Process />
-          <Team />
-          <Proof />
-          <Pricing onCTAClick={handleCTAClick} />
-          <FAQ />
-          <ContactForm />
-          <Footer onOpenLegalModal={setActiveLegalModal} />
-          <LegalModals activeModal={activeLegalModal} onClose={() => setActiveLegalModal(null)} />
-        </div>
-      )}
-    </>
+    <div className="App min-h-screen bg-white dark:bg-[#050505] custom-cursor pattern-kapta-animated">
+      <ReadingProgress />
+      <MorphingShapes />
+      <ParticleBackground particleCount={30} />
+      <PullToRefreshIndicator {...pullToRefresh} />
+      <SEOHead
+        title="KAPTA Media - Agence Google Maps à Tours"
+        description="Agence locale à Tours : optimisation Google Maps, vidéo professionnelle et système G.V.A. pour générer plus d'appels et de devis en 14 jours."
+        keywords="google maps tours, référencement local tours, vidéo professionnelle, optimisation google business, marketing local tours"
+        url="https://www.kaptamedia.fr/"
+        image="https://www.kaptamedia.fr/logo2.webp"
+      />
+      <Navbar onCTAClick={handleCTAClick} />
+      <Hero onCTAClick={handleCTAClick} />
+      <MapsSplit />
+      <Solution />
+      <CaseStudies />
+      <Process />
+      <Team />
+      <Proof />
+      <Pricing onCTAClick={handleCTAClick} />
+      <FAQ />
+      <ContactForm />
+      <Footer onOpenLegalModal={setActiveLegalModal} />
+      <LegalModals activeModal={activeLegalModal} onClose={() => setActiveLegalModal(null)} />
+    </div>
   );
 }
 

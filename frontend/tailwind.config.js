@@ -5,6 +5,10 @@ module.exports = {
     "./src/**/*.{js,jsx,ts,tsx}",
     "./public/index.html"
   ],
+  // Optimisations pour réduire la taille du CSS
+  future: {
+    hoverOnlyWhenSupported: true, // Évite les styles hover sur mobile
+  },
   theme: {
   	extend: {
   		borderRadius: {
@@ -79,4 +83,9 @@ module.exports = {
   	}
   },
   plugins: [require("tailwindcss-animate")],
+  // Optimisations de production
+  corePlugins: {
+    // Désactiver les plugins non utilisés pour réduire le CSS
+    preflight: true, // Garder le reset CSS
+  },
 };

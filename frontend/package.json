@@ -59,6 +59,9 @@
   "scripts": {
     "start": "craco start",
     "build": "NODE_OPTIONS='--max_old_space_size=2048' CI=false GENERATE_SOURCEMAP=false craco build",
+    "build:optimized": "node scripts/build-optimized.js",
+    "optimize:images": "node scripts/optimize-images.js",
+    "test:optimizations": "node scripts/test-optimizations.js",
     "vercel-build": "cd frontend && yarn install --frozen-lockfile && yarn build",
     "postbuild": "if [ \"$VERCEL\" = \"1\" ] || [ \"$CI\" = \"true\" ]; then echo \"Skipping react-snap in CI\"; elif [ -x \"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome\" ]; then PUPPETEER_EXECUTABLE_PATH=\"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome\" react-snap; else react-snap; fi",
     "test": "craco test",

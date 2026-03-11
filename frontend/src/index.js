@@ -1,95 +1,54 @@
-import React, { Suspense, lazy, useEffect } from "react";
-import ReactDOM from "react-dom/client";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import "@/index.css";
-import App from "@/App";
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import { BrowserRouter } from 'react-router-dom';
+import './index.css';
+import App from './App';
+import { inlineCriticalCSS } from './utils/loadCSS';
 
-const Blog = lazy(() => import("@/pages/Blog"));
-const BTP = lazy(() => import("@/pages/BTP"));
-const Plombier = lazy(() => import("@/pages/Plombier"));
-const NotFound = lazy(() => import("@/pages/NotFound"));
-const Article1 = lazy(() => import("@/pages/blog/Article1"));
-const Article2 = lazy(() => import("@/pages/blog/Article2"));
-const Article3 = lazy(() => import("@/pages/blog/Article3"));
-const Article4 = lazy(() => import("@/pages/blog/Article4"));
-const Article5 = lazy(() => import("@/pages/blog/Article5"));
-const Article6 = lazy(() => import("@/pages/blog/Article6"));
-const Article7 = lazy(() => import("@/pages/blog/Article7"));
-const Article8 = lazy(() => import("@/pages/blog/Article8"));
-const Article9 = lazy(() => import("@/pages/blog/Article9"));
-const Article10 = lazy(() => import("@/pages/blog/Article10"));
-const Article11 = lazy(() => import("@/pages/blog/Article11"));
-const Article12 = lazy(() => import("@/pages/blog/Article12"));
+// Inline critical CSS immédiatement
+inlineCriticalCSS();
 
-const RouteLoader = () => (
-  <div className="min-h-screen bg-white dark:bg-[#050505] flex items-center justify-center">
-    <div
-      className="w-8 h-8 rounded-full border-2 border-[#1c3ff9]/20 border-t-[#1c3ff9] animate-spin"
-      aria-label="Chargement de la page"
-    />
-  </div>
-);
-
-// Composant wrapper pour cacher le loader initial
-const AppWrapper = () => {
-  useEffect(() => {
-    // Cache le loader une fois React monté
-    const loader = document.getElementById('app-loader');
-    if (loader) {
-      loader.classList.add('loaded');
-      // Retire complètement du DOM après la transition
-      setTimeout(() => {
-        loader.remove();
-      }, 300);
-    }
-  }, []);
-
-  return (
-    <BrowserRouter>
-      <Suspense fallback={<RouteLoader />}>
-        <Routes>
-          <Route path="/" element={<App />} />
-          <Route path="/blog" element={<Blog />} />
-          <Route path="/btp" element={<BTP />} />
-          <Route path="/plombier" element={<Plombier />} />
-          <Route path="/blog/article1" element={<Article1 />} />
-          <Route path="/blog/article2" element={<Article2 />} />
-          <Route path="/blog/article3" element={<Article3 />} />
-          <Route path="/blog/article4" element={<Article4 />} />
-          <Route path="/blog/article5" element={<Article5 />} />
-          <Route path="/blog/article6" element={<Article6 />} />
-          <Route path="/blog/article7" element={<Article7 />} />
-          <Route path="/blog/article8" element={<Article8 />} />
-          <Route path="/blog/article9" element={<Article9 />} />
-          <Route path="/blog/article10" element={<Article10 />} />
-          <Route path="/blog/article11" element={<Article11 />} />
-          <Route path="/blog/article12" element={<Article12 />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </Suspense>
-    </BrowserRouter>
-  );
+// Fonction optimisée pour cacher le loader
+const hideLoader = () => {
+  const loader = document.getElementById('app-loader');
+  if (loader) {
+    // Ajouter la classe pour déclencher la transition
+    loader.classList.add('loaded');
+    // Supprimer du DOM après la transition (250ms)
+    setTimeout(() => {
+      if (loader && loader.parentNode) {
+        loader.parentNode.removeChild(loader);
+      }
+    }, 250);
+  }
 };
 
-const rootElement = document.getElementById("root");
+const root = ReactDOM.createRoot(document.getElementById('root'));
 
-// Utiliser hydrateRoot si le contenu est pré-rendu, sinon createRoot
-const hasPrerenderedContent = rootElement.hasChildNodes();
+// Rendu de l'application
+root.render(
+  <React.StrictMode>
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  </React.StrictMode>
+);
 
-if (hasPrerenderedContent) {
-  // Hydratation pour le contenu pré-rendu par react-snap
-  ReactDOM.hydrateRoot(
-    rootElement,
-    <React.StrictMode>
-      <AppWrapper />
-    </React.StrictMode>
-  );
-} else {
-  // Rendu client classique
-  const root = ReactDOM.createRoot(rootElement);
-  root.render(
-    <React.StrictMode>
-      <AppWrapper />
-    </React.StrictMode>
-  );
+// Cacher le loader dès que React a rendu
+// Utiliser requestAnimationFrame pour attendre que le DOM soit peint
+requestAnimationFrame(() => {
+  requestAnimationFrame(() => {
+    hideLoader();
+  });
+});
+
+// Report web vitals (chargé en lazy après tout le reste)
+if (process.env.NODE_ENV === 'production') {
+  setTimeout(() => {
+    import('./reportWebVitals').then(({ default: reportWebVitals }) => {
+      reportWebVitals();
+    }).catch(() => {
+      // Ignorer les erreurs de chargement de reportWebVitals
+    });
+  }, 3000);
 }

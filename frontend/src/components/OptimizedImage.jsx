@@ -27,8 +27,8 @@ const OptimizedImage = ({
     const baseName = imageSrc.replace(/\.(webp|jpg|jpeg|png)$/, '');
     const ext = imageSrc.match(/\.(webp|jpg|jpeg|png)$/)?.[0] || '.webp';
     
-    // Générer les variants 320w, 640w, 960w
-    return `${baseName}-320w${ext} 320w, ${baseName}-640w${ext} 640w, ${baseName}-960w${ext} 960w, ${imageSrc} ${width}w`;
+    // Générer les variants optimisés pour mobile (273w ajouté pour l'audit)
+    return `${baseName}-273w${ext} 273w, ${baseName}-320w${ext} 320w, ${baseName}-560w${ext} 560w, ${baseName}-640w${ext} 640w, ${baseName}-960w${ext} 960w, ${imageSrc} ${width}w`;
   };
 
   const srcSet = generateSrcSet(src);

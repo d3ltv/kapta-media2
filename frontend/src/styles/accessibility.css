@@ -1,0 +1,241 @@
+/**
+ * Optimisations d'accessibilité
+ * Basé sur l'audit PageSpeed - Phase 3
+ */
+
+/* Correction des contrastes insuffisants */
+:root {
+  /* Couleur secondaire avec meilleur contraste (4.5:1 minimum) */
+  --text-secondary: #767676; /* Au lieu de #A1A1AA */
+  --text-tertiary: #52525B;
+  
+  /* Couleurs avec contraste validé */
+  --color-primary: #1c3ff9;
+  --color-primary-dark: #1534d4;
+  --color-text: #0A0A0A;
+  --color-text-light: #52525B;
+}
+
+/* Zones tactiles minimales (44×44px) */
+.touch-target {
+  min-width: 44px;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Boutons du carrousel avec zone tactile élargie */
+.carousel-dot {
+  position: relative;
+  padding: 20px;
+  margin: -20px;
+  min-width: 44px;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Focus visible pour navigation clavier */
+*:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Amélioration du focus pour les boutons */
+button:focus-visible,
+a:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/* Skip link pour navigation clavier */
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: var(--color-primary);
+  color: white;
+  padding: 8px 16px;
+  text-decoration: none;
+  border-radius: 0 0 4px 0;
+  z-index: 100;
+}
+
+.skip-link:focus {
+  top: 0;
+}
+
+/* Texte alternatif pour lecteurs d'écran */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* Amélioration des liens */
+a:not([class]) {
+  text-decoration-skip-ink: auto;
+}
+
+/* Amélioration des images */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Amélioration des formulaires */
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+/* Amélioration du contraste en mode sombre */
+.dark {
+  --text-secondary: #C2C8D8;
+  --text-tertiary: #A8B0C5;
+}
+
+/* Indicateur de chargement accessible */
+.loading-indicator {
+  position: relative;
+}
+
+.loading-indicator::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Animation respectueuse de prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Amélioration du contraste pour les états hover/focus */
+.btn-primary:hover,
+.btn-primary:focus {
+  background-color: var(--color-primary-dark);
+  box-shadow: 0 0 0 3px rgba(28, 63, 249, 0.2);
+}
+
+/* Amélioration de la lisibilité */
+p,
+li,
+td {
+  line-height: 1.6;
+  max-width: 70ch; /* Largeur optimale pour la lecture */
+}
+
+/* Amélioration des titres */
+h1, h2, h3, h4, h5, h6 {
+  line-height: 1.2;
+  font-weight: 700;
+}
+
+/* Amélioration du contraste pour les placeholders */
+::placeholder {
+  color: var(--text-secondary);
+  opacity: 1;
+}
+
+/* Amélioration de la sélection de texte */
+::selection {
+  background-color: var(--color-primary);
+  color: white;
+}
+
+/* Amélioration des tooltips */
+[role="tooltip"] {
+  background: var(--color-text);
+  color: white;
+  padding: 8px 12px;
+  border-radius: 4px;
+  font-size: 14px;
+  max-width: 200px;
+}
+
+/* Amélioration des alertes */
+[role="alert"] {
+  padding: 12px 16px;
+  border-radius: 8px;
+  border-left: 4px solid var(--color-primary);
+  background: rgba(28, 63, 249, 0.1);
+}
+
+/* Amélioration des modales */
+[role="dialog"] {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Overlay de modale */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+}
+
+/* Amélioration des listes */
+ul[role="list"],
+ol[role="list"] {
+  list-style: none;
+  padding: 0;
+}
+
+/* Amélioration des tableaux */
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+th {
+  text-align: left;
+  font-weight: 600;
+  padding: 12px;
+  border-bottom: 2px solid var(--text-secondary);
+}
+
+td {
+  padding: 12px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+/* Mode high contrast */
+@media (prefers-contrast: high) {
+  * {
+    border-color: currentColor !important;
+  }
+  
+  button,
+  a {
+    text-decoration: underline;
+  }
+}

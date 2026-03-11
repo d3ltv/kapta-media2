@@ -53,19 +53,64 @@ const webpackConfig = {
         // Disable source maps to save memory
         webpackConfig.devtool = false;
         
-        // Optimize chunks
+        // Optimize chunks - Code splitting agressif pour réduire vendors.js
         webpackConfig.optimization = {
           ...webpackConfig.optimization,
+          runtimeChunk: 'single',
           splitChunks: {
             chunks: 'all',
+            maxInitialRequests: 25,
+            minSize: 20000,
             cacheGroups: {
-              vendor: {
+              // React core (critique)
+              react: {
+                test: /[\\/]node_modules[\\/](react|react-dom|react-router-dom)[\\/]/,
+                name: 'react-core',
+                priority: 40,
+                chunks: 'all',
+              },
+              // Framer Motion (lourd, lazy-loadable)
+              framerMotion: {
+                test: /[\\/]node_modules[\\/]framer-motion[\\/]/,
+                name: 'framer-motion',
+                priority: 35,
+                chunks: 'async',
+              },
+              // Radix UI (très lourd, lazy-loadable)
+              radixUI: {
+                test: /[\\/]node_modules[\\/]@radix-ui[\\/]/,
+                name: 'radix-ui',
+                priority: 30,
+                chunks: 'async',
+              },
+              // Lucide icons
+              lucide: {
+                test: /[\\/]node_modules[\\/]lucide-react[\\/]/,
+                name: 'lucide-icons',
+                priority: 25,
+                chunks: 'all',
+              },
+              // Autres vendors
+              vendors: {
                 test: /[\\/]node_modules[\\/]/,
                 name: 'vendors',
+                priority: 10,
                 chunks: 'all',
+                reuseExistingChunk: true,
+              },
+              // Composants communs
+              common: {
+                minChunks: 2,
+                priority: 5,
+                reuseExistingChunk: true,
+                name: 'common',
               },
             },
           },
+          // Minimisation améliorée
+          minimize: true,
+          usedExports: true,
+          sideEffects: true,
         };
       }
 
