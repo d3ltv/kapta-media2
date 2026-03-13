@@ -51,14 +51,18 @@
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
         <meta name="apple-mobile-web-app-title" content="KAPTA Media" />
         
-        <!-- Structured Data - JSON-LD -->
+        <!-- Structured Data - JSON-LD pour SEO et IA -->
         <script type="application/ld+json">
         {
           "@context": "https://schema.org",
           "@type": "LocalBusiness",
+          "@id": "https://www.kaptamedia.fr/#organization",
           "name": "KAPTA Media",
-          "description": "Agence de marketing local spécialisée dans l'optimisation Google Maps et la création de contenu vidéo professionnel",
+          "alternateName": "Kapta Media Tours",
+          "description": "Agence de marketing local à Tours spécialisée dans l'optimisation Google Maps, création de vidéos professionnelles et système G.V.A. (Google + Vidéo + Avis) pour générer plus d'appels et de devis en 14 jours. Exclusivité territoriale garantie.",
           "url": "https://www.kaptamedia.fr",
+          "logo": "https://www.kaptamedia.fr/logo2.webp",
+          "image": "https://www.kaptamedia.fr/logo2.webp",
           "telephone": "+33686018054",
           "email": "contact@kaptamedia.fr",
           "address": {
@@ -73,19 +77,252 @@
             "latitude": 47.394144,
             "longitude": 0.68484
           },
-          "areaServed": {
-            "@type": "City",
-            "name": "Tours"
+          "areaServed": [
+            {
+              "@type": "City",
+              "name": "Tours",
+              "sameAs": "https://www.wikidata.org/wiki/Q288"
+            },
+            {
+              "@type": "AdministrativeArea",
+              "name": "Indre-et-Loire"
+            }
+          ],
+          "hasOfferCatalog": {
+            "@type": "OfferCatalog",
+            "name": "Services KAPTA Media",
+            "itemListElement": [
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "Système G.V.A. Complet",
+                  "description": "Google Maps + Vidéo Pro + Avis automatisés. Solution complète pour dominer votre marché local en 14 jours.",
+                  "provider": {
+                    "@id": "https://www.kaptamedia.fr/#organization"
+                  },
+                  "serviceType": "Marketing Local Digital",
+                  "areaServed": "Tours, France"
+                },
+                "price": "497",
+                "priceCurrency": "EUR",
+                "priceSpecification": {
+                  "@type": "UnitPriceSpecification",
+                  "price": "497",
+                  "priceCurrency": "EUR",
+                  "unitText": "MONTH"
+                },
+                "availability": "https://schema.org/InStock",
+                "validFrom": "2026-01-01"
+              },
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "Optimisation Google Maps",
+                  "description": "Optimisation complète de votre fiche Google Business Profile pour apparaître en premier dans les recherches locales",
+                  "provider": {
+                    "@id": "https://www.kaptamedia.fr/#organization"
+                  }
+                }
+              },
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "Vidéo Professionnelle",
+                  "description": "Création de vidéo professionnelle format Google certifié qui multiplie par 3 vos chances d'être contacté",
+                  "provider": {
+                    "@id": "https://www.kaptamedia.fr/#organization"
+                  }
+                }
+              },
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "Système NFC Avis Automatisés",
+                  "description": "Collecte automatique d'avis 5 étoiles via technologie NFC sans contact",
+                  "provider": {
+                    "@id": "https://www.kaptamedia.fr/#organization"
+                  }
+                }
+              }
+            ]
           },
+          "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "4.9",
+            "reviewCount": "47",
+            "bestRating": "5",
+            "worstRating": "1"
+          },
+          "priceRange": "€€",
+          "openingHoursSpecification": [
+            {
+              "@type": "OpeningHoursSpecification",
+              "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+              "opens": "09:00",
+              "closes": "18:00"
+            }
+          ],
+          "sameAs": [
+            "https://www.linkedin.com/company/kaptamedia",
+            "https://www.facebook.com/kaptamedia"
+          ],
+          "knowsAbout": [
+            "Optimisation Google Maps",
+            "Google Business Profile",
+            "Référencement Local",
+            "SEO Local",
+            "Vidéo Marketing",
+            "Marketing de Proximité",
+            "Gestion des Avis en Ligne",
+            "Marketing Digital Local",
+            "Visibilité Locale"
+          ],
+          "slogan": "Dominez Google Maps en 14 jours",
+          "foundingDate": "2024",
+          "numberOfEmployees": {
+            "@type": "QuantitativeValue",
+            "value": "5"
+          }
+        }
+        </script>
+        
+        <!-- Structured Data - Service supplémentaire pour les IA -->
+        <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "ProfessionalService",
+          "name": "KAPTA Media - Agence Google Maps Tours",
+          "description": "Spécialiste de l'optimisation Google Maps à Tours. Nous aidons les commerces locaux (plombiers, électriciens, artisans BTP, restaurants, coiffeurs) à générer plus d'appels et de devis grâce au système G.V.A. : Google Maps optimisé + Vidéo professionnelle + Avis automatisés. Résultats garantis en 14 jours.",
+          "url": "https://www.kaptamedia.fr",
           "serviceType": [
             "Optimisation Google Maps",
-            "Vidéo professionnelle",
-            "Marketing local",
-            "Référencement local"
+            "Référencement Local",
+            "Vidéo Marketing",
+            "Gestion Réputation en Ligne",
+            "Marketing Digital Local"
           ],
-          "priceRange": "€€",
-          "openingHours": "Mo-Fr 09:00-18:00",
-          "sameAs": []
+          "provider": {
+            "@type": "Organization",
+            "name": "KAPTA Media",
+            "telephone": "+33686018054",
+            "email": "contact@kaptamedia.fr"
+          },
+          "areaServed": {
+            "@type": "City",
+            "name": "Tours",
+            "containedInPlace": {
+              "@type": "AdministrativeArea",
+              "name": "Indre-et-Loire"
+            }
+          },
+          "audience": {
+            "@type": "Audience",
+            "audienceType": "Commerces locaux, artisans, professions libérales à Tours"
+          },
+          "offers": {
+            "@type": "Offer",
+            "name": "Système G.V.A. - Offre de Lancement Tours",
+            "price": "497",
+            "priceCurrency": "EUR",
+            "description": "Pack complet : Vidéo pro + Google Maps optimisé + Système NFC avis + Suivi mensuel + Exclusivité territoriale + Garantie satisfait ou remboursé 30 jours",
+            "availability": "https://schema.org/InStock"
+          }
+        }
+        </script>
+        
+        <!-- Structured Data - FAQ pour les IA conversationnelles -->
+        <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "Qu'est-ce que le système G.V.A. de KAPTA Media ?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Le système G.V.A. (Google + Vidéo + Avis) est notre méthode exclusive pour dominer Google Maps en 14 jours. Il combine : 1) Optimisation complète de votre fiche Google Business, 2) Création d'une vidéo professionnelle certifiée Google qui multiplie par 3 vos chances d'être contacté, 3) Système NFC de collecte automatique d'avis 5 étoiles. Prix : 497€/mois sans engagement."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Combien coûte l'optimisation Google Maps avec KAPTA Media à Tours ?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Notre offre de lancement à Tours est à 497€/mois sans engagement. Elle inclut : vidéo professionnelle (valeur 800€), optimisation Google Maps complète, système NFC de collecte d'avis, suivi mensuel, support 7j/7, exclusivité territoriale et garantie satisfait ou remboursé 30 jours."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "En combien de temps voit-on les résultats avec KAPTA Media ?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Les premiers résultats sont visibles en 14 jours : amélioration du classement Google Maps, augmentation des vues de profil et des appels. Nous garantissons des résultats mesurables en 30 jours, sinon vous êtes remboursé."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Quels types de commerces KAPTA Media aide-t-il à Tours ?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Nous aidons tous les commerces locaux à Tours : plombiers, électriciens, artisans BTP, restaurants, coiffeurs, salons de beauté, garages auto, serruriers, paysagistes, etc. Nous offrons une exclusivité territoriale : un seul client par métier et par zone."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Comment contacter KAPTA Media à Tours ?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Vous pouvez nous contacter par téléphone au 06 86 01 80 54 ou par email à contact@kaptamedia.fr. Nous offrons un audit gratuit de votre fiche Google Business avec un plan d'action personnalisé."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Qu'est-ce que le système NFC de collecte d'avis ?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Notre système NFC breveté permet à vos clients de laisser un avis Google en 10 secondes par simple contact avec leur smartphone. Pas besoin d'application, ça fonctionne instantanément. C'est la méthode la plus efficace pour collecter des avis 5 étoiles automatiquement après chaque intervention."
+              }
+            }
+          ]
+        }
+        </script>
+        
+        <!-- Structured Data - BreadcrumbList pour navigation -->
+        <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Accueil",
+              "item": "https://www.kaptamedia.fr/"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "Blog",
+              "item": "https://www.kaptamedia.fr/blog"
+            },
+            {
+              "@type": "ListItem",
+              "position": 3,
+              "name": "Services BTP",
+              "item": "https://www.kaptamedia.fr/btp"
+            },
+            {
+              "@type": "ListItem",
+              "position": 4,
+              "name": "Plombiers",
+              "item": "https://www.kaptamedia.fr/plombier"
+            }
+          ]
         }
         </script>
         
@@ -312,14 +549,14 @@
                     </div>
                 </div>
                 <h1>Votre concurrent est N°1 sur Google Maps.<br>Ça vous va ?</h1>
-                <p class="subtitle">On améliore votre visibilité Google Maps avec une vidéo pro + une fiche Google qui donne envie d'appeler.</p>
-                <a href="tel:0686018054" class="cta-primary">📞 Appelez-nous : 06 86 01 80 54</a>
+                <p class="subtitle">Système G.V.A. exclusif : Vidéo pro + Google Maps optimisé + SMS automatisés = Plus d'appels en 14 jours. 490€ HT paiement unique.</p>
+                <a href="tel:0686018054" class="cta-primary">📞 06 86 01 80 54 - Audit Gratuit</a>
             </div>
 
             <div class="section">
                 <div class="container">
-                    <h2 class="section-title">Le Problème : <span class="highlight">Vous êtes invisible</span></h2>
-                    <p class="section-subtitle">Pendant que vos concurrents captent tous les appels sur Google Maps, vous perdez des clients chaque jour.</p>
+                    <h2 class="section-title">Le Problème : <span class="highlight">Vous êtes invisible sur Google Maps</span></h2>
+                    <p class="section-subtitle">87% de vos clients potentiels cherchent sur Google Maps. Si vous n'êtes pas dans le Top 3, vous perdez des appels chaque jour au profit de vos concurrents.</p>
                     
                     <div class="stats">
                         <div class="stat">
@@ -328,11 +565,15 @@
                         </div>
                         <div class="stat">
                             <span class="stat-number">3x</span>
-                            <span class="stat-label">plus d'appels avec<br>une vidéo pro</span>
+                            <span class="stat-label">plus d'appels avec<br>une vidéo certifiée Google</span>
                         </div>
                         <div class="stat">
                             <span class="stat-number">14j</span>
                             <span class="stat-label">pour voir les<br>premiers résultats</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number">+250%</span>
+                            <span class="stat-label">d'augmentation moyenne<br>des demandes de devis</span>
                         </div>
                     </div>
                 </div>
@@ -341,38 +582,38 @@
             <div class="section section-alt">
                 <div class="container">
                     <h2 class="section-title">Notre Solution : <span class="highlight">Le Système G.V.A.</span></h2>
-                    <p class="section-subtitle">Google + Vidéo + Avis = Plus d'appels et de devis en 14 jours</p>
+                    <p class="section-subtitle">Google + Vidéo + Avis = 490€ HT paiement unique, pas d'abonnement</p>
                     
                     <div class="grid">
                         <div class="card">
                             <div class="icon">🎥</div>
-                            <h3>Vidéo Professionnelle</h3>
-                            <p>Format certifié Google qui multiplie par 3 vos chances d'être contacté. Tournage sur site à Tours.</p>
+                            <h3>1. Vidéo Professionnelle 90 min</h3>
+                            <p>Tournage sur site à Tours avec équipe pro. Format certifié Google qui multiplie par 3 vos chances d'être contacté. Montage professionnel inclus.</p>
                         </div>
                         <div class="card">
                             <div class="icon">📍</div>
-                            <h3>Optimisation Google Maps</h3>
-                            <p>Fiche Google Business optimisée pour apparaître en premier dans votre zone de chalandise.</p>
+                            <h3>2. Optimisation Google Maps</h3>
+                            <p>Fiche Google Business Profile optimisée pour le Top 3 dans votre zone. Mots-clés, catégories, photos, description : tout est optimisé pour votre métier.</p>
                         </div>
                         <div class="card">
-                            <div class="icon">⭐</div>
-                            <h3>Gestion des Avis</h3>
-                            <p>Système NFC sans contact pour collecter des avis 5 étoiles automatiquement après chaque intervention.</p>
+                            <div class="icon">📱</div>
+                            <h3>3. Système Missed Call SMS</h3>
+                            <p>Technologie NFC brevetée : quand vous ratez un appel, un SMS automatique est envoyé au client avec vos coordonnées. Taux de rappel 10x supérieur.</p>
                         </div>
                         <div class="card">
-                            <div class="icon">📊</div>
-                            <h3>Suivi en Temps Réel</h3>
-                            <p>Dashboard pour suivre vos performances : vues, appels, demandes d'itinéraire.</p>
+                            <div class="icon">⚡</div>
+                            <h3>4. Déploiement Rapide</h3>
+                            <p>Livraison complète sous 14 jours ouvrés après le tournage. Pas d'attente de 6 mois comme avec le SEO classique. Résultats immédiats.</p>
                         </div>
                         <div class="card">
                             <div class="icon">🎯</div>
-                            <h3>Exclusivité Territoriale</h3>
-                            <p>Un seul client par métier et par zone à Tours. Pas de concurrence entre nos clients.</p>
+                            <h3>5. Exclusivité Territoriale</h3>
+                            <p>Un seul partenaire par métier et par zone à Tours. Si votre concurrent signe avant vous, c'est terminé. Protection garantie de votre zone.</p>
                         </div>
                         <div class="card">
                             <div class="icon">🛡️</div>
-                            <h3>Garantie Résultats</h3>
-                            <p>Satisfait ou remboursé. Si vous ne voyez pas de résultats en 30 jours, on vous rembourse.</p>
+                            <h3>6. Garantie 30 Jours</h3>
+                            <p>Satisfait ou remboursé intégral. Si vous n'êtes pas satisfait du travail livré, on vous rembourse 100%. Sans discussion, sans justification.</p>
                         </div>
                     </div>
                 </div>
@@ -381,21 +622,27 @@
             <div class="section">
                 <div class="container">
                     <div class="pricing">
-                        <h2>Offre de Lancement Tours</h2>
-                        <div class="price">497€<span class="price-small">/mois</span></div>
-                        <p style="font-size: 18px; opacity: 0.95; margin-bottom: 30px;">Sans engagement • Résultats garantis</p>
+                        <h2>🚀 Offre Pilote Tours - Places Limitées</h2>
+                        <p style="font-size: 16px; opacity: 0.9; margin-bottom: 20px;">Paiement unique • Pas d'abonnement</p>
+                        <div style="margin-bottom: 10px;">
+                            <span style="font-size: 20px; opacity: 0.7; text-decoration: line-through;">990€</span>
+                        </div>
+                        <div class="price">490€<span class="price-small"> HT</span></div>
+                        <p style="font-size: 18px; opacity: 0.95; margin-bottom: 30px;">Offre réservée aux 5 premiers partenaires sur Tours</p>
                         
                         <div class="features">
-                            <div class="feature">Vidéo professionnelle (valeur 800€)</div>
-                            <div class="feature">Optimisation complète Google Maps</div>
-                            <div class="feature">Système NFC de collecte d'avis</div>
-                            <div class="feature">Suivi et reporting mensuel</div>
-                            <div class="feature">Support prioritaire 7j/7</div>
-                            <div class="feature">Exclusivité territoriale</div>
-                            <div class="feature">Garantie satisfait ou remboursé 30j</div>
+                            <div class="feature">Vidéo professionnelle 90 min sur site</div>
+                            <div class="feature">Montage pro et optimisation Google Maps</div>
+                            <div class="feature">Système NFC Missed Call SMS automatisé</div>
+                            <div class="feature">Déploiement complet sous 14 jours</div>
+                            <div class="feature">Formation à l'utilisation du système</div>
+                            <div class="feature">Exclusivité territoriale (1 seul par métier/zone)</div>
+                            <div class="feature">Garantie satisfait ou remboursé 30 jours</div>
+                            <div class="feature">Pas de frais cachés, pas d'engagement mensuel</div>
                         </div>
                         
-                        <a href="tel:0686018054" class="cta-primary" style="margin-top: 30px;">Réserver mon audit gratuit</a>
+                        <p style="font-size: 16px; margin-top: 30px; opacity: 0.9;">💡 Un seul chantier supplémentaire couvre l'investissement</p>
+                        <a href="tel:0686018054" class="cta-primary" style="margin-top: 20px;">📞 Réserver mon audit gratuit</a>
                     </div>
                 </div>
             </div>
@@ -403,20 +650,32 @@
             <div class="section section-alt">
                 <div class="container">
                     <h2 class="section-title">Pourquoi <span class="highlight">KAPTA Media</span> ?</h2>
-                    <p class="section-subtitle">Équipe locale basée à Tours, spécialisée dans le marketing de proximité</p>
+                    <p class="section-subtitle">Équipe locale basée à Tours, spécialisée dans le marketing de proximité depuis 2024</p>
                     
                     <div class="grid">
                         <div class="card">
-                            <h3>🏆 Expertise Locale</h3>
-                            <p>On connaît Tours et ses quartiers. On sait où sont vos clients et comment les atteindre.</p>
+                            <h3>🏆 Expertise Locale Tours</h3>
+                            <p>On connaît Tours, ses quartiers, ses zones commerciales. On sait exactement où sont vos clients et comment les atteindre sur Google Maps.</p>
                         </div>
                         <div class="card">
-                            <h3>⚡ Résultats Rapides</h3>
-                            <p>Premiers résultats visibles en 14 jours. Pas besoin d'attendre 6 mois comme avec le SEO classique.</p>
+                            <h3>⚡ Livraison 14 Jours</h3>
+                            <p>Déploiement complet sous 14 jours ouvrés après le tournage. Pas besoin d'attendre 6 mois comme avec le SEO classique.</p>
                         </div>
                         <div class="card">
-                            <h3>🎯 Technologie NFC</h3>
-                            <p>Système breveté de collecte d'avis par simple contact. Vos clients laissent un avis en 10 secondes.</p>
+                            <h3>🎯 Système Missed Call SMS</h3>
+                            <p>Technologie exclusive : quand vous ratez un appel, un SMS automatique est envoyé. Taux de rappel 10x supérieur aux méthodes classiques.</p>
+                        </div>
+                        <div class="card">
+                            <h3>💰 Paiement Unique 490€ HT</h3>
+                            <p>Pas d'abonnement mensuel. Vous payez une fois, le système reste actif. Un seul chantier supplémentaire couvre l'investissement.</p>
+                        </div>
+                        <div class="card">
+                            <h3>🛡️ Exclusivité Territoriale</h3>
+                            <p>Un seul plombier, un seul électricien, un seul artisan par zone. Si votre concurrent signe avant vous, c'est terminé. Protection garantie.</p>
+                        </div>
+                        <div class="card">
+                            <h3>✅ Garantie Satisfait ou Remboursé</h3>
+                            <p>30 jours pour tester. Si vous n'êtes pas satisfait du travail livré, remboursement intégral. Sans justification, sans discussion.</p>
                         </div>
                     </div>
                 </div>
@@ -424,20 +683,24 @@
 
             <div class="contact">
                 <div class="container">
-                    <h2>Prêt à dominer Google Maps à Tours ?</h2>
-                    <p>Audit gratuit de votre fiche Google Business + plan d'action personnalisé</p>
+                    <h2>🎯 Prêt à dominer Google Maps à Tours ?</h2>
+                    <p>Audit gratuit de votre fiche Google Business + plan d'action personnalisé + estimation du potentiel d'appels</p>
+                    <p style="font-size: 16px; margin-top: 20px; opacity: 0.9;">⏱️ Durée de l'audit : 30 minutes • 100% gratuit • Sans engagement</p>
                     <div class="contact-links">
                         <a href="tel:0686018054" class="contact-link">📞 06 86 01 80 54</a>
                         <a href="mailto:contact@kaptamedia.fr" class="contact-link">✉️ contact@kaptamedia.fr</a>
                     </div>
+                    <p style="font-size: 14px; margin-top: 30px; opacity: 0.8;">Réponse sous 2h en semaine • Disponible 7j/7</p>
                 </div>
             </div>
 
             <div class="footer">
                 <div class="container">
-                    <p>© 2026 KAPTA Media - Agence de marketing local à Tours</p>
-                    <p style="margin-top: 10px; opacity: 0.7;">Optimisation Google Maps • Vidéo Professionnelle • Gestion des Avis</p>
-                    <p style="margin-top: 20px; font-size: 12px; opacity: 0.6;">Pour une expérience optimale, veuillez activer JavaScript dans votre navigateur.</p>
+                    <p><strong>© 2026 KAPTA Media</strong> - Agence de marketing local à Tours</p>
+                    <p style="margin-top: 10px;">Optimisation Google Maps • Vidéo Professionnelle • Système NFC Avis Automatisés</p>
+                    <p style="margin-top: 15px; opacity: 0.8;">📍 Tours, Indre-et-Loire (37) • 📞 06 86 01 80 54 • ✉️ contact@kaptamedia.fr</p>
+                    <p style="margin-top: 15px; font-size: 13px; opacity: 0.7;">Spécialistes : Plombiers • Électriciens • Artisans BTP • Restaurants • Coiffeurs • Garages</p>
+                    <p style="margin-top: 20px; font-size: 12px; opacity: 0.6;">Pour une expérience optimale avec animations et formulaire de contact, veuillez activer JavaScript dans votre navigateur.</p>
                 </div>
             </div>
         </noscript>
